@@ -1362,3 +1362,65 @@ Set coordinator agent to Grok 4.7, Executor Agent to Grok 4.6 and Reviewer to Co
 ### Assistant
 
 The three run models are now set. The coordinator is Grok 4.7 (`grok-4.7-high-fast`). The executor is Grok 4.6 (`cursor-grok-4.6-high-fast`). The reviewer is Composer 2.5 (`composer-2.5-fast`). The spawn ids are the ones the Task tool accepts. I updated the coordinator, the executor prompt, the reviewer prompt, the nine document-phase headers, the README, the execution architecture diagrams, Execution_Plan.md (v2.2), Decision_Tracker.md FD-24 and FD-25 (v1.7), and PROJECT_ACRONYMS.md (v1.2). Older changelog lines still name the previous models, because those lines record past versions. Start the coordinator chat on Grok 4.7.
+
+## 2026-10-18
+
+**Model:** Grok 4.7
+
+### User
+
+what is the next step?
+
+### Assistant
+
+Review the ten Business Owner rows in Decision_Tracker.md section 5.2, then start the coordinator. The progress board is still "not started." Phase 0 is next.
+
+Section 5.2 is a one-time sheet. Mark each row Accept or Reject. An accepted row is the working answer and the run does not stop there. A rejected row becomes a pause: the coordinator stops at that phase and waits for your answer. The ten rows are BO-01, BO-02, BO-03, BO-04, BO-06b, BO-08, BO-10, BO-11, BO-12, and BO-13. The "Your call" column is still blank.
+
+After that, open a new Cursor chat on Grok 4.7. Attach Execution_Plan.md, Decision_Tracker.md, Project_Intent.md, and the playbook folder. Paste playbook/00_coordinator.md. The coordinator starts at Phase 0. It spawns a Grok 4.6 executor to write each unit, then a Composer 2.5 reviewer to check it. You answer only when it prints a pause card.
+
+## 2026-10-18
+
+**Model:** Grok 4.7
+
+### User
+
+Business Owner accepts all the recommendations from SME for BO-01 through BO-13.
+
+### Assistant
+
+Recorded. In Decision_Tracker.md section 5.2, every Business Owner row is now Accept: BO-01, BO-02, BO-03, BO-04, BO-06b, BO-08, BO-10, BO-11, BO-12, and BO-13. The same answers are copied into the main table. The tracker is v1.8.
+
+Those ten rows stay PROPOSED. Accept means the run uses that answer and does not stop to ask again. The charter, the initial PRD, and the as-built baseline stay unsigned until you sign those documents. A policy number is still never written into code while the row is PROPOSED. On BO-08, the Python 50,000 cutoff can appear in a demo and stays a proposed demo value. It is not a live policy number. 999,999 stays unused.
+
+BO-05, BO-06a, BO-07, and BO-09 were already decided by the SME. They are industry-fact rows, so this review did not change them.
+
+Next step: open a new Cursor chat on Grok 4.7. Attach Execution_Plan.md, Decision_Tracker.md, Project_Intent.md, and the playbook folder. Paste playbook/00_coordinator.md. The coordinator starts at Phase 0.
+
+## 2026-10-18
+
+**Model:** Grok 4.7
+
+### User
+
+what is the next step?
+
+### Assistant
+
+Start the run. The Business Owner review is done, and the progress board is still "not started." Phase 0 is the first phase.
+
+Open a new Cursor chat on Grok 4.7. Attach Execution_Plan.md, Decision_Tracker.md, Project_Intent.md, and the playbook folder. Paste the contents of playbook/00_coordinator.md and send it. The coordinator starts at Phase 0. It spawns a Grok 4.6 executor to write each unit, then a Composer 2.5 reviewer to check it. You answer only when it prints a pause card.
+
+## 2026-10-18
+
+**Model:** Grok 4.7
+
+### User
+
+Leftover wording after the three-agent change. Implement the plan as specified. Do NOT edit the plan file itself. To-dos from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The four wording changes are already in the files. I checked each one and left the text as it is.
+
+The reviewer prompt says it accepts or rejects the executor's work. Phases 5, 7, 8, 9, 10, 11, 12, and 13 each say the coordinator spawns an executor for Half A, then for Half B after HALF_A_ACCEPTED. The README loop step 3 includes the Team-Force self-decide branch and the accepted PROPOSED Business Owner branch, and the rules line names executor.md and reviewer.md. Execution_Plan.md section 1 points at playbook/EXECUTION_ARCHITECTURE.md, and section 11 says a live Done test from Phase 8 on pauses as NEEDS_HUMAN. Changelog v2.1 records that pass. The plan file is now v2.2 because the later model change added a newer line. Replay mode is still a product feature so the demo can run offline. I did not edit the plan file.

@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Stage | Method layer. Runs beside `Execution_Plan.md`. |
-| Date / version | 2026-10-18, v1.7 |
+| Date / version | 2026-10-18, v1.8 |
 | Author | Mangesh (FDE, Team-Force), drafted with Cursor |
 | Status | ACTIVE |
 | Purpose | One list of every decision the project must make. It says who decides, at which phase, and what happens if the decision is still open. |
@@ -38,7 +38,7 @@ Before a phase starts, open this file and read the stage-entry checklist in sect
 - If a blocking decision stays open, the phase does not start. It waits, or it runs under the stated default and the decision is marked `DEFERRED` with that default in force.
 - A `DEFERRED` business-policy decision never becomes a silent value in code. The affected cases route to HOLD_FOR_REVIEW until the owner decides.
 - Every Business Owner decision must be shown with the SME recommendation beside it. This is mandatory. The owner does not sign a Group B row until the matching SME recommendation in section 5.1 is in front of them. The stage-entry step displays both together.
-- Before the run starts, the SME pre-fills every Business Owner row with its recommended answer, marked PROPOSED, and the owner reviews them all once in the section 5.2 sheet. After that one review, a PROPOSED row does not pause the run; the PROPOSED answer holds until the owner signs it DECIDED. A policy value behind a PROPOSED row is still never written into code; the affected cases route to HOLD_FOR_REVIEW. The run pauses for a Business Owner row only if the owner rejects a PROPOSED answer or the SME cannot propose one.
+- Before the run starts, the SME pre-fills every Business Owner row with its recommended answer, marked PROPOSED, and the owner reviews them all once in the section 5.2 sheet. After that one review, a PROPOSED row does not pause the run; the PROPOSED answer holds until the owner signs it DECIDED. A policy value behind a PROPOSED row is still never written into code; the affected cases route to HOLD_FOR_REVIEW. The run pauses for a Business Owner row only if the owner rejects a PROPOSED answer or the SME cannot propose one. On 2026-10-18 the Business Owner accepted every row in section 5.2.
 
 ## 3. Status legend
 
@@ -87,20 +87,20 @@ These are policy and business-meaning choices. The owner column says who decides
 
 | ID | Decision | Phase | Owner | Status | Answer or default |
 |---|---|---|---|---|---|
-| BO-01 | Sign off the charter, the stakeholder list, and the decision rights. | 0 | Business Owner | PROPOSED | Proceed on the draft charter; mark it unsigned. |
-| BO-02 | Which business KPIs count as success. | 0 | Business Owner | PROPOSED | Use the KPI families in `Project_Intent.md` section 9. |
-| BO-03 | How much risk is acceptable for places where AI may act. | 2 | Business Owner | PROPOSED | AI explains and proposes; a person approves every action. |
-| BO-04 | Sign off the initial PRD: users, workflows, AI limits, and the demo flow. | 3 | Business Owner | PROPOSED | PROPOSED (SME): approve the initial PRD once it names both apps, the AI limits, the eight business problems, and the demo flow, and nothing beyond. See 5.1 and 5.2. |
+| BO-01 | Sign off the charter, the stakeholder list, and the decision rights. | 0 | Business Owner | PROPOSED | Business Owner accepted on 2026-10-18. Adopt the draft charter with the decision rights in this tracker. Mark the charter unsigned until the owner signs the document. See section 5.2. |
+| BO-02 | Which business KPIs count as success. | 0 | Business Owner | PROPOSED | Business Owner accepted on 2026-10-18. Exception cycle time and aged backlog are the two headline business KPIs. The other six families are supporting measures. See section 5.2. |
+| BO-03 | How much risk is acceptable for places where AI may act. | 2 | Business Owner | PROPOSED | Business Owner accepted on 2026-10-18. AI explains and proposes. A person approves every record-changing action. No autonomous writes. See section 5.2. |
+| BO-04 | Sign off the initial PRD: users, workflows, AI limits, and the demo flow. | 3 | Business Owner | PROPOSED | Business Owner accepted on 2026-10-18. Approve the initial PRD once it names both apps, the AI limits, the eight business problems, and the demo flow, and nothing beyond. The document stays unsigned until the owner signs it. See section 5.2. |
 | BO-05 | The authority for the `recipe_release` limit. | 5 | FDE SME | DECIDED | In a fab, process and recipe change control is the system of record under SEMI-style traceability. The governed, effective-dated archive (`contracts/decision-policies-archive.json` and `policy_register`) is canonical. The four legacy variants are deviations. |
 | BO-06a | The operational meaning of "open" and "closed" for a fab exception case. | 5 | FDE SME | DECIDED | A case is "open" while any disposition or engineering action is still pending, including REVIEW and HOLD states. A case is "closed" only when a final disposition is recorded and no engineering action is pending. This makes the night batch wrong to treat REVIEW as closed-equivalent. |
-| BO-06b | Whether operational "closed" also means finance-booked and audit-closed, or those differ. | 5 | Business Owner | PROPOSED | Keep the three meanings separate in the semantic layer. A case that is operationally closed but not finance or audit closed routes to review. No single coded value. |
+| BO-06b | Whether operational "closed" also means finance-booked and audit-closed, or those differ. | 5 | Business Owner | PROPOSED | Business Owner accepted on 2026-10-18. Keep operational, finance, and audit closure as three separate states. Operational closure does not book finance or close audit. A mismatch routes to review. See section 5.2. |
 | BO-07 | The canonical region vocabulary: APAC/EMEA/AMER, country codes, or site codes. | 5 | FDE SME | DECIDED | The site code is the canonical key. Country and region are derived attributes mapped from the site. A policy binds at the most specific scope and inherits upward. Where two scopes disagree, the case routes to review. |
-| BO-08 | Confirm any threshold that the governed source does not contain. | 5 | Business Owner | PROPOSED | The SME may suggest an industry-typical value, but it stays PROPOSED and is not used live until the owner confirms, because the exact number is company risk appetite. |
+| BO-08 | Confirm any threshold that the governed source does not contain. | 5 | Business Owner | PROPOSED | Business Owner accepted on 2026-10-18. Do not invent a number where the governed source is silent. Route the case to review. A demo value, if needed, is the Python 50,000 cutoff and stays PROPOSED. Never use 999,999. The cutoff is not a live policy number. See section 5.2. |
 | BO-09 | Role permissions: who may approve, hold, or block each action type. | 6 | FDE SME | DECIDED | The SME sets the standard fab exception-handling roles and separation of duties (see Group C). The proposer of an action is never its approver. The company confirms its own job titles match this map. |
-| BO-10 | Compliance obligations and data classification. | 12 | Business Owner | PROPOSED | Treat all records as internal and synthetic. |
-| BO-11 | Sign off the ROI assumptions. | 14 | Business Owner | PROPOSED | Label ROI numbers EDUCATIONAL; no claimed benefit. |
-| BO-12 | Provide the Birlasoft brand assets and sign off the final claims. | 15 | Business Owner | PROPOSED | Use the neutral placeholder deck. |
-| BO-13 | Sign off the final as-built baseline: the requirement dispositions and the known limitations. | 16 | Business Owner | PROPOSED | Proceed on the as-built PRD and mark it unsigned until the owner signs. |
+| BO-10 | Compliance obligations and data classification. | 12 | Business Owner | PROPOSED | Business Owner accepted on 2026-10-18. Treat all records as internal and synthetic. Process data is confidential. There is no personal data. See section 5.2. |
+| BO-11 | Sign off the ROI assumptions. | 14 | Business Owner | PROPOSED | Business Owner accepted on 2026-10-18. Label every ROI number EDUCATIONAL. State each assumption. Claim no monetary benefit. See section 5.2. |
+| BO-12 | Provide the Birlasoft brand assets and sign off the final claims. | 15 | Business Owner | PROPOSED | Business Owner accepted on 2026-10-18. Build the deck on the neutral placeholder until the Birlasoft assets arrive, then restyle. Label every claim. See section 5.2. |
+| BO-13 | Sign off the final as-built baseline: the requirement dispositions and the known limitations. | 16 | Business Owner | PROPOSED | Business Owner accepted on 2026-10-18. Sign the as-built baseline once every requirement is classified with evidence and the known limitations are listed. The baseline stays unsigned until that sign-off. See section 5.2. |
 
 ### 5.1 SME recommendation to the Business Owner (mandatory to show)
 
@@ -121,20 +121,20 @@ The Business Owner must see this recommendation before signing each row above. T
 
 ### 5.2 One-time Business Owner review sheet
 
-Review this sheet once, before the run. Each row carries the SME's PROPOSED answer. Mark each row Accept or Reject. An accepted row holds as the working answer and the run does not pause at it; sign it DECIDED when you are ready. A rejected row becomes a pause point: the coordinator stops at that phase and waits for your answer.
+Reviewed on 2026-10-18. The Business Owner accepted every row. Each accepted row is the working answer, and the run does not pause at it. The status stays PROPOSED until the owner signs that artifact DECIDED. A policy number behind a PROPOSED row is still never written into code.
 
 | ID | Phase | The PROPOSED answer the SME recommends | Your call (Accept / Reject) |
 |---|---|---|---|
-| BO-01 | 0 | Adopt the draft charter with the decision rights in this tracker: Team-Force owns engineering, the SME owns industry fact, the Business Owner owns liability, run-time roles own single cases. | |
-| BO-02 | 0 | Make exception cycle time and aged backlog the two headline business KPIs; keep the other six families as supporting measures. | |
-| BO-03 | 2 | AI explains and proposes; a person approves every record-changing action; no autonomous writes. | |
-| BO-04 | 3 | Approve the initial PRD once it names both apps, the AI limits, the eight business problems, and the demo flow, and nothing beyond. | |
-| BO-06b | 5 | Keep operational, finance, and audit closure as three separate states; operational closure does not book finance or close audit; a mismatch routes to review. | |
-| BO-08 | 5 | Do not invent a number where the governed source is silent; route the case to review; if a demo value is needed, use the Python 50,000 cutoff marked PROPOSED, never 999,999. | |
-| BO-10 | 12 | Treat all records as internal and synthetic; process data confidential; no personal data. | |
-| BO-11 | 14 | Label every ROI number EDUCATIONAL; state each assumption; claim no monetary benefit. | |
-| BO-12 | 15 | Build the deck on the neutral placeholder until the Birlasoft assets arrive, then restyle; label every claim. | |
-| BO-13 | 16 | Sign the as-built baseline once every requirement is classified with evidence and the known limitations are listed. | |
+| BO-01 | 0 | Adopt the draft charter with the decision rights in this tracker: Team-Force owns engineering, the SME owns industry fact, the Business Owner owns liability, run-time roles own single cases. | Accept |
+| BO-02 | 0 | Make exception cycle time and aged backlog the two headline business KPIs; keep the other six families as supporting measures. | Accept |
+| BO-03 | 2 | AI explains and proposes; a person approves every record-changing action; no autonomous writes. | Accept |
+| BO-04 | 3 | Approve the initial PRD once it names both apps, the AI limits, the eight business problems, and the demo flow, and nothing beyond. | Accept |
+| BO-06b | 5 | Keep operational, finance, and audit closure as three separate states; operational closure does not book finance or close audit; a mismatch routes to review. | Accept |
+| BO-08 | 5 | Do not invent a number where the governed source is silent; route the case to review; if a demo value is needed, use the Python 50,000 cutoff marked PROPOSED, never 999,999. | Accept |
+| BO-10 | 12 | Treat all records as internal and synthetic; process data confidential; no personal data. | Accept |
+| BO-11 | 14 | Label every ROI number EDUCATIONAL; state each assumption; claim no monetary benefit. | Accept |
+| BO-12 | 15 | Build the deck on the neutral placeholder until the Birlasoft assets arrive, then restyle; label every claim. | Accept |
+| BO-13 | 16 | Sign the as-built baseline once every requirement is classified with evidence and the known limitations are listed. | Accept |
 
 ## 6. Stage-entry checklist
 
@@ -188,4 +188,5 @@ A note on roles. The SME set these role names as the standard fab exception-hand
 | v1.4 | 2026-10-17 | Added FD-24: a separate reviewer agent accepts Team-Force output. It runs on GPT 5.6-Sol as a fresh agent, accepts Half A before Half B on the build phases, and accepts the finished stage on every phase by checking the Expected output and running the Done test. It never signs a Business Owner row; an unresolvable block or a test that needs a person escalates to a human. Matches the two-agent playbook and `Execution_Plan.md` v1.7. |
 | v1.6 | 2026-10-18 | Added FD-25: a separate executor agent builds each unit of work. It runs on Claude Sonnet 5.5 as a fresh agent per unit; the coordinator orchestrates and settles decisions but writes no artifact; the executor is not the reviewer. Matches the three-agent playbook and `Execution_Plan.md` v2.0. |
 | v1.7 | 2026-10-18 | Changed the run models. FD-24 now names Composer 2.5 (`composer-2.5-fast`) as the reviewer. FD-25 now names Grok 4.6 (`cursor-grok-4.6-high-fast`) as the executor. The coordinator runs on Grok 4.7 (`grok-4.7-high-fast`). |
+| v1.8 | 2026-10-18 | The Business Owner accepted every SME recommendation on the section 5.2 sheet: BO-01, BO-02, BO-03, BO-04, BO-06b, BO-08, BO-10, BO-11, BO-12, and BO-13. Each row stays PROPOSED until the owner signs the artifact. The four SME rows (BO-05, BO-06a, BO-07, BO-09) were already DECIDED and were not changed. |
 | v1.5 | 2026-10-17 | Added the PROPOSED status and section 5.2, a one-time Business Owner review sheet. The SME pre-filled every Business Owner row (BO-01, BO-02, BO-03, BO-04, BO-06b, BO-08, BO-10, BO-11, BO-12, BO-13) with its recommended answer, marked PROPOSED, so the owner reviews them once before the run. After that review an accepted PROPOSED row does not pause the run; a rejected row stays a pause point. A policy value behind a PROPOSED row is still never written into code. Updated the coordinator pause rules to match. |
