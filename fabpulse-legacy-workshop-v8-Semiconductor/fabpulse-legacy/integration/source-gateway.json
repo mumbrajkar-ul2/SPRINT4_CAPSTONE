@@ -1,0 +1,19 @@
+{
+  "domain": "High Tech",
+  "parent_table": "wafer_lots",
+  "parent_key": "lot_id",
+  "child_table": "process_steps",
+  "child_key": "lot_id",
+  "event_kind": "semiconductor_lot",
+  "event_types": [
+    "lot_started",
+    "process_step",
+    "metrology_review",
+    "engineering_hold"
+  ],
+  "sources": [
+    "mes",
+    "equipment",
+    "metrology"
+  ]
+}

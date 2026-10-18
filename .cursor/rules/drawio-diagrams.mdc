@@ -1,0 +1,63 @@
+---
+description: Draw.io connector routing, arrowheads, HTML tables, and reload safety
+alwaysApply: true
+---
+
+# Draw.io diagrams
+
+This project opted in to the user-level draw.io formatting rule.
+
+Formatting only. Apply when creating or editing `.drawio` files in this project.
+
+## Connectors
+
+- Route in gutters. Do not run a line through unrelated icons.
+- Leave space between neighbouring groups so lines travel in the gap, not over borders.
+- Do not share a path segment with another arrow. Crossing at a right angle is allowed.
+- Last waypoint must not sit on the target’s edge. That twists the arrowhead or hides it in the icon.
+- Side entry: last segment is horizontal, about 18px off the icon, same Y as `entryY`.
+- Top or bottom entry: last segment is vertical, about 16px off the icon, same X as `entryX`.
+- Use `jettySize=0;entryPerimeter=1;exitPerimeter=1;endSize=8`.
+
+Bad — last point on the target edge (head twists up the side):
+
+```xml
+entryX=0;entryY=0.5
+<mxPoint x="1848" y="480" /> <!-- x is the left edge of the icon -->
+```
+
+Good — approach, then enter horizontally:
+
+```xml
+jettySize=0;entryPerimeter=1;exitPerimeter=1;endSize=8;entryX=0;entryY=0.5
+<mxPoint x="1830" y="480" />
+<mxPoint x="1830" y="436" />
+```
+
+## HTML tables
+
+Match Hop Reference tables `htable` and `hinv`:
+
+- Rectangle. `overflow=fill`. `verticalAlign=top`. `rounded=0;strokeColor=none;fillColor=none`.
+- One-line HTML. No `&#xa;` between `<tr>` tags.
+- Box height ≈ row count × 30px. All rows show. No empty band above or below.
+- After a height change, move footnotes under the table, not inside the box.
+- Do not use `text;html=1;overflow=width` for multi-row tables. Newlines in that mode push the table down and clip rows.
+
+Bad:
+
+```xml
+style="text;html=1;overflow=width;..."
+value="&lt;table&gt;&#xa;&lt;tr&gt;..."
+```
+
+Good:
+
+```xml
+style="rounded=0;whiteSpace=wrap;html=1;overflow=fill;fillColor=none;strokeColor=none;verticalAlign=top;spacing=0;"
+value="&lt;table style=&quot;width:100%;height:100%;...&quot;&gt; &lt;tr&gt;...&lt;/tr&gt; &lt;/table&gt;"
+```
+
+## After XML edits
+
+Tell the user: close diagrams.net without saving, then reopen the `.drawio` file. An open editor can write the old geometry back.

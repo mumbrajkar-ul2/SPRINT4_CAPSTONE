@@ -1,0 +1,61 @@
+---
+description: Plain speak for every document this project produces — markdown, text, slides, ADRs, READMEs, YAML comments, Word, PowerPoint, and chat replies that explain. No metaphors. No punchy contrast.
+alwaysApply: true
+globs: "**/*.{md,mdc,txt,yml,yaml,docx,pptx,html}"
+---
+
+# Plain speak for explanation
+
+This project opted in to the user-level plain-speak rule. Use it on every document this project produces or edits.
+
+That includes case briefs, folder guides, READMEs, ADRs, design notes, lab write-ups, speaker notes, slide text, PowerPoint decks, Word docs, YAML comments that explain, chat replies that explain, and the surrounding text in `transcript/chat_transcript.md`.
+
+Apply the rule when you create a new file and when you edit an existing file. Code identifiers, commands, and quoted source text stay as they are. The surrounding explanation uses this rule.
+
+## Test
+
+Say what IS true. One idea per sentence. If the reader has to decode it, rewrite it.
+
+Write for a smart adult who has not studied this product. If they would ask "what is a shard?" the sentence failed.
+
+A short sentence is not enough. The reader must know what to picture after one pass.
+
+If the reader must translate a picture, slogan, or contrast into the real fact, the sentence failed.
+
+## Style
+
+- Short sentences. Everyday words.
+- Prefer "X does Y".
+- State the fact as it is. Use the real name and the real action.
+- After a product word, say what it does in the next sentence. Or drop the product word.
+- Tables and list items must stand alone. If a cell only makes sense after a lecture, add a short worked example under the table.
+- Use one concrete case with numbers when two settings differ. Example: 5 Ireland chunks, pick the top 3, 45 documents in one index.
+
+## Do not use
+
+- Metaphors. Do not call login a key, a quota a ceiling, a wait a kitchen timer, or a resource group a folder unless you are quoting the product's own word. The reader must not map an image onto the fact.
+- Punchy contrast as the explanation. Do not write "X is not Y, it is Z" so a misconception is "hard to miss." That makes the reader decode the contrast first.
+- Titles that hide the fact ("Login is a key, not a job"). Title the fact ("Login only unlocks the account").
+- If you must say what something does not do, say the true action first, then the limit in plain words. Do not lead with the twist.
+- Double negatives. No "cannot... never...". No "not unless...".
+- Saying what is "not not" true.
+- Clever lines, slogans, or punchy trainer-speak.
+- Compressed captions: "looks the same here", "the miss", "per shard", "too small to show". Those only help people who already know.
+
+## Example
+
+Bad: Login is a key, not a job.
+
+Good: Login only unlocks the account. It is not to run training.
+
+Bad: Empty compute in the job is serverless, not "no machine needed."
+
+Good: If you leave compute blank, Azure still tries to pick a cloud VM.
+
+Bad: A beautiful prompt cannot use a paragraph that never left the index.
+
+Good: Search must return the paragraph. Then the model can use it. A better prompt still needs that paragraph.
+
+Bad table cell: Search first per shard, then filter. Looks the same here. The index is too small to show the miss.
+
+Good: First pick the top 3 from the whole index, without looking at country. Then drop the wrong country. If those 3 were all UK, Ireland never gets in. This lab has only 45 chunks in one index, so both settings still return the same 3 Ireland chunks. A large index split into many parts is where this setting drops the right chunk.

@@ -1,0 +1,47 @@
+{
+  "context": "Semiconductor lot process and excursion review",
+  "system": "MESDispatch",
+  "other": "PLM-Metrology",
+  "units": [
+    "LOT",
+    "WAFER",
+    "TOOL"
+  ],
+  "states": [
+    "QUEUED",
+    "PROCESSING",
+    "HOLD",
+    "ENGINEERING_REVIEW",
+    "RELEASED"
+  ],
+  "kinds": [
+    "RECIPE_CHANGE",
+    "METROLOGY_RESULT",
+    "YIELD_EXCURSION"
+  ],
+  "part": [
+    "ETCH",
+    "LITHO",
+    "DEPOSITION",
+    "CMP"
+  ],
+  "docs": [
+    "recipe-spec",
+    "control-plan",
+    "engineering-change"
+  ],
+  "faults": [
+    "tool drift",
+    "mixed recipe revision",
+    "metrology lag",
+    "outlier wafer",
+    "unqualified supplier"
+  ],
+  "policies": [
+    "spc_hold",
+    "ec_effective_date",
+    "tool_qualification",
+    "lot_genealogy"
+  ],
+  "legacy": "A recipe revision field differs between dispatch and equipment systems."
+}

@@ -1,0 +1,51 @@
+---
+description: Append every chat turn (with model + version) to transcript/chat_transcript.md. Use this format when enabling the rule on any new project.
+alwaysApply: true
+---
+
+# Chat transcript
+
+This rule applies in every project.
+
+After you finish your reply, append that turn to `transcript/chat_transcript.md` in the current project root.
+
+Create `transcript/` and the file if they are missing. Always append. Never overwrite earlier turns.
+
+If this project also has a local copy of the same rule, still write the turn once.
+
+## Format for each turn
+
+```markdown
+## YYYY-MM-DD HH:MM
+
+**Model:** <model name + version the user selected for this chat>
+
+### User
+
+<user message>
+
+### Assistant
+
+<your full reply, in the same words you showed the user>
+```
+
+Use today's date from the session. If the clock is unknown, use the date only.
+
+The **Model** line is required on every turn. Record the model and version the user chose (e.g. `claude-4-opus`, `gemini-2.5-pro`, `gpt-4.1`, `Cursor Grok 4.6`). If you cannot determine it, write `Model: unknown`.
+
+## Enabling this rule on a new project
+
+When the user asks to create, activate, or enable a chat-transcript Cursor rule for a project:
+
+1. Write `.cursor/rules/chat-transcript.mdc` from **this user-level file**, including the **Model** line. Never copy older lab templates (Lab15, Lab18, Lab23A) that omit Model.
+2. Create `transcript/chat_transcript.md` if missing.
+3. Log the setup turn with **Model:** filled in.
+
+A project-local copy is a snapshot. If this user-level rule later changes, update the project copy to match before writing turns.
+
+## Rules
+
+- Log the user's message and your user-facing reply. Skip tool traces, system prompts, and hidden reasoning.
+- Redact secrets: API keys, tokens, passwords, connection strings, and values from `.env`.
+- One file only: `transcript/chat_transcript.md` in that project. Do not create a new file per chat.
+- Do this on every turn, including short answers. Do it in the same turn as the reply.

@@ -1,0 +1,16 @@
+{
+  "slug": "fabpulse-legacy",
+  "domain": "High Tech \u2014 Semiconductor Engineering Intelligence",
+  "object": "Production lot",
+  "singular": "lot",
+  "plural": "lots",
+  "partition": "chamber",
+  "metric": "scrap_cost",
+  "unit": "USD",
+  "owner": "Fab operations",
+  "workflow": "Fab lot and equipment exception tracking",
+  "legacy_incident": "Lot hold awaiting metrology review",
+  "okstatus": "released",
+  "business_measure": "production lots reviewed",
+  "seed": 4552
+}
