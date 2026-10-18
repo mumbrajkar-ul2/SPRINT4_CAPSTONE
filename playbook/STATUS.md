@@ -3,11 +3,11 @@
 | Field | Value |
 |---|---|
 | Stage | Progress board. Runs beside `Execution_Plan.md` and `Decision_Tracker.md`. |
-| Date / version | 2026-10-17, v1.0 |
+| Date / version | 2026-10-18, v1.5 |
 | Author | Mangesh (FDE), drafted with Cursor |
-| Status | Seeded. No phase has run. |
-| Run state | not started |
-| Current phase | none (next: Phase 0) |
+| Status | Phase 2 passed. Next is Phase 3. |
+| Run state | in progress |
+| Current phase | Phase 2 closed. Next: Phase 3 — Initial PRD |
 
 ## What this file is
 
@@ -26,17 +26,17 @@ The narrative history stays in `docs/_playbook-log.md`. This board is the live s
 
 | Phase | Sub-stage | Folder | Half A | Half B | Reviewer | Gate | Date |
 |---|---|---|---|---|---|---|---|
-| 0 | 0A Pre-flight orientation | `docs/00-preflight/discovery/` | n/a | n/a | — | not started | — |
-| 0 | 0B Provisional operating contract | `docs/00-preflight/operating-contract/` | n/a | n/a | — | not started | — |
-| 0 | 0C AI-economics envelope | `docs/00-preflight/ai-economics/` | n/a | n/a | — | not started | — |
-| 0 | 1 Engage and qualify | `docs/01-engagement/` | n/a | n/a | — | not started | — |
-| 0 | 2 Stakeholders | `docs/02-stakeholders/` | n/a | n/a | — | not started | — |
-| 0 | 3 Frame problem and value | `docs/03-problem-value/` | n/a | n/a | — | not started | — |
-| 0 | 4 Before-AI KPIs | `docs/04-baseline-kpis/` | n/a | n/a | — | not started | — |
-| 1 | 5 Current process and landscape | `docs/05-current-state/` | n/a | n/a | — | not started | — |
-| 1 | 6 Root-cause analysis | `docs/06-root-cause/` | n/a | n/a | — | not started | — |
-| 1 | 7 Deep repo assessment | `docs/07-repo-assessment/` | n/a | n/a | — | not started | — |
-| 2 | 8 AI-versus-no-AI | `docs/08-ai-qualification/` | n/a | n/a | — | not started | — |
+| 0 | 0A Pre-flight orientation | `docs/00-preflight/discovery/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
+| 0 | 0B Provisional operating contract | `docs/00-preflight/operating-contract/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
+| 0 | 0C AI-economics envelope | `docs/00-preflight/ai-economics/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
+| 0 | 1 Engage and qualify | `docs/01-engagement/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
+| 0 | 2 Stakeholders | `docs/02-stakeholders/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
+| 0 | 3 Frame problem and value | `docs/03-problem-value/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
+| 0 | 4 Before-AI KPIs | `docs/04-baseline-kpis/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
+| 1 | 5 Current process and landscape | `docs/05-current-state/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
+| 1 | 6 Root-cause analysis | `docs/06-root-cause/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
+| 1 | 7 Deep repo assessment | `docs/07-repo-assessment/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
+| 2 | 8 AI-versus-no-AI | `docs/08-ai-qualification/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
 | 3 | 9 Initial PRD | `docs/09-initial-prd/` | n/a | n/a | — | not started | — |
 | 4 | 10 Target architecture and ADRs | `docs/10-architecture/` and `/adrs/` | n/a | n/a | — | not started | — |
 | 5 | 11 Data, knowledge, and context strategy | `docs/11-data-context/` and `context-lake/` | not started | not started | — | not started | — |
@@ -77,7 +77,7 @@ The narrative history stays in `docs/_playbook-log.md`. This board is the live s
 
 ## Current phase and what it is waiting on
 
-The run has not started. The next step is Phase 0. Before Phase 0 the Business Owner reviews the section 5.2 sheet in `Decision_Tracker.md` once. Then the coordinator opens `playbook/phase_00_frame_baseline.md`.
+Phase 2 passed on 2026-10-18. Reviewer verdict: STAGE_ACCEPTED after one wording fix. Correlation ids: `corr-p2-doc-20261018-001`, `corr-p2-rev-20261018-001`, `corr-p2-fix-20261018-001`, `corr-p2-rev2-20261018-001`, `corr-p2-gate-20261018-001`. FD-04 and FD-05 are DECIDED. BO-03 stays PROPOSED. The next phase is Phase 3. Its stage-entry rows are BO-02, BO-03, and BO-04. All three are PROPOSED and were accepted on 2026-10-18, so Phase 3 does not pause. It has not started.
 
 ## Blocked or paused
 
@@ -88,3 +88,8 @@ None yet. When a phase pauses, the coordinator adds a row here with the phase, t
 | Version | Date | Change |
 |---|---|---|
 | v1.0 | 2026-10-17 | First issue. Seeded all 48 sub-stage rows from `Execution_Plan.md` section 7 (the 46 spine units plus 11R and 20p). Document phases marked n/a in Half A and Half B; build phases 5, 7, 8, 9, 10, 11, 12, 13 carry the Half A/B columns. |
+| v1.1 | 2026-10-18 | Phase 0 started. Sub-stages 0A, 0B, 0C, 1, 2, 3, and 4 set to in progress. FD-03 settled before the executor was spawned. |
+| v1.2 | 2026-10-18 | Phase 0 gate PASS. Reviewer verdict STAGE_ACCEPTED on sub-stages 0A, 0B, 0C, 1, 2, 3, and 4. |
+| v1.3 | 2026-10-18 | Phase 1 started. Sub-stages 5, 6, and 7 set to in progress. |
+| v1.4 | 2026-10-18 | Phase 1 gate PASS. Reviewer verdict STAGE_ACCEPTED. Phase 2 set to in progress. |
+| v1.5 | 2026-10-18 | Phase 2 gate PASS after a wording fix. Reviewer verdict STAGE_ACCEPTED. |

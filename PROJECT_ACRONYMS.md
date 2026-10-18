@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Stage | Reader guide. Runs beside `Execution_Plan.md`, `Decision_Tracker.md`, and `playbook/STATUS.md`. |
-| Date / version | 2026-10-18, v1.2 |
+| Date / version | 2026-10-18, v1.4 |
 | Author | Mangesh (FDE), drafted with Cursor |
 | Status | Seeded before the run. It holds the short codes and acronyms already used in the plan, the tracker, and the playbook. The coordinator adds a row each time a phase introduces a new short code. |
 | Evidence sources | `Execution_Plan.md`, `Decision_Tracker.md`, `Project_Intent.md`, and the `playbook/` prompts. |
@@ -147,7 +147,12 @@ The coordinator adds a row here each time a phase introduces a short code that i
 
 | Phase | Term | Meaning | Where |
 |---|---|---|---|
-| — | — | — | — |
+| 0 | — | This phase added no new short code. SHA-256 was already listed above. | — |
+| 1 | `RC-01` to `RC-08` | One confirmed root-cause row. The number matches the business problem. Example: `RC-01` is the recipe-revision mismatch. | `docs/06-root-cause/confirmed-root-causes.md` |
+| 1 | `C-BP1-count` and the other `C-BP*` rows | One evidence row in the confidence matrix. The middle part is the business problem. Example: `C-BP2-hist` is the 2025 rollback sentence, correlated with the replay rows, not proven as their cause. | `docs/06-root-cause/evidence-confidence-matrix.md` |
+| 1 | `ED-P1-01` | The Phase 1 method note. Each business-problem row has one SQL query as the checkable count. A file scan is an extra count. | `Decision_Tracker.md` change log v1.11 |
+| 2 | `R-P2-01` to `R-P2-08` | A retired AI cost assumption from the Phase 0 envelope. Example: model cost is not kept on a job that Phase 2 labelled deterministic. | `docs/08-ai-qualification/economics-baseline-reconciliation.md` |
+| 2 | `ED-P2-01` to `ED-P2-03` | Phase 2 method notes. `ED-P2-01` is the hold-column null test. `ED-P2-02` keeps case ranking in deterministic code. `ED-P2-03` says no model file is saved. | `Decision_Tracker.md` change log v1.13 |
 
 ## Change log
 
@@ -156,3 +161,5 @@ The coordinator adds a row here each time a phase introduces a short code that i
 | v1.0 | 2026-10-17 | First issue. Seeded the decision ids, phase and spine ids, status and honesty words, claim labels, reviewer verdicts, policy outcomes, lake terms, and capital-word acronyms already in use. Added the empty "New terms by phase" table for the run to grow. |
 | v1.1 | 2026-10-18 | Extended the FD range to `FD-25` (the executor-agent build rule) and named the three run agents and their models by the reviewer verdicts. |
 | v1.2 | 2026-10-18 | Named the current three models: coordinator Grok 4.7, executor Grok 4.6, reviewer Composer 2.5. |
+| v1.3 | 2026-10-18 | Phase 0 added no new short code. Phase 1 added the `RC-` root-cause ids, the `C-BP*` evidence ids, and `ED-P1-01`. |
+| v1.4 | 2026-10-18 | Phase 2 added `R-P2-01` to `R-P2-08` and `ED-P2-01` to `ED-P2-03`. |

@@ -1424,3 +1424,188 @@ Leftover wording after the three-agent change. Implement the plan as specified. 
 The four wording changes are already in the files. I checked each one and left the text as it is.
 
 The reviewer prompt says it accepts or rejects the executor's work. Phases 5, 7, 8, 9, 10, 11, 12, and 13 each say the coordinator spawns an executor for Half A, then for Half B after HALF_A_ACCEPTED. The README loop step 3 includes the Team-Force self-decide branch and the accepted PROPOSED Business Owner branch, and the rules line names executor.md and reviewer.md. Execution_Plan.md section 1 points at playbook/EXECUTION_ARCHITECTURE.md, and section 11 says a live Done test from Phase 8 on pauses as NEEDS_HUMAN. Changelog v2.1 records that pass. The plan file is now v2.2 because the later model change added a newer line. Replay mode is still a product feature so the demo can run offline. I did not edit the plan file.
+
+## 2026-10-18
+
+**Model:** Grok 4.7
+
+### User
+
+what is the next step?
+
+### Assistant
+
+Start Phase 0. The playbook wording is in place, the Business Owner review is done, and no phase has run yet.
+
+Open a new Cursor chat on Grok 4.7. Attach Execution_Plan.md, Decision_Tracker.md, Project_Intent.md, and the playbook folder. Paste the contents of playbook/00_coordinator.md and send it. The coordinator starts at Phase 0. It spawns a Grok 4.6 executor to write each unit, then a Composer 2.5 reviewer to check it. You answer only when it prints a pause card.
+
+## 2026-10-18
+
+**Model:** Composer 2.5
+
+### User
+
+Phase 0 STAGE review (corr-p0-rev-20261018-001). Reviewer prompt with Expected output table and Done test.
+
+### Assistant
+
+REVIEW — Phase 0 Frame, govern, and freeze the baseline — mode STAGE. Verdict STAGE_ACCEPTED. All 36 artifacts exist with eight-field headers. Baseline tools ran twice with matching numbers aligned to baseline-kpi-sheet.md. register.yaml lists 1590 hashes; legacy tree had 1596 files after review (6 __pycache__ from this run only). Charter and KPI sign-off stay unsigned; BO-01 and BO-02 stay PROPOSED. Escalate to a human: no.
+
+## 2026-10-18
+
+**Model:** Composer 2.5
+
+### User
+
+You are the reviewer agent for the Sprint 4 Fabpulse capstone... (Phase 1 STAGE review corr-p1-rev-20261018-001)
+
+### Assistant
+
+```
+REVIEW — Phase 1 Discovery and deep brownfield — mode STAGE
+Files read: playbook/reviewer.md; docs/05-current-state/current-process-map.md; docs/05-current-state/system-landscape.md; docs/05-current-state/integration-landscape.md; docs/05-current-state/brownfield-inventory.md; docs/05-current-state/process-bottlenecks.md; docs/05-current-state/conflict-catalogue.md; docs/06-root-cause/root-cause-tree.md; docs/06-root-cause/five-whys.md; docs/06-root-cause/evidence-confidence-matrix.md; docs/06-root-cause/confirmed-root-causes.md; docs/07-repo-assessment/repo-assessment.md; docs/07-repo-assessment/dependency-map.md; docs/07-repo-assessment/technical-debt-register.md; docs/07-repo-assessment/critical-workflow-inventory.md; docs/07-repo-assessment/baseline-behaviour.md; docs/07-repo-assessment/characterization-test-plan.md
+Checks:
+  1. PASS — All 16 named artifacts exist and open under docs/05-current-state/, docs/06-root-cause/, and docs/07-repo-assessment/.
+  2. PASS — Each file has the eight header fields in its opening table (Stage, Date / version, Author / agent, Status, Evidence sources, Assumptions, Unresolved issues, Residual risks).
+  3. PASS — docs/05 holds the process map, system landscape, integration landscape, brownfield inventory, process bottlenecks, and conflict catalogue with BP1–BP8. docs/06 holds the root-cause tree, five whys, evidence-confidence matrix, and confirmed causes with evidence and confidence per cause. docs/07 holds repo assessment, dependency map, technical debt register, critical workflow inventory, baseline behaviour, and a characterization test plan tied to thin coverage.
+  4. PASS — Counts and file claims use Verified Fact, Inference, Assumption, or Unknown and cite SQL, tables, or paths. The catalogue honesty labels for demo KPI numbers are not used here; repo counts are query-backed.
+  5. PASS — Exception cycle time and aged backlog stay Unknown in the catalogue. BO-06b stays PROPOSED. No signed finance closure. FD-08 and BO-06a are recorded, not re-decided.
+  6. PASS — Current state, root cause, and repo assessment sit in three separate folders with no shared sub-stage folder.
+  7. PASS — Done test below. All eight SQL counts match the catalogue. BP1–BP8 are present. Grep found no should or fix in conflict-catalogue.md. confirmed-root-causes.md and evidence-confidence-matrix.md mark correlation separately from causation. characterization-test-plan.md status is plan only and lists later checks CT-01–CT-40 without claiming tests passed.
+Done test (STAGE mode): Python sqlite3 URI mode=ro on fabpulse-legacy/data/legacy.sqlite3 and enterprise_legacy.sqlite3 — BP1 91; BP2 67; BP3 11985; BP4 2090; BP5 89; BP6 34; BP7 86; BP8 695. All match conflict-catalogue.md.
+Verdict: STAGE_ACCEPTED
+Fixes (if CONDITIONAL or BLOCKED): none
+Escalate to a human: no
+```
+
+## 2026-10-18
+
+**Model:** Composer 2.5
+
+### User
+
+You are the reviewer agent for the Sprint 4 Fabpulse capstone. You act for Team-Force. You run as Composer 2.5. You are a fresh agent. You did not write this work. Read c:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\playbook\reviewer.md and follow it. Do not edit artifacts. Do not update STATUS.md or Decision_Tracker.md.
+
+MODE: STAGE
+PHASE: Phase 2 — AI-versus-no-AI qualification
+WORKSPACE: c:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE
+CORRELATION ID: corr-p2-rev-20261018-001
+
+(Locked facts FD-04, FD-05, BO-03; expected output; done test; return format.)
+
+### Assistant
+
+```
+REVIEW — Phase 2 AI-versus-no-AI qualification — mode STAGE
+Files read: playbook/reviewer.md; Decision_Tracker.md; Execution_Plan.md (Phase 2); docs/08-ai-qualification/intervention-options.md; docs/08-ai-qualification/ai-vs-no-ai-matrix.md; docs/08-ai-qualification/deterministic-vs-ai-boundaries.md; docs/08-ai-qualification/minimum-intelligence-assessment.md; docs/08-ai-qualification/minimum-agency-assessment.md; docs/08-ai-qualification/economics-baseline-reconciliation.md; docs/08-ai-qualification/qualification-decision.md
+Checks:
+  1. PASS — All seven Expected output files exist under docs/08-ai-qualification/ and open.
+  2. PASS — Each file has the eight header fields (stage, date/version, author/agent, status, evidence sources, assumptions, unresolved issues, residual risks).
+  3. PASS — Sub-gate content is present: per-capability labels with reasons in ai-vs-no-ai-matrix.md and qualification-decision.md; ML null test in minimum-intelligence-assessment.md; text-variety for GenAI labels; agency bound in minimum-agency-assessment.md; 0C envelope and retired assumptions R-P2-01–R-P2-08 in economics-baseline-reconciliation.md; intervention options and boundaries in the other two files.
+  4. FAIL — qualification-decision.md cites Decision_Tracker.md v1.12 and marks FD-04 and FD-05 as DEFERRED under a Verified Fact table. On disk Decision_Tracker.md is v1.13 and both rows are DECIDED 2026-10-18. ai-vs-no-ai-matrix.md, intervention-options.md, and deterministic-vs-ai-boundaries.md still say FD-04 stays DEFERRED in status or unresolved issues. That contradicts the tracker the phase gate uses. Demo ML numbers are labelled REAL. No token or dollar figure is marked Verified Fact.
+  5. PASS — BO-03 is recorded PROPOSED with SME recommendation shown; qualification-decision.md and minimum-agency-assessment.md do not claim the owner signed. No silent threshold invented. Capability labels match FD-04 DECIDED text.
+  6. PASS — Phase 2 output lives only in docs/08-ai-qualification/.
+  7. PASS — Done test run read-only on legacy.sqlite3; counts and scores match minimum-intelligence-assessment.md.
+Done test (STAGE mode): Python 3, sqlite3 URI ?mode=ro on fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/legacy.sqlite3, same leave-one-out logistic regression as minimum-intelligence-assessment.md (wafer_count, defect_count, measured_yield). n=125; hold_counts {0: 117, 1: 8}; majority_label 0; majority_correct 117; majority_accuracy 117/125 (0.936); logreg_loo 117/125 (0.936); beats majority False. ai-vs-no-ai-matrix.md labels: triage, rule evaluation, reconciliation, intake de-duplication deterministic; conflict explanation, natural-language query, agentic planning GenAI; engineering_hold prediction ML-rejected — matches FD-04. economics-baseline-reconciliation.md names docs/00-preflight/ai-economics/ (five files) and retired lines R-P2-01 through R-P2-08.
+Verdict: STAGE_CONDITIONAL
+Fixes (if CONDITIONAL or BLOCKED):
+  1. In qualification-decision.md, replace the “Defaults still in force” block: cite Decision_Tracker v1.13; set FD-04 and FD-05 to DECIDED with the decided labels; remove “They are not DECIDED in the tracker” and the header line “Tracker rows stay DEFERRED.”
+  2. In ai-vs-no-ai-matrix.md, intervention-options.md, and deterministic-vs-ai-boundaries.md, update status and unresolved-issues text so FD-04 and FD-05 are DECIDED, not DEFERRED. Keep BO-03 PROPOSED.
+  3. Leave capability labels and reasons unchanged; they already match FD-04.
+Escalate to a human: no
+```
+
+## 2026-10-18 01:55
+
+**Model:** Cursor Grok 4.6
+
+### User
+
+You are the executor agent. Fresh agent. Grok 4.6. Apply only the named fixes below. Do not change capability labels or reasons. Do not edit Decision_Tracker.md, STATUS.md, the playbook log, acronyms, or the inherited repo. Do not start another phase.
+
+Read playbook/executor.md. MODE is a fix pass on the DOCUMENT unit for Phase 2.
+CORRELATION ID: corr-p2-fix-20261018-001
+DATE: 2026-10-18
+WORKSPACE: c:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE
+
+Locked facts now on disk in Decision_Tracker.md v1.13:
+- FD-04 DECIDED 2026-10-18, authority: team-force. Triage, rule evaluation, reconciliation, and intake de-duplication are deterministic. Conflict explanation, natural-language query, and agentic planning are GenAI. Predicting engineering_hold is ML-rejected.
+- FD-05 DECIDED 2026-10-18, authority: team-force. Reject ML. Majority and leave-one-out logistic regression are both 117/125.
+- BO-03 stays PROPOSED and unsigned.
+
+Fixes, exactly:
+1. In docs/08-ai-qualification/qualification-decision.md, update the defaults block to Decision_Tracker v1.13. Record FD-04 and FD-05 as DECIDED with those labels. Remove text that says those tracker rows stay DEFERRED or are not DECIDED.
+2. In docs/08-ai-qualification/ai-vs-no-ai-matrix.md, intervention-options.md, and deterministic-vs-ai-boundaries.md, change status and unresolved-issues wording so FD-04 and FD-05 are DECIDED, not DEFERRED. Keep BO-03 PROPOSED and unsigned.
+3. Do not change capability labels or reasons. They already match FD-04.
+
+Also search the other three files in docs/08-ai-qualification/ for the word DEFERRED applied to FD-04 or FD-05, and fix those sentences the same way. Leave DEFERRED or PROPOSED on BO-03 alone.
+
+Plain speech. Keep the eight-field header. Bump date/version on each file you edit to 2026-10-18, v1.1, and name this fix in the header status or unresolved issues in one short sentence.
+
+Return: files changed, and a one-line confirmation that labels were not changed.
+
+### Assistant
+
+Four files were edited to v1.1. FD-04 and FD-05 now read DECIDED against Decision_Tracker.md v1.13. BO-03 stays PROPOSED and unsigned.
+
+Files changed:
+- `docs/08-ai-qualification/qualification-decision.md`
+- `docs/08-ai-qualification/ai-vs-no-ai-matrix.md`
+- `docs/08-ai-qualification/intervention-options.md`
+- `docs/08-ai-qualification/deterministic-vs-ai-boundaries.md`
+
+Searched and left unchanged: `minimum-agency-assessment.md`, `minimum-intelligence-assessment.md`, and `economics-baseline-reconciliation.md`. None of those three used DEFERRED on FD-04 or FD-05.
+
+Capability labels and reasons were not changed.
+
+1. PASS
+2. Key findings. Tracker status text now matches v1.13. FD-04 and FD-05 are DECIDED. BO-03 stays PROPOSED.
+3. Major risks. A later page that still says “recommended” for FD-05 would confuse a reader, but those sentences do not say DEFERRED and were left as instructed.
+4. Assumptions and unknowns. This unit still does not edit the tracker. Token counts stay Unknown. Company job titles stay unmapped.
+5. Artifacts created: the four files listed above, each bumped to 2026-10-18, v1.1.
+6. Blocking issues. None.
+7. Recommended next action. Coordinator sends this unit to the reviewer. Do not start Phase 3.
+
+Engineering decisions made: none.
+Open questions for the coordinator: none.
+
+## 2026-10-18
+
+**Model:** Grok 4.7
+
+### User
+
+INPUTS:
+
+Decision_Tracker.md Project_Intent.md Execution_Plan.md playbook
+
+Prompt:
+00_coordinator.md (3-123)
+
+### Assistant
+
+Phases 0, 1, and 2 passed their reviewer gates. The run is in progress. Phase 3 has not started. There is no pause card.
+
+**Phase 0 — Frame, govern, and freeze the baseline.** The reviewer returned STAGE_ACCEPTED. The builder was [Phase 0 builder](13172db9-d305-482b-b356-3ee779a36620). The reviewer was [Phase 0 reviewer](b4cb3621-54df-4d5f-8410-5e1303631767).
+
+I decided FD-03 before the builder started. The frozen set is the eight KPI families in `Execution_Plan.md` section 9. Those are the same families as `Project_Intent.md` section 14. The old default pointed at `Project_Intent.md` section 9, which is the Context Lake. The two headline business KPIs are exception cycle time and aged backlog. Both stay Unknown. The baseline tools do not emit them. BO-01 and BO-02 stay PROPOSED. The Business Owner accepted both on 2026-10-18. The charter and the KPI sign-off stay unsigned.
+
+The baseline tools matched on two runs: 125 records, 89 open cases, 2 urgent cases, mean amount 4982.61, 6 sites, and 0.603 hours per case. `sources/register.yaml` has 1,590 hashes for 1,590 files in the inherited repo. The engagement call is Conditional Go.
+
+**Phase 1 — Discovery and deep brownfield.** The reviewer returned STAGE_ACCEPTED. The builder was [Phase 1 builder](cd016c17-4f81-44dd-abe7-83e280e829a6). The reviewer was [Phase 1 reviewer](9b6698da-013b-4bf2-a5f8-3b55c33bd7f3).
+
+The eight conflict queries match the catalogue: BP1 91, BP2 67, BP3 11,985, BP4 2,090, BP5 89, BP6 34, BP7 86, BP8 695. Each row has one SQL query as its checkable count.
+
+I corrected BO-06a. A case stays open while REVIEW or HOLD is pending. The night-batch file `legacy_batch/shift_reconciliation.py` flags REVIEW, and its comment says it treats REVIEW as open. That matches the operational meaning.
+
+**Phase 2 — AI-versus-no-AI qualification.** The first review was STAGE_CONDITIONAL. Four files still said FD-04 and FD-05 were deferred after I had decided them from the test. [Phase 2 fix](a0e780f2-a4dd-4a3f-8d7d-4a6e8673c0a0) updated that wording. The labels stayed the same. [Phase 2 re-review](2da4cf87-77ac-44a1-8f8d-a28f8f0f3654) returned STAGE_ACCEPTED. The builder was [Phase 2 builder](8dae1d2c-8116-4530-b3f0-100549b6bd12). The first reviewer was [Phase 2 reviewer](4f816548-fd20-4353-879f-d5dc93c8f677).
+
+FD-04 is decided. Triage, rule evaluation, reconciliation, and intake de-duplication are deterministic. Conflict explanation, natural-language query, and agentic planning are GenAI. Predicting `engineering_hold` is ML-rejected.
+
+FD-05 is decided. Reject machine learning. The table `wafer_lots` has 125 lots, 8 held and 117 not held. The majority guess is 117/125. Leave-one-out logistic regression is also 117/125. It does not beat the majority guess.
+
+BO-03 stays PROPOSED. AI explains and proposes. A person approves every record-changing action.
+
+The progress board is `playbook/STATUS.md`. The phase write-up is `docs/_playbook-log.md`. New short codes from these phases are in `PROJECT_ACRONYMS.md`.
+
+Phase 3 is the Initial PRD. It needs BO-02, BO-03, and BO-04. All three are PROPOSED and were accepted on 2026-10-18, so Phase 3 does not pause. Say continue and I will start it.

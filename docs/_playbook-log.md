@@ -1,0 +1,15 @@
+# Playbook log — Sprint 4 Fabpulse capstone
+
+This file is the narrative history. The live board is `playbook/STATUS.md`.
+
+## 2026-10-18 — Phase 0 Frame, govern, and freeze the baseline
+
+Phase 0 passed. Correlation ids: `corr-p0-doc-20261018-001` (executor), `corr-p0-rev-20261018-001` (reviewer), `corr-p0-gate-20261018-001` (coordinator gate). Sub-stages 0A, 0B, 0C, 1, 2, 3, and 4 are in `docs/00-preflight/discovery/`, `docs/00-preflight/operating-contract/`, `docs/00-preflight/ai-economics/`, `docs/01-engagement/`, `docs/02-stakeholders/`, `docs/03-problem-value/`, and `docs/04-baseline-kpis/`, plus `sources/register.yaml`. The reviewer returned STAGE_ACCEPTED. The baseline tools matched on two runs: 125 records, 89 open cases, 2 urgent cases, mean amount 4982.61, 6 sites, 0.603 hours per case. The register has 1,590 hashes for 1,590 inherited files. FD-03 was decided by Team-Force: freeze the eight KPI families in `Execution_Plan.md` section 9. BO-01 and BO-02 stay PROPOSED and unsigned. Engagement is Conditional Go. Exception cycle time and aged backlog stay Unknown. This phase added no new short code. SHA-256 was already in `PROJECT_ACRONYMS.md`.
+
+## 2026-10-18 — Phase 1 Discovery and deep brownfield
+
+Phase 1 passed. Correlation ids: `corr-p1-doc-20261018-001` (executor), `corr-p1-rev-20261018-001` (reviewer), `corr-p1-gate-20261018-001` (coordinator gate). Sub-stages 5, 6, and 7 are in `docs/05-current-state/`, `docs/06-root-cause/`, and `docs/07-repo-assessment/`. The reviewer returned STAGE_ACCEPTED. The eight conflict queries matched the catalogue: BP1 91, BP2 67, BP3 11,985, BP4 2,090, BP5 89, BP6 34, BP7 86, BP8 695. ED-P1-01 records that each row's checkable count is one SQL query. BO-06a still says REVIEW and HOLD are open. The night-batch file flags REVIEW and its comment says it treats REVIEW as open. Exception cycle time and aged backlog stay Unknown. FD-12 stays pending until Phase 7. New short codes: `RC-01` to `RC-08`, the `C-BP*` evidence rows, and `ED-P1-01`.
+
+## 2026-10-18 — Phase 2 AI-versus-no-AI qualification
+
+Phase 2 passed. Correlation ids: `corr-p2-doc-20261018-001` (executor), `corr-p2-rev-20261018-001` (first review, STAGE_CONDITIONAL), `corr-p2-fix-20261018-001` (wording fix), `corr-p2-rev2-20261018-001` (re-review), `corr-p2-gate-20261018-001` (coordinator gate). The folder is `docs/08-ai-qualification/`. The second reviewer returned STAGE_ACCEPTED. The first review failed only because four files still said FD-04 and FD-05 were deferred after those rows were decided. The fix changed that wording. Labels were not changed. The null test on `wafer_lots.engineering_hold` is 125 lots, 8 held, 117 not held. Majority accuracy is 117/125. Leave-one-out logistic regression is 117/125. It does not beat the majority guess. FD-05 is Reject ML. FD-04 is deterministic for triage, rule evaluation, reconciliation, and intake de-duplication. It is GenAI for conflict explanation, natural-language query, and agentic planning. Predicting the hold column is ML-rejected. BO-03 stays PROPOSED. New short codes: `R-P2-01` to `R-P2-08`, and `ED-P2-01` to `ED-P2-03`.
