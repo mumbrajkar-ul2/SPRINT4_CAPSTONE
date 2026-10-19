@@ -1,0 +1,20 @@
+id: data.demo.backfill_clock
+kind: data_relationship
+statement: 'Event E-00000000 is kind tool_alarm. Event time is 2020-12-30. Arrival
+  time is 2021-01-01. Metrology samples have no clock. Honesty: REAL. This statement
+  names the locator.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/enterprise_legacy.sqlite3
+  sha256: f13ed709df16f3c6244282ff4efde7768dee9294f0533098de3d34f0657af913
+  locator: evidence_events.arrival_time
+recorded_at: '2026-10-19'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: data.clock.event_vs_arrival_evidence

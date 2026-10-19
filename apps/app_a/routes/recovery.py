@@ -98,11 +98,11 @@ def apply_probe(mode: str) -> dict[str, Any]:
             raw = probe_gateway(mode)
             attempt_count += 1
     if mode == "schema":
-        # Gateway may return HTTP 200 with an unexpected body. Application A still flags schema.
-        visible = "Upstream schema did not match. Retry is visible. No 8-hour target is claimed."
+        # Gateway may return HTTP 200 with an unexpected body. Schema is not retried.
+        visible = f"Upstream schema did not match. Attempt count is {attempt_count}. This probe is not retried."
         status_for_user = fail_status
     elif mode == "timeout":
-        visible = "Upstream timed out. Retry is visible. Numeric RTO stays Unknown."
+        visible = f"Upstream timed out. Attempt count is {attempt_count}. The probe target is port 8090."
         status_for_user = fail_status
     elif mode == "rate_limit":
         visible = "Upstream returned a throttle. Retry is visible."

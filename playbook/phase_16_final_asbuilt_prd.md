@@ -40,6 +40,7 @@ Do not copy the Initial or Implementation PRD unchanged. Do not add new scope. D
 | Disposition set | Delivered, Changed, Deferred, Rejected, Superseded; each with a rationale and evidence |
 | Delivered needs evidence | No requirement is Delivered without acceptance evidence (a spec, a test, a KPI, an ADR) |
 | As-built architecture | Must match the services that actually run |
+| Screen sentence | The as-built screen sentence matches the files under `apps/app_a/ui/` and `apps/app_b/ui/`. Write "React" only when those folders contain a React app. When they contain `index.html` and `assets/app.js`, write that fact and mark the section 4 React row as a deviation. |
 | BO-13 (SME view) | Sign once every requirement is classified with evidence and the known limitations are listed |
 
 ## Decision gate (before you start)
@@ -70,3 +71,11 @@ STOP. The reviewer checks this output and runs the Done test. Wait for STAGE_ACC
 ## Done test
 
 The requirement-disposition matrix covers every requirement in the Initial PRD and the Implementation PRD. Each Delivered requirement links to acceptance evidence. The as-built architecture matches the running services.
+
+Screen sentence check:
+
+1. Read `apps/app_a/ui/` and `apps/app_b/ui/`.
+2. Search `docs/final-prd/as-built-architecture.md` and `docs/final-prd/final-as-built-prd.md` for the word React.
+3. Fail the stage when those docs say the running screens are React and the UI folders have no `react` dependency and no JSX or TSX source.
+
+The Phase 16 PASS row stays the record of the first run. Do not re-accept Phase 16 from this added check. After Phase 17 Half B, those docs may keep the word React because the UI folders then contain a React app. A sentence that still disagrees is corrected in `docs/43-demo-ready/` and names the old sentence.

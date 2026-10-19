@@ -1,0 +1,22 @@
+id: data.demo.policy_windows
+kind: data_relationship
+statement: 'Five US policies sit on FAB-00000002. POL-0002 starts 2023-01-01 with
+  an open end. POL-0010 starts 2021-01-01 with an open end. POL-0018 runs 2024-01-01
+  through 2024-12-31. POL-0026 starts 2022-01-01 with an open end. POL-0034 starts
+  2025-01-01. On 2024-06-01 four of them are in force. Honesty: REAL. This statement
+  names the locator.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/enterprise_legacy.sqlite3
+  sha256: f13ed709df16f3c6244282ff4efde7768dee9294f0533098de3d34f0657af913
+  locator: policy_register.threshold
+recorded_at: '2026-10-19'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: data.policy_register.overlap

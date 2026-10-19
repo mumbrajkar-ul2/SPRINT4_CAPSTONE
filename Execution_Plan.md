@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Stage | Method layer. Written after `Project_Intent.md`, before any repo change. |
-| Date / version | 2026-10-18, v2.2 |
+| Date / version | 2026-10-19, v2.3 |
 | Author | Mangesh (FDE), drafted with Cursor |
 | Status | ACTIVE |
 | Evidence sources | `AI_FDE_Capstone_—Final_Presentation_Guidelines.pdf` (28 guidelines); `Project_Intent.md`; `00-Best Practices/AI_FDE_End-to-End_Production_Delivery_Spine.pdf` (46 units: 0A, 0B, 0C, stages 1 to 42, and FINAL); `00-Best Practices/Semantic_Layer_capture.pdf`, `Prompt_Anatomy.pdf`, `Prompt Template.pdf`; `01-Learnings from previous Sprints/Implementation Best Practices for FDEs.md`; the Sprint 3 hardening practices in `SPRINT3CAPSTONE` (S03 review loop, S04 two-half gates, S05-14 audit chain); the inherited repo `fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy` |
@@ -332,6 +332,22 @@ Rule-authority policy for Phase 5. The canonical value of a business rule comes 
 - Guidelines: 14, 18, 28. Spine: FINAL.
 - Lifecycle: This is the authoritative baseline for operations, audit, and future change.
 
+Phase 17 and Phase 18 sit after Phase 16. They are not spine units. Section 7 keeps the 46 units. Demo readiness and the remaining deviation rows sit outside that map.
+
+### Phase 17 — Live demo and React screens
+
+- Action: Install React and build the live clicks for DEV-001 through DEV-009. The coordinator opens this phase only when every Phase 0 to 16 gate is PASS.
+- Scope: `docs/43-demo-ready/`, both UI folders, the session overlay, and the lake statements those clicks read. Exclude: reopening Phase 0 to 16; running `reconcile()` on the packaged store; DEV-010 through DEV-020.
+- Half A writes the screen contract and stops. Half B installs Node in `Dockerfile.platform` and builds the React screens. Phase 8's Python-only image stays the record of that phase. Phase 9 is not the owner of the Node install.
+- Gate: the Phase 17 Done test in `playbook/phase_17_demo_ready.md`. DEV-001 through DEV-009 close only when each correction check passes.
+
+### Phase 18 — Remaining deviations
+
+- Action: Close DEV-010 through DEV-020. The coordinator opens this phase only when the Phase 17 gate is PASS.
+- Scope: `docs/44-remaining-deviations/`, the Application B pause, the three extra read-only jobs, the rejected anonymous call, one pipeline log, one correlation-id log line, the image digest and a gitignored secrets file, the term list, the five edge answers, one successful gateway delivery, and injection BLOCK on both ports. Exclude: a federated identity provider, a company vault, and a company image-signing service. No such service was named.
+- Half A writes the close path for each row and stops. Half B builds only after that design is accepted. A lake edit in this phase uses the review loop, raises the version, and records an ADR. New items are statements with a locator. They are not copies of raw rows. Phase 17's pin stays the record of that phase.
+- Gate: the Phase 18 Done test in `playbook/phase_18_remaining_deviations.md`.
+
 ```mermaid
 flowchart TD
   P0[0 Frame and baseline] --> P1[1 Discovery]
@@ -350,6 +366,8 @@ flowchart TD
   P13 --> P14[14 Compare + ROI]
   P14 --> P15[15 TOM + defence]
   P15 --> P16[16 Final As-Built PRD]
+  P16 --> P17[17 Live demo and React]
+  P17 --> P18[18 Remaining deviations]
 ```
 
 ## 6. Guideline-to-phase crosswalk
@@ -387,7 +405,7 @@ flowchart TD
 
 ## 7. Spine-unit-to-phase crosswalk
 
-Every one of the 46 spine units maps to exactly one phase and one folder. No folder is shared by two units.
+Every one of the 46 spine units maps to exactly one phase and one folder. No folder is shared by two units. Phase 17 (`docs/43-demo-ready/`) and Phase 18 (`docs/44-remaining-deviations/`) sit outside this map. They do not add a spine unit and they do not change a row below.
 
 | Spine unit | Phase | Folder |
 |---|---|---|
@@ -473,14 +491,16 @@ One `docker compose up` starts the legacy app on 8080, the source gateway on 809
 
 Set `MODEL_MODE=replay` so the demo runs with no network. In rehearsal, each model response is saved under a hash of its prompt. In replay, those saved responses play back. Tell the audience when replay is on.
 
+Minutes 13 to 32 are clicks on React scenario pages. The Phase 15 script remains the paper record of the first run.
+
 The 40-minute path:
 
 | Time | Content |
 |---|---|
 | 0 to 8 min | The business problem and the baseline |
 | 8 to 13 min | The architecture and the GenAI-versus-deterministic boundary |
-| 13 to 25 min | App A live: scenarios 7 to 11, with the agent trace and the approval gate |
-| 25 to 32 min | App B: the same scenarios from the lake, plus a rule trace |
+| 13 to 25 min | App A live: clicks on the React scenario pages for scenarios 7 to 11, with the agent trace and the approval gate |
+| 25 to 32 min | App B: the same React scenario pages from the lake, plus a rule trace |
 | 32 to 36 min | The before-and-after scorecard |
 | 36 to 39 min | Security and resilience: an injection BLOCK and a restart mid-approval |
 | 39 to 40 min | Four or five lessons learned |
@@ -488,7 +508,7 @@ The 40-minute path:
 ## 11. Rules that apply to every phase
 
 - One playbook prompt per phase, with the four sections (Inputs, a fenced Prompt with Locked facts, Expected output, a Done test) and the eight Prompt Anatomy parts inside the Prompt.
-- Three agents run the delivery. The coordinator (Grok 4.7) orchestrates and settles the decisions it owns; it builds no artifact. A fresh executor (Grok 4.6) builds each unit from `playbook/executor.md`, reading the inputs on disk; it may make an engineering design decision the build requires, marks it `authority: team-force`, and returns it for the coordinator to log. A fresh reviewer (Composer 2.5) accepts Team-Force output before the run advances, reading the files on disk. On the build phases (5, 7, 8, 9, 10, 11, 12, 13) the reviewer accepts Half A before the Half B executor runs. On every phase it then accepts the finished stage by checking the Expected output and running the Done test. No agent grades its own work, and the builder is not the checker. The reviewer never signs a Business Owner row; an unresolvable block, a Business Owner row, or a Done test that needs a credential or a running service escalates to a human. See `playbook/executor.md`, `playbook/reviewer.md`, FD-24, and FD-25.
+- Three agents run the delivery. The coordinator (Grok 4.7) orchestrates and settles the decisions it owns; it builds no artifact. A fresh executor (Grok 4.6) builds each unit from `playbook/executor.md`, reading the inputs on disk; it may make an engineering design decision the build requires, marks it `authority: team-force`, and returns it for the coordinator to log. A fresh reviewer (Composer 2.5) accepts Team-Force output before the run advances, reading the files on disk. On the build phases (5, 7, 8, 9, 10, 11, 12, 13, 17, 18) the reviewer accepts Half A before the Half B executor runs. On every phase it then accepts the finished stage by checking the Expected output and running the Done test. No agent grades its own work, and the builder is not the checker. The reviewer never signs a Business Owner row; an unresolvable block, a Business Owner row, or a Done test that needs a credential or a running service escalates to a human. See `playbook/executor.md`, `playbook/reviewer.md`, FD-24, and FD-25.
 - Every artifact starts with the Prompt Template header.
 - Every claim carries one label: Verified Fact, Inference, Assumption, or Unknown.
 - Every material finding states six things: the finding, the evidence, the impact, the risk, the confidence, and the open questions.
@@ -501,8 +521,9 @@ The 40-minute path:
 - The lake YAML is the source of truth. A later file that disagrees is fixed or gets an ADR.
 - New deliverables are written at the capstone root: `docs/`, `apps/`, `context-lake/`, `policy/`, `sources/`, `operations/`, and the full-stack `compose` file. Only the Phase 7 transform edits files inside `fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy`.
 - Each sub-stage saves to its own spine `docs/NN-*/` folder from section 7. No two sub-stages share a folder.
-- The build phases (5, 7, 8, 9, 10, 11, 12, 13) run the two-half gate. Half A writes the analysis and design and ends with a stop. The reviewer accepts Half A before Half B starts. Half B is the code and tests; each hardening sub-stage in Phases 12 and 13 makes one small, reviewable change and records before-and-after evidence plus a test. The document phases (0, 1, 2, 3, 4, 6, 14, 15, 16) have no Half A/B split; the reviewer accepts their finished output before the next phase.
-- The Context Lake carries a version. A change to it goes through the review, fix, and revision loop in Phase 5 and raises the version with an ADR. A term a later phase finds missing returns through the open-question channel.
+- The build phases (5, 7, 8, 9, 10, 11, 12, 13, 17, 18) run the two-half gate. Half A writes the analysis and design and ends with a stop. The reviewer accepts Half A before Half B starts. Half B is the code and tests; each hardening sub-stage in Phases 12 and 13 makes one small, reviewable change and records before-and-after evidence plus a test. The document phases (0, 1, 2, 3, 4, 6, 14, 15, 16) have no Half A/B split; the reviewer accepts their finished output before the next phase. Phase 17 and Phase 18 are build phases outside the 46 spine units.
+- The Context Lake carries a version. A change to it goes through the review, fix, and revision loop and raises the version with an ADR. New items are statements with a locator. They are not copies of raw rows. Historical phase docs keep the pin they measured. Phase 17's pin stays the record of that phase when Phase 18 raises the version again for the term list. A term a later phase finds missing returns through the open-question channel.
+- Phase 8's Python-only `Dockerfile.platform` stays the record of that phase. Phase 17 may edit that file to install Node and build the React screens. Phase 9 is not the owner of that image change.
 - Every agent step and every human approval writes one audit-chain row with a correlation id. One case must trace end to end by that id.
 - Two trackers follow the run and update at every gate. `playbook/STATUS.md` is the progress board, one row per sub-stage, showing Half A, Half B, the reviewer verdict, the gate, and the date. `PROJECT_ACRONYMS.md` explains every short code in plain speech; the coordinator adds a row when a phase introduces a new code. Neither file creates a new id.
 - From Phase 8 on, a Done test that needs a live model, a running stack, or a network call pauses as `NEEDS_HUMAN`. The human runs the step and pastes the result back. The human supplies the API key when a test needs it. Replay mode stays a product feature so the demo can run offline; it is not a substitute for that human step.
@@ -525,3 +546,4 @@ The 40-minute path:
 | v2.0 | 2026-10-18 | Three-agent delivery. Added an executor agent (Claude Sonnet 5.5) that builds each unit; the coordinator now orchestrates only and writes no artifact itself, and the reviewer (GPT 5.6-Sol) is unchanged. One unit of work maps to one executor and one reviewer gate. Added `playbook/executor.md` and FD-25; rewrote the coordinator loop; updated `playbook/EXECUTION_ARCHITECTURE.md` (v1.1) and `playbook/README.md`; updated section 1 and the section 11 rule. |
 | v2.1 | 2026-10-18 | Leftover wording after the three-agent change. The reviewer now checks the executor's work. The eight build-phase headers say the coordinator spawns an executor for Half A, then Half B. The README loop matches the coordinator's decision branches. Added the live-test `NEEDS_HUMAN` rule and a pointer to `playbook/EXECUTION_ARCHITECTURE.md`. Replay mode stays a product feature. |
 | v2.2 | 2026-10-18 | Changed the three run models. The coordinator is Grok 4.7 (`grok-4.7-high-fast`). The executor is Grok 4.6 (`cursor-grok-4.6-high-fast`). The reviewer is Composer 2.5 (`composer-2.5-fast`). Updated section 1, the section 11 rule, FD-24, FD-25, and the playbook prompts. |
+| v2.3 | 2026-10-19 | Added Phase 17 and Phase 18 after Phase 16. They are not spine units. Section 7 still maps the 46 units. Minutes 13 to 32 are clicks on React scenario pages. Phase 17 may add Node to `Dockerfile.platform`. A lake edit still uses the review loop and raises the version with an ADR. |

@@ -1,0 +1,459 @@
+Local run of .github/workflows/verify.yml
+Date: 2026-10-19
+GitHub Actions was not used. These are the same four steps.
+
+===== Characterization tests on packaged copies =====
+C:\Python313\python.exe -m unittest discover -s tests -p test_char*.py -v
+
+test_baseline_six_fields_exact_match (characterization.test_char_baseline_parity.TestBaselineParity.test_baseline_six_fields_exact_match)
+CT-01. Exact match. No tolerance percent. ... ok
+test_headline_kpis_remain_unknown (characterization.test_char_baseline_parity.TestBaselineParity.test_headline_kpis_remain_unknown)
+CT-40. Exception cycle time and aged backlog stay Unknown. ... ok
+test_evidence_clock_mismatch_count (characterization.test_char_feed_intake.TestFeedIntakeReadOnly.test_evidence_clock_mismatch_count)
+CT-13. ... ok
+test_gateway_event_json_has_both_clocks (characterization.test_char_feed_intake.TestFeedIntakeReadOnly.test_gateway_event_json_has_both_clocks)
+CT-16. Event object the gateway builds has occurred_at and published_at. ... ok
+test_packaged_inbox_one_received (characterization.test_char_feed_intake.TestFeedIntakeReadOnly.test_packaged_inbox_one_received) ... ok
+test_packaged_source_messages_count (characterization.test_char_feed_intake.TestFeedIntakeReadOnly.test_packaged_source_messages_count) ... ok
+test_partner_feed_clock_mismatch_count (characterization.test_char_feed_intake.TestFeedIntakeReadOnly.test_partner_feed_clock_mismatch_count)
+CT-14. ... ok
+test_reference_version_overlap_count (characterization.test_char_feed_intake.TestFeedIntakeReadOnly.test_reference_version_overlap_count)
+CT-15. ... ok
+test_apply_accepts_new_valid_event (characterization.test_char_feed_intake.TestFeedIntakeWrites.test_apply_accepts_new_valid_event) ... ok
+test_apply_duplicate_message_id (characterization.test_char_feed_intake.TestFeedIntakeWrites.test_apply_duplicate_message_id) ... ok
+test_apply_rejects_missing_occurred_at (characterization.test_char_feed_intake.TestFeedIntakeWrites.test_apply_rejects_missing_occurred_at) ... ok
+test_apply_rejects_missing_required_fields (characterization.test_char_feed_intake.TestFeedIntakeWrites.test_apply_rejects_missing_required_fields) ... ok
+test_apply_rejects_unknown_lot (characterization.test_char_feed_intake.TestFeedIntakeWrites.test_apply_rejects_unknown_lot) ... ok
+test_consume_source_messages_returns_list (characterization.test_char_feed_intake.TestFeedIntakeWrites.test_consume_source_messages_returns_list) ... ok
+test_shadow_intake_apply_matches_apply (characterization.test_char_feed_intake.TestFeedIntakeWrites.test_shadow_intake_apply_matches_apply)
+SH-FI. Same events on two copies. received_at is omitted. PROPOSED, owner Team-Force. ... ok
+test_get_cases_without_identity_returns_200 (characterization.test_char_harness_safety.TestHarnessSafety.test_get_cases_without_identity_returns_200)
+CT-35. Current server skips an identity header. Live HTTP is Unknown. ... ok
+test_incidents_body (characterization.test_char_harness_safety.TestHarnessSafety.test_incidents_body)
+CT-37. Handler lists INC-2019-0082. INC-2025-014 has no owner. Live HTTP is Unknown. ... ok
+test_packaged_db_hashes_unchanged (characterization.test_char_harness_safety.TestHarnessSafety.test_packaged_db_hashes_unchanged)
+CT-39. Packaged hashes match the source register. ... ok
+test_unassigned_workflow_tasks (characterization.test_char_harness_safety.TestHarnessSafety.test_unassigned_workflow_tasks)
+CT-36. Read-only count. ... ok
+test_untrusted_archive_eml (characterization.test_char_harness_safety.TestHarnessSafety.test_untrusted_archive_eml)
+CT-33. Archive .eml files containing approve or ignore. ... ok
+test_untrusted_bundled_lake_events (characterization.test_char_harness_safety.TestHarnessSafety.test_untrusted_bundled_lake_events)
+CT-32. Bundled lake events with source_claim. ... ok
+test_untrusted_source_documents (characterization.test_char_harness_safety.TestHarnessSafety.test_untrusted_source_documents)
+CT-34. Source documents whose body contains approve, ignore, or release all holds. ... ok
+test_write_tests_set_temp_legacy_db (characterization.test_char_harness_safety.TestHarnessSafety.test_write_tests_set_temp_legacy_db)
+CT-38. Write tests point store.DB at a temporary copy. ... ok
+test_reconcile_default_limit_is_1000 (characterization.test_char_reconciliation.TestReconciliationReadOnly.test_reconcile_default_limit_is_1000) ... ok
+test_untrusted_feed_note_count (characterization.test_char_reconciliation.TestReconciliationReadOnly.test_untrusted_feed_note_count)
+CT-30. ... ok
+test_packaged_new_and_retry_counts (characterization.test_char_reconciliation.TestReconciliationWrites.test_packaged_new_and_retry_counts) ... ok
+test_packaged_replay_count_before_reconcile (characterization.test_char_reconciliation.TestReconciliationWrites.test_packaged_replay_count_before_reconcile)
+CT-06. ... ok
+test_reconcile_does_not_delete_rows (characterization.test_char_reconciliation.TestReconciliationWrites.test_reconcile_does_not_delete_rows) ... ok
+test_reconcile_does_not_use_untrusted_note (characterization.test_char_reconciliation.TestReconciliationWrites.test_reconcile_does_not_use_untrusted_note)
+CT-31. Note text stays data. Status follows the four rules only. ... ok
+test_reconcile_missing_business_key_rejected (characterization.test_char_reconciliation.TestReconciliationWrites.test_reconcile_missing_business_key_rejected) ... ok
+test_reconcile_negative_quantity_rejected (characterization.test_char_reconciliation.TestReconciliationWrites.test_reconcile_negative_quantity_rejected)
+CT-09. ... ok
+test_reconcile_replay_becomes_duplicate (characterization.test_char_reconciliation.TestReconciliationWrites.test_reconcile_replay_becomes_duplicate)
+CT-07. Default limit 1000. Record the actual flipped count. ... ok
+test_reconcile_unsupported_schema_rejected (characterization.test_char_reconciliation.TestReconciliationWrites.test_reconcile_unsupported_schema_rejected)
+CT-08. ... ok
+test_reconcile_valid_new_accepted (characterization.test_char_reconciliation.TestReconciliationWrites.test_reconcile_valid_new_accepted) ... ok
+test_shadow_reconcile_feeds_matches_reconcile (characterization.test_char_reconciliation.TestReconciliationWrites.test_shadow_reconcile_feeds_matches_reconcile)
+SH-RC. Two copies. Same limit 1000. Exact match on counts and per-feed_id status. ... ok
+test_java_skips_blank_amount_cell (characterization.test_char_rule_evaluation.TestJavaDeviation.test_java_skips_blank_amount_cell)
+CT-21. Blank field index 4 is omitted from count. ... ok
+test_java_source_literals (characterization.test_char_rule_evaluation.TestJavaDeviation.test_java_source_literals) ... ok
+test_js_allows_26250_apac_2026 (characterization.test_char_rule_evaluation.TestJavaScriptDeviation.test_js_allows_26250_apac_2026)
+CT-19. 25000 * 1.05 = 26250. ... ok
+test_js_allows_27000_apac_2026 (characterization.test_char_rule_evaluation.TestJavaScriptDeviation.test_js_allows_27000_apac_2026) ... ok
+test_js_source_literals (characterization.test_char_rule_evaluation.TestJavaScriptDeviation.test_js_source_literals) ... ok
+test_js_threshold_apac_1999_is_999999 (characterization.test_char_rule_evaluation.TestJavaScriptDeviation.test_js_threshold_apac_1999_is_999999)
+CT-20. Current deviation. Not live policy. ... ok
+test_js_threshold_apac_2026 (characterization.test_char_rule_evaluation.TestJavaScriptDeviation.test_js_threshold_apac_2026) ... ok
+test_evaluate_live_policy_archive_apac_2026 (characterization.test_char_rule_evaluation.TestLivePolicyNewPath.test_evaluate_live_policy_archive_apac_2026) ... ok
+test_evaluate_live_policy_no_match_is_hold (characterization.test_char_rule_evaluation.TestLivePolicyNewPath.test_evaluate_live_policy_no_match_is_hold) ... ok
+test_evaluate_live_policy_silent_urgent_cutoff_is_hold (characterization.test_char_rule_evaluation.TestLivePolicyNewPath.test_evaluate_live_policy_silent_urgent_cutoff_is_hold) ... ok
+test_night_batch_default_limit_500 (characterization.test_char_rule_evaluation.TestNightBatch.test_night_batch_default_limit_500) ... ok
+test_night_batch_flags_review_as_open (characterization.test_char_rule_evaluation.TestNightBatch.test_night_batch_flags_review_as_open)
+CT-25. REVIEW is in the night-batch flag list. BO-06a match. ... ok
+test_night_batch_hold_object_in_flagged (characterization.test_char_rule_evaluation.TestNightBatch.test_night_batch_hold_object_in_flagged) ... ok
+test_night_batch_review_object_in_flagged (characterization.test_char_rule_evaluation.TestNightBatch.test_night_batch_review_object_in_flagged)
+CT-17. Known REVIEW object FAB-00000011 is in the flagged set. ... ok
+test_shadow_run_flag_matches_run (characterization.test_char_rule_evaluation.TestNightBatch.test_shadow_run_flag_matches_run)
+SH-RE night batch. Same copy and limit. ... ok
+test_manual_review_required_false_for_open_low (characterization.test_char_rule_evaluation.TestPriorityAndReview.test_manual_review_required_false_for_open_low) ... ok
+test_manual_review_required_true_cases (characterization.test_char_rule_evaluation.TestPriorityAndReview.test_manual_review_required_true_cases) ... ok
+test_packaged_amount_above_50000_count (characterization.test_char_rule_evaluation.TestPriorityAndReview.test_packaged_amount_above_50000_count)
+CT-05. ... ok
+test_priority_amount_above_50000_is_urgent (characterization.test_char_rule_evaluation.TestPriorityAndReview.test_priority_amount_above_50000_is_urgent)
+CT-04. Current Python deviation. 50,000 stays PROPOSED as live policy. ... ok
+test_priority_closed_is_archive (characterization.test_char_rule_evaluation.TestPriorityAndReview.test_priority_closed_is_archive)
+CT-02. ... ok
+test_priority_critical_open_is_urgent (characterization.test_char_rule_evaluation.TestPriorityAndReview.test_priority_critical_open_is_urgent)
+CT-03. ... ok
+test_priority_escalated_is_review (characterization.test_char_rule_evaluation.TestPriorityAndReview.test_priority_escalated_is_review) ... ok
+test_priority_high_is_review (characterization.test_char_rule_evaluation.TestPriorityAndReview.test_priority_high_is_review) ... ok
+test_priority_other_is_queue (characterization.test_char_rule_evaluation.TestPriorityAndReview.test_priority_other_is_queue) ... ok
+test_active_policy_count (characterization.test_char_rule_evaluation.TestStatusAndPolicyCounts.test_active_policy_count)
+CT-26. ... ok
+test_active_policy_count_per_region (characterization.test_char_rule_evaluation.TestStatusAndPolicyCounts.test_active_policy_count_per_region)
+CT-27. ... ok
+test_cases_region_values (characterization.test_char_rule_evaluation.TestStatusAndPolicyCounts.test_cases_region_values)
+CT-28. ... ok
+test_cases_status_values (characterization.test_char_rule_evaluation.TestStatusAndPolicyCounts.test_cases_status_values)
+CT-23. ... ok
+test_operational_region_values (characterization.test_char_rule_evaluation.TestStatusAndPolicyCounts.test_operational_region_values)
+CT-29. ... ok
+test_operational_review_count (characterization.test_char_rule_evaluation.TestStatusAndPolicyCounts.test_operational_review_count)
+CT-18. ... ok
+test_operational_status_values (characterization.test_char_rule_evaluation.TestStatusAndPolicyCounts.test_operational_status_values)
+CT-24. ... ok
+test_process_steps_count (characterization.test_char_rule_evaluation.TestStatusAndPolicyCounts.test_process_steps_count)
+CT-11. ... ok
+test_recipe_mismatch_count (characterization.test_char_rule_evaluation.TestStatusAndPolicyCounts.test_recipe_mismatch_count)
+CT-10. ... ok
+test_unjoined_process_steps (characterization.test_char_rule_evaluation.TestStatusAndPolicyCounts.test_unjoined_process_steps)
+CT-12. ... ok
+test_vendor_blank_amount_count (characterization.test_char_rule_evaluation.TestStatusAndPolicyCounts.test_vendor_blank_amount_count)
+CT-22. ... ok
+
+----------------------------------------------------------------------
+Ran 70 tests in 9.833s
+
+OK
+
+exit 0
+
+===== Lake gates and golden questions =====
+C:\Python313\python.exe -m pytest tests -q
+..............................................                           [100%]
+46 passed in 7.04s
+
+
+exit 0
+
+===== Platform identity, replay, logs, freeze, and compose file =====
+C:\Python313\python.exe -m pytest tests/platform -q
+.......................s...........................s.................... [ 42%]
+...................................s....s................s............s. [ 84%]
+...........................                                              [100%]
+165 passed, 6 skipped in 43.07s
+
+
+exit 0
+
+===== Compose config publishes the six host ports =====
+docker compose config
+name: fabpulse
+services:
+  app-a:
+    build:
+      context: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE
+      dockerfile: Dockerfile.platform
+    command:
+      - python
+      - -m
+      - uvicorn
+      - apps.app_a.server:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8100"
+    container_name: fabpulse-app-a
+    depends_on:
+      lake-rest:
+        condition: service_healthy
+        required: true
+    environment:
+      FABPULSE_API_KEY: local-demo-only
+      HOST: 0.0.0.0
+      LAKE_REST_URL: http://lake-rest:8091
+      MODEL_MODE: replay
+      PORT: "8100"
+      PYTHONPATH: /opt/platform:/opt/platform/context-lake:/opt/platform/fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy
+      SERVICE_NAME: app-a
+      SOURCE_GATEWAY_URL: http://source-gateway:8090
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8100/health',timeout=2)
+      timeout: 4s
+      interval: 10s
+      retries: 5
+      start_period: 15s
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8100
+        published: "8100"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\operations\model-replay
+        target: /opt/platform/operations/model-replay
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\apps\app_a\runtime\dlq.sqlite3
+        target: /opt/platform/apps/app_a/runtime/dlq.sqlite3
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\apps\app_a\runtime\checkpoints.sqlite3
+        target: /opt/platform/apps/app_a/runtime/checkpoints.sqlite3
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\apps\app_a\audit\audit_chain.sqlite3
+        target: /opt/platform/apps/app_a/audit/audit_chain.sqlite3
+        bind:
+          create_host_path: true
+    working_dir: /opt/platform
+  app-b:
+    build:
+      context: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE
+      dockerfile: Dockerfile.platform
+    command:
+      - python
+      - -m
+      - uvicorn
+      - apps.app_b.server:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8110"
+    container_name: fabpulse-app-b
+    depends_on:
+      lake-rest:
+        condition: service_healthy
+        required: true
+    environment:
+      FABPULSE_API_KEY: local-demo-only
+      HOST: 0.0.0.0
+      LAKE_REST_URL: http://lake-rest:8091
+      MODEL_MODE: replay
+      PORT: "8110"
+      PYTHONPATH: /opt/platform:/opt/platform/context-lake
+      SERVICE_NAME: app-b
+      SOURCE_GATEWAY_URL: http://source-gateway:8090
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8110/health',timeout=2)
+      timeout: 4s
+      interval: 10s
+      retries: 5
+      start_period: 15s
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8110
+        published: "8110"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\operations\model-replay
+        target: /opt/platform/operations/model-replay
+        read_only: true
+        bind:
+          create_host_path: true
+    working_dir: /opt/platform
+  bridge:
+    build:
+      context: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\fabpulse-legacy-workshop-v8-Semiconductor\fabpulse-legacy
+      dockerfile: Dockerfile
+    command:
+      - sh
+      - -c
+      - sleep 5; python -m app.gateway_bridge --source-url http://source-gateway:8090 --limit 50
+    container_name: fabpulse-bridge
+    depends_on:
+      legacy:
+        condition: service_healthy
+        required: true
+      source-gateway:
+        condition: service_healthy
+        required: true
+    environment:
+      LEGACY_DB: /var/lib/legacy/legacy.sqlite3
+    networks:
+      default: null
+    restart: "no"
+    volumes:
+      - type: volume
+        source: legacy_data
+        target: /var/lib/legacy
+        volume: {}
+  lake-mcp:
+    build:
+      context: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE
+      dockerfile: Dockerfile.platform
+    command:
+      - python
+      - -m
+      - uvicorn
+      - mcp_server:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8092"
+    container_name: fabpulse-lake-mcp
+    environment:
+      FABPULSE_API_KEY: local-demo-only
+      HOST: 0.0.0.0
+      MODEL_MODE: replay
+      PORT: "8092"
+      PYTHONPATH: /opt/platform:/opt/platform/context-lake
+      SERVICE_NAME: lake-mcp
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8092/health',timeout=2)
+      timeout: 4s
+      interval: 10s
+      retries: 5
+      start_period: 15s
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8092
+        published: "8092"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\context-lake\generated
+        target: /opt/platform/context-lake/generated
+        read_only: true
+        bind:
+          create_host_path: true
+    working_dir: /opt/platform/context-lake
+  lake-rest:
+    build:
+      context: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE
+      dockerfile: Dockerfile.platform
+    command:
+      - python
+      - -m
+      - uvicorn
+      - rest_server:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8091"
+    container_name: fabpulse-lake-rest
+    environment:
+      FABPULSE_API_KEY: local-demo-only
+      HOST: 0.0.0.0
+      MODEL_MODE: replay
+      PORT: "8091"
+      PYTHONPATH: /opt/platform:/opt/platform/context-lake
+      SERVICE_NAME: lake-rest
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8091/health',timeout=2)
+      timeout: 4s
+      interval: 10s
+      retries: 5
+      start_period: 15s
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8091
+        published: "8091"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\context-lake\generated
+        target: /opt/platform/context-lake/generated
+        read_only: true
+        bind:
+          create_host_path: true
+    working_dir: /opt/platform/context-lake
+  legacy:
+    build:
+      context: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\fabpulse-legacy-workshop-v8-Semiconductor\fabpulse-legacy
+      dockerfile: Dockerfile
+    container_name: fabpulse-legacy
+    environment:
+      HOST: 0.0.0.0
+      LEGACY_DB: /var/lib/legacy/legacy.sqlite3
+      PORT: "8080"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health',timeout=2)
+      timeout: 4s
+      interval: 10s
+      retries: 5
+      start_period: 20s
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "8080"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: legacy_data
+        target: /var/lib/legacy
+        volume: {}
+  source-gateway:
+    build:
+      context: C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\fabpulse-legacy-workshop-v8-Semiconductor\fabpulse-legacy
+      dockerfile: Dockerfile
+    command:
+      - python
+      - -m
+      - services.source_gateway.server
+    container_name: fabpulse-source-gateway
+    environment:
+      HOST: 0.0.0.0
+      LEGACY_DB: /opt/legacy/data/legacy.sqlite3
+      SOURCE_PORT: "8090"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8090/health',timeout=2)
+      timeout: 4s
+      interval: 10s
+      retries: 5
+      start_period: 20s
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8090
+        published: "8090"
+        protocol: tcp
+networks:
+  default:
+    name: fabpulse_default
+volumes:
+  legacy_data:
+    name: fabpulse_legacy_data
+
+
+exit 0
+
+ALL STEPS PASSED

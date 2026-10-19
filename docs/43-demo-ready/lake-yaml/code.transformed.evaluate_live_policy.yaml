@@ -1,0 +1,18 @@
+id: code.transformed.evaluate_live_policy
+kind: code_intelligence
+statement: 'Application A calls evaluate_live_policy from apps/app_a/rules/adapter.py.
+  That function is the transformed implementation of the recipe release limit. Honesty:
+  REAL.'
+source:
+  path: apps/app_a/rules/adapter.py
+  sha256: 45c1d59eae388049352a8957be58b99617a60e6f14ecaf99098cbaa4fc41c096
+  lines: '14-28'
+recorded_at: '2026-10-19'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links: []

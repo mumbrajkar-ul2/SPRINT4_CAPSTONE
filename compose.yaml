@@ -154,6 +154,7 @@ services:
       FABPULSE_API_KEY: ${FABPULSE_API_KEY:-local-demo-only}
       MODEL_MODE: ${MODEL_MODE:-replay}
       LAKE_REST_URL: http://lake-rest:8091
+      SOURCE_GATEWAY_URL: http://source-gateway:8090
       PYTHONPATH: /opt/platform:/opt/platform/context-lake
     ports:
       - "${APP_B_PORT:-8110}:8110"

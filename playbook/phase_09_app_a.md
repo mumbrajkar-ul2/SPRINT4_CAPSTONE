@@ -39,7 +39,7 @@ STOP after Half A. Return the seven-item final response for Half A. Wait for HAL
 ## Required work (Half B, after acceptance)
 1. Write the version-controlled prompts and the model config.
 2. Build the retrieval pipeline and run the RAG evaluation; record groundedness, citation, and abstention numbers.
-3. Build `apps/app_a/`: triage, conflict explanation with citations, the role-based UI, and exception handling.
+3. Build the React screens under `apps/app_a/ui/`. The source uses React. The FastAPI process serves the built files. A page of `index.html` plus `assets/app.js` fails this item. The app still does triage, conflict explanation with citations, and exception handling.
 4. Run scenarios 7 to 11 end to end; confirm every AI answer cites a lake item or abstains.
 
 ## Evidence rules
@@ -56,6 +56,7 @@ Do not let the model act without grounding. Do not give the model write tools in
 | No write tools | The model gets no write tool in this phase; that is Phase 10 |
 | Scenarios | 7 to 11 run end to end in App A |
 | Model modes | Azure OpenAI primary; `MODEL_MODE=replay` offline |
+| Screen library | React. FastAPI on port 8100 serves the built files from the same process. Plain HTML, CSS, and browser JavaScript do not meet this row. Streamlit does not meet this row. |
 
 ## Decision gate (before you start)
 FD-14 groundedness and abstention thresholds — Team-Force; the SME advises. Decide here. No Business Owner decision required.
@@ -76,9 +77,17 @@ Return the seven items.
 |---|---|
 | `docs/19-intelligence/prompt-registry.md` (Half A design, Half B values) | Header. Versioned prompts. The model configuration. |
 | `docs/19-intelligence/rag-evaluation-results.md` (Half B) | Header. Groundedness, citation, and abstention numbers against the predeclared thresholds. |
-| `apps/app_a/` (Half B) | Triage, conflict explanation with citations, role-based UI, exception handling. Rules from App A's own code. |
+| `apps/app_a/` (Half B) | The intelligence core and a React app under `apps/app_a/ui/`. The React source is in the repo. FastAPI serves the built files on port 8100. The role picker sets `X-Api-Key`, `X-Actor-Id`, and `X-Actor-Role`. Queue, case, query, recovery, and approval call `/api`. Rules from App A's own code. |
 | `docs/20-application/deterministic-ai-boundary.md` (Half A) | Header. Where deterministic logic ends and the model begins. |
 
 ## Done test
 
 Run scenarios 7 to 11; each produces the expected grounded result with a lake-item citation. Force an ungrounded query; the app abstains, not guesses. `prompt-registry.md` and `rag-evaluation-results.md` exist.
+
+Screen library check for Application A:
+
+1. `apps/app_a/ui/package.json` lists the `react` dependency.
+2. At least one source file under `apps/app_a/ui/` is JSX or TSX.
+3. The served page is the output of that React build.
+
+Fail the stage when `apps/app_a/ui/` contains only `index.html`, `assets/app.js`, and `assets/styles.css`. Fail the stage when a search of `apps/app_a/ui/` finds no `react` dependency. The Phase 9 PASS row stays the record of the first run. The files that satisfy this check are built in Phase 17. The presenter layout is built in Phase 17.

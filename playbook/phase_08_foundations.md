@@ -57,6 +57,7 @@ Do not build app features here. Do not hard-code secrets; use environment variab
 | One-command run | `docker compose up` brings up the whole stack |
 | Gap to close | BP8: no API auth; add identity scaffolding |
 | Secrets | Environment variables with a documented local default; never hard-coded |
+| Front-end image | This phase leaves `Dockerfile.platform` as a Python image. Phase 17 may add Node to that file and build the React screens. A later Node install is in scope for Phase 17. The passed Python-only image stays the Phase 8 record. |
 
 ## Decision gate (before you start)
 FD-13 platform stack — Team-Force engineering; the SME advises. No Business Owner decision required.

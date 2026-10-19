@@ -3,15 +3,15 @@
 | Field | Value |
 |---|---|
 | Stage | Progress board. Runs beside `Execution_Plan.md` and `Decision_Tracker.md`. |
-| Date / version | 2026-10-18, v1.18 |
+| Date / version | 2026-10-19, v1.22 |
 | Author | Mangesh (FDE), drafted with Cursor |
-| Status | Phase 16 passed. The playbook run is complete. |
+| Status | Phases 0 to 16 passed on 2026-10-18. Phase 17 presenter layout passed on 2026-10-19. Phase 18 passed on 2026-10-19. |
 | Run state | complete |
-| Current phase | None. Phase 16 passed. |
+| Current phase | None. Phase 17 presenter layout passed. |
 
 ## What this file is
 
-This file is the progress board. It has one row per sub-stage. There are 48 rows: the 46 spine units, plus the `11R` Context Lake review loop and the `20p` Application B port. This matches the crosswalk in `Execution_Plan.md` section 7 row for row. The coordinator updates it at every gate: when a phase starts, when the reviewer accepts Half A, when a stage is accepted, and when a phase pauses or is blocked. Read it to see, at a glance, what is done, what is in progress, and what is waiting.
+This file is the progress board. It has one row per sub-stage. There are 48 spine rows: the 46 spine units, plus the `11R` Context Lake review loop and the `20p` Application B port. This matches the crosswalk in `Execution_Plan.md` section 7 row for row. Phase 17 and Phase 18 sit after those 48 rows. They are not spine units. The coordinator updates this file at every gate: when a phase starts, when the reviewer accepts Half A, when a stage is accepted, and when a phase pauses or is blocked. Read it to see, at a glance, what is done, what is in progress, and what is waiting.
 
 The columns say:
 
@@ -74,6 +74,8 @@ The narrative history stays in `docs/_playbook-log.md`. This board is the live s
 | 15 | 41 Retirement | `docs/41-retirement/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
 | 15 | 42 Executive defence | `docs/42-executive/` and `docs/demo/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
 | 16 | FINAL Authoritative as-built PRD | `docs/final-prd/` | n/a | n/a | STAGE_ACCEPTED | PASS | 2026-10-18 |
+| 17 | Live demo and React screens | `docs/43-demo-ready/` | written | done | console check passed | PASS | 2026-10-19 |
+| 18 | Remaining deviations | `docs/44-remaining-deviations/` | HALF_A_ACCEPTED | done | STAGE_ACCEPTED | PASS | 2026-10-19 |
 
 ## Current phase and what it is waiting on
 
@@ -98,4 +100,8 @@ None. The Phase 8 Compose health paste closed the pause.
 | v1.8 | 2026-10-18 | Phase 4 gate PASS. Reviewer verdict STAGE_ACCEPTED. Phase 5 Half A set to in progress. |
 | v1.9 | 2026-10-18 | Phase 5 Half A accepted. Half B set to in progress. |
 | v1.10 | 2026-10-18 | Phase 5 gate PASS. Half B reviewer verdict STAGE_ACCEPTED. Phase 6 set to in progress. |
-| v1.18 | 2026-10-18 | Phase 16 gate PASS. Reviewer verdict STAGE_ACCEPTED. The playbook run is complete. BO-13 stays PROPOSED and unsigned. |
+| v1.18 | 2026-10-18 | Phase 16 gate PASS. Reviewer verdict STAGE_ACCEPTED. The spine run completed on 2026-10-18. BO-13 stays PROPOSED and unsigned. |
+| v1.19 | 2026-10-19 | Added one Phase 17 row and one Phase 18 row. Each half is not started. Each gate is not started. The 48 spine rows stay PASS. Run state is in progress. Current phase is 17. |
+| v1.20 | 2026-10-19 | Phase 17 gate PASS. Phase 18 gate PASS. The 48 spine rows stay PASS. A live Compose click-through stays NEEDS_HUMAN until the stack is already up. |
+| v1.21 | 2026-10-19 | Phase 17 gate set to not PASS for the presenter layout. Half A is written. Half B is not started. Phase 0 to 16 and Phase 18 stay PASS. |
+| v1.22 | 2026-10-19 | Phase 17 presenter layout passed. The gate is PASS. Platform tests scored 167 passed and 6 skipped. A person still clicks the seven paths once. That click-through stays NEEDS_HUMAN. |

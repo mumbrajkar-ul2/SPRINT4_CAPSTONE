@@ -46,7 +46,7 @@ Every `phase_NN_*.md` has the same shape, matching the Sprint 3 playbook.
 ## Half A and Half B
 
 - Document phases (0, 1, 2, 3, 4, 6, 14, 15, 16) write documents and change no app behaviour. They have no Half A/B split. The reviewer checks the output in `STAGE` mode before the next phase.
-- Build phases (5, 7, 8, 9, 10, 11, 12, 13) split into Half A (analysis and design) and Half B (code and tests). Half A ends with "STOP after Half A. Wait for HALF_A_ACCEPTED." The reviewer checks Half A in `HALF_A` mode. Half B starts only after the reviewer accepts. After Half B the reviewer checks again in `STAGE` mode.
+- Build phases (5, 7, 8, 9, 10, 11, 12, 13, 17, 18) split into Half A (analysis and design) and Half B (code and tests). Half A ends with "STOP after Half A. Wait for HALF_A_ACCEPTED." The reviewer checks Half A in `HALF_A` mode. Half B starts only after the reviewer accepts. After Half B the reviewer checks again in `STAGE` mode. Phase 17 and Phase 18 sit outside the 46 spine units.
 
 ## How to run
 
@@ -55,11 +55,11 @@ All new deliverables are written at the capstone root: `docs/`, `apps/`, `contex
 1. Open a new Cursor agent chat on Grok 4.7.
 2. Attach `Execution_Plan.md`, `Decision_Tracker.md`, `Project_Intent.md`, and this folder.
 3. Paste the contents of `00_coordinator.md`.
-4. The coordinator starts at Phase 0 and works forward. For each unit it settles the decisions, spawns a Grok 4.6 executor with `executor.md` to build the artifacts, then spawns a Composer 2.5 reviewer with `reviewer.md` to check the Expected output and run the Done test. It pauses when it needs Team-Force or the Business Owner, or when the reviewer returns a block. You answer, then tell it to continue.
+4. The coordinator reads `playbook/STATUS.md` first. When every Phase 0 to 16 gate is `PASS` and the Phase 17 gate is not `PASS`, it opens `playbook/phase_17_demo_ready.md` only. When the Phase 17 gate is `PASS` and the Phase 18 gate is not `PASS`, it opens `playbook/phase_18_remaining_deviations.md` only. When any Phase 0 to 16 gate is not `PASS`, it stops and names that row. A fresh unfinished spine still starts at Phase 0. For each unit it settles the decisions, spawns a Grok 4.6 executor with `executor.md` to build the artifacts, then spawns a Composer 2.5 reviewer with `reviewer.md` to check the Expected output and run the Done test. It pauses when it needs Team-Force or the Business Owner, or when the reviewer returns a block. You answer, then tell it to continue.
 
 ## The loop the coordinator runs
 
-For each phase, in order, from Phase 0 to Phase 16:
+For each phase, in order. A fresh spine runs from Phase 0 to Phase 16. A spine whose Phase 0 to 16 gates are already `PASS` runs Phase 17, then Phase 18:
 
 1. Read the phase prompt file.
 2. Open `Decision_Tracker.md` section 6 and find the phase row. List every decision the phase needs that is still `PENDING`.

@@ -52,6 +52,7 @@ Do not read the legacy repo when building App B. Do not copy a rule from App A's
 | Parity rule | Same scenarios and dispositions, or each difference traced to a lake item |
 | Lineage | The view shows the correlation id from the Phase 10 audit chain |
 | Independence | App B runs with App A stopped |
+| Screen library | The same React library as Application A. FastAPI on port 8110 serves the built files. The lineage view is a React view. Rules still come only from the lake. |
 
 ## Decision gate (before you start)
 FD-17 parity-harness design — Team-Force; the SME advises. No Business Owner decision required.
@@ -71,9 +72,11 @@ Return the seven items.
 | File | Must contain |
 |---|---|
 | `docs/model-comparison/parity-harness.md` (Half A design, Half B results) | Header. The harness design. Each A-versus-B difference traced to a lake item. |
-| `apps/app_b/` (Half B) | App B built only from the lake. No legacy-repo path in the build inputs. |
+| `apps/app_b/` (Half B) | App B built only from the lake. `apps/app_b/ui/` is a React app. The lineage view is a React view and shows the correlation id. FastAPI on port 8110 serves the built files. No legacy-repo path in the build inputs. Sharing the React pattern does not share rule code. |
 | `docs/model-comparison/app-b-lineage.md` (Half B) | Header. The lineage view showing the correlation id from the audit chain. |
 
 ## Done test
 
 Run App B with App A stopped; it works. Run the parity harness; each difference traces to a lake item. Grep App B's build inputs for any legacy-repo path; there is none.
+
+Screen library check for Application B, same three steps as Application A, against `apps/app_b/ui/`. Fail the stage when that folder is only `index.html`, `assets/app.js`, and `assets/styles.css`. The Phase 11 PASS row stays the record of the first run. The files that satisfy this check are built in Phase 17. The presenter layout is built in Phase 17.

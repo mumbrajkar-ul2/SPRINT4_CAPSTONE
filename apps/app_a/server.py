@@ -5,6 +5,7 @@ import time
 from pathlib import Path
 
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -14,7 +15,11 @@ from apps.app_a.routes.audit import router as audit_router
 from apps.app_a.routes.cases import router as cases_router
 from apps.app_a.routes.query import router as query_router
 from apps.app_a.routes.queue import router as queue_router
+from apps.app_a.routes.recovery import apply_probe
 from apps.app_a.routes.recovery import router as recovery_router
+from apps.app_a.store import queue_items
+from apps.shared.demo_routes import build_demo_router
+from apps.shared.demo_session import DemoSession
 from apps.shared.identity import (
     HEADER_ACTOR_ID,
     HEADER_CORRELATION,
@@ -27,8 +32,20 @@ from apps.shared.jsonlog import emit
 
 SERVICE = "app-a"
 UI_DIR = Path(__file__).resolve().parent / "ui"
+DEMO_SESSION = DemoSession()
 
 app = FastAPI(title=SERVICE, docs_url=None, redoc_url=None)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:8100",
+        "http://localhost:8100",
+        "http://127.0.0.1:8110",
+        "http://localhost:8110",
+    ],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def _is_open_path(method: str, path: str) -> bool:
@@ -108,9 +125,16 @@ def identity_check(request: Request) -> dict[str, object]:
     }
 
 
+def _ui_index() -> Path:
+    built = UI_DIR / "dist" / "index.html"
+    if built.is_file():
+        return built
+    return UI_DIR / "index.html"
+
+
 @app.get("/")
 def index() -> FileResponse:
-    return FileResponse(UI_DIR / "index.html")
+    return FileResponse(_ui_index())
 
 
 app.include_router(queue_router)
@@ -120,8 +144,20 @@ app.include_router(recovery_router)
 app.include_router(approvals_router)
 app.include_router(audit_router)
 app.include_router(agent_router)
+app.include_router(
+    build_demo_router(
+        app_name="Application A",
+        service=SERVICE,
+        lineage=False,
+        session=DEMO_SESSION,
+        base_queue=lambda: len(queue_items()),
+        probe=apply_probe,
+    )
+)
 
 if UI_DIR.is_dir():
-    assets = UI_DIR / "assets"
+    built_assets = UI_DIR / "dist" / "assets"
+    legacy_assets = UI_DIR / "assets"
+    assets = built_assets if built_assets.is_dir() else legacy_assets
     if assets.is_dir():
         app.mount("/assets", StaticFiles(directory=assets), name="assets")

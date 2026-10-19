@@ -1,0 +1,20 @@
+id: data.demo.replay_pair
+kind: data_relationship
+statement: 'Ref C00001646 has two partner feed rows. FEED-000000000 ingested 2022-04-25T19:09.
+  REPLAY-000000000 ingested 2022-04-25T20:09. Both share source time 2022-04-25T19:39.
+  Honesty: REAL. This statement names the locator. It does not copy the raw row.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/legacy.sqlite3
+  sha256: 2d9a3fae58af56daf524d16eb99dedf4ef82ade39d1ca68ad36e249fa0b99879
+  locator: partner_feeds.processing_status
+recorded_at: '2026-10-19'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: data.feed.replay

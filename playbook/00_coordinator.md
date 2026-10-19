@@ -25,10 +25,10 @@ Never resume one agent's chat as another. The executor and the reviewer are alwa
 
 ## Inputs you must read first
 
-- `Execution_Plan.md` — the 16 phases, the business problems, the target architecture, the crosswalks, the KPI table, the demo design, and the cross-cutting rules.
+- `Execution_Plan.md` — the 16 spine phases, Phase 17, Phase 18, the business problems, the target architecture, the crosswalks, the KPI table, the demo design, and the cross-cutting rules.
 - `Decision_Tracker.md` — the decisions, their owners, their stages, and the mandatory SME recommendations.
 - `Project_Intent.md` — the locked brief.
-- `playbook/phase_00_*.md` to `playbook/phase_16_*.md` — the prompt for each phase.
+- `playbook/phase_00_*.md` to `playbook/phase_18_*.md` — the prompt for each phase. Phase 17 and Phase 18 sit outside the 46 spine units.
 - `playbook/executor.md` — the executor prompt you hand to the fresh executor agent that builds each unit.
 - `playbook/reviewer.md` — the reviewer prompt you hand to the fresh reviewer agent.
 - `playbook/STATUS.md` — the progress board, one row per sub-stage. You keep it current.
@@ -48,6 +48,8 @@ Repeat for each phase, in order, starting at Phase 0.
    - Business-Owner-owned `PROPOSED` row: the owner reviewed it once in `Decision_Tracker.md` section 5.2 before the run. Proceed on the PROPOSED answer. Do not pause. Do not write a policy value behind it into code; the affected cases route to HOLD_FOR_REVIEW until the owner signs it DECIDED.
    - Business-Owner-owned `PENDING` row (the owner rejected the PROPOSED answer, or the SME could not propose one): print a pause card and wait. Always include the SME recommendation from section 5.1 for that row.
 4. Spawn a fresh executor to build the unit. Pass `playbook/executor.md`, the mode, the phase or sub-stage prompt, the input paths, the settled decisions as locked facts, and the output folders. Wait for its seven-item response. You do not build the artifacts yourself.
+
+   Before Half B on a phase that builds or describes a screen, the read list includes `Execution_Plan.md` section 4 and `docs/10-architecture/adrs/adr-two-applications.md`. Copy each tool named in section 4 into the locked-facts list, including the screen library. The locked facts say: screens are React, and FastAPI on the same port serves the built files. If a file the executor is about to write would use a different screen library, stop the unit. Record an engineering decision and name the ADR that would have to change. Do not ship the other library and leave the ADR unchanged.
    - On a build phase, spawn the executor in `HALF_A` mode first. It writes the design and stops. Do not spawn the Half B executor yet.
    - On a document phase, spawn the executor in `DOCUMENT` mode. It writes every artifact in its own `docs/NN-*/` folder, each with the standard header.
    - When the executor returns engineering decisions (each marked `authority: team-force`) or open questions, record the decisions in `Decision_Tracker.md` and resolve each open question: settle it if it is yours, or pause if it needs a person.
@@ -119,4 +121,9 @@ When you print a pause card, add a row to "Blocked or paused" in `playbook/STATU
 
 ## Start
 
-Begin at Phase 0. Open `playbook/phase_00_frame_baseline.md` and run the loop. The run is complete after Phase 16 (`playbook/phase_16_final_asbuilt_prd.md`) passes its gate.
+Read `playbook/STATUS.md` first.
+
+- When any Phase 0 to 16 gate is not `PASS`, stop and name that row. Phase 17 and Phase 18 do not repair an unfinished spine row. A fresh run with an unfinished spine still begins at Phase 0. Open `playbook/phase_00_frame_baseline.md` and run the loop. That run is complete after Phase 16 (`playbook/phase_16_final_asbuilt_prd.md`) passes its gate.
+- When every Phase 0 to 16 gate is `PASS` and the Phase 17 gate is not `PASS`, open `playbook/phase_17_demo_ready.md` only. Do not open `playbook/phase_00_frame_baseline.md`. Do not spawn the Phase 8, 9, 11, or 16 executors.
+- When the Phase 17 gate is `PASS` and the Phase 18 gate is not `PASS`, open `playbook/phase_18_remaining_deviations.md` only.
+- When the Phase 17 gate and the Phase 18 gate are both `PASS`, stop. `Deviations_From_Original_Execution_Plan.md` is the remaining check.

@@ -1,105 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Application A — Fabpulse exception work</title>
-  <link rel="stylesheet" href="/assets/styles.css">
-</head>
-<body>
-  <header>
-    <h1>Application A</h1>
-    <p>Port 8100. Ranking uses stored status, severity, and amount. Every AI sentence cites a lake item id or abstains.</p>
-  </header>
-
-  <section id="identity">
-    <h2>Role picker</h2>
-    <p>Enter the laptop API key from your environment file. Pick a demo actor. Later /api calls send X-Api-Key, X-Actor-Id, and X-Actor-Role.</p>
-    <label>API key <input id="apiKey" type="password" autocomplete="off"></label>
-    <label>Actor
-      <select id="actor">
-        <option value="demo-rt01-1|RT-01">demo-rt01-1 / RT-01 dispose</option>
-        <option value="demo-rt02-1|RT-02">demo-rt02-1 / RT-02 approve_agent</option>
-        <option value="demo-rt03-1|RT-03">demo-rt03-1 / RT-03 recipe hold or release</option>
-        <option value="demo-rt04-1|RT-04">demo-rt04-1 / RT-04 policy pick</option>
-        <option value="demo-rt05-1|RT-05" selected>demo-rt05-1 / RT-05 replay confirm</option>
-        <option value="demo-rt06-1|RT-06">demo-rt06-1 / RT-06 assign owner</option>
-      </select>
-    </label>
-    <p id="identityStatus" class="status"></p>
-  </section>
-
-  <nav>
-    <button data-panel="queue">Queue</button>
-    <button data-panel="case">Case</button>
-    <button data-panel="query">Query</button>
-    <button data-panel="recovery">Recovery</button>
-    <button data-panel="approval">Approval</button>
-  </nav>
-
-  <section id="queue" class="panel">
-    <h2>Queue</h2>
-    <p>Order comes from priority(). Untrusted notes are not used to rank. Replay rows are duplicate candidates. Drop waits for RT-05.</p>
-    <button id="loadQueue">Load queue</button>
-    <pre id="queueOut"></pre>
-  </section>
-
-  <section id="case" class="panel hidden">
-    <h2>Case detail</h2>
-    <p>Packaged fixtures: REPLAY-000000000, PS000000016 (R02 and R01), E-00000000 (two clocks), FAB-00000002 (US overlap), INC-2025-014 (empty owner).</p>
-    <label>Case id <input id="caseId" value="REPLAY-000000000"></label>
-    <button id="loadCase">Load case</button>
-    <pre id="caseOut"></pre>
-  </section>
-
-  <section id="query" class="panel hidden">
-    <h2>Query</h2>
-    <p>Ask in words. An ungrounded question abstains. Forced examples: parent lot column, INC-2025-014 owner, recipe_release limit for MOON on 2099-01-01.</p>
-    <textarea id="question" rows="3">What does processing_status REPLAY mean for a partner feed?</textarea>
-    <label>Job
-      <select id="job">
-        <option value="query">Natural-language query</option>
-        <option value="explain">Conflict explanation</option>
-        <option value="draft">Read-only draft plan</option>
-      </select>
-    </label>
-    <button id="runQuery">Ask</button>
-    <button id="askUngrounded">Force ungrounded (MOON 2099)</button>
-    <div id="abstainBanner" class="banner hidden">The application abstained. It did not guess.</div>
-    <pre id="queryOut"></pre>
-  </section>
-
-  <section id="recovery" class="panel hidden">
-    <h2>Recovery</h2>
-    <p>Shows retry and error class. Numeric recovery time stays Unknown. INC-2025-014 owner stays empty until RT-06 records a supplied name.</p>
-    <button data-mode="timeout">Probe timeout</button>
-    <button data-mode="schema">Probe schema</button>
-    <button data-mode="rate_limit">Probe rate limit</button>
-    <button id="loadRecovery">Read recovery status</button>
-    <pre id="recoveryOut"></pre>
-  </section>
-
-  <section id="approval" class="panel hidden">
-    <h2>Approval</h2>
-    <p>A person records the matching action. proposed_by must differ from the actor. The model has no write tool.</p>
-    <label>Case id <input id="apCase" value="REPLAY-000000000"></label>
-    <label>Action
-      <select id="apAction">
-        <option value="replay_confirm">replay_confirm (RT-05)</option>
-        <option value="recipe_hold_or_release">recipe_hold_or_release (RT-03)</option>
-        <option value="policy_pick">policy_pick (RT-04)</option>
-        <option value="keep_wait">keep_wait (RT-04)</option>
-        <option value="assign_owner">assign_owner (RT-06)</option>
-        <option value="dispose">dispose (RT-01)</option>
-      </select>
-    </label>
-    <label>Decision <input id="apDecision" value="drop_duplicate"></label>
-    <label>proposed_by <input id="apProposed" value="demo-rt02-1"></label>
-    <label>owner_id (RT-06 only) <input id="apOwner" placeholder="person-supplied id"></label>
-    <label>policy_id (RT-04 pick) <input id="apPolicy" placeholder="POL-0002"></label>
-    <button id="postApproval">Record approval</button>
-    <pre id="approvalOut"></pre>
-  </section>
-
-  <script src="/assets/app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application A</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <p class="sr-only">Role picker</p>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

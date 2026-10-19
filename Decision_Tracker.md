@@ -3,11 +3,11 @@
 | Field | Value |
 |---|---|
 | Stage | Method layer. Runs beside `Execution_Plan.md`. |
-| Date / version | 2026-10-18, v1.29 |
+| Date / version | 2026-10-19, v1.30 |
 | Author | Mangesh (FDE, Team-Force), drafted with Cursor |
 | Status | ACTIVE |
 | Purpose | One list of every decision the project must make. It says who decides, at which phase, and what happens if the decision is still open. |
-| Linked files | `Execution_Plan.md` (the 17 phases, 0 to 16), `Project_Intent.md` (the brief). |
+| Linked files | `Execution_Plan.md` (phases 0 to 16, plus Phase 17 and Phase 18 outside the spine), `Project_Intent.md` (the brief). |
 
 ## 1. What this file is
 
@@ -80,6 +80,7 @@ These are engineering and method choices. Team-Force owns them. Each one becomes
 | FD-23 | The audit-chain design: the correlation-id row schema and the read-by-correlation-id path. | 10 | DECIDED | DECIDED 2026-10-18, authority: team-force. One audit row per agent step and one audit row per human approval. The key is the correlation id. A read by that id returns the full trace. Half A names the column list. It does not drop a step or an approval from the trace. |
 | FD-24 | Who accepts Team-Force output before the run advances. | all | DECIDED | A separate reviewer agent accepts for Team-Force. It runs on Composer 2.5 (`composer-2.5-fast`), reads the files on disk, and is a fresh agent, never a resume of the builder. It accepts Half A before Half B on the build phases (5, 7, 8, 9, 10, 11, 12, 13), and it accepts the finished stage on every phase by checking the Expected output and running the Done test. It never signs a Group B row. An unresolvable block, a Business Owner row, or a Done test that needs a credential or a running service escalates to a human. See `playbook/reviewer.md`. |
 | FD-25 | Who builds the phase output. | all | DECIDED | A separate executor agent builds each unit of work. It runs on Grok 4.6 (`cursor-grok-4.6-high-fast`), reads the inputs on disk, and is a fresh agent per unit. The coordinator runs on Grok 4.7 (`grok-4.7-high-fast`). One unit is a document phase, one half of a build phase, or one half of a hardening sub-stage. The coordinator orchestrates and settles the SME and Business Owner decisions before spawning the executor; it writes no artifact itself. The executor may make an engineering design decision the build requires, marks it `authority: team-force`, and returns it for the coordinator to log. It does not set a Business Owner or SME policy value; an unresolved policy value routes to HOLD_FOR_REVIEW. The executor is not the reviewer, so the builder never checks its own work. See `playbook/executor.md`. |
+| FD-26 | The live demo writes a session overlay. The packaged sqlite files stay read-only. Screens are React, served by FastAPI on the same port. | 17 | DECIDED | DECIDED 2026-10-19, authority: team-force. The demo writes a session overlay. The packaged sqlite files stay read-only. `reconcile()` is not run on the packaged store. Screens are React, served by FastAPI on the same port. FD-21 stays the paper-flow decision. Phase 18 does not add a federated identity provider, a company vault, or a company image-signing service. No such service was named. |
 
 ## 5. Group B — Business Owner decisions
 
@@ -159,6 +160,8 @@ Before a phase starts, confirm these decisions. A `PENDING` entry in this list i
 | 14 Compare + ROI | FD-20, BO-11 | Team-Force, Business Owner |
 | 15 TOM + defence | FD-21, BO-12 | Team-Force, Business Owner |
 | 16 Final As-Built PRD | BO-13 | Business Owner |
+| 17 Live demo and React screens | FD-26 | Team-Force |
+| 18 Remaining deviations | FD-26 | Team-Force |
 
 ## 7. Group C — Live application and workflow decisions
 
@@ -210,4 +213,5 @@ A note on roles. The SME set these role names as the standard fab exception-hand
 | v1.27 | 2026-10-18 | Phase 12 passed. Sub-stage 24: quotes plus a write action BLOCK even with no corpus id. Sub-stage 25: ten file-read checks recorded. BO-10 stays PROPOSED. Sub-stage 26: Application B quotes-without-id went from HTTP 200 EXECUTE to HTTP 409 BLOCK. Freeze 42 of 42. FD-19 DECIDED for Phase 13. Numeric floors stay Unknown. |
 | v1.28 | 2026-10-18 | Phase 13 passed. Phase 14 passed. Parity 14 rows, 12 matched, 2 differed. ROI stays EDUCATIONAL. BO-11 stays PROPOSED. FD-21 DECIDED for Phase 15. Demo stays under 40 minutes on replay. Neutral placeholder deck. BO-12 stays PROPOSED. |
 | v1.29 | 2026-10-18 | Phase 15 passed. The paper walk is 39 minutes. ED-P15-01 through ED-P15-07 accepted, authority: team-force. Phase 16 passed. The matrix classifies 75 requirements. 54 are Delivered with evidence. ED-P16-01 accepted, authority: team-force. BO-13 stays PROPOSED and unsigned. The playbook run is complete. |
+| v1.30 | 2026-10-19 | Added FD-26, authority: team-force. The demo writes a session overlay. The packaged sqlite files stay read-only. Screens are React, served by FastAPI on the same port. Added stage-entry rows for Phase 17 and Phase 18. Phase 18 does not add a federated identity provider, a company vault, or a company image-signing service. |
 | v1.5 | 2026-10-17 | Added the PROPOSED status and section 5.2, a one-time Business Owner review sheet. The SME pre-filled every Business Owner row (BO-01, BO-02, BO-03, BO-04, BO-06b, BO-08, BO-10, BO-11, BO-12, BO-13) with its recommended answer, marked PROPOSED, so the owner reviews them once before the run. After that review an accepted PROPOSED row does not pause the run; a rejected row stays a pause point. A policy value behind a PROPOSED row is still never written into code. Updated the coordinator pause rules to match. |

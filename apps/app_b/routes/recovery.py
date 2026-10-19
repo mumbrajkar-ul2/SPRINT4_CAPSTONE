@@ -17,6 +17,10 @@ from apps.shared.identity import HEADER_ACTOR_ID, HEADER_ACTOR_ROLE, HEADER_CORR
 
 router = APIRouter()
 
+# One extra source-gateway probe after timeout or throttle. Not a quality floor.
+UPSTREAM_RETRY_COUNT = 1
+_RETRYABLE_MODES = frozenset({"timeout", "rate_limit"})
+
 _LAST: dict[str, Any] = {
     "status_visible": "No upstream probe has run in this process yet.",
     "error_class": "none",
@@ -72,11 +76,18 @@ def apply_probe(mode: str) -> dict[str, Any]:
     mapped = MODE_MAP.get(mode, MODE_MAP["timeout"])
     error_class_full, error_class, fail_status = mapped
     raw = probe_gateway(mode)
+    attempt_count = 1
+    first_error_class = error_class_full if mode != "normal" else "none"
+    if mode in _RETRYABLE_MODES:
+        extra = max(0, int(UPSTREAM_RETRY_COUNT))
+        for _ in range(extra):
+            raw = probe_gateway(mode)
+            attempt_count += 1
     if mode == "schema":
-        visible = "Upstream schema did not match. Retry is visible. No 8-hour target is claimed."
+        visible = f"Upstream schema did not match. Attempt count is {attempt_count}. This probe is not retried."
         status_for_user = fail_status
     elif mode == "timeout":
-        visible = "Upstream timed out. Retry is visible. Numeric RTO stays Unknown."
+        visible = f"Upstream timed out. Attempt count is {attempt_count}. The probe target is port 8090."
         status_for_user = fail_status
     elif mode == "rate_limit":
         visible = "Upstream returned a throttle. Retry is visible."
@@ -96,6 +107,8 @@ def apply_probe(mode: str) -> dict[str, Any]:
             "upstream_http_status": raw.get("http_status"),
             "upstream_body": raw.get("body"),
             "probe_http_status": status_for_user,
+            "attempt_count": attempt_count,
+            "first_error_class": first_error_class,
         }
     )
     return dict(_LAST)
@@ -157,5 +170,7 @@ def probe(request: Request, mode: str = "timeout") -> JSONResponse:
         "status_visible": state.get("status_visible"),
         "retry_shown": state.get("retry_shown"),
         "owner_id": None,
+        "attempt_count": state.get("attempt_count"),
+        "first_error_class": state.get("first_error_class") if status != 200 else None,
     }
     return JSONResponse(body, status_code=status)

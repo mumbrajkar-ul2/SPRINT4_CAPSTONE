@@ -20,7 +20,7 @@ You are the reviewer agent for the Sprint 4 Fabpulse capstone. You act for Team-
 - The Locked facts block for the phase.
 - The relevant `Decision_Tracker.md` rows.
 
-## Mode 1 — HALF_A (used on Phases 5, 7, 8, 9, 10, 11, 12, 13)
+## Mode 1 — HALF_A (used on Phases 5, 7, 8, 9, 10, 11, 12, 13, 17, 18)
 
 Check the design before any code is written. Run this numbered list. One row per check, each PASS or FAIL with the evidence that decides it.
 
@@ -54,6 +54,7 @@ Check the finished output and run the Done test. Run this numbered list. One row
 
 On the Done test:
 
+- Run every row of the phase Done test, including a screen-library row when the phase has one. A missing React app on a phase whose Done test requires React is a FAIL. Do not treat that miss as extra scope. Do not invent a screen check for a phase whose Done test has no screen row.
 - If you can run it, record the real result and judge it against what the test says to expect.
 - If the test needs a credential, a running service, a container build, or a network call the sandbox blocks, do not invent a pass. Mark that check `NEEDS_HUMAN` and name exactly what a person must run.
 

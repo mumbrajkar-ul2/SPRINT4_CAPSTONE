@@ -5,6 +5,7 @@ import time
 from pathlib import Path
 
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -12,10 +13,16 @@ from apps.app_b.routes.agent import router as agent_router
 from apps.app_b.routes.approvals import router as approvals_router
 from apps.app_b.routes.audit import router as audit_router
 from apps.app_b.routes.cases import router as cases_router
+from apps.app_b.routes.jobs import router as jobs_router
 from apps.app_b.routes.lineage import router as lineage_router
+from apps.app_b.routes.pause import router as pause_router
 from apps.app_b.routes.query import router as query_router
 from apps.app_b.routes.queue import router as queue_router
+from apps.app_b.routes.recovery import apply_probe
 from apps.app_b.routes.recovery import router as recovery_router
+from apps.app_b.store import queue_items
+from apps.shared.demo_routes import build_demo_router
+from apps.shared.demo_session import DemoSession
 from apps.app_b.routes.rules import router as rules_router
 from apps.app_b.rules.resolver import require_pin_cards, verify_pin
 from apps.shared.identity import (
@@ -30,11 +37,18 @@ from apps.shared.jsonlog import emit
 
 SERVICE = "app-b"
 UI_DIR = Path(__file__).resolve().parent / "ui"
+DEMO_SESSION = DemoSession()
 
 verify_pin()
 require_pin_cards()
 
 app = FastAPI(title=SERVICE, docs_url=None, redoc_url=None)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def _is_open_path(method: str, path: str) -> bool:
@@ -114,9 +128,16 @@ def identity_check(request: Request) -> dict[str, object]:
     }
 
 
+def _ui_index() -> Path:
+    built = UI_DIR / "dist" / "index.html"
+    if built.is_file():
+        return built
+    return UI_DIR / "index.html"
+
+
 @app.get("/")
 def index() -> FileResponse:
-    return FileResponse(UI_DIR / "index.html")
+    return FileResponse(_ui_index())
 
 
 app.include_router(queue_router)
@@ -128,8 +149,22 @@ app.include_router(audit_router)
 app.include_router(lineage_router)
 app.include_router(agent_router)
 app.include_router(rules_router)
+app.include_router(jobs_router)
+app.include_router(pause_router)
+app.include_router(
+    build_demo_router(
+        app_name="Application B",
+        service=SERVICE,
+        lineage=True,
+        session=DEMO_SESSION,
+        base_queue=lambda: len(queue_items()),
+        probe=apply_probe,
+    )
+)
 
 if UI_DIR.is_dir():
-    assets = UI_DIR / "assets"
+    built_assets = UI_DIR / "dist" / "assets"
+    legacy_assets = UI_DIR / "assets"
+    assets = built_assets if built_assets.is_dir() else legacy_assets
     if assets.is_dir():
         app.mount("/assets", StaticFiles(directory=assets), name="assets")
