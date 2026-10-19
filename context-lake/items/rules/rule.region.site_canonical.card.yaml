@@ -1,0 +1,80 @@
+id: rule.region.site_canonical
+kind: business_rule
+statement: Site is canonical. Country and sales region are derived.
+inputs:
+- name: site
+  term: term.site_code
+decision_table:
+- when:
+    site: IN-BLR
+  then:
+    country: IN
+    sales_region: APAC
+- when:
+    site: US-TX
+  then:
+    country: US
+    sales_region: AMER
+- when:
+    site: DE-BY
+  then:
+    country: DE
+    sales_region: EMEA
+- when:
+    site: GB-ENG
+  then:
+    country: GB
+    sales_region: EMEA
+- when:
+    site: BR-SP
+  then:
+    country: BR
+    sales_region: AMER
+- when:
+    site: JP-KN
+  then:
+    country: JP
+    sales_region: APAC
+authority: sme
+owner: SME
+policy_status: decided
+tests:
+- given:
+    site: IN-BLR
+  expect:
+    country: IN
+    sales_region: APAC
+- given:
+    site: US-TX
+  expect:
+    country: US
+    sales_region: AMER
+- given:
+    site: DE-BY
+  expect:
+    country: DE
+    sales_region: EMEA
+- given:
+    site: GB-ENG
+  expect:
+    country: GB
+    sales_region: EMEA
+- given:
+    site: BR-SP
+  expect:
+    country: BR
+    sales_region: AMER
+- given:
+    site: JP-KN
+  expect:
+    country: JP
+    sales_region: APAC
+observed_implementations: []
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+claim: inference
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: n/a

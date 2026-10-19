@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fabpulse.local/schemas/rule-card.schema.json",
+  "title": "Lake rule card",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "statement",
+    "inputs",
+    "decision_table",
+    "authority",
+    "owner",
+    "policy_status",
+    "tests",
+    "observed_implementations",
+    "source",
+    "claim",
+    "trust",
+    "lake_version",
+    "item_status",
+    "honesty"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][A-Za-z0-9._-]+$"
+    },
+    "kind": { "const": "business_rule" },
+    "statement": { "type": "string", "minLength": 1 },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "term"],
+        "properties": {
+          "name": { "type": "string" },
+          "term": { "type": "string" }
+        }
+      }
+    },
+    "decision_table": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["when", "then"],
+        "properties": {
+          "when": { "type": "object" },
+          "then": { "type": "object" }
+        }
+      }
+    },
+    "authority": {
+      "type": "string",
+      "enum": ["policy_archive", "sme", "unresolved"]
+    },
+    "owner": { "type": "string" },
+    "policy_status": {
+      "type": "string",
+      "enum": ["decided", "proposed", "n/a"]
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["given", "expect"],
+        "properties": {
+          "given": { "type": "object" },
+          "expect": { "type": "object" }
+        }
+      }
+    },
+    "observed_implementations": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "lines": { "type": "string" },
+        "locator": { "type": "string" }
+      }
+    },
+    "claim": {
+      "type": "string",
+      "enum": ["verified_fact", "inference", "assumption", "unknown"]
+    },
+    "trust": {
+      "type": "string",
+      "enum": ["trusted_code", "trusted_record", "untrusted_text"]
+    },
+    "lake_version": { "type": "string" },
+    "item_status": {
+      "type": "string",
+      "enum": ["accepted", "draft", "superseded"]
+    },
+    "honesty": {
+      "type": "string",
+      "enum": ["REAL", "PRECOMPUTED", "SIMULATED", "EDUCATIONAL", "n/a"]
+    }
+  }
+}

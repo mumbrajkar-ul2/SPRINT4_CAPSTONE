@@ -1,0 +1,20 @@
+id: data.injection.source_documents
+kind: data_relationship
+statement: 'source_documents.jsonl has 22 bodies with ignore-or-release language.
+  Generator condition is i%57==0. Honesty: REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/documents/source_documents.jsonl
+  sha256: 40d3858425ff0d6b988eda01317e88790b649b527aae3b6d31ec65375ebd44af
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: untrusted_text
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: rule.untrusted_text.block
+- type: evidenced_by
+  to: decision.bp7.untrusted_text

@@ -1,0 +1,16 @@
+id: data.incident.inc_2025_014
+kind: data_relationship
+statement: operations/incidents/INC-2025-014.md records a 2025-11-18 partner-feed
+  delay and a 04:00 UTC manual spreadsheet. Follow-up owner is unknown.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/operations/incidents/INC-2025-014.md
+  sha256: e99cc22f87a420d5a33932c13b0a78741d53a6d874c3a16f6b9208fcbfeae20d
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links: []

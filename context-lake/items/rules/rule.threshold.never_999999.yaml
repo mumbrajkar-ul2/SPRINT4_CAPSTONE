@@ -1,0 +1,19 @@
+id: rule.threshold.never_999999
+kind: business_rule
+statement: When no archive row matches, the route is HOLD_FOR_REVIEW. The JavaScript
+  default 999999 is not a live policy number.
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: Business Owner
+lake_version: 1.0.0
+item_status: accepted
+policy_status: proposed
+honesty: n/a
+links:
+- type: conflicts_with
+  to: rule.recipe_release.limit.impl.js_default
+authority: unresolved

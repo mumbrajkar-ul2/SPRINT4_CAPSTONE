@@ -1,0 +1,33 @@
+id: rule.recipe.mismatch_show_both
+kind: business_rule
+statement: Show both recipe fields. Do not pick a winner.
+inputs:
+- name: recipe_version
+  term: term.recipe_revision_dispatch
+- name: recipe_rev
+  term: term.recipe_revision_equipment
+decision_table:
+- when:
+    mismatch: true
+  then:
+    show_both: true
+    write_hold: false
+authority: sme
+owner: SME
+policy_status: decided
+tests:
+- given:
+    recipe_version: R02
+    recipe_rev: R01
+  expect:
+    show_both: true
+    write_engineering_hold: false
+observed_implementations: []
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: n/a

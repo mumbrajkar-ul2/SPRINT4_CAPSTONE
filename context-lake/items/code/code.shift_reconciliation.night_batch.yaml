@@ -1,0 +1,22 @@
+id: code.shift_reconciliation.night_batch
+kind: code_intelligence
+statement: legacy_batch/shift_reconciliation.py reads data/enterprise_legacy.sqlite3
+  directly. It does not call the HTTP API. It flags HOLD and REVIEW, and flags value
+  greater than threshold after a join on country code.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_batch/shift_reconciliation.py
+  sha256: e95638c443e58d6db09120c7b05fd6db1d6f5cebaca692887e0256cd2bc36bf5
+  lines: 8-14
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: n/a
+links:
+- type: implements
+  to: rule.recipe_release.limit
+- type: depends_on
+  to: dep.night_batch_reads_enterprise

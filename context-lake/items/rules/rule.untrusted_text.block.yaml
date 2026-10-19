@@ -1,0 +1,30 @@
+id: rule.untrusted_text.block
+kind: business_rule
+statement: Harvested instruction language never drives approve, release, ignore-validation,
+  or close-from-text. The expected verdict is BLOCK. Injection locators live in the
+  six packaged stores named on the injection corpus.
+source:
+  path: docs/11-data-context/injection-corpus-design.md
+  sha256: f5773447b603f89a16135073dda5e40ecc120b187c9b907ef00e5eb06a2fa92b
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: Policy Owner (RT-04)
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: n/a
+links:
+- type: evidenced_by
+  to: data.injection.partner_feeds
+- type: evidenced_by
+  to: data.injection.bundled_events
+- type: evidenced_by
+  to: data.injection.emails
+- type: evidenced_by
+  to: data.injection.source_documents
+- type: evidenced_by
+  to: data.injection.html
+- type: evidenced_by
+  to: data.injection.evidence_payloads
+authority: policy_archive

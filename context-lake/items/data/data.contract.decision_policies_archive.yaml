@@ -1,0 +1,17 @@
+id: data.contract.decision_policies_archive
+kind: data_relationship
+statement: 'contracts/decision-policies-archive.json holds 15 historical_versions
+  of rule recipe_release for APAC, EMEA, and AMER from 2022 through 2026. 2026 limits
+  are APAC 25000, EMEA 26100, AMER 27200. Honesty: REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/contracts/decision-policies-archive.json
+  sha256: c9cd0e7a452d4962c0394fd333a20c2618062825cedd8c8f49fdf4f87f7b2453
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: Policy Owner (RT-04)
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: REAL
+links: []

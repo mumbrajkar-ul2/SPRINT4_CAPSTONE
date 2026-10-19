@@ -1,0 +1,40 @@
+id: rule.recipe_release.no_match
+kind: business_rule
+statement: No archive row routes to HOLD_FOR_REVIEW.
+inputs:
+- name: sales_region
+  term: term.sales_region
+- name: on_date
+  term: term.policy
+decision_table:
+- when:
+    archive_match: false
+  then:
+    route: HOLD_FOR_REVIEW
+authority: policy_archive
+owner: Policy Owner (RT-04)
+policy_status: decided
+tests:
+- given:
+    amount: 100
+    country: IN
+    on_date: '2026-01-01'
+    derived_sales_region: null
+  expect:
+    route: HOLD_FOR_REVIEW
+- given:
+    amount: 100
+    sales_region: APAC
+    on_date: '2021-06-01'
+  expect:
+    route: HOLD_FOR_REVIEW
+observed_implementations:
+- id: rule.recipe_release.limit.impl.js_default
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/contracts/decision-policies-archive.json
+  sha256: c9cd0e7a452d4962c0394fd333a20c2618062825cedd8c8f49fdf4f87f7b2453
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: REAL

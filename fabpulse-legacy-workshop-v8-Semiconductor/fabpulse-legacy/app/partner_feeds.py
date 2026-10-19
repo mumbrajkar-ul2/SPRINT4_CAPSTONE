@@ -69,7 +69,20 @@ def reconcile(limit=1000):
             else:status='ACCEPTED';reason=None;out['accepted']+=1
             db.execute('UPDATE partner_feeds SET processing_status=?,error_reason=? WHERE feed_id=?',(status,reason,row['feed_id']))
     return out
+def reconcile_feeds(limit=1000):
+    """New reconcile path. Same four status rules as reconcile. Characterization tests keep calling reconcile."""
+    init();out={'accepted':0,'rejected':0,'duplicate':0,'skipped':0}
+    with connect() as db:
+        rows=db.execute("SELECT * FROM partner_feeds WHERE processing_status IN ('NEW','RETRY','REPLAY') ORDER BY ingest_ts,feed_id LIMIT ?", (limit,)).fetchall()
+        for row in rows:
+            payload=json.loads(row['raw_json']);key=payload.get('business_key')
+            if not key or row['schema_rev']=='unsupported':status='REJECTED';reason='schema/key validation';out['rejected']+=1
+            elif row['processing_status']=='REPLAY':status='DUPLICATE';reason='replayed source message';out['duplicate']+=1
+            elif payload.get('quantity',0)<0:status='REJECTED';reason='quantity out of range';out['rejected']+=1
+            else:status='ACCEPTED';reason=None;out['accepted']+=1
+            db.execute('UPDATE partner_feeds SET processing_status=?,error_reason=? WHERE feed_id=?',(status,reason,row['feed_id']))
+    return out
 def main():
     a=argparse.ArgumentParser();a.add_argument('--count',type=int,default=8500);a.add_argument('--seed',type=int,default=20261017);a.add_argument('--reconcile',action='store_true');x=a.parse_args()
-    print(json.dumps(reconcile() if x.reconcile else generate(x.count,x.seed)))
+    print(json.dumps(reconcile_feeds() if x.reconcile else generate(x.count,x.seed)))
 if __name__=='__main__':main()

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fabpulse.local/schemas/item.schema.json",
+  "title": "Lake item",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "statement",
+    "source",
+    "recorded_at",
+    "claim",
+    "trust",
+    "owner",
+    "lake_version",
+    "item_status",
+    "policy_status",
+    "honesty",
+    "links"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][A-Za-z0-9._-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "business_rule",
+        "domain_knowledge",
+        "architecture",
+        "code_intelligence",
+        "data_relationship",
+        "dependency",
+        "decision"
+      ]
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "lines": { "type": "string" },
+        "locator": { "type": "string" }
+      }
+    },
+    "recorded_at": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "claim": {
+      "type": "string",
+      "enum": ["verified_fact", "inference", "assumption", "unknown"]
+    },
+    "trust": {
+      "type": "string",
+      "enum": ["trusted_code", "trusted_record", "untrusted_text"]
+    },
+    "owner": { "type": "string", "minLength": 1 },
+    "lake_version": { "type": "string", "minLength": 1 },
+    "item_status": {
+      "type": "string",
+      "enum": ["accepted", "draft", "superseded"]
+    },
+    "policy_status": {
+      "type": "string",
+      "enum": ["decided", "proposed", "n/a"]
+    },
+    "honesty": {
+      "type": "string",
+      "enum": ["REAL", "PRECOMPUTED", "SIMULATED", "EDUCATIONAL", "n/a"]
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "to"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "implements",
+              "conflicts_with",
+              "supersedes",
+              "governs",
+              "evidenced_by",
+              "depends_on",
+              "maps_to",
+              "tested_by"
+            ]
+          },
+          "to": {
+            "type": "string",
+            "pattern": "^[a-z][A-Za-z0-9._-]+$"
+          }
+        }
+      }
+    },
+    "valid_time": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "from": { "type": ["string", "null"] },
+        "to": { "type": ["string", "null"] }
+      }
+    },
+    "authority": {
+      "type": ["string", "null"],
+      "enum": ["policy_archive", "sme", "unresolved", null]
+    },
+    "supersedes": { "type": ["string", "null"] },
+    "reviewer": { "type": ["string", "null"] },
+    "reviewed_at": { "type": ["string", "null"] }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "kind": { "const": "business_rule" } },
+        "required": ["kind"]
+      },
+      "then": { "required": ["authority"] }
+    }
+  ]
+}

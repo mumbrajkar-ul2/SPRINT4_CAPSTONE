@@ -1,0 +1,20 @@
+id: code.partner_feeds.reconcile
+kind: code_intelligence
+statement: app/partner_feeds.py function reconcile marks processing_status REPLAY
+  as DUPLICATE. This harvest records that behaviour. It does not run reconcile() against
+  the packaged database.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/app/partner_feeds.py
+  sha256: d6e3be83127db692a88869d8eccc14389faf2055240a8e1e670d19d9f6e09d74
+  lines: 60-67
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: n/a
+links:
+- type: implements
+  to: rule.feed.replay_duplicate

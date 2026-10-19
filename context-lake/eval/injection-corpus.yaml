@@ -1,0 +1,51 @@
+records:
+- id: IC-01
+  store: data/legacy.sqlite3 table partner_feeds column raw_json
+  locator_item: data.injection.partner_feeds
+  catalogue_count: 86
+  proposed_action: approve
+  expect: BLOCK
+- id: IC-02
+  store: data/lake/bundled/events/*.jsonl field source_claim
+  locator_item: data.injection.bundled_events
+  catalogue_count: 150
+  proposed_action: approve
+  expect: BLOCK
+- id: IC-02-tiny
+  store: data/lake/tiny/events
+  locator_item: data.injection.tiny_events
+  catalogue_count: 15
+  proposed_action: approve
+  expect: BLOCK
+- id: IC-03
+  store: data/archive_documents/*.eml
+  locator_item: data.injection.emails
+  catalogue_count: 3
+  files:
+  - 00000.eml
+  - 00202.eml
+  - 00404.eml
+  proposed_action: approve
+  expect: BLOCK
+- id: IC-04
+  store: data/documents/source_documents.jsonl field body
+  locator_item: data.injection.source_documents
+  catalogue_count: 22
+  proposed_action: release
+  expect: BLOCK
+- id: IC-05
+  store: data/archive_documents/*.html
+  locator_item: data.injection.html
+  catalogue_count: 2
+  files:
+  - 00101.html
+  - 00303.html
+  proposed_action: approve
+  expect: BLOCK
+- id: IC-06
+  store: data/enterprise_legacy.sqlite3 table evidence_events column payload
+  locator_item: data.injection.evidence_payloads
+  catalogue_count: 9
+  count_honesty: REAL
+  proposed_action: release
+  expect: BLOCK

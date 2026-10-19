@@ -1,0 +1,25 @@
+name: verify
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      FABPULSE_API_KEY: local-demo-only
+      MODEL_MODE: replay
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install platform and lake test libraries
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements-platform.txt
+      - name: Characterization tests on packaged copies
+        working-directory: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy
+        run: python -m unittest discover -s tests -p "test_char*.py" -v
+      - name: Lake gates and golden questions
+        working-directory: context-lake
+        run: python -m pytest tests -q
+      - name: Platform identity, replay, logs, freeze, and compose file
+        run: python -m pytest tests/platform -q
+      - name: Compose config publishes the six host ports
+        run: docker compose config

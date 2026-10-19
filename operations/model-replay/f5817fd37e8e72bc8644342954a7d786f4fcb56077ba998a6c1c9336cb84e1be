@@ -1,0 +1,1 @@
+{"sentence": "US has 5 active policy_register rows. The overlap waits. A person at RT-04 records policy_pick or keep_wait. The model does not pick the policy.", "citations": ["rule.policy.overlap_or_invalid", "data.policy_register.overlap"], "verdict": "HOLD_FOR_REVIEW", "block": false, "untrusted_quotes": []}

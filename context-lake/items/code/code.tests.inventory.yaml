@@ -1,0 +1,22 @@
+id: code.tests.inventory
+kind: code_intelligence
+statement: Seven test modules sit under tests/. test_workflow.py checks 125 cases,
+  CLOSED to archive, and CRITICAL to urgent. test_domain.py checks tools and lots.
+  test_enterprise.py checks domain rows. test_partner_feeds.py checks table names.
+  test_historical_fixture.py checks tiny lake counts. test_enterprise_legacy_v6.py
+  checks a 120-row generate. test_source_gateway.py can write packaged gateway_inbox.
+  Harvest does not run those tests.
+source:
+  path: docs/05-current-state/brownfield-inventory.md
+  sha256: 2f1343e14f388a8c68a95e52e37fd990a142269e226382d0afd137789a9ad15e
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: n/a
+links:
+- type: tested_by
+  to: test.rule.recipe_release.emea_2023

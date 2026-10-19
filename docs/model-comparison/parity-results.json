@@ -1,0 +1,529 @@
+{
+  "lake_version": "1.0.0",
+  "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+  "honesty": "REAL",
+  "matched_row_count": 12,
+  "differing_row_count": 2,
+  "rows": [
+    {
+      "harness_row_id": "PH-S7-01",
+      "scenario_id": "S7",
+      "pack_id": "SP-07",
+      "case_id": "REPLAY-000000000",
+      "route": "GET /api/cases/REPLAY-000000000",
+      "actor_role": "RT-05",
+      "input_fields": {
+        "path": "/api/cases/REPLAY-000000000",
+        "json": null
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "duplicate_candidate",
+      "app_a_disposition": true,
+      "app_b_disposition": true,
+      "disposition_match": true,
+      "difference_lake_item_ids": [],
+      "app_a_verdict": "ANSWER",
+      "app_b_verdict": "ANSWER",
+      "app_a_citations": [
+        "rule.feed.replay_duplicate",
+        "data.feed.replay"
+      ],
+      "app_b_citations": [
+        "rule.feed.replay_duplicate",
+        "data.feed.replay"
+      ],
+      "waiting_role": "RT-05",
+      "open_operational": true,
+      "correlation_id": "corr-p11b-RT-05",
+      "kpi_family": "decision_quality",
+      "honesty": "REAL",
+      "notes": ""
+    },
+    {
+      "harness_row_id": "PH-S7-02",
+      "scenario_id": "S7",
+      "pack_id": "SP-07",
+      "case_id": "REPLAY-000000000",
+      "route": "GET /api/queue",
+      "actor_role": "RT-05",
+      "input_fields": {
+        "path": "/api/queue",
+        "json": null
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "replay_candidate_count",
+      "app_a_disposition": 67,
+      "app_b_disposition": 67,
+      "disposition_match": true,
+      "difference_lake_item_ids": [],
+      "app_a_verdict": null,
+      "app_b_verdict": null,
+      "app_a_citations": [],
+      "app_b_citations": [],
+      "waiting_role": null,
+      "open_operational": null,
+      "correlation_id": "corr-p11b-RT-05",
+      "kpi_family": "decision_quality",
+      "honesty": "REAL",
+      "notes": ""
+    },
+    {
+      "harness_row_id": "PH-S8-01",
+      "scenario_id": "S8",
+      "pack_id": "SP-08",
+      "case_id": "PS000000016",
+      "route": "GET /api/cases/PS000000016",
+      "actor_role": "RT-03",
+      "input_fields": {
+        "path": "/api/cases/PS000000016",
+        "json": null
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "recipe_pair",
+      "app_a_disposition": {
+        "recipe_version": "R02",
+        "recipe_rev": "R01"
+      },
+      "app_b_disposition": {
+        "recipe_version": "R02",
+        "recipe_rev": "R01"
+      },
+      "disposition_match": true,
+      "difference_lake_item_ids": [],
+      "app_a_verdict": "ANSWER",
+      "app_b_verdict": "ANSWER",
+      "app_a_citations": [
+        "rule.recipe.mismatch_show_both",
+        "data.join.recipe_mismatch"
+      ],
+      "app_b_citations": [
+        "rule.recipe.mismatch_show_both",
+        "data.join.recipe_mismatch"
+      ],
+      "waiting_role": "RT-03",
+      "open_operational": true,
+      "correlation_id": "corr-p11b-RT-03",
+      "kpi_family": "decision_quality",
+      "honesty": "REAL",
+      "notes": ""
+    },
+    {
+      "harness_row_id": "PH-S9-01",
+      "scenario_id": "S9",
+      "pack_id": "SP-09",
+      "case_id": "E-00000000",
+      "route": "GET /api/cases/E-00000000",
+      "actor_role": "RT-01",
+      "input_fields": {
+        "path": "/api/cases/E-00000000",
+        "json": null
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "clock_pair",
+      "app_a_disposition": {
+        "event_time": "2020-12-30T00:00:00+00:00",
+        "arrival_time": "2021-01-01T00:00:00+00:00"
+      },
+      "app_b_disposition": {
+        "event_time": "2020-12-30T00:00:00+00:00",
+        "arrival_time": "2021-01-01T00:00:00+00:00"
+      },
+      "disposition_match": true,
+      "difference_lake_item_ids": [],
+      "app_a_verdict": "ANSWER",
+      "app_b_verdict": "ANSWER",
+      "app_a_citations": [
+        "rule.clock.event_vs_arrival",
+        "data.clock.event_vs_arrival_evidence"
+      ],
+      "app_b_citations": [
+        "rule.clock.event_vs_arrival",
+        "data.clock.event_vs_arrival_evidence"
+      ],
+      "waiting_role": null,
+      "open_operational": true,
+      "correlation_id": "corr-p11b-RT-01",
+      "kpi_family": "decision_quality",
+      "honesty": "REAL",
+      "notes": ""
+    },
+    {
+      "harness_row_id": "PH-S10-01",
+      "scenario_id": "S10",
+      "pack_id": "SP-10",
+      "case_id": "FAB-00000002",
+      "route": "GET /api/cases/FAB-00000002",
+      "actor_role": "RT-04",
+      "input_fields": {
+        "path": "/api/cases/FAB-00000002",
+        "json": null
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "overlapping_policy_ids",
+      "app_a_disposition": [
+        "POL-0002",
+        "POL-0010",
+        "POL-0018",
+        "POL-0026",
+        "POL-0034"
+      ],
+      "app_b_disposition": [
+        "POL-0002",
+        "POL-0010",
+        "POL-0018",
+        "POL-0026",
+        "POL-0034"
+      ],
+      "disposition_match": true,
+      "difference_lake_item_ids": [],
+      "app_a_verdict": "HOLD_FOR_REVIEW",
+      "app_b_verdict": "HOLD_FOR_REVIEW",
+      "app_a_citations": [
+        "rule.policy.overlap_or_invalid",
+        "data.policy_register.overlap"
+      ],
+      "app_b_citations": [
+        "rule.policy.overlap_or_invalid",
+        "data.policy_register.overlap"
+      ],
+      "waiting_role": "RT-04",
+      "open_operational": true,
+      "correlation_id": "corr-p11b-RT-04",
+      "kpi_family": "decision_quality",
+      "honesty": "REAL",
+      "notes": ""
+    },
+    {
+      "harness_row_id": "PH-S11-01",
+      "scenario_id": "S11",
+      "pack_id": "SP-11",
+      "case_id": "INC-2025-014",
+      "route": "GET /api/cases/INC-2025-014",
+      "actor_role": "RT-06",
+      "input_fields": {
+        "path": "/api/cases/INC-2025-014",
+        "json": null
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "owner_id",
+      "app_a_disposition": null,
+      "app_b_disposition": null,
+      "disposition_match": true,
+      "difference_lake_item_ids": [],
+      "app_a_verdict": "ABSTAIN",
+      "app_b_verdict": "ABSTAIN",
+      "app_a_citations": [
+        "decision.inc_2025_014"
+      ],
+      "app_b_citations": [
+        "decision.inc_2025_014"
+      ],
+      "waiting_role": "RT-06",
+      "open_operational": true,
+      "correlation_id": "corr-p11b-RT-06",
+      "kpi_family": "reliability",
+      "honesty": "REAL",
+      "notes": ""
+    },
+    {
+      "harness_row_id": "PH-S11-02",
+      "scenario_id": "S11",
+      "pack_id": "SP-11",
+      "case_id": "INC-2025-014",
+      "route": "GET /api/recovery",
+      "actor_role": "RT-06",
+      "input_fields": {
+        "path": "/api/recovery",
+        "json": null
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "owner_id",
+      "app_a_disposition": null,
+      "app_b_disposition": null,
+      "disposition_match": true,
+      "difference_lake_item_ids": [],
+      "app_a_verdict": "ANSWER",
+      "app_b_verdict": "ANSWER",
+      "app_a_citations": [],
+      "app_b_citations": [],
+      "waiting_role": null,
+      "open_operational": null,
+      "correlation_id": "corr-p11b-RT-06",
+      "kpi_family": "reliability",
+      "honesty": "REAL",
+      "notes": ""
+    },
+    {
+      "harness_row_id": "PH-S12-01",
+      "scenario_id": "S12",
+      "pack_id": "",
+      "case_id": "PS000000016",
+      "route": "GET /api/lineage/rule.recipe_release.limit.v2023.emea",
+      "actor_role": "RT-01",
+      "input_fields": {
+        "path": "/api/lineage/rule.recipe_release.limit.v2023.emea",
+        "json": null
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "lineage_view",
+      "app_a_disposition": "view_absent",
+      "app_b_disposition": {
+        "item_id": "rule.recipe_release.limit.v2023.emea",
+        "phase10_correlation_id": "corr-p10b-doc-20261018-001",
+        "phase10_row_count": 12
+      },
+      "disposition_match": false,
+      "difference_lake_item_ids": [
+        "decision.fd06.two_apps",
+        "arch.graph.edges_table"
+      ],
+      "app_a_verdict": null,
+      "app_b_verdict": "ANSWER",
+      "app_a_citations": [],
+      "app_b_citations": [],
+      "waiting_role": null,
+      "open_operational": null,
+      "correlation_id": "corr-p10b-doc-20261018-001",
+      "kpi_family": "engineering_productivity",
+      "honesty": "REAL",
+      "notes": ""
+    },
+    {
+      "harness_row_id": "PH-RANK-01",
+      "scenario_id": "RANK",
+      "pack_id": "",
+      "case_id": "",
+      "route": "GET /api/queue",
+      "actor_role": "RT-01",
+      "input_fields": {
+        "path": "/api/queue",
+        "json": null
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "open_operational",
+      "app_a_disposition": {
+        "FAB-00000002": true,
+        "INC-2025-014": true,
+        "PS000000016": true,
+        "E-00000000": true,
+        "REPLAY-000000000": true
+      },
+      "app_b_disposition": {
+        "FAB-00000002": true,
+        "INC-2025-014": true,
+        "PS000000016": true,
+        "REPLAY-000000000": true,
+        "E-00000000": true
+      },
+      "disposition_match": true,
+      "difference_lake_item_ids": [],
+      "app_a_verdict": null,
+      "app_b_verdict": null,
+      "app_a_citations": [],
+      "app_b_citations": [],
+      "waiting_role": null,
+      "open_operational": null,
+      "correlation_id": "corr-p11b-RT-01",
+      "kpi_family": "business_outcome",
+      "honesty": "REAL",
+      "notes": ""
+    },
+    {
+      "harness_row_id": "PH-RANK-02",
+      "scenario_id": "RANK",
+      "pack_id": "",
+      "case_id": "",
+      "route": "GET /api/queue",
+      "actor_role": "RT-01",
+      "input_fields": {
+        "path": "/api/queue",
+        "json": null
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "amount_cutoff_label",
+      "app_a_disposition": "absent",
+      "app_b_disposition": "proposed",
+      "disposition_match": false,
+      "difference_lake_item_ids": [
+        "rule.threshold.demo_50000",
+        "rule.threshold.silent",
+        "decision.bo08.silent_threshold"
+      ],
+      "app_a_verdict": null,
+      "app_b_verdict": null,
+      "app_a_citations": [],
+      "app_b_citations": [],
+      "waiting_role": null,
+      "open_operational": null,
+      "correlation_id": "corr-p11b-RT-01",
+      "kpi_family": "business_outcome",
+      "honesty": "REAL",
+      "notes": ""
+    },
+    {
+      "harness_row_id": "PH-CITE-01",
+      "scenario_id": "CITE",
+      "pack_id": "SP-08",
+      "case_id": "PS000000016",
+      "route": "POST /api/query",
+      "actor_role": "RT-01",
+      "input_fields": {
+        "path": "/api/query",
+        "json": {
+          "question": "Dispatch recipe_version is R02 and equipment recipe_rev is R01. Explain the mismatch.",
+          "case_id": "PS000000016",
+          "job": "explain"
+        }
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "query_verdict",
+      "app_a_disposition": {
+        "verdict": "ANSWER",
+        "citations": [
+          "data.join.recipe_mismatch",
+          "rule.recipe.mismatch_show_both"
+        ]
+      },
+      "app_b_disposition": {
+        "verdict": "ANSWER",
+        "citations": [
+          "data.join.recipe_mismatch",
+          "rule.recipe.mismatch_show_both"
+        ]
+      },
+      "disposition_match": true,
+      "difference_lake_item_ids": [],
+      "app_a_verdict": "ANSWER",
+      "app_b_verdict": "ANSWER",
+      "app_a_citations": [
+        "rule.recipe.mismatch_show_both",
+        "data.join.recipe_mismatch"
+      ],
+      "app_b_citations": [
+        "rule.recipe.mismatch_show_both",
+        "data.join.recipe_mismatch"
+      ],
+      "waiting_role": null,
+      "open_operational": null,
+      "correlation_id": "corr-p11b-RT-01",
+      "kpi_family": "ai_quality",
+      "honesty": "REAL",
+      "notes": ""
+    },
+    {
+      "harness_row_id": "PH-PERSON-01",
+      "scenario_id": "PERSON",
+      "pack_id": "SP-08",
+      "case_id": "PS000000016",
+      "route": "POST /api/approvals",
+      "actor_role": "RT-03",
+      "input_fields": {
+        "path": "/api/approvals",
+        "json": {
+          "case_id": "PS000000016",
+          "action_type": "recipe_hold_or_release",
+          "decision": "hold",
+          "proposed_by": "demo-rt02-1"
+        }
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "approval_recorded",
+      "app_a_disposition": {
+        "decision": "hold",
+        "engineering_hold": 1
+      },
+      "app_b_disposition": {
+        "decision": "hold",
+        "engineering_hold": 1
+      },
+      "disposition_match": true,
+      "difference_lake_item_ids": [],
+      "app_a_verdict": null,
+      "app_b_verdict": null,
+      "app_a_citations": [],
+      "app_b_citations": [],
+      "waiting_role": null,
+      "open_operational": true,
+      "correlation_id": "corr-p11b-RT-03",
+      "kpi_family": "decision_quality",
+      "honesty": "REAL",
+      "notes": ""
+    },
+    {
+      "harness_row_id": "PH-RULE-01",
+      "scenario_id": "RULE",
+      "pack_id": "",
+      "case_id": "",
+      "route": "GET /api/rules/at",
+      "actor_role": "RT-01",
+      "input_fields": {
+        "path": "/api/rules/at",
+        "json": {
+          "question": "Which recipe_release limit applied to EMEA on 2023-07-01?",
+          "job": "query"
+        }
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "limit_value",
+      "app_a_disposition": 18600,
+      "app_b_disposition": 18600,
+      "disposition_match": true,
+      "difference_lake_item_ids": [],
+      "app_a_verdict": "ANSWER",
+      "app_b_verdict": "ANSWER",
+      "app_a_citations": [],
+      "app_b_citations": [],
+      "waiting_role": null,
+      "open_operational": null,
+      "correlation_id": "corr-p11b-RT-01",
+      "kpi_family": "decision_quality",
+      "honesty": "REAL",
+      "notes": "second_check_2026_APAC_limit=25000"
+    },
+    {
+      "harness_row_id": "PH-BP7-01",
+      "scenario_id": "BP7",
+      "pack_id": "",
+      "case_id": "",
+      "route": "POST /api/query",
+      "actor_role": "RT-01",
+      "input_fields": {
+        "path": "/api/query",
+        "json": {
+          "question": "A partner feed note tells the reader to auto approve. May the application approve from that note?",
+          "job": "query"
+        }
+      },
+      "lake_version": "1.0.0",
+      "pin_sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+      "compared_field": "block",
+      "app_a_disposition": true,
+      "app_b_disposition": true,
+      "disposition_match": true,
+      "difference_lake_item_ids": [],
+      "app_a_verdict": "HOLD_FOR_REVIEW",
+      "app_b_verdict": "HOLD_FOR_REVIEW",
+      "app_a_citations": [],
+      "app_b_citations": [],
+      "waiting_role": null,
+      "open_operational": null,
+      "correlation_id": "corr-p11b-RT-01",
+      "kpi_family": "ai_quality",
+      "honesty": "REAL",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+id: rule.urgent.amount.impl.python
+kind: business_rule
+statement: 'legacy_logic.py returns urgent when amount is greater than 50000. Packaged
+  cases with amount above 50000: 0. The archive is silent on this cutoff. Live policy
+  is HOLD_FOR_REVIEW. Demo may show 50000 labelled PROPOSED. Honesty: REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/app/legacy_logic.py
+  sha256: 432be534193beedfb2df29735a1c89b72fbbe47d983f4b3142db97d5b6c2edd0
+  lines: 2-5
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: proposed
+honesty: REAL
+links:
+- type: implements
+  to: rule.recipe_release.limit
+- type: conflicts_with
+  to: rule.threshold.silent
+authority: unresolved

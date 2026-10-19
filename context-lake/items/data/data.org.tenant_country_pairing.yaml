@@ -1,0 +1,19 @@
+id: data.org.tenant_country_pairing
+kind: data_relationship
+statement: 'organizations has 96 rows. TENANT-APAC holds IN and BR. TENANT-EMEA holds
+  DE and GB. TENANT-AMER holds US and ZA. TENANT-SOUTH holds AU and JP. The tenant
+  name is not a country map. Brazil under TENANT-APAC is a generator pairing. Honesty:
+  REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/enterprise_legacy.sqlite3
+  sha256: f13ed709df16f3c6244282ff4efde7768dee9294f0533098de3d34f0657af913
+  locator: organizations.tenant
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links: []

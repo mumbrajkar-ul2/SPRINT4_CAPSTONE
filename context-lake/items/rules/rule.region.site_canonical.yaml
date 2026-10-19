@@ -1,0 +1,21 @@
+id: rule.region.site_canonical
+kind: business_rule
+statement: Site code is the canonical location key. Country and sales region are derived
+  from the site. IN-BLR derives country IN and sales region APAC. US-TX derives US
+  and AMER. DE-BY derives DE and EMEA. GB-ENG derives GB and EMEA. BR-SP derives BR
+  and AMER. JP-KN derives JP and APAC.
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+recorded_at: '2026-10-18'
+claim: inference
+trust: trusted_record
+owner: SME
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: maps_to
+  to: term.site_code
+authority: sme

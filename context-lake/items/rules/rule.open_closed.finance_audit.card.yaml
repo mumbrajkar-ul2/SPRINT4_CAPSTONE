@@ -1,0 +1,36 @@
+id: rule.open_closed.finance_audit
+kind: business_rule
+statement: Three closure states. BO-06b unsigned.
+inputs:
+- name: question
+  term: term.closed_finance
+decision_table:
+- when:
+    mismatch: true
+  then:
+    route: HOLD_FOR_REVIEW
+authority: unresolved
+owner: Business Owner
+policy_status: proposed
+tests:
+- given:
+    operational_closed: true
+    finance_booked_at: null
+    question: finance-closed
+  expect:
+    route: HOLD_FOR_REVIEW
+- given:
+    operational_closed: true
+    audit_mark: null
+    question: audit-closed
+  expect:
+    route: HOLD_FOR_REVIEW
+observed_implementations: []
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: n/a

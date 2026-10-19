@@ -1,0 +1,23 @@
+id: rule.open_flag.impl.night_batch
+kind: business_rule
+statement: shift_reconciliation.py flags status REVIEW and status HOLD. That flag
+  matches BO-06a. REVIEW is open. HOLD is open. CLOSED is not flagged for status.
+  The threshold branch is separate.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_batch/shift_reconciliation.py
+  sha256: e95638c443e58d6db09120c7b05fd6db1d6f5cebaca692887e0256cd2bc36bf5
+  lines: 8-14
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: SME
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: implements
+  to: rule.open_closed.operational
+- type: maps_to
+  to: term.open_operational
+authority: sme

@@ -1,0 +1,26 @@
+term_id: term.evidence
+canonical_name: evidence
+definition: One evidence_events row with event_time and arrival_time.
+local_names:
+- system: Python
+  field_or_word: absent
+  meaning: No dedicated local word in legacy_logic.py
+- system: JavaScript
+  field_or_word: absent
+  meaning: No dedicated local word in legacy_policy.js
+- system: Java
+  field_or_word: absent
+  meaning: No dedicated local word in ReconcileLegacy.java
+- system: night batch
+  field_or_word: absent
+  meaning: No dedicated local word in the night batch
+- system: MESDispatch
+  field_or_word: domain-profile
+  meaning: One evidence_events row with event_time and arrival_time.
+- system: PLM-Metrology
+  field_or_word: domain-profile
+  meaning: One evidence_events row with event_time and arrival_time.
+authority: n/a
+policy_status: n/a
+claim: verified_fact
+source_path: Project_Intent.md

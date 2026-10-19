@@ -1,0 +1,40 @@
+id: rule.recipe_release.limit.impl.js_default
+kind: business_rule
+statement: JavaScript missing year or region returns 999999 on this implementation
+  only.
+inputs:
+- name: region
+  term: term.country_code
+decision_table:
+- when:
+    implementation: js_default
+  then:
+    implementation_limit: 999999
+- when:
+    canonical: true
+    archive_match: false
+  then:
+    route: HOLD_FOR_REVIEW
+authority: unresolved
+owner: unknown
+policy_status: n/a
+tests:
+- given:
+    amount: 100
+    region: IN
+    year: 2026
+  expect:
+    implementation_within_limit: true
+    canonical_route: HOLD_FOR_REVIEW
+observed_implementations:
+- path: legacy_js/legacy_policy.js
+  lines: '4'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_js/legacy_policy.js
+  sha256: 4e787a78b01715bdbf6dea0d30a776902987e28486d52da8cd9eb86fcf327f8c
+  lines: 4-5
+claim: verified_fact
+trust: trusted_code
+lake_version: 1.0.0
+item_status: accepted
+honesty: REAL

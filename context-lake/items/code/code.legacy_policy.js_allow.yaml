@@ -1,0 +1,24 @@
+id: code.legacy_policy.js_allow
+kind: code_intelligence
+statement: legacy_js/legacy_policy.js reads contracts/decision-policies-archive.json.
+  legacyAllows returns true when amount is less than or equal to the archive limit
+  times 1.05. Missing year or region returns 999999.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_js/legacy_policy.js
+  sha256: 4e787a78b01715bdbf6dea0d30a776902987e28486d52da8cd9eb86fcf327f8c
+  lines: 4-5
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: implements
+  to: rule.recipe_release.limit
+- type: implements
+  to: rule.recipe_release.limit.v2026.apac
+- type: depends_on
+  to: data.contract.decision_policies_archive

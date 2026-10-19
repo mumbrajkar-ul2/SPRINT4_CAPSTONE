@@ -1,0 +1,21 @@
+id: dep.js_reads_archive
+kind: dependency
+statement: legacy_policy.js reads contracts/decision-policies-archive.json from the
+  working directory. Python priority does not read that file.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_js/legacy_policy.js
+  sha256: 4e787a78b01715bdbf6dea0d30a776902987e28486d52da8cd9eb86fcf327f8c
+  lines: 4-5
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: n/a
+links:
+- type: depends_on
+  to: data.contract.decision_policies_archive
+- type: depends_on
+  to: code.legacy_policy.js_allow

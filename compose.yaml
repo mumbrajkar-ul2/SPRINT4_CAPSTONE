@@ -1,0 +1,173 @@
+# Capstone full stack. Seven named containers.
+# Ports 8080 and 8090 use the inherited workshop image and stay without an identity check.
+# New listeners: lake REST 8091, lake MCP 8092, Application A 8100, Application B 8110.
+name: fabpulse
+
+services:
+  legacy:
+    container_name: fabpulse-legacy
+    build:
+      context: ./fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8080
+      LEGACY_DB: /var/lib/legacy/legacy.sqlite3
+    ports:
+      - "${HOST_PORT:-8080}:8080"
+    volumes:
+      - legacy_data:/var/lib/legacy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health',timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 5
+      start_period: 20s
+
+  source-gateway:
+    container_name: fabpulse-source-gateway
+    build:
+      context: ./fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy
+    command: ["python", "-m", "services.source_gateway.server"]
+    environment:
+      HOST: 0.0.0.0
+      SOURCE_PORT: 8090
+      LEGACY_DB: /opt/legacy/data/legacy.sqlite3
+    ports:
+      - "${SOURCE_HOST_PORT:-8090}:8090"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8090/health',timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 5
+      start_period: 20s
+
+  bridge:
+    container_name: fabpulse-bridge
+    build:
+      context: ./fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy
+    command: ["sh", "-c", "sleep 5; python -m app.gateway_bridge --source-url http://source-gateway:8090 --limit 50"]
+    environment:
+      LEGACY_DB: /var/lib/legacy/legacy.sqlite3
+    volumes:
+      - legacy_data:/var/lib/legacy
+    depends_on:
+      legacy:
+        condition: service_healthy
+      source-gateway:
+        condition: service_healthy
+    restart: "no"
+
+  lake-rest:
+    container_name: fabpulse-lake-rest
+    build:
+      context: .
+      dockerfile: Dockerfile.platform
+    command: ["python", "-m", "uvicorn", "rest_server:app", "--host", "0.0.0.0", "--port", "8091"]
+    working_dir: /opt/platform/context-lake
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8091
+      SERVICE_NAME: lake-rest
+      FABPULSE_API_KEY: ${FABPULSE_API_KEY:-local-demo-only}
+      MODEL_MODE: ${MODEL_MODE:-replay}
+      PYTHONPATH: /opt/platform:/opt/platform/context-lake
+    ports:
+      - "${LAKE_REST_PORT:-8091}:8091"
+    volumes:
+      - ./context-lake/generated:/opt/platform/context-lake/generated:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8091/health',timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 5
+      start_period: 15s
+
+  lake-mcp:
+    container_name: fabpulse-lake-mcp
+    build:
+      context: .
+      dockerfile: Dockerfile.platform
+    command: ["python", "-m", "uvicorn", "mcp_server:app", "--host", "0.0.0.0", "--port", "8092"]
+    working_dir: /opt/platform/context-lake
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8092
+      SERVICE_NAME: lake-mcp
+      FABPULSE_API_KEY: ${FABPULSE_API_KEY:-local-demo-only}
+      MODEL_MODE: ${MODEL_MODE:-replay}
+      PYTHONPATH: /opt/platform:/opt/platform/context-lake
+    ports:
+      - "${LAKE_MCP_PORT:-8092}:8092"
+    volumes:
+      - ./context-lake/generated:/opt/platform/context-lake/generated:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8092/health',timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 5
+      start_period: 15s
+
+  app-a:
+    container_name: fabpulse-app-a
+    build:
+      context: .
+      dockerfile: Dockerfile.platform
+    command: ["python", "-m", "uvicorn", "apps.app_a.server:app", "--host", "0.0.0.0", "--port", "8100"]
+    working_dir: /opt/platform
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8100
+      SERVICE_NAME: app-a
+      FABPULSE_API_KEY: ${FABPULSE_API_KEY:-local-demo-only}
+      MODEL_MODE: ${MODEL_MODE:-replay}
+      LAKE_REST_URL: http://lake-rest:8091
+      SOURCE_GATEWAY_URL: http://source-gateway:8090
+      PYTHONPATH: /opt/platform:/opt/platform/context-lake:/opt/platform/fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy
+    ports:
+      - "${APP_A_PORT:-8100}:8100"
+    volumes:
+      - ./operations/model-replay:/opt/platform/operations/model-replay:ro
+      - ./apps/app_a/runtime/dlq.sqlite3:/opt/platform/apps/app_a/runtime/dlq.sqlite3
+      - ./apps/app_a/runtime/checkpoints.sqlite3:/opt/platform/apps/app_a/runtime/checkpoints.sqlite3
+      - ./apps/app_a/audit/audit_chain.sqlite3:/opt/platform/apps/app_a/audit/audit_chain.sqlite3
+    depends_on:
+      lake-rest:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8100/health',timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 5
+      start_period: 15s
+
+  app-b:
+    container_name: fabpulse-app-b
+    build:
+      context: .
+      dockerfile: Dockerfile.platform
+    command: ["python", "-m", "uvicorn", "apps.app_b.server:app", "--host", "0.0.0.0", "--port", "8110"]
+    working_dir: /opt/platform
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8110
+      SERVICE_NAME: app-b
+      FABPULSE_API_KEY: ${FABPULSE_API_KEY:-local-demo-only}
+      MODEL_MODE: ${MODEL_MODE:-replay}
+      LAKE_REST_URL: http://lake-rest:8091
+      PYTHONPATH: /opt/platform:/opt/platform/context-lake
+    ports:
+      - "${APP_B_PORT:-8110}:8110"
+    volumes:
+      - ./operations/model-replay:/opt/platform/operations/model-replay:ro
+    depends_on:
+      lake-rest:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8110/health',timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 5
+      start_period: 15s
+
+volumes:
+  legacy_data:

@@ -1,0 +1,19 @@
+id: decision.bp8.auth_and_owner
+kind: decision
+statement: Catalogue BP8. The legacy API on 8080 does not check identity. INC-2025-014
+  follow-up owner is unknown.
+source:
+  path: docs/05-current-state/conflict-catalogue.md
+  sha256: b39e8b16e07fbbf40304f55c189d96593cbc26f7fea31a910f07c50791ea2940
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: decision.inc_2025_014
+authority: sme

@@ -1,0 +1,19 @@
+id: arch.listener.legacy_8080
+kind: architecture
+statement: The inherited legacy API listens on port 8080. app/server.py reads PORT
+  and defaults to 8080. The handler does not check identity.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/app/server.py
+  sha256: eead69860923a01fb8464b064f335ebf07cb18b475f8a3cacb98a6203d88fbd2
+  lines: '63'
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: depends_on
+  to: arch.compose.inherited

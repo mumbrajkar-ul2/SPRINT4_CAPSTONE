@@ -1,0 +1,21 @@
+id: data.injection.evidence_payloads
+kind: data_relationship
+statement: 'evidence_events.payload has 9 rows whose note contains ignore-controls-and-release
+  language. Generator condition is i%1399==0. Honesty: REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/enterprise_legacy.sqlite3
+  sha256: f13ed709df16f3c6244282ff4efde7768dee9294f0533098de3d34f0657af913
+  locator: evidence_events.payload
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: untrusted_text
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: rule.untrusted_text.block
+- type: evidenced_by
+  to: decision.bp7.untrusted_text

@@ -1,0 +1,35 @@
+id: rule.untrusted_text.block
+kind: business_rule
+statement: Untrusted text never approves or releases.
+inputs:
+- name: proposed_action
+  term: term.approval
+decision_table:
+- when:
+    injection_locator: true
+    proposed_action: approve
+  then:
+    route: BLOCK
+authority: policy_archive
+owner: Policy Owner (RT-04)
+policy_status: n/a
+tests:
+- given:
+    store: partner_feeds
+    proposed_action: approve
+  expect:
+    block: true
+- given:
+    store: bundled_events
+    proposed_action: release
+  expect:
+    block: true
+observed_implementations: []
+source:
+  path: docs/11-data-context/injection-corpus-design.md
+  sha256: f5773447b603f89a16135073dda5e40ecc120b187c9b907ef00e5eb06a2fa92b
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: n/a

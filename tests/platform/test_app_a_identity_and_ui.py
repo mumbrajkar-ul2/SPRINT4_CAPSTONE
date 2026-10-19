@@ -1,0 +1,30 @@
+"""Application A closed roles, static UI, and Phase 8 identity behaviour."""
+from __future__ import annotations
+
+from fastapi.testclient import TestClient
+
+from apps.app_a.server import app as app_a
+
+
+def test_health_and_ui_open() -> None:
+    client = TestClient(app_a)
+    assert client.get("/health").json() == {"ok": True}
+    page = client.get("/")
+    assert page.status_code == 200
+    assert "Role picker" in page.text
+    css = client.get("/assets/styles.css")
+    assert css.status_code == 200
+
+
+def test_unknown_role_is_403(api_headers) -> None:
+    headers = dict(api_headers)
+    headers["X-Actor-Role"] = "ADMIN"
+    response = TestClient(app_a).get("/api/queue", headers=headers)
+    assert response.status_code == 403
+    assert response.json()["error_class"] == "forbidden_role"
+
+
+def test_queue_without_headers_is_401() -> None:
+    response = TestClient(app_a).get("/api/queue")
+    assert response.status_code == 401
+    assert response.json()["error_class"] == "missing_identity"

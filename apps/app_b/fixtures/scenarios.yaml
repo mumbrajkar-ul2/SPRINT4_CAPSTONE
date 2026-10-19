@@ -1,0 +1,92 @@
+# Five scenario packs for Application B. Fields come from lake data items
+# and the published freeze ids. This file does not open the inherited store.
+lake_version: "1.0.0"
+pin_sqlite_sha256: f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8
+cases:
+  - case_id: REPLAY-000000000
+    pack_id: SP-07
+    status: REPLAY
+    severity: MEDIUM
+    amount: 0
+    processing_status: REPLAY
+    waiting_role: RT-05
+    owner_id: null
+    citation_targets:
+      - rule.feed.replay_duplicate
+      - data.feed.replay
+    explain_question: This partner feed has processing_status REPLAY. Explain the duplicate.
+    lake_items:
+      - rule.feed.replay_duplicate
+      - data.feed.replay
+  - case_id: PS000000016
+    pack_id: SP-08
+    status: HOLD
+    severity: HIGH
+    amount: 0
+    recipe_version: R02
+    recipe_rev: R01
+    lot_id: L00000016
+    tool_id: T0000013
+    engineering_hold: 0
+    waiting_role: RT-03
+    owner_id: null
+    citation_targets:
+      - rule.recipe.mismatch_show_both
+      - data.join.recipe_mismatch
+    explain_question: Dispatch recipe_version is R02 and equipment recipe_rev is R01. Explain the mismatch.
+    lake_items:
+      - rule.recipe.mismatch_show_both
+      - data.join.recipe_mismatch
+  - case_id: E-00000000
+    pack_id: SP-09
+    status: OPEN
+    severity: MEDIUM
+    amount: 0
+    event_time: "2020-12-30T00:00:00+00:00"
+    arrival_time: "2021-01-01T00:00:00+00:00"
+    waiting_role: null
+    owner_id: null
+    citation_targets:
+      - rule.clock.event_vs_arrival
+      - data.clock.event_vs_arrival_evidence
+    explain_question: This evidence row has event_time 2020-12-30T00:00:00+00:00 and arrival_time 2021-01-01T00:00:00+00:00. Explain the two clocks.
+    lake_items:
+      - rule.clock.event_vs_arrival
+      - data.clock.event_vs_arrival_evidence
+  - case_id: FAB-00000002
+    pack_id: SP-10
+    status: OPEN
+    severity: HIGH
+    amount: 0
+    region: US
+    overlapping_policy_ids:
+      - POL-0002
+      - POL-0010
+      - POL-0018
+      - POL-0026
+      - POL-0034
+    waiting_role: RT-04
+    owner_id: null
+    citation_targets:
+      - rule.policy.overlap_or_invalid
+      - data.policy_register.overlap
+    explain_question: US has five active policy_register rows. Explain the overlap. Do not pick a policy.
+    lake_items:
+      - rule.policy.overlap_or_invalid
+      - data.policy_register.overlap
+  - case_id: INC-2025-014
+    pack_id: SP-11
+    status: OPEN
+    severity: HIGH
+    amount: 0
+    owner_id: null
+    task_id: T-00000000
+    waiting_role: RT-06
+    citation_targets:
+      - term.outage
+      - decision.inc_2025_014
+    explain_question: Show recovery status. Who is the follow-up owner of INC-2025-014?
+    lake_items:
+      - decision.inc_2025_014
+      - data.task.unassigned
+      - term.outage

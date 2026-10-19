@@ -1,0 +1,47 @@
+id: rule.recipe_release.limit.impl.js
+kind: business_rule
+statement: JavaScript allows archive limit times 1.05.
+inputs:
+- name: amount
+  term: term.recipe_release_limit
+- name: sales_region
+  term: term.sales_region
+decision_table:
+- when:
+    implementation: js
+  then:
+    within_limit: amount <= limit * 1.05
+- when:
+    archive_match: false
+  then:
+    route: HOLD_FOR_REVIEW
+authority: unresolved
+owner: unknown
+policy_status: n/a
+tests:
+- given:
+    amount: 15700
+    region: APAC
+    year: 2022
+  expect:
+    implementation_within_limit: true
+    canonical_within_limit: false
+- given:
+    amount: 27000
+    region: APAC
+    year: 2026
+  expect:
+    implementation_within_limit: false
+    canonical_within_limit: false
+observed_implementations:
+- path: legacy_js/legacy_policy.js
+  lines: 4-5
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_js/legacy_policy.js
+  sha256: 4e787a78b01715bdbf6dea0d30a776902987e28486d52da8cd9eb86fcf327f8c
+  lines: 4-5
+claim: verified_fact
+trust: trusted_code
+lake_version: 1.0.0
+item_status: accepted
+honesty: REAL

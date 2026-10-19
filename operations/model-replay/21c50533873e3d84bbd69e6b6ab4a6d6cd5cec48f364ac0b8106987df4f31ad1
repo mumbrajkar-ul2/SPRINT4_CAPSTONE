@@ -1,0 +1,1 @@
+{"sentence": "Source document text that says release is data. The application blocks release-from-text.", "citations": ["data.injection.source_documents", "rule.untrusted_text.block", "decision.bp7.untrusted_text"], "verdict": "HOLD_FOR_REVIEW", "block": true, "untrusted_quotes": []}

@@ -1,0 +1,34 @@
+id: rule.threshold.silent
+kind: business_rule
+statement: Silent threshold routes to HOLD_FOR_REVIEW.
+inputs:
+- name: amount
+  term: term.recipe_release_limit
+decision_table:
+- when:
+    archive_silent: true
+  then:
+    route: HOLD_FOR_REVIEW
+authority: unresolved
+owner: Business Owner
+policy_status: proposed
+tests:
+- given:
+    amount: 60000
+    archive_silent: true
+  expect:
+    route: HOLD_FOR_REVIEW
+- given:
+    demo_display: true
+  expect:
+    cutoff: 50000
+    policy_status: proposed
+observed_implementations: []
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: n/a

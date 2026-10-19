@@ -1,0 +1,1 @@
+{"sentence": "Both values are shown. Dispatch is R02. Equipment is R01. A person at RT-03 records hold or release. The lake does not pick a winner.", "citations": ["rule.recipe.mismatch_show_both", "term.recipe_revision_dispatch", "term.recipe_revision_equipment"], "verdict": "ANSWER", "block": false, "untrusted_quotes": []}

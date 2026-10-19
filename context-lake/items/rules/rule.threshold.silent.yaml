@@ -1,0 +1,20 @@
+id: rule.threshold.silent
+kind: business_rule
+statement: The archive is silent on an urgent amount cutoff. Live policy is HOLD_FOR_REVIEW.
+  Do not invent a number. Demo may show 50000 labelled PROPOSED. Never use 999999
+  as a live policy number. BO-08 stays PROPOSED.
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: Business Owner
+lake_version: 1.0.0
+item_status: accepted
+policy_status: proposed
+honesty: n/a
+links:
+- type: conflicts_with
+  to: rule.threshold.never_999999
+authority: unresolved

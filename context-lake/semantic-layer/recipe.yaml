@@ -1,0 +1,178 @@
+- term_id: term.recipe_revision_dispatch
+  canonical_name: dispatch recipe revision
+  definition: Value in process_steps.recipe_version.
+  local_names:
+  - system: MESDispatch
+    field_or_word: process_steps.recipe_version
+    meaning: Dispatch revision
+  - system: Python
+    field_or_word: absent
+    meaning: No recipe field
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No recipe field
+  - system: Java
+    field_or_word: absent
+    meaning: No recipe field
+  - system: night batch
+    field_or_word: absent
+    meaning: No recipe field
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: Equipment uses recipe_rev
+  authority: sme
+  policy_status: decided
+  claim: verified_fact
+  source_path: docs/11-data-context/mapping-design.md
+- term_id: term.recipe_revision_equipment
+  canonical_name: equipment recipe revision
+  definition: Value in fab_tools.recipe_rev.
+  local_names:
+  - system: PLM-Metrology
+    field_or_word: fab_tools.recipe_rev
+    meaning: Equipment revision
+  - system: Python
+    field_or_word: absent
+    meaning: No recipe field
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No recipe field
+  - system: Java
+    field_or_word: absent
+    meaning: No recipe field
+  - system: night batch
+    field_or_word: absent
+    meaning: No recipe field
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: Dispatch uses recipe_version
+  authority: sme
+  policy_status: decided
+  claim: verified_fact
+  source_path: docs/11-data-context/mapping-design.md
+- term_id: term.recipe_revision_change
+  canonical_name: recipe revision change
+  definition: Pair from_rev and to_rev on engineering_changes.
+  local_names:
+  - system: engineering_changes
+    field_or_word: from_rev
+    meaning: Prior revision
+  - system: engineering_changes
+    field_or_word: to_rev
+    meaning: Intended revision
+  - system: Python
+    field_or_word: absent
+    meaning: No change pair
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No change pair
+  - system: Java
+    field_or_word: absent
+    meaning: No change pair
+  - system: night batch
+    field_or_word: absent
+    meaning: No change pair
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No change pair
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No change pair
+  authority: n/a
+  policy_status: n/a
+  claim: verified_fact
+  source_path: docs/11-data-context/mapping-design.md
+- term_id: term.recipe_release_limit
+  canonical_name: recipe release limit
+  definition: Archive limit for recipe_release at a sales region and date.
+  local_names:
+  - system: archive
+    field_or_word: limit
+    meaning: USD limit
+  - system: JavaScript
+    field_or_word: threshold(region,year)
+    meaning: Reads the archive, then multiplies by 1.05
+  - system: Python
+    field_or_word: amount > 50000
+    meaning: Different cutoff, not this limit
+  - system: Java
+    field_or_word: absent
+    meaning: No recipe_release limit
+  - system: night batch
+    field_or_word: policy_register.threshold
+    meaning: Different family
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No limit field
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No limit field
+  authority: policy_archive
+  policy_status: decided
+  claim: verified_fact
+  source_path: docs/11-data-context/mapping-design.md
+- term_id: term.recipe_mismatch
+  canonical_name: recipe mismatch
+  definition: Dispatch revision and equipment revision differ on the same tool_id.
+  local_names:
+  - system: process_steps
+    field_or_word: recipe_version
+    meaning: Dispatch side
+  - system: fab_tools
+    field_or_word: recipe_rev
+    meaning: Equipment side
+  - system: Python
+    field_or_word: absent
+    meaning: No mismatch test
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No mismatch test
+  - system: Java
+    field_or_word: absent
+    meaning: No mismatch test
+  - system: night batch
+    field_or_word: absent
+    meaning: No mismatch test
+  - system: MESDispatch
+    field_or_word: legacy note
+    meaning: domain-profile.json says a recipe revision field differs
+  - system: PLM-Metrology
+    field_or_word: legacy note
+    meaning: Same profile sentence
+  authority: sme
+  policy_status: decided
+  claim: verified_fact
+  source_path: docs/11-data-context/mapping-design.md
+- term_id: term.lot_genealogy
+  canonical_name: lot genealogy
+  definition: Named policy string in domain-profile.json. wafer_lots has no parent_lot_id.
+    The lake has no lot genealogy data.
+  local_names:
+  - system: domain-profile
+    field_or_word: lot_genealogy
+    meaning: Policy name only
+  - system: wafer_lots
+    field_or_word: absent
+    meaning: No parent_lot_id column
+  - system: Python
+    field_or_word: absent
+    meaning: No parent lot
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No parent lot
+  - system: Java
+    field_or_word: absent
+    meaning: No parent lot
+  - system: night batch
+    field_or_word: absent
+    meaning: No parent lot
+  - system: MESDispatch
+    field_or_word: lot_genealogy
+    meaning: Policy string
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No parent lot
+  authority: unresolved
+  policy_status: n/a
+  claim: unknown
+  source_path: docs/11-data-context/mapping-design.md

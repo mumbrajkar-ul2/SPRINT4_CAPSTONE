@@ -1,0 +1,24 @@
+id: data.join.recipe_mismatch
+kind: data_relationship
+statement: '91 of 125 process steps have recipe_version different from the joined
+  fab_tools.recipe_rev on tool_id. The lake does not pick a winning revision. Honesty:
+  REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/legacy.sqlite3
+  sha256: 2d9a3fae58af56daf524d16eb99dedf4ef82ade39d1ca68ad36e249fa0b99879
+  locator: process_steps.recipe_version
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: conflicts_with
+  to: term.recipe_revision_dispatch
+- type: conflicts_with
+  to: term.recipe_revision_equipment
+- type: evidenced_by
+  to: decision.bp1.recipe_mismatch

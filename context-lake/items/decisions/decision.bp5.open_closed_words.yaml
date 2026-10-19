@@ -1,0 +1,19 @@
+id: decision.bp5.open_closed_words
+kind: decision
+statement: Catalogue BP5. Five local word lists name open and closed differently.
+  BO-06a supplies the operational meaning.
+source:
+  path: docs/05-current-state/conflict-catalogue.md
+  sha256: b39e8b16e07fbbf40304f55c189d96593cbc26f7fea31a910f07c50791ea2940
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: governs
+  to: rule.open_closed.operational
+authority: sme

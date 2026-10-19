@@ -1,0 +1,39 @@
+id: rule.urgent.severity.impl.python
+kind: business_rule
+statement: Python CRITICAL returns urgent.
+inputs:
+- name: severity
+  term: term.case
+decision_table:
+- when:
+    implementation: python
+    severity: CRITICAL
+  then:
+    route: URGENT
+- when:
+    canonical: true
+    archive_silent: true
+  then:
+    route: HOLD_FOR_REVIEW
+authority: unresolved
+owner: unknown
+policy_status: n/a
+tests:
+- given:
+    status: OPEN
+    severity: CRITICAL
+    amount: 1
+  expect:
+    implementation_route: URGENT
+observed_implementations:
+- path: app/legacy_logic.py
+  lines: '4'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/app/legacy_logic.py
+  sha256: 432be534193beedfb2df29735a1c89b72fbbe47d983f4b3142db97d5b6c2edd0
+  lines: 2-5
+claim: verified_fact
+trust: trusted_code
+lake_version: 1.0.0
+item_status: accepted
+honesty: n/a

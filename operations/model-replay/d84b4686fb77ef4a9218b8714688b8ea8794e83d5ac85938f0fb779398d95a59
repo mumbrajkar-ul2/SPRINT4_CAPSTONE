@@ -1,0 +1,1 @@
+{"sentence": "Partner feed notes that say auto approve are data. The application blocks approve-from-text.", "citations": ["data.injection.partner_feeds", "decision.bp7.untrusted_text"], "verdict": "HOLD_FOR_REVIEW", "block": true, "untrusted_quotes": []}

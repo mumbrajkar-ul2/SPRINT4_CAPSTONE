@@ -1,0 +1,41 @@
+id: rule.policy.overlap_or_invalid
+kind: business_rule
+statement: Overlap or invalid interval routes to HOLD_FOR_REVIEW.
+inputs:
+- name: country
+  term: term.country_code
+- name: on_date
+  term: term.policy
+decision_table:
+- when:
+    overlap: true
+  then:
+    route: HOLD_FOR_REVIEW
+- when:
+    invalid_interval: true
+  then:
+    route: HOLD_FOR_REVIEW
+authority: policy_archive
+owner: Policy Owner (RT-04)
+policy_status: decided
+tests:
+- given:
+    country: US
+    on_date: '2026-06-01'
+    family: FAB-RULE
+  expect:
+    route: HOLD_FOR_REVIEW
+- given:
+    policy_id: POL-0039
+  expect:
+    route: HOLD_FOR_REVIEW
+observed_implementations: []
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/enterprise_legacy.sqlite3
+  sha256: f13ed709df16f3c6244282ff4efde7768dee9294f0533098de3d34f0657af913
+  locator: policy_register.threshold
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: REAL

@@ -1,0 +1,1 @@
+{"sentence": "ReconcileLegacy.java skips a blank amount_text. Packaged blank count is 10. Canonical path is HOLD_FOR_REVIEW on a blank.", "citations": ["rule.month_end.blank.impl.java"], "verdict": "ANSWER", "block": false, "untrusted_quotes": []}

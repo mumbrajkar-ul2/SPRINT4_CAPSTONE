@@ -1,0 +1,17 @@
+id: term.closed_finance
+kind: domain_knowledge
+statement: Finance closed means a finance action is recorded, for example a financial_adjustments
+  row with booked_at. BO-06b is PROPOSED.
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: proposed
+honesty: n/a
+links: []
+authority: unresolved

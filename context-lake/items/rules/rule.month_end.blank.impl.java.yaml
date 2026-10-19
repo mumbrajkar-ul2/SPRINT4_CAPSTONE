@@ -1,0 +1,21 @@
+id: rule.month_end.blank.impl.java
+kind: business_rule
+statement: 'ReconcileLegacy.java skips a row when amount_text is blank or unreadable.
+  Packaged vendor_file_rows with blank amount_text: 10. The canonical path on a blank
+  is HOLD_FOR_REVIEW. Honesty: REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_java/ReconcileLegacy.java
+  sha256: 40b788375cd61e1700f507f1c402724de595f9b3e973c982a57aee00cefb4764
+  lines: '12'
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: implements
+  to: code.reconcile_legacy.java_total
+authority: unresolved

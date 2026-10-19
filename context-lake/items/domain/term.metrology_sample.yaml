@@ -1,0 +1,15 @@
+id: term.metrology_sample
+kind: domain_knowledge
+statement: A metrology sample is one row in metrology joined to lots on lot_id.
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: n/a
+links: []

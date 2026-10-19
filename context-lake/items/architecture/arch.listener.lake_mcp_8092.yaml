@@ -1,0 +1,18 @@
+id: arch.listener.lake_mcp_8092
+kind: architecture
+statement: The Context Lake MCP listener uses port 8092. That port is locked in the
+  Phase 4 ports ADR.
+source:
+  path: docs/10-architecture/adrs/adr-ports-and-compose.md
+  sha256: 3f4166567a5a72925941118fbc72677543291e84cb1140ab6f47a2dcd7e7a6db
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: depends_on
+  to: arch.lake.yaml_sqlite

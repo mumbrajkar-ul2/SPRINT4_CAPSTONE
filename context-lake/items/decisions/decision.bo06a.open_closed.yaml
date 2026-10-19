@@ -1,0 +1,19 @@
+id: decision.bo06a.open_closed
+kind: decision
+statement: BO-06a. REVIEW and HOLD are open. Closed needs a final disposition and
+  no pending engineering action. Night batch flags REVIEW as open.
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: governs
+  to: rule.open_closed.operational
+authority: sme

@@ -1,0 +1,19 @@
+id: term.local.review
+kind: domain_knowledge
+statement: Local status word REVIEW maps to operational open. BO-06a treats pending
+  work as open.
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: SME
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: maps_to
+  to: term.open_operational
+authority: sme

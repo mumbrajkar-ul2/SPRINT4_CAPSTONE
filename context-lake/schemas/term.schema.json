@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fabpulse.local/schemas/term.schema.json",
+  "title": "Semantic-layer term",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "term_id",
+    "canonical_name",
+    "definition",
+    "local_names",
+    "authority",
+    "policy_status",
+    "claim"
+  ],
+  "properties": {
+    "term_id": {
+      "type": "string",
+      "pattern": "^[a-z][A-Za-z0-9._-]+$"
+    },
+    "canonical_name": { "type": "string", "minLength": 1 },
+    "definition": { "type": "string", "minLength": 1 },
+    "local_names": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["system", "field_or_word", "meaning"],
+        "properties": {
+          "system": { "type": "string" },
+          "field_or_word": { "type": "string" },
+          "meaning": { "type": "string" }
+        }
+      }
+    },
+    "authority": {
+      "type": "string",
+      "enum": ["policy_archive", "sme", "unresolved", "n/a"]
+    },
+    "policy_status": {
+      "type": "string",
+      "enum": ["decided", "proposed", "n/a"]
+    },
+    "claim": {
+      "type": "string",
+      "enum": ["verified_fact", "inference", "assumption", "unknown"]
+    },
+    "maps_to_term": { "type": ["string", "null"] },
+    "source_path": { "type": "string" }
+  }
+}

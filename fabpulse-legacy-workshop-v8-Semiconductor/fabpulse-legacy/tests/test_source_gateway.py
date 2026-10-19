@@ -1,8 +1,23 @@
-import json,unittest,os,tempfile,sqlite3
+import json,unittest,os,tempfile,shutil
 from pathlib import Path
-from app import gateway_bridge,operational_report
+from app import gateway_bridge,operational_report,store
 CFG=json.loads((Path(__file__).resolve().parents[1]/'integration'/'source-gateway.json').read_text())
+ROOT=Path(__file__).resolve().parents[1]
 class TestGatewayAndDomain(unittest.TestCase):
+    def setUp(self):
+        self._tmp=tempfile.TemporaryDirectory(prefix='gw-legacy-')
+        self._db=Path(self._tmp.name)/'legacy.sqlite3'
+        shutil.copy2(ROOT/'data'/'legacy.sqlite3',self._db)
+        self._old=store.DB
+        store.DB=self._db
+        os.environ['LEGACY_DB']=str(self._db)
+    def tearDown(self):
+        store.DB=self._old
+        os.environ.pop('LEGACY_DB',None)
+        try:
+            self._tmp.cleanup()
+        except PermissionError:
+            pass
     def test_relations(self):
         report=operational_report.run()
         self.assertGreater(report['parent_records'],0)

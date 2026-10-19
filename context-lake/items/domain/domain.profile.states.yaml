@@ -1,0 +1,18 @@
+id: domain.profile.states
+kind: domain_knowledge
+statement: domain-profile.json lists states QUEUED, PROCESSING, HOLD, ENGINEERING_REVIEW,
+  and RELEASED.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/domain-profile.json
+  sha256: e1b8c597e893ba5dc87d747e2e3d391f4fcad3f34b555a2de3bc01daddf77eef
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: maps_to
+  to: term.open_operational

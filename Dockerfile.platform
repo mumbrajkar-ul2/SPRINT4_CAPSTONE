@@ -1,0 +1,15 @@
+FROM python:3.12-slim
+WORKDIR /opt/platform
+COPY requirements-platform.txt .
+RUN pip install --no-cache-dir -r requirements-platform.txt
+COPY apps ./apps
+COPY context-lake ./context-lake
+COPY operations ./operations
+COPY fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/app ./fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/app
+COPY fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/contracts ./fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/contracts
+COPY fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/integration ./fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/integration
+COPY fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/domain-profile.json ./fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/domain-profile.json
+COPY fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/legacy.sqlite3 ./fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/legacy.sqlite3
+COPY fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/enterprise_legacy.sqlite3 ./fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/enterprise_legacy.sqlite3
+ENV PYTHONPATH=/opt/platform:/opt/platform/context-lake:/opt/platform/fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1

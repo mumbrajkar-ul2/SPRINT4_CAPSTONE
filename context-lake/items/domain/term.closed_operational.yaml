@@ -1,0 +1,17 @@
+id: term.closed_operational
+kind: domain_knowledge
+statement: Operational closed means a final disposition is recorded and no engineering
+  action is pending. A cases.CLOSED word alone is not enough.
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links: []
+authority: sme

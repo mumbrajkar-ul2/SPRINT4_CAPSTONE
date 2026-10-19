@@ -1,0 +1,19 @@
+id: decision.bo07.site_canonical
+kind: decision
+statement: BO-07. Site code is the canonical location key. Country and sales region
+  are derived. Two scopes that disagree route to HOLD_FOR_REVIEW.
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: governs
+  to: rule.region.site_canonical
+authority: sme

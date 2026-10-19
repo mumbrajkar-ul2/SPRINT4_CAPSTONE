@@ -1,0 +1,16 @@
+id: term.closed_audit
+kind: domain_knowledge
+statement: Audit closed means an audit close is recorded. BO-06b is PROPOSED.
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: proposed
+honesty: n/a
+links: []
+authority: unresolved

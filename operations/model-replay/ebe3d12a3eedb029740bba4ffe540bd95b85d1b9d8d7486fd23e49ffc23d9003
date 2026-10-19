@@ -1,0 +1,1 @@
+{"sentence": "Keep event_time and arrival_time as two fields. 11985 of 12500 evidence rows differ. A signed cut-off owner is Unknown, so a cut-off choice is HOLD_FOR_REVIEW.", "citations": ["rule.clock.event_vs_arrival", "data.clock.event_vs_arrival_evidence"], "verdict": "HOLD_FOR_REVIEW", "block": false, "untrusted_quotes": []}

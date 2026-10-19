@@ -1,0 +1,19 @@
+id: decision.bo08.silent_threshold
+kind: decision
+statement: BO-08 is PROPOSED. A threshold the archive does not state stays PROPOSED.
+  Demo may use 50000 labelled PROPOSED. Never use 999999 as a live limit.
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: proposed
+honesty: n/a
+links:
+- type: governs
+  to: rule.threshold.silent
+authority: unresolved

@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Stage | Reader guide. Runs beside `Execution_Plan.md`, `Decision_Tracker.md`, and `playbook/STATUS.md`. |
-| Date / version | 2026-10-18, v1.4 |
+| Date / version | 2026-10-18, v1.11 |
 | Author | Mangesh (FDE), drafted with Cursor |
 | Status | Seeded before the run. It holds the short codes and acronyms already used in the plan, the tracker, and the playbook. The coordinator adds a row each time a phase introduces a new short code. |
 | Evidence sources | `Execution_Plan.md`, `Decision_Tracker.md`, `Project_Intent.md`, and the `playbook/` prompts. |
@@ -153,6 +153,34 @@ The coordinator adds a row here each time a phase introduces a short code that i
 | 1 | `ED-P1-01` | The Phase 1 method note. Each business-problem row has one SQL query as the checkable count. A file scan is an extra count. | `Decision_Tracker.md` change log v1.11 |
 | 2 | `R-P2-01` to `R-P2-08` | A retired AI cost assumption from the Phase 0 envelope. Example: model cost is not kept on a job that Phase 2 labelled deterministic. | `docs/08-ai-qualification/economics-baseline-reconciliation.md` |
 | 2 | `ED-P2-01` to `ED-P2-03` | Phase 2 method notes. `ED-P2-01` is the hold-column null test. `ED-P2-02` keeps case ranking in deterministic code. `ED-P2-03` says no model file is saved. | `Decision_Tracker.md` change log v1.13 |
+| 3 | `F-01` to `F-15` | One feature in the Initial PRD. Example: a feature is one user-facing job tied to BP1–BP8. | `docs/09-initial-prd/initial-prd-traceability.md` |
+| 3 | `FR-01` to `FR-15` | One functional requirement. The number matches the feature. `FR-01` is the requirement for `F-01`. | `docs/09-initial-prd/functional-requirements.md` |
+| 3 | `ED-P3-01` to `ED-P3-03` | Phase 3 method notes. `ED-P3-01` is the feature set F-01 to F-15. `ED-P3-02` shows BP7 as a control on scenarios 7 to 11. `ED-P3-03` keeps the port numbers out of the PRD requirements. | `Decision_Tracker.md` change log v1.14 |
+| 5 | `GQ-01` to `GQ-26` | One golden question the lake must answer with a citation. Example: `GQ-01` is the first question in the set. | `context-lake/eval/golden-questions.yaml` |
+| 5 | `ED-P5A-01` to `ED-P5A-09` | Phase 5 design notes. Example: `ED-P5A-01` keeps conflicts as decision items. There is no eighth content kind. | `Decision_Tracker.md` change log v1.16 |
+| 5 | `ED-P5B-01` to `ED-P5B-08` | Phase 5 build notes. Example: `ED-P5B-01` allows capital letters in an item id so `map.site.IN-BLR` validates. | `Decision_Tracker.md` change log v1.17 |
+| 6 | `EV-01` to `EV-12` | One event type in the Phase 6 event contract. Example: `EV-01` is the first event in that list. | `docs/12-specs/event-contracts.md` |
+| 6 | `ED-P6-01` to `ED-P6-05` | Phase 6 contract notes. Example: `ED-P6-01` names the lake read paths on port 8091. | `Decision_Tracker.md` change log v1.18 |
+| 7 | `ED-P7A-01` to `ED-P7A-06` | Phase 7 design notes. Example: `ED-P7A-01` names the five characterization test modules. | `Decision_Tracker.md` change log v1.19 |
+| 7 | `ED-P7B-01` to `ED-P7B-05` | Phase 7 build notes. Example: `ED-P7B-01` is the shape of `evaluate_live_policy`. | `Decision_Tracker.md` change log v1.19 |
+| 8 | `ED-P8A-01` to `ED-P8A-08` | Phase 8 design notes. Example: `ED-P8A-01` names Application A port 8100 and Application B port 8110. | `docs/17-implementation-prd/prd-change-log.md` |
+| 8 | `ED-P8B-01` to `ED-P8B-05` | Phase 8 build notes. Example: `ED-P8B-01` is one `Dockerfile.platform` with a different command per service. | `docs/_playbook-log.md` Phase 8 record |
+| 9 | `ED-P9A-01` to `ED-P9A-08` | Phase 9 design notes. Example: `ED-P9A-04` scores an answer as grounded only when it cites retrieved lake item ids, or as a clean abstain. No percent floor. | `Decision_Tracker.md` change log v1.21 |
+| 10 | `ED-P10A-01` to `ED-P10A-09` | Phase 10 design notes. Example: `ED-P10A-01` sets the LangGraph recursion limit to 12. That number is an engineering default. | `Decision_Tracker.md` change log v1.23 |
+| 10 | `OPA-R-01` to `OPA-R-12` | One OPA rule. Example: `OPA-R-01` returns BLOCK when injection text is treated as an order. | `docs/23-human-control/approval-gates.md` |
+| 11 | `ED-P11A-01` to `ED-P11A-08` | Phase 11 design notes. Example: `ED-P11A-01` names the parity fields and forbids a match percent. | `Decision_Tracker.md` change log v1.25 |
+| 11 | `ED-P11B-01` to `ED-P11B-02` | Phase 11 build notes. Example: `ED-P11B-01` builds a cited sentence from lake statements when replay misses. | `docs/_playbook-log.md` Phase 11 record |
+| 12 | `ED-P12A-01` to `ED-P12A-06` | Phase 12 security design notes. Example: `ED-P12A-02` blocks a write action when the feed already carries untrusted quotes, even with no corpus id. | `docs/24-security-privacy/prompt-injection-controls.md` |
+| 12 | `SC-24-01` | The small code control that sets injection when untrusted quotes meet a write action. | `apps/app_a/agent/nodes.py` |
+| 12 | `ED-P12-25A-01` to `ED-P12-25A-08` | Phase 12 governance design notes. Example: `ED-P12-25A-07` keeps unread statutes Unknown and issues no certificate. | `docs/25-governance/compliance-obligations.md` |
+| 12 | `ED-P12-26A-01` to `ED-P12-26A-08` | Phase 12 TEVV design notes. Example: `ED-P12-26A-07` names behaviours and recorded counts. Percent floors stay Unknown. | `docs/26-tevv/release-thresholds.md` |
+| 12 | `SC-26-01` | The same quotes-plus-write block on Application B. | `apps/app_b/opa.py` |
+| 13 | `ED-P13-27A-01` to `ED-P13-33B` | Phase 13 design and build notes, one set per hardening sub-stage. Example: `ED-P13-27A-01` returns HTTP 503 when the server key is missing. Health stays 200. | `docs/27-hardening/` through `docs/33-vendor-risk/` |
+| 14 | `ED-P14-01` to `ED-P14-04` | Phase 14 measure notes. Example: `ED-P14-01` reuses the Phase 0 formulas on the same 125-case file. `ED-P14-04` prints matched 12 and differing 2 and prints no match percent. | `docs/34-after-kpis/kpi-comparability-check.md` |
+| 15 | `ED-P15-01` to `ED-P15-07` | Phase 15 operating notes. Example: `ED-P15-07` shortens the first demo block from 8 minutes to 7 so the paper walk sums to 39. | `docs/42-executive/demo-day-script.md` |
+| 16 | `ED-P16-01` | The as-built matrix uses `IP-01` to `IP-10` for the implementation platform rows and `NFR-01` to `NFR-33` for the initial non-functional rows. `SLO-B1` to `SLO-B10` keep the Phase 8 ids. | `docs/final-prd/requirement-disposition-matrix.md` |
+| 16 | `IP-01` to `IP-10` | One implementation platform row from the Implementation PRD. | `docs/17-implementation-prd/implementation-prd.md` |
+| 3 | `NFR-01` to `NFR-33` | One non-functional requirement from the Initial PRD. | `docs/09-initial-prd/nfrs.md` |
 
 ## Change log
 
@@ -163,3 +191,10 @@ The coordinator adds a row here each time a phase introduces a short code that i
 | v1.2 | 2026-10-18 | Named the current three models: coordinator Grok 4.7, executor Grok 4.6, reviewer Composer 2.5. |
 | v1.3 | 2026-10-18 | Phase 0 added no new short code. Phase 1 added the `RC-` root-cause ids, the `C-BP*` evidence ids, and `ED-P1-01`. |
 | v1.4 | 2026-10-18 | Phase 2 added `R-P2-01` to `R-P2-08` and `ED-P2-01` to `ED-P2-03`. |
+| v1.5 | 2026-10-18 | Phase 3 added `F-01` to `F-15`, `FR-01` to `FR-15`, and `ED-P3-01` to `ED-P3-03`. |
+| v1.6 | 2026-10-18 | Phase 6 added `EV-01` to `EV-12` and `ED-P6-01` to `ED-P6-05`. Phase 7 added `ED-P7A-01` to `ED-P7A-06` and `ED-P7B-01` to `ED-P7B-05`. Phase 4 added no new short code. |
+| v1.7 | 2026-10-18 | Phase 8 added `ED-P8A-01` to `ED-P8A-08` and `ED-P8B-01` to `ED-P8B-05`. Phase 9 Half A added `ED-P9A-01` to `ED-P9A-08`. |
+| v1.8 | 2026-10-18 | Phase 10 added `ED-P10A-01` to `ED-P10A-09` and `OPA-R-01` to `OPA-R-12`. |
+| v1.9 | 2026-10-18 | Phase 11 added `ED-P11A-01` to `ED-P11A-08` and `ED-P11B-01` to `ED-P11B-02`. |
+| v1.10 | 2026-10-18 | Phase 12 added `ED-P12A-01` to `ED-P12A-06`, `SC-24-01`, `ED-P12-25A-01` to `ED-P12-25A-08`, `ED-P12-26A-01` to `ED-P12-26A-08`, and `SC-26-01`. |
+| v1.11 | 2026-10-18 | Phases 13 to 16 added `ED-P13-27A-01` through `ED-P13-33B`, `ED-P14-01` to `ED-P14-04`, `ED-P15-01` to `ED-P15-07`, `ED-P16-01`, `IP-01` to `IP-10`, and `NFR-01` to `NFR-33`. |

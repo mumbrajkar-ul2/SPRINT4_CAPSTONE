@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+apps/app_a/runtime/*.sqlite3
+apps/app_a/audit/audit_chain.sqlite3

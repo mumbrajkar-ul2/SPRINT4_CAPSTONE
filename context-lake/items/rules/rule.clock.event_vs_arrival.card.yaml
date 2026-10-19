@@ -1,0 +1,34 @@
+id: rule.clock.event_vs_arrival
+kind: business_rule
+statement: Keep two clocks. A cut-off question waits.
+inputs:
+- name: event_time
+  term: term.evidence
+- name: arrival_time
+  term: term.evidence
+decision_table:
+- when:
+    cutoff_owner: unknown
+  then:
+    route: HOLD_FOR_REVIEW
+authority: policy_archive
+owner: unknown
+policy_status: n/a
+tests:
+- given:
+    event_time: T1
+    arrival_time: T2
+    question: cutoff
+  expect:
+    show_both: true
+    route: HOLD_FOR_REVIEW
+observed_implementations: []
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/enterprise_legacy.sqlite3
+  sha256: f13ed709df16f3c6244282ff4efde7768dee9294f0533098de3d34f0657af913
+  locator: policy_register.threshold
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: REAL

@@ -1,0 +1,1 @@
+# Characterization tests for Phase 7. They lock current behaviour.

@@ -1,0 +1,20 @@
+id: data.injection.html
+kind: data_relationship
+statement: 'Archive HTML files 00101.html and 00303.html contain approve-or-ignore
+  language. Count 2. Honesty: REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/archive_documents/00101.html
+  sha256: b7614d0b8578ac57892f901531436dc0fc4c18cb7ebf3fe4ee15b3170b2af75f
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: untrusted_text
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: rule.untrusted_text.block
+- type: evidenced_by
+  to: decision.bp7.untrusted_text

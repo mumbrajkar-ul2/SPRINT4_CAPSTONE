@@ -1,0 +1,22 @@
+{
+  "lake_version": "1.0.0",
+  "built_at": "2026-10-18T16:24:57.321160+00:00",
+  "item_count": 148,
+  "edge_count": 180,
+  "term_count": 267,
+  "sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+  "source_register_sha256": "d600d8a326ef5058d5d1d54d8c961ab25d23800b938d9a186dea477a472f8c3f",
+  "correlation_id": "corr-p5b-doc-20261018-001",
+  "extra_sources": {
+    "docs/10-architecture/adrs/adr-knowledge-graph-edges-table.md": "92bd2460552a8b27be87b6cce52ed50f461b457488e00d5bf2654ec432d82990",
+    "docs/10-architecture/adrs/adr-lake-yaml-to-sqlite.md": "44ce4dbbbadd1692c90fab644fd5af29d5297bd34d99d3bc758bc65b58b5ffed",
+    "docs/10-architecture/adrs/adr-ports-and-compose.md": "3f4166567a5a72925941118fbc72677543291e84cb1140ab6f47a2dcd7e7a6db",
+    "docs/05-current-state/brownfield-inventory.md": "2f1343e14f388a8c68a95e52e37fd990a142269e226382d0afd137789a9ad15e",
+    "docs/11-data-context/knowledge-model.md": "918590a5d13a26c9d9543baf2f5ea583b217c7f2ab90fcb0c7844919827c58c3",
+    "docs/11-data-context/injection-corpus-design.md": "f5773447b603f89a16135073dda5e40ecc120b187c9b907ef00e5eb06a2fa92b",
+    "docs/11-data-context/mapping-design.md": "1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8",
+    "Decision_Tracker.md": "342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f",
+    "docs/05-current-state/conflict-catalogue.md": "b39e8b16e07fbbf40304f55c189d96593cbc26f7fea31a910f07c50791ea2940",
+    "docs/10-architecture/adrs/adr-two-applications.md": "252ae73826f65b1324037e1c92cd1cefe786a95329b6a72d4fc77351234583e7"
+  }
+}

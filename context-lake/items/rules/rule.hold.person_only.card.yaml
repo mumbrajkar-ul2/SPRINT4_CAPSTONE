@@ -1,0 +1,30 @@
+id: rule.hold.person_only
+kind: business_rule
+statement: A model hold proposal waits. A person writes the hold.
+inputs:
+- name: proposed_hold
+  term: term.engineering_hold
+decision_table:
+- when:
+    model_proposes_hold: true
+  then:
+    route: HOLD_FOR_REVIEW
+    write: false
+authority: sme
+owner: SME
+policy_status: proposed
+tests:
+- given:
+    model_proposes_engineering_hold: 1
+  expect:
+    route: HOLD_FOR_REVIEW
+    write: false
+observed_implementations: []
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: n/a

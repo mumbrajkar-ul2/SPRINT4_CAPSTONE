@@ -1,0 +1,21 @@
+id: term.lot_genealogy
+kind: domain_knowledge
+statement: lot_genealogy is a named policy string in domain-profile.json. wafer_lots
+  has no parent_lot_id column. The lake has no lot genealogy data.
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+recorded_at: '2026-10-18'
+claim: unknown
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: n/a
+links:
+- type: evidenced_by
+  to: data.missing.lot_genealogy
+- type: conflicts_with
+  to: data.missing.lot_genealogy
+authority: unresolved

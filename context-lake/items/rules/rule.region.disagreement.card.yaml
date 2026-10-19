@@ -1,0 +1,41 @@
+id: rule.region.disagreement
+kind: business_rule
+statement: Site and stored region disagreement waits. AU and ZA wait.
+inputs:
+- name: site
+  term: term.site_code
+- name: sales_region
+  term: term.sales_region
+decision_table:
+- when:
+    disagree: true
+  then:
+    route: HOLD_FOR_REVIEW
+authority: sme
+owner: SME
+policy_status: decided
+tests:
+- given:
+    site: IN-BLR
+    stored_sales_region: AMER
+  expect:
+    route: HOLD_FOR_REVIEW
+- given:
+    country: AU
+    site: null
+  expect:
+    route: HOLD_FOR_REVIEW
+- given:
+    country: ZA
+    site: null
+  expect:
+    route: HOLD_FOR_REVIEW
+observed_implementations: []
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: REAL

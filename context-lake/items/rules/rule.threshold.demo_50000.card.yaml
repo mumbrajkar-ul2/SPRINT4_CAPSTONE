@@ -1,0 +1,39 @@
+id: rule.threshold.demo_50000
+kind: business_rule
+statement: Demo cutoff 50000 stays PROPOSED.
+inputs:
+- name: demo_display
+  term: term.policy
+decision_table:
+- when:
+    demo_display: true
+  then:
+    cutoff: 50000
+    policy_status: proposed
+- when:
+    live_policy: true
+    archive_silent: true
+  then:
+    route: HOLD_FOR_REVIEW
+authority: unresolved
+owner: Business Owner
+policy_status: proposed
+tests:
+- given:
+    demo_display: true
+  expect:
+    cutoff: 50000
+    policy_status: proposed
+- given:
+    live_policy: true
+  expect:
+    route: HOLD_FOR_REVIEW
+observed_implementations: []
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: REAL

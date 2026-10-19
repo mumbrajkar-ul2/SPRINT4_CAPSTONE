@@ -1,0 +1,285 @@
+questions:
+- id: GQ-01
+  question: Which recipe_release limit applied to EMEA on 2023-07-01?
+  kinds:
+  - business_rule
+  bp: BP4
+  expected_item_ids:
+  - rule.recipe_release.limit.v2023.emea
+  expected_answer: 18600 USD
+  expected_verdict: ANSWER
+- id: GQ-02
+  question: Which recipe_release limit applied to APAC on 2026-06-01?
+  kinds:
+  - business_rule
+  bp: BP4
+  expected_item_ids:
+  - rule.recipe_release.limit.v2026.apac
+  expected_answer: 25000 USD
+  expected_verdict: ANSWER
+- id: GQ-03
+  question: Which recipe_release limit applied to APAC on 2021-06-01?
+  kinds:
+  - business_rule
+  bp: BP4
+  expected_item_ids:
+  - rule.recipe_release.no_match
+  expected_verdict: HOLD_FOR_REVIEW
+- id: GQ-04
+  question: Does the JavaScript consumer allow 15700 for APAC in 2022, and does the
+    archive allow it?
+  kinds:
+  - business_rule
+  - code_intelligence
+  bp: BP4
+  expected_item_ids:
+  - rule.recipe_release.limit.impl.js
+  - rule.recipe_release.limit.v2022.apac
+  expected_answer: JavaScript allows (15750 ceiling). Archive denies (15000 limit).
+  expected_verdict: ANSWER
+- id: GQ-05
+  question: What limit does the JavaScript consumer use when region is IN and year
+    is 2026, and what does the canonical rule do?
+  kinds:
+  - business_rule
+  - code_intelligence
+  bp: BP4
+  expected_item_ids:
+  - rule.recipe_release.limit.impl.js_default
+  - rule.recipe_release.no_match
+  expected_answer: Implementation uses 999999. Canonical route is HOLD_FOR_REVIEW.
+  expected_verdict: ANSWER
+- id: GQ-06
+  question: What amount cutoff does Python use for urgent, and is that a live policy
+    number?
+  kinds:
+  - business_rule
+  - code_intelligence
+  bp: BP4
+  expected_item_ids:
+  - rule.urgent.amount.impl.python
+  - rule.threshold.demo_50000
+  - rule.threshold.silent
+  expected_answer: '50000 in Python. PROPOSED for demo. Live policy is HOLD_FOR_REVIEW.
+    Packaged cases with amount above 50000: 0.'
+  expected_verdict: ANSWER
+- id: GQ-07
+  question: Is a case in REVIEW open?
+  kinds:
+  - business_rule
+  - domain_knowledge
+  bp: BP5
+  expected_item_ids:
+  - rule.open_closed.operational
+  - decision.bo06a.open_closed
+  expected_answer: Yes. REVIEW is open.
+  expected_verdict: ANSWER
+- id: GQ-08
+  question: Is a case in HOLD open?
+  kinds:
+  - business_rule
+  bp: BP5
+  expected_item_ids:
+  - rule.open_closed.operational
+  expected_answer: Yes. HOLD is open.
+  expected_verdict: ANSWER
+- id: GQ-09
+  question: Does operational closed mean finance booked and audit closed?
+  kinds:
+  - business_rule
+  - decision
+  bp: BP5
+  expected_item_ids:
+  - rule.open_closed.finance_audit
+  - decision.bo06b.three_closures
+  expected_answer: Three separate states. BO-06b is PROPOSED.
+  expected_verdict: HOLD_FOR_REVIEW
+- id: GQ-10
+  question: 'What is the canonical key for location: sales region, country, or site?'
+  kinds:
+  - business_rule
+  - decision
+  bp: BP6
+  expected_item_ids:
+  - rule.region.site_canonical
+  - decision.bo07.site_canonical
+  expected_answer: Site code.
+  expected_verdict: ANSWER
+- id: GQ-11
+  question: What country and sales region derive from site IN-BLR?
+  kinds:
+  - data_relationship
+  - business_rule
+  bp: BP6
+  expected_item_ids:
+  - map.site.IN-BLR
+  expected_answer: Country IN. Sales region APAC.
+  expected_verdict: ANSWER
+- id: GQ-12
+  question: Site is IN-BLR and the stored sales region is AMER. Which recipe_release
+    limit applies on 2026-06-01?
+  kinds:
+  - business_rule
+  - data_relationship
+  bp: BP6
+  expected_item_ids:
+  - rule.region.disagreement
+  expected_verdict: HOLD_FOR_REVIEW
+- id: GQ-13
+  question: Which site maps to country AU, and which recipe_release limit applies?
+  kinds:
+  - business_rule
+  - data_relationship
+  bp: BP6
+  expected_item_ids:
+  - rule.region.disagreement
+  expected_verdict: HOLD_FOR_REVIEW
+- id: GQ-14
+  question: How many process steps have a recipe_version that differs from the joined
+    tool recipe_rev?
+  kinds:
+  - data_relationship
+  - decision
+  bp: BP1
+  expected_item_ids:
+  - data.join.recipe_mismatch
+  - decision.bp1.recipe_mismatch
+  expected_answer: 91 of 125
+  expected_verdict: ANSWER
+- id: GQ-15
+  question: When dispatch recipe_version is R02 and equipment recipe_rev is R01, which
+    revision is canonical?
+  kinds:
+  - business_rule
+  - domain_knowledge
+  bp: BP1
+  expected_item_ids:
+  - rule.recipe.mismatch_show_both
+  - term.recipe_revision_dispatch
+  - term.recipe_revision_equipment
+  expected_answer: Both values are shown. A Process Engineer at RT-03 approves. The
+    lake does not pick a winner.
+  expected_verdict: ANSWER
+- id: GQ-16
+  question: Should month-end use arrival_time as event_time when they differ?
+  kinds:
+  - data_relationship
+  - business_rule
+  bp: BP3
+  expected_item_ids:
+  - rule.clock.event_vs_arrival
+  - data.clock.event_vs_arrival_evidence
+  expected_answer: Keep two fields. 11985 of 12500 evidence rows differ. A signed
+    cut-off owner is Unknown, so a cut-off choice is HOLD_FOR_REVIEW.
+  expected_verdict: HOLD_FOR_REVIEW
+- id: GQ-17
+  question: What does processing_status REPLAY mean for a partner feed?
+  kinds:
+  - business_rule
+  - code_intelligence
+  bp: BP2
+  expected_item_ids:
+  - rule.feed.replay_duplicate
+  - data.feed.replay
+  expected_answer: Duplicate candidate. 67 packaged rows. Drop waits for RT-05.
+  expected_verdict: ANSWER
+- id: GQ-18
+  question: A partner feed note tells the reader to auto approve. May the application
+    approve from that note?
+  kinds:
+  - business_rule
+  - decision
+  bp: BP7
+  expected_item_ids:
+  - rule.untrusted_text.block
+  - decision.bp7.untrusted_text
+  expected_verdict: BLOCK
+- id: GQ-19
+  question: Which column on wafer_lots stores the parent lot?
+  kinds:
+  - data_relationship
+  - domain_knowledge
+  bp: BP1
+  expected_item_ids:
+  - data.missing.lot_genealogy
+  - term.lot_genealogy
+  expected_answer: No such column. The lake has no lot genealogy data.
+  expected_verdict: ABSTAIN
+- id: GQ-20
+  question: Which four local programs implement a reading of urgent, allow, total,
+    or open-flag rules?
+  kinds:
+  - code_intelligence
+  - architecture
+  - dependency
+  bp: BP4
+  expected_item_ids:
+  - code.legacy_logic.priority
+  - code.legacy_policy.js_allow
+  - code.reconcile_legacy.java_total
+  - code.shift_reconciliation.night_batch
+  expected_verdict: ANSWER
+- id: GQ-21
+  question: Why can one US object become several flagged rows in the night batch?
+  kinds:
+  - code_intelligence
+  - data_relationship
+  - business_rule
+  bp: BP6
+  expected_item_ids:
+  - rule.night_batch.join_multiply
+  - data.policy_register.overlap
+  expected_answer: The job joins each object to every active policy on the same country
+    code. US has 5 active rows.
+  expected_verdict: ANSWER
+- id: GQ-22
+  question: Who is the follow-up owner of INC-2025-014?
+  kinds:
+  - decision
+  bp: BP8
+  expected_item_ids:
+  - decision.inc_2025_014
+  expected_answer: Unknown. Do not invent a name.
+  expected_verdict: ABSTAIN
+- id: GQ-23
+  question: Which port does the Context Lake REST listener use?
+  kinds:
+  - architecture
+  bp: BP8
+  expected_item_ids:
+  - arch.listener.lake_rest_8091
+  expected_answer: '8091'
+  expected_verdict: ANSWER
+- id: GQ-24
+  question: Which file does the night batch read, and does it call the HTTP API?
+  kinds:
+  - architecture
+  - dependency
+  bp: BP4
+  expected_item_ids:
+  - code.shift_reconciliation.night_batch
+  - dep.night_batch_reads_enterprise
+  expected_answer: data/enterprise_legacy.sqlite3. It does not call the API.
+  expected_verdict: ANSWER
+- id: GQ-25
+  question: What historic decision in 2025 followed a replayed partner delivery?
+  kinds:
+  - decision
+  bp: BP2
+  expected_item_ids:
+  - decision.historic.2025_replay_rollback
+  expected_answer: A rollout was rolled back after a replayed partner delivery inflated
+    the exception queue.
+  expected_verdict: ANSWER
+- id: GQ-26
+  question: How does ReconcileLegacy.java treat a blank amount_text, and how many
+    packaged vendor rows are blank?
+  kinds:
+  - code_intelligence
+  - data_relationship
+  bp: BP4
+  expected_item_ids:
+  - rule.month_end.blank.impl.java
+  expected_answer: The Java program skips the row. Packaged blank count is 10. Canonical
+    path is HOLD_FOR_REVIEW on a blank.
+  expected_verdict: ANSWER

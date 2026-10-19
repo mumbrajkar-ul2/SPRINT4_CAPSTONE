@@ -1,0 +1,19 @@
+id: rule.region.specificity
+kind: business_rule
+statement: The most specific scope wins. Order is site, then country, then sales region.
+  recipe_release still binds at the derived sales region. FAB-RULE binds at country.
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: SME
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: governs
+  to: rule.region.site_canonical
+authority: sme

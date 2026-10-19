@@ -1,0 +1,23 @@
+id: code.legacy_logic.priority
+kind: code_intelligence
+statement: app/legacy_logic.py function priority returns archive when status is CLOSED,
+  urgent when severity is CRITICAL or amount is greater than 50000, review when severity
+  is HIGH or status is ESCALATED, else queue. Python priority does not read the archive
+  JSON.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/app/legacy_logic.py
+  sha256: 432be534193beedfb2df29735a1c89b72fbbe47d983f4b3142db97d5b6c2edd0
+  lines: 2-5
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: implements
+  to: rule.recipe_release.limit
+- type: implements
+  to: rule.urgent.amount.impl.python

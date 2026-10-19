@@ -1,0 +1,22 @@
+id: rule.clock.event_vs_arrival
+kind: business_rule
+statement: 'event_time and arrival_time stay two fields. 11985 of 12500 evidence rows
+  differ. Month-end uses event_time unless a later signed rule says otherwise. A signed
+  cut-off owner is Unknown, so a cut-off question routes HOLD_FOR_REVIEW. Honesty:
+  REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/enterprise_legacy.sqlite3
+  sha256: f13ed709df16f3c6244282ff4efde7768dee9294f0533098de3d34f0657af913
+  locator: evidence_events.event_time
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: data.clock.event_vs_arrival_evidence
+authority: policy_archive

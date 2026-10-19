@@ -1,0 +1,17 @@
+id: decision.fd06.two_apps
+kind: decision
+statement: FD-06. Application A runs from transformed code. Application B reads rules
+  only from the Context Lake. Both apps run the same scenarios.
+source:
+  path: docs/10-architecture/adrs/adr-two-applications.md
+  sha256: 252ae73826f65b1324037e1c92cd1cefe786a95329b6a72d4fc77351234583e7
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links: []
+authority: sme

@@ -1,0 +1,51 @@
+id: rule.open_flag.impl.night_batch
+kind: business_rule
+statement: Night batch flags REVIEW and HOLD. That matches BO-06a.
+inputs:
+- name: status
+  term: term.open_operational
+decision_table:
+- when:
+    status: REVIEW
+  then:
+    flagged: true
+    route: OPEN
+- when:
+    status: HOLD
+  then:
+    flagged: true
+    route: OPEN
+- when:
+    status: CLOSED
+  then:
+    flagged: false
+authority: sme
+owner: SME
+policy_status: decided
+tests:
+- given:
+    status: REVIEW
+  expect:
+    flagged: true
+    route: OPEN
+- given:
+    status: HOLD
+  expect:
+    flagged: true
+    route: OPEN
+- given:
+    status: CLOSED
+  expect:
+    flagged: false
+observed_implementations:
+- path: legacy_batch/shift_reconciliation.py
+  lines: '13'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_batch/shift_reconciliation.py
+  sha256: e95638c443e58d6db09120c7b05fd6db1d6f5cebaca692887e0256cd2bc36bf5
+  lines: 8-14
+claim: verified_fact
+trust: trusted_code
+lake_version: 1.0.0
+item_status: accepted
+honesty: n/a

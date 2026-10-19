@@ -1,0 +1,20 @@
+id: decision.fd22.lake_version_policy
+kind: decision
+statement: FD-22. One review round. Version starts at 1.0.0. Later changes go through
+  the loop with an ADR. Add items = patch. Change meaning = minor with an ADR. Remove
+  an id = major.
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: governs
+  to: arch.lake.yaml_sqlite
+authority: sme

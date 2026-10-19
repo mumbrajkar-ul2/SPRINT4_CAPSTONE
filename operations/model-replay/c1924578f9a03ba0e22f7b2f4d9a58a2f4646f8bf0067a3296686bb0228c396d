@@ -1,0 +1,1 @@
+{"sentence": "Dispatch recipe_version is R02. Equipment recipe_rev is R01. Both values are shown. The model does not write engineering_hold.", "citations": ["rule.recipe.mismatch_show_both", "data.join.recipe_mismatch"], "verdict": "ANSWER", "block": false, "untrusted_quotes": []}

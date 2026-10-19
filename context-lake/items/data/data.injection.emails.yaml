@@ -1,0 +1,20 @@
+id: data.injection.emails
+kind: data_relationship
+statement: 'Archive emails 00000.eml, 00202.eml, and 00404.eml contain approve-or-ignore
+  language. Count 3. Honesty: REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/archive_documents/00000.eml
+  sha256: 28a90b175435e60dd62c05b5e5176ef95621a3d2d6e05ab6672d5e385eaa8270
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: untrusted_text
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: rule.untrusted_text.block
+- type: evidenced_by
+  to: decision.bp7.untrusted_text

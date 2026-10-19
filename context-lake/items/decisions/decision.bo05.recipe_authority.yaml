@@ -1,0 +1,19 @@
+id: decision.bo05.recipe_authority
+kind: decision
+statement: BO-05. The archive is canonical for the recipe_release limit. The four
+  programs are deviations. BO-05 does not pick recipe_version over recipe_rev.
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: governs
+  to: rule.recipe_release.limit
+authority: sme

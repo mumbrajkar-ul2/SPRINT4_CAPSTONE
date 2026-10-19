@@ -1,0 +1,70 @@
+id: rule.open_closed.operational
+kind: business_rule
+statement: REVIEW and HOLD are open. BO-06a.
+inputs:
+- name: status
+  term: term.open_operational
+decision_table:
+- when:
+    status: REVIEW
+  then:
+    route: OPEN
+- when:
+    status: HOLD
+  then:
+    route: OPEN
+- when:
+    status: CLOSED
+    engineering_action: none
+    final_disposition: true
+  then:
+    route: CLOSED_OPERATIONAL
+authority: sme
+owner: SME
+policy_status: decided
+tests:
+- given:
+    status: REVIEW
+  expect:
+    route: OPEN
+- given:
+    status: HOLD
+  expect:
+    route: OPEN
+- given:
+    status: UNDER_REVIEW
+  expect:
+    route: OPEN
+- given:
+    status: ESCALATED
+  expect:
+    route: OPEN
+- given:
+    status: REOPENED
+  expect:
+    route: OPEN
+- given:
+    status: OPEN
+  expect:
+    route: OPEN
+- given:
+    status: CLOSED
+    engineering_action: pending
+  expect:
+    route: OPEN
+- given:
+    status: CLOSED
+    final_disposition: true
+    engineering_action: none
+  expect:
+    route: CLOSED_OPERATIONAL
+observed_implementations:
+- id: rule.open_flag.impl.night_batch
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: n/a

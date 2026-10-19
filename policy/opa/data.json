@@ -1,0 +1,17 @@
+{
+  "injection_corpus_ids": [
+    "IC-01",
+    "IC-02",
+    "IC-02-tiny",
+    "IC-03",
+    "IC-04",
+    "IC-05",
+    "IC-06"
+  ],
+  "write_from_text_actions": [
+    "approve",
+    "release",
+    "ignore-validation",
+    "close-from-text"
+  ]
+}

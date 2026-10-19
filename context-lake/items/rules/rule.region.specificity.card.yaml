@@ -1,0 +1,31 @@
+id: rule.region.specificity
+kind: business_rule
+statement: 'Most specific scope wins: site, country, sales region.'
+inputs:
+- name: site
+  term: term.site_code
+decision_table:
+- when:
+    site: IN-BLR
+    family: FAB-RULE
+  then:
+    bind: country IN
+authority: sme
+owner: SME
+policy_status: decided
+tests:
+- given:
+    site: IN-BLR
+    family: FAB-RULE
+  expect:
+    bind_scope: country
+    archive_family: APAC
+observed_implementations: []
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: n/a

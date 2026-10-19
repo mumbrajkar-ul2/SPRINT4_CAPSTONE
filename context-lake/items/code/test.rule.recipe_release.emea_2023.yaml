@@ -1,0 +1,18 @@
+id: test.rule.recipe_release.emea_2023
+kind: code_intelligence
+statement: 'Canonical test: amount 18000, sales_region EMEA, on_date 2023-07-01 is
+  within the 18600 USD recipe_release limit.'
+source:
+  path: docs/11-data-context/knowledge-model.md
+  sha256: 918590a5d13a26c9d9543baf2f5ea583b217c7f2ab90fcb0c7844919827c58c3
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: tested_by
+  to: rule.recipe_release.limit

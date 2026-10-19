@@ -1,0 +1,27 @@
+id: rule.recipe_release.limit.v2023.apac
+kind: business_rule
+statement: 'The 2023 APAC recipe_release limit is 17500 USD from 2023-01-01 through
+  2023-12-31. Currency is USD. Honesty: REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/contracts/decision-policies-archive.json
+  sha256: c9cd0e7a452d4962c0394fd333a20c2618062825cedd8c8f49fdf4f87f7b2453
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: Policy Owner (RT-04)
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: REAL
+links:
+- type: governs
+  to: rule.recipe_release.limit
+- type: maps_to
+  to: term.sales_region
+- type: supersedes
+  to: rule.recipe_release.limit.v2022.apac
+authority: policy_archive
+valid_time:
+  from: '2023-01-01'
+  to: '2023-12-31'
+supersedes: rule.recipe_release.limit.v2022.apac

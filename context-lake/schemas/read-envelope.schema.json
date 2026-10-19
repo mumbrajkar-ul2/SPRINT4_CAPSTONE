@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fabpulse.local/schemas/read-envelope.schema.json",
+  "title": "Lake read envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ok",
+    "lake_version",
+    "items",
+    "edges",
+    "citations",
+    "trust_summary",
+    "untrusted_quotes",
+    "verdict",
+    "block"
+  ],
+  "properties": {
+    "ok": { "type": "boolean" },
+    "lake_version": { "type": "string" },
+    "items": { "type": "array" },
+    "edges": { "type": "array" },
+    "citations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "trust_summary": {
+      "type": "string",
+      "enum": ["trusted", "contains_untrusted_text"]
+    },
+    "untrusted_quotes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "verdict": {
+      "type": "string",
+      "enum": ["ANSWER", "ABSTAIN", "HOLD_FOR_REVIEW"]
+    },
+    "block": { "type": "boolean" }
+  }
+}

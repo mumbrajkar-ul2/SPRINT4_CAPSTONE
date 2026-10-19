@@ -1,0 +1,20 @@
+id: data.injection.bundled_events
+kind: data_relationship
+statement: 'Bundled lake events JSONL has 150 rows whose source_claim field contains
+  approve-this-record language. Generator condition is i%671==0. Honesty: REAL.'
+source:
+  path: docs/11-data-context/injection-corpus-design.md
+  sha256: f5773447b603f89a16135073dda5e40ecc120b187c9b907ef00e5eb06a2fa92b
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: untrusted_text
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: rule.untrusted_text.block
+- type: evidenced_by
+  to: decision.bp7.untrusted_text

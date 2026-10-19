@@ -1,0 +1,23 @@
+id: map.site.JP-KN
+kind: data_relationship
+statement: Site JP-KN derives country JP and sales region APAC. The prefix of the
+  site string is the country code. This map is an engineering derivation for BO-07.
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+recorded_at: '2026-10-18'
+claim: inference
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: maps_to
+  to: term.country_code
+- type: maps_to
+  to: term.sales_region
+- type: maps_to
+  to: term.site_code
+authority: sme

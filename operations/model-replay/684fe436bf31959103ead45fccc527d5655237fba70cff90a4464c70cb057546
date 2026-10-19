@@ -1,0 +1,1 @@
+{"sentence": "Operational closed, finance booked, and audit closed are three separate states. BO-06b is PROPOSED.", "citations": ["rule.open_closed.finance_audit", "decision.bo06b.three_closures"], "verdict": "HOLD_FOR_REVIEW", "block": false, "untrusted_quotes": []}

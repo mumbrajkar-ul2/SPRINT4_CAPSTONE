@@ -1,0 +1,129 @@
+- term_id: term.open_operational
+  canonical_name: open operational
+  definition: A case is open while any disposition or engineering action is pending,
+    including REVIEW and HOLD.
+  local_names:
+  - system: cases
+    field_or_word: OPEN
+    meaning: Pending work
+  - system: cases
+    field_or_word: UNDER_REVIEW
+    meaning: Same meaning as REVIEW
+  - system: operational_objects
+    field_or_word: REVIEW
+    meaning: Open
+  - system: operational_objects
+    field_or_word: HOLD
+    meaning: Open
+  - system: Python
+    field_or_word: status != CLOSED
+    meaning: Local open_cases count
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No open flag
+  - system: Java
+    field_or_word: absent
+    meaning: No open flag
+  - system: night batch
+    field_or_word: HOLD and REVIEW
+    meaning: Flagged as outstanding
+  - system: MESDispatch
+    field_or_word: QUEUED PROCESSING HOLD ENGINEERING_REVIEW
+    meaning: Domain profile states
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No status list
+  authority: sme
+  policy_status: decided
+  claim: verified_fact
+  source_path: docs/11-data-context/mapping-design.md
+- term_id: term.closed_operational
+  canonical_name: closed operational
+  definition: A case is closed only when a final disposition is recorded and no engineering
+    action is pending.
+  local_names:
+  - system: cases
+    field_or_word: CLOSED
+    meaning: Local disposition word. Engineering action is absent, so closure stays
+      Unknown until confirmed.
+  - system: operational_objects
+    field_or_word: CLOSED
+    meaning: Local status word
+  - system: Python
+    field_or_word: CLOSED
+    meaning: Returns archive
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No closed flag
+  - system: Java
+    field_or_word: absent
+    meaning: No closed flag
+  - system: night batch
+    field_or_word: CLOSED
+    meaning: Not flagged for status
+  - system: MESDispatch
+    field_or_word: RELEASED
+    meaning: Domain queue released is not signed as operational closed
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No closed word
+  authority: sme
+  policy_status: decided
+  claim: verified_fact
+  source_path: docs/11-data-context/mapping-design.md
+- term_id: term.closed_finance
+  canonical_name: closed finance
+  definition: Finance closed means a finance action is recorded, for example booked_at
+    on financial_adjustments. BO-06b is PROPOSED.
+  local_names:
+  - system: financial_adjustments
+    field_or_word: booked_at
+    meaning: Finance timestamp
+  - system: Python
+    field_or_word: absent
+    meaning: No finance flag
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No finance flag
+  - system: Java
+    field_or_word: absent
+    meaning: No finance flag
+  - system: night batch
+    field_or_word: absent
+    meaning: No finance flag
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No finance flag
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No finance flag
+  authority: unresolved
+  policy_status: proposed
+  claim: verified_fact
+  source_path: docs/11-data-context/mapping-design.md
+- term_id: term.closed_audit
+  canonical_name: closed audit
+  definition: Audit closed means an audit close is recorded. BO-06b is PROPOSED.
+  local_names:
+  - system: Python
+    field_or_word: absent
+    meaning: No audit flag
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No audit flag
+  - system: Java
+    field_or_word: absent
+    meaning: No audit flag
+  - system: night batch
+    field_or_word: absent
+    meaning: No audit flag
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No audit flag
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No audit flag
+  authority: unresolved
+  policy_status: proposed
+  claim: verified_fact
+  source_path: docs/11-data-context/mapping-design.md

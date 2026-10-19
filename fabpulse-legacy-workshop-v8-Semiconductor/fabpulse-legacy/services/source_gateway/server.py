@@ -5,6 +5,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 ROOT=Path(__file__).resolve().parents[2]
 CFG=json.loads((ROOT/'integration'/'source-gateway.json').read_text())
 DB=Path(os.environ.get('LEGACY_DB',str(ROOT/'data'/'legacy.sqlite3')))
+def build_event_record(key,src,typ,index,offset=0):
+    """Same event keys the gateway already returns. Extracted so tests can call it."""
+    uid=hashlib.sha256((src+key+typ).encode()).hexdigest()[:24]
+    i=index
+    return {'message_id':uid,'business_key':key,'system':src,'event_type':typ,'schema_version':'1.0' if (offset+i)%19 else '0.9','occurred_at':f'2025-03-{1+(offset+i)%28:02d}T{(offset+i)%24:02d}:00:00Z','published_at':f'2025-03-{1+(offset+i)%28:02d}T{((offset+i)+2)%24:02d}:15:00Z','payload':{'identifier':key,'note':'legacy operational note','source_status':'OPEN' if i%5 else 'HOLD'}}
 class Handler(BaseHTTPRequestHandler):
     def reply(self,n,v):
         b=json.dumps(v,default=str).encode();self.send_response(n);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(b)));self.end_headers();self.wfile.write(b)
@@ -22,8 +27,8 @@ class Handler(BaseHTTPRequestHandler):
                 rows=con.execute('SELECT id FROM '+CFG['parent_table']+' ORDER BY id LIMIT ? OFFSET ?', (limit,offset)).fetchall() if False else con.execute('SELECT '+CFG['parent_key']+' FROM '+CFG['parent_table']+' ORDER BY '+CFG['parent_key']+' LIMIT ? OFFSET ?', (limit,offset)).fetchall()
             records=[]
             for i,r in enumerate(rows):
-                key=r[0];src=source or CFG['sources'][(offset+i)%len(CFG['sources'])];typ=CFG['event_types'][(offset+i)%len(CFG['event_types'])];uid=hashlib.sha256((src+key+typ).encode()).hexdigest()[:24]
-                records.append({'message_id':uid,'business_key':key,'system':src,'event_type':typ,'schema_version':'1.0' if (offset+i)%19 else '0.9','occurred_at':f'2025-03-{1+(offset+i)%28:02d}T{(offset+i)%24:02d}:00:00Z','published_at':f'2025-03-{1+(offset+i)%28:02d}T{((offset+i)+2)%24:02d}:15:00Z','payload':{'identifier':key,'note':'legacy operational note','source_status':'OPEN' if i%5 else 'HOLD'}})
+                key=r[0];src=source or CFG['sources'][(offset+i)%len(CFG['sources'])];typ=CFG['event_types'][(offset+i)%len(CFG['event_types'])]
+                records.append(build_event_record(key,src,typ,i,offset))
             return self.reply(200,{'items':records,'count':len(records),'next_offset':offset+len(records)})
         if u.path.startswith('/api/record/'):
             key=u.path.rsplit('/',1)[-1]

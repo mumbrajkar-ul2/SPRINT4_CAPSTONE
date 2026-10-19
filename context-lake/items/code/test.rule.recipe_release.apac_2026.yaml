@@ -1,0 +1,18 @@
+id: test.rule.recipe_release.apac_2026
+kind: code_intelligence
+statement: 'Canonical test: amount 25000, sales_region APAC, on_date 2026-06-01 is
+  within the 25000 USD recipe_release limit. Amount 25001 is outside.'
+source:
+  path: docs/11-data-context/knowledge-model.md
+  sha256: 918590a5d13a26c9d9543baf2f5ea583b217c7f2ab90fcb0c7844919827c58c3
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: tested_by
+  to: rule.recipe_release.limit.v2026.apac

@@ -1,0 +1,1 @@
+{"sentence": "This feed has processing_status REPLAY. That status marks a duplicate candidate. 67 packaged rows have REPLAY. Drop waits for RT-05.", "citations": ["rule.feed.replay_duplicate", "data.feed.replay"], "verdict": "ANSWER", "block": false, "untrusted_quotes": []}

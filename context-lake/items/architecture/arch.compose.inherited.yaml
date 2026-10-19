@@ -1,0 +1,16 @@
+id: arch.compose.inherited
+kind: architecture
+statement: Inherited compose.yaml starts services legacy, source-gateway, and bridge.
+  It publishes 8080 and 8090. It does not publish 8091 or 8092.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/compose.yaml
+  sha256: eab9d1206bb8f30def25b1108b496a3e0c01c5d109f78318387d1009bac6f32b
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links: []

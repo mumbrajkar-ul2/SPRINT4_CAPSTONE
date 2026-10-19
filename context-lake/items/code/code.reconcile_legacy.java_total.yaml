@@ -1,0 +1,19 @@
+id: code.reconcile_legacy.java_total
+kind: code_intelligence
+statement: legacy_java/ReconcileLegacy.java sums vendor amount_text as a double. A
+  blank or unreadable cell is skipped with no report.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_java/ReconcileLegacy.java
+  sha256: 40b788375cd61e1700f507f1c402724de595f9b3e973c982a57aee00cefb4764
+  lines: '12'
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: n/a
+links:
+- type: implements
+  to: rule.recipe_release.limit

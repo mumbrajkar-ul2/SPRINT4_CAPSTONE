@@ -1,0 +1,17 @@
+id: data.missing.case_lot_id
+kind: data_relationship
+statement: cases has no lot_id column. A case row cannot join to wafer_lots on a stored
+  lot key.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/legacy.sqlite3
+  sha256: 2d9a3fae58af56daf524d16eb99dedf4ef82ade39d1ca68ad36e249fa0b99879
+  locator: cases.id
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links: []

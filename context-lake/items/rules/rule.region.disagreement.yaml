@@ -1,0 +1,21 @@
+id: rule.region.disagreement
+kind: business_rule
+statement: 'When the site-derived sales region disagrees with a stored sales region,
+  the route is HOLD_FOR_REVIEW. 84 of 125 packaged cases have that disagreement. Country
+  AU has no site. Country ZA has no site. Those lookups wait. Do not invent a site.
+  Honesty: REAL.'
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: SME
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: REAL
+links:
+- type: conflicts_with
+  to: rule.region.site_canonical
+authority: sme

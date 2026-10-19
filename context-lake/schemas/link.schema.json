@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fabpulse.local/schemas/link.schema.json",
+  "title": "Lake link",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "to"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "implements",
+        "conflicts_with",
+        "supersedes",
+        "governs",
+        "evidenced_by",
+        "depends_on",
+        "maps_to",
+        "tested_by"
+      ]
+    },
+    "to": {
+      "type": "string",
+      "pattern": "^[a-z][A-Za-z0-9._-]+$"
+    }
+  }
+}

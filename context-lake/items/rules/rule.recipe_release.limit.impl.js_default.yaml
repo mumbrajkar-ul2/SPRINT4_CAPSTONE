@@ -1,0 +1,23 @@
+id: rule.recipe_release.limit.impl.js_default
+kind: business_rule
+statement: legacy_policy.js returns 999999 when year or region is missing from the
+  archive. Region IN and year 2026 take that default. The canonical route is HOLD_FOR_REVIEW.
+  999999 is not a live policy number.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_js/legacy_policy.js
+  sha256: 4e787a78b01715bdbf6dea0d30a776902987e28486d52da8cd9eb86fcf327f8c
+  lines: 4-5
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: implements
+  to: rule.recipe_release.limit
+- type: conflicts_with
+  to: rule.recipe_release.no_match
+authority: unresolved

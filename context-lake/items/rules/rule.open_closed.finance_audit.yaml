@@ -1,0 +1,20 @@
+id: rule.open_closed.finance_audit
+kind: business_rule
+statement: Operational closed, finance booked, and audit closed are three states.
+  BO-06b is PROPOSED. A mismatch routes to HOLD_FOR_REVIEW. Do not merge the three
+  flags.
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: Business Owner
+lake_version: 1.0.0
+item_status: accepted
+policy_status: proposed
+honesty: n/a
+links:
+- type: governs
+  to: term.closed_finance
+authority: unresolved

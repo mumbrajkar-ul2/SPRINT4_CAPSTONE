@@ -1,0 +1,17 @@
+id: term.recipe_release_limit
+kind: domain_knowledge
+statement: The recipe_release limit is the archive limit for a sales region and date.
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: n/a
+links:
+- type: maps_to
+  to: rule.recipe_release.limit

@@ -1,0 +1,522 @@
+<mxfile host="app.diagrams.net" agent="Cursor" version="22.1.0" type="device">
+  <diagram id="phase0-baseline" name="Phase 0 baseline">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p1title" value="Fabpulse baseline. Phase 0, before modernization." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="8" width="900" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="p1bgB" value="Business" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fontStyle=1;fontSize=13;fillColor=#FFF8E0;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="20" y="48" width="1860" height="168" as="geometry" />
+        </mxCell>
+        <mxCell id="p1bgA" value="Application" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fontStyle=1;fontSize=13;fillColor=#E8FFFF;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="20" y="248" width="1860" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="p1bgT" value="Technology" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fontStyle=1;fontSize=13;fillColor=#EEF6E6;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="20" y="708" width="1860" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="p1pm" value="Partner messages. MESDispatch, PLM-Metrology, and partner files arrive." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#ffffb5;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=proc;archiType=rounded;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="300" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="p1or" value="Operations review. People read cases and decide locally." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#ffffb5;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=proc;archiType=rounded;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="100" width="340" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="p1me" value="Month-end measures. Shift totals are reconciled after the work." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#ffffb5;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=proc;archiType=rounded;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="100" width="470" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="p1sg" value="Source gateway. Simulated upstream. Port 8090." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="310" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p1br" value="Bridge. Copies records once, then stops. No host port." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="400" y="310" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p1la" value="Legacy API. Cases, metrics, partners, and domain tables. Port 8080." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="310" width="340" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p1pr" value="Partner reconcile. Staging that changes feed status." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="310" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p1nb" value="Night batch. shift_reconciliation.py." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="450" width="150" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="p1jr" value="Java ReconcileLegacy. CSV totals." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1550" y="450" width="140" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="p1js" value="JavaScript legacy_policy.js. Limit times 1.05." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1710" y="450" width="140" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="p1p8090" value="Host port 8090" style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=node;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="760" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p1db" value="legacy.sqlite3. 19 tables. Cases and domain records." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=artifact;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="400" y="750" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p1p8080" value="Host port 8080" style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=node;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="820" y="760" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p1edb" value="enterprise_legacy.sqlite3. 12 tables. Night batch and reports." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=artifact;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="750" width="470" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p1legend" value="&lt;table style=&quot;width:100%;height:100%;border-collapse:collapse;font-size:12px;&quot;&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #666;padding:4px;background:#ffffb5;&quot;&gt;Business. Yellow. People, messages, and the work they do.&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #666;padding:4px;background:#99ffff;&quot;&gt;Application. Blue. Programs that run on this laptop.&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #666;padding:4px;background:#c5e0b4;&quot;&gt;Technology. Green. Files and host ports.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="rounded=0;whiteSpace=wrap;html=1;overflow=fill;fillColor=none;strokeColor=none;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="24" y="930" width="720" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p1note" value="Pass-or-fail rules sit in more than one program: the legacy API, the Java reconcile job, and the JavaScript policy file." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=13;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="780" y="940" width="1040" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p1e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p1pm" target="p1or">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="358" y="136" />
+              <mxPoint x="742" y="136" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p1pm" target="p1sg">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="190" y="188" />
+              <mxPoint x="190" y="294" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p1or" target="p1la">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="930" y="188" />
+              <mxPoint x="930" y="294" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p1sg" target="p1br">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="358" y="350" />
+              <mxPoint x="382" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p1br" target="p1la">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="718" y="350" />
+              <mxPoint x="742" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p1la" target="p1pr">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1118" y="350" />
+              <mxPoint x="1142" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p1sg" target="p1p8090">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="190" y="406" />
+              <mxPoint x="190" y="744" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e8" value="writes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p1br" target="p1db">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="550" y="406" />
+              <mxPoint x="550" y="734" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e17" value="reads" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=0.2;exitY=1;entryX=0.73;entryY=0;" edge="1" parent="1" source="p1la" target="p1db">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="828" y="406" />
+              <mxPoint x="828" y="660" />
+              <mxPoint x="620" y="660" />
+              <mxPoint x="620" y="734" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p1la" target="p1p8080">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="930" y="406" />
+              <mxPoint x="930" y="744" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e10" value="reads and updates" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=0.5;exitY=1;entryX=1;entryY=0.5;" edge="1" parent="1" source="p1pr" target="p1db">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1260" y="406" />
+              <mxPoint x="1260" y="695" />
+              <mxPoint x="718" y="695" />
+              <mxPoint x="718" y="790" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.16;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p1me" target="p1nb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1455" y="188" />
+              <mxPoint x="1455" y="434" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.511;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p1me" target="p1jr">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1620" y="188" />
+              <mxPoint x="1620" y="434" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.851;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p1me" target="p1js">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1780" y="188" />
+              <mxPoint x="1780" y="434" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e14" value="reads" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=0.5;exitY=1;entryX=0.16;entryY=0;" edge="1" parent="1" source="p1nb" target="p1edb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1455" y="538" />
+              <mxPoint x="1455" y="734" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.511;entryY=0;" edge="1" parent="1" source="p1jr" target="p1edb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1620" y="538" />
+              <mxPoint x="1620" y="734" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1e16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.851;entryY=0;" edge="1" parent="1" source="p1js" target="p1edb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1780" y="538" />
+              <mxPoint x="1780" y="734" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="phase16-asbuilt" name="Phase 16 as-built">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1240" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p2title" value="Fabpulse as built. Phase 16. What runs after modernization." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="8" width="1100" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="p2bgB" value="Business" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fontStyle=1;fontSize=13;fillColor=#FFF8E0;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="20" y="48" width="1860" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="p2bgA" value="Application" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fontStyle=1;fontSize=13;fillColor=#E8FFFF;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="20" y="196" width="1860" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="p2bgT" value="Technology" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fontStyle=1;fontSize=13;fillColor=#EEF6E6;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="20" y="896" width="1860" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="p2eq" value="Exception queue. Scenarios 7 to 11." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#ffffb5;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=proc;archiType=rounded;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="36" y="96" width="380" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="p2ce" value="Conflict explanation. The answer cites a lake item or abstains." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#ffffb5;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=proc;archiType=rounded;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="460" y="96" width="400" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="p2ap" value="Approval. A different person resumes the waiting change." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#ffffb5;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=proc;archiType=rounded;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="904" y="96" width="440" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="p2roles" value="Roles RT-01 to RT-06. Company job titles are unknown." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#ffffb5;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=role;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1388" y="96" width="476" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="p2build" value="build.py. The only writer of the lake file." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=proc;archiType=rounded;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="840" y="230" width="220" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="p2legacy" value="Legacy API. Port 8080. No identity check." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="36" y="330" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2gw" value="Source gateway. Port 8090. No identity check." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="304" y="330" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2bridge" value="Bridge. Copies up to 50 records once, then stops. No host port." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="572" y="330" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2rest" value="Lake REST. Port 8091. Read only." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="840" y="330" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2mcp" value="Lake MCP. Port 8092. Read-only tools." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1108" y="330" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2appa" value="Application A. Port 8100. Rules come from transformed code. One process serves the API and the React screens." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1376" y="330" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2appb" value="Application B. Port 8110. Rules come only from the lake. One process serves the API and the React screens." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1644" y="330" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2agenta" value="LangGraph agent. Six read-only tools." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1376" y="580" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p2agentb" value="LangGraph agent. Same read-only control." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1644" y="580" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p2opaa" value="OPA inside Application A. EXECUTE, HOLD_FOR_REVIEW, or BLOCK." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1376" y="690" width="220" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="p2opab" value="OPA inside Application B. Not a separate container." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1644" y="690" width="220" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="p2audit" value="Audit chain. Read by correlation id." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1376" y="800" width="220" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="p2lineage" value="Lineage view. Shows the correlation id stored on the audit chain." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1644" y="800" width="220" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="p2port8080" value="8080" style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=node;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="66" y="930" width="160" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="p2port8090" value="8090" style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=node;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="334" y="930" width="160" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="p2port8091" value="8091" style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=node;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="870" y="930" width="160" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="p2port8092" value="8092" style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=node;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1138" y="930" width="160" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="p2port8100" value="8100" style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=node;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1376" y="930" width="100" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="p2port8110" value="8110" style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=node;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1644" y="930" width="100" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="p2legdb" value="legacy.sqlite3. Operational cases." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=artifact;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="36" y="1040" width="460" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="p2yaml" value="YAML in Git. Reviewed knowledge items." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=artifact;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="572" y="1040" width="220" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="p2lakedb" value="context-lake.sqlite3. Version 1.0.0. 148 items. Lake REST and Lake MCP read it." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=artifact;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="840" y="1040" width="488" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="p2ckpt" value="checkpoints.sqlite3. The approval wait survives a restart." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=artifact;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1376" y="1040" width="220" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="p2replay" value="Replay files. 77 saved answers. A missing file abstains." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=artifact;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1644" y="1040" width="220" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="p2note" value="Application A and Application B run as separate processes. Each one reads the lake on its own. OPA runs inside each application process. Compose has seven containers. A later full docker compose up --build recreate was not re-proven in Phase 15. MODEL_MODE=replay plays a saved answer. A missing file abstains." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=13;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="36" y="1140" width="1700" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p2e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p2eq" target="p2ce">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="434" y="128" />
+              <mxPoint x="442" y="128" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p2ce" target="p2ap">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="878" y="128" />
+              <mxPoint x="886" y="128" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e4" value="copies once" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p2gw" target="p2bridge">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="542" y="375" />
+              <mxPoint x="554" y="375" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e5" value="writes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=0.15;exitY=1;entryX=1;entryY=0.5;" edge="1" parent="1" source="p2bridge" target="p2legdb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="605" y="436" />
+              <mxPoint x="548" y="436" />
+              <mxPoint x="548" y="1074" />
+              <mxPoint x="514" y="1074" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e6" value="reads" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=1;exitY=0.5;entryX=0.53;entryY=0;" edge="1" parent="1" source="p2legacy" target="p2legdb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="274" y="375" />
+              <mxPoint x="280" y="375" />
+              <mxPoint x="280" y="1024" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p2legacy" target="p2port8080">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="146" y="436" />
+              <mxPoint x="146" y="914" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p2gw" target="p2port8090">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="414" y="436" />
+              <mxPoint x="414" y="914" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e9" value="reads YAML" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=1;exitY=0.5;entryX=0;entryY=0.45;" edge="1" parent="1" source="p2yaml" target="p2build">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="810" y="1074" />
+              <mxPoint x="810" y="259" />
+              <mxPoint x="822" y="259" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e10" value="writes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=0;exitY=0.75;entryX=0;entryY=0.5;" edge="1" parent="1" source="p2build" target="p2lakedb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="822" y="278" />
+              <mxPoint x="828" y="278" />
+              <mxPoint x="828" y="1074" />
+              <mxPoint x="822" y="1074" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p2rest" target="p2port8091">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="950" y="436" />
+              <mxPoint x="950" y="914" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p2mcp" target="p2port8092">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1218" y="436" />
+              <mxPoint x="1218" y="914" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e13" value="reads citations" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=0.25;exitY=1;entryX=0.35;entryY=1;" edge="1" parent="1" source="p2rest" target="p2appa">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="895" y="436" />
+              <mxPoint x="895" y="450" />
+              <mxPoint x="1453" y="450" />
+              <mxPoint x="1453" y="436" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e14" value="reads rules" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=0.8;exitY=1;entryX=0.5;entryY=1;" edge="1" parent="1" source="p2rest" target="p2appb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1016" y="436" />
+              <mxPoint x="1016" y="485" />
+              <mxPoint x="1754" y="485" />
+              <mxPoint x="1754" y="436" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e15" value="tools" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=0.35;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p2mcp" target="p2agenta">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1185" y="436" />
+              <mxPoint x="1185" y="520" />
+              <mxPoint x="1486" y="520" />
+              <mxPoint x="1486" y="564" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e16" value="tools" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=0.65;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p2mcp" target="p2agentb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1251" y="436" />
+              <mxPoint x="1251" y="550" />
+              <mxPoint x="1754" y="550" />
+              <mxPoint x="1754" y="564" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p2appa" target="p2port8100">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1358" y="375" />
+              <mxPoint x="1352" y="375" />
+              <mxPoint x="1352" y="956" />
+              <mxPoint x="1358" y="956" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p2appb" target="p2port8110">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1626" y="375" />
+              <mxPoint x="1620" y="375" />
+              <mxPoint x="1620" y="956" />
+              <mxPoint x="1626" y="956" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p2agenta" target="p2opaa">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1486" y="656" />
+              <mxPoint x="1486" y="674" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p2agentb" target="p2opab">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1754" y="656" />
+              <mxPoint x="1754" y="674" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p2opaa" target="p2audit">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1486" y="770" />
+              <mxPoint x="1486" y="784" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="p2opab" target="p2lineage">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1754" y="770" />
+              <mxPoint x="1754" y="784" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e23" value="stores the wait" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=0.85;exitY=1;entryX=0.85;entryY=0;" edge="1" parent="1" source="p2audit" target="p2ckpt">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1563" y="868" />
+              <mxPoint x="1563" y="1024" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2e24" value="plays answers" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;fontSize=11;exitX=0.9;exitY=1;entryX=0.9;entryY=0;" edge="1" parent="1" source="p2lineage" target="p2replay">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1842" y="868" />
+              <mxPoint x="1842" y="1024" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

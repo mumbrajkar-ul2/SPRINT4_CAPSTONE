@@ -1,0 +1,21 @@
+id: rule.feed.replay_duplicate
+kind: business_rule
+statement: 'processing_status REPLAY marks a partner feed as a duplicate candidate.
+  Packaged REPLAY rows: 67. reconcile() would mark DUPLICATE. This unit does not run
+  reconcile(). Drop waits for RT-05. Honesty: REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/app/partner_feeds.py
+  sha256: d6e3be83127db692a88869d8eccc14389faf2055240a8e1e670d19d9f6e09d74
+  lines: 60-67
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: data.feed.replay
+authority: policy_archive

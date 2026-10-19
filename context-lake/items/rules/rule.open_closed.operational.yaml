@@ -1,0 +1,20 @@
+id: rule.open_closed.operational
+kind: business_rule
+statement: A case is open while any disposition or engineering action is pending,
+  including REVIEW and HOLD. A case is closed only when a final disposition is recorded
+  and no engineering action is pending. BO-06a.
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: SME
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: governs
+  to: term.open_operational
+authority: sme

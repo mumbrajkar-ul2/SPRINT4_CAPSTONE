@@ -1,0 +1,19 @@
+id: decision.bp6.region_overlap
+kind: decision
+statement: 'Catalogue BP6. 84 of 125 cases store a sales region that disagrees with
+  the region derived from the site. Honesty: REAL.'
+source:
+  path: docs/05-current-state/conflict-catalogue.md
+  sha256: b39e8b16e07fbbf40304f55c189d96593cbc26f7fea31a910f07c50791ea2940
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: rule.region.disagreement
+authority: sme

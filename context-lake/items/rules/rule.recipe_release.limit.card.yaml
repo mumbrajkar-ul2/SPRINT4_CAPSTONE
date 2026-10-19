@@ -1,0 +1,375 @@
+id: rule.recipe_release.limit
+kind: business_rule
+statement: Canonical recipe_release limit from the archive JSON.
+inputs:
+- name: amount
+  term: term.recipe_release_limit
+- name: sales_region
+  term: term.sales_region
+- name: on_date
+  term: term.policy
+decision_table:
+- when:
+    sales_region: APAC
+    on_date_from: '2022-01-01'
+    on_date_to: '2022-12-31'
+  then:
+    limit: 15000
+    currency: USD
+- when:
+    sales_region: EMEA
+    on_date_from: '2022-01-01'
+    on_date_to: '2022-12-31'
+  then:
+    limit: 16100
+    currency: USD
+- when:
+    sales_region: AMER
+    on_date_from: '2022-01-01'
+    on_date_to: '2022-12-31'
+  then:
+    limit: 17200
+    currency: USD
+- when:
+    sales_region: APAC
+    on_date_from: '2023-01-01'
+    on_date_to: '2023-12-31'
+  then:
+    limit: 17500
+    currency: USD
+- when:
+    sales_region: EMEA
+    on_date_from: '2023-01-01'
+    on_date_to: '2023-12-31'
+  then:
+    limit: 18600
+    currency: USD
+- when:
+    sales_region: AMER
+    on_date_from: '2023-01-01'
+    on_date_to: '2023-12-31'
+  then:
+    limit: 19700
+    currency: USD
+- when:
+    sales_region: APAC
+    on_date_from: '2024-01-01'
+    on_date_to: '2024-12-31'
+  then:
+    limit: 20000
+    currency: USD
+- when:
+    sales_region: EMEA
+    on_date_from: '2024-01-01'
+    on_date_to: '2024-12-31'
+  then:
+    limit: 21100
+    currency: USD
+- when:
+    sales_region: AMER
+    on_date_from: '2024-01-01'
+    on_date_to: '2024-12-31'
+  then:
+    limit: 22200
+    currency: USD
+- when:
+    sales_region: APAC
+    on_date_from: '2025-01-01'
+    on_date_to: '2025-12-31'
+  then:
+    limit: 22500
+    currency: USD
+- when:
+    sales_region: EMEA
+    on_date_from: '2025-01-01'
+    on_date_to: '2025-12-31'
+  then:
+    limit: 23600
+    currency: USD
+- when:
+    sales_region: AMER
+    on_date_from: '2025-01-01'
+    on_date_to: '2025-12-31'
+  then:
+    limit: 24700
+    currency: USD
+- when:
+    sales_region: APAC
+    on_date_from: '2026-01-01'
+    on_date_to: '2026-12-31'
+  then:
+    limit: 25000
+    currency: USD
+- when:
+    sales_region: EMEA
+    on_date_from: '2026-01-01'
+    on_date_to: '2026-12-31'
+  then:
+    limit: 26100
+    currency: USD
+- when:
+    sales_region: AMER
+    on_date_from: '2026-01-01'
+    on_date_to: '2026-12-31'
+  then:
+    limit: 27200
+    currency: USD
+authority: policy_archive
+owner: Policy Owner (RT-04)
+policy_status: decided
+tests:
+- given:
+    amount: 18000
+    sales_region: EMEA
+    on_date: '2023-07-01'
+  expect:
+    within_limit: true
+    limit: 18600
+- given:
+    amount: 19000
+    sales_region: EMEA
+    on_date: '2023-07-01'
+  expect:
+    within_limit: false
+    limit: 18600
+- given:
+    amount: 25000
+    sales_region: APAC
+    on_date: '2026-06-01'
+  expect:
+    within_limit: true
+    limit: 25000
+- given:
+    amount: 25001
+    sales_region: APAC
+    on_date: '2026-06-01'
+  expect:
+    within_limit: false
+    limit: 25000
+- given:
+    amount: 27200
+    sales_region: AMER
+    on_date: '2026-06-01'
+  expect:
+    within_limit: true
+    limit: 27200
+- given:
+    amount: 15000
+    sales_region: APAC
+    on_date: '2022-06-01'
+  expect:
+    within_limit: true
+    limit: 15000
+- given:
+    amount: 15001
+    sales_region: APAC
+    on_date: '2022-06-01'
+  expect:
+    within_limit: false
+    limit: 15000
+- given:
+    amount: 16100
+    sales_region: EMEA
+    on_date: '2022-06-01'
+  expect:
+    within_limit: true
+    limit: 16100
+- given:
+    amount: 16101
+    sales_region: EMEA
+    on_date: '2022-06-01'
+  expect:
+    within_limit: false
+    limit: 16100
+- given:
+    amount: 17200
+    sales_region: AMER
+    on_date: '2022-06-01'
+  expect:
+    within_limit: true
+    limit: 17200
+- given:
+    amount: 17201
+    sales_region: AMER
+    on_date: '2022-06-01'
+  expect:
+    within_limit: false
+    limit: 17200
+- given:
+    amount: 17500
+    sales_region: APAC
+    on_date: '2023-06-01'
+  expect:
+    within_limit: true
+    limit: 17500
+- given:
+    amount: 17501
+    sales_region: APAC
+    on_date: '2023-06-01'
+  expect:
+    within_limit: false
+    limit: 17500
+- given:
+    amount: 18600
+    sales_region: EMEA
+    on_date: '2023-06-01'
+  expect:
+    within_limit: true
+    limit: 18600
+- given:
+    amount: 18601
+    sales_region: EMEA
+    on_date: '2023-06-01'
+  expect:
+    within_limit: false
+    limit: 18600
+- given:
+    amount: 19700
+    sales_region: AMER
+    on_date: '2023-06-01'
+  expect:
+    within_limit: true
+    limit: 19700
+- given:
+    amount: 19701
+    sales_region: AMER
+    on_date: '2023-06-01'
+  expect:
+    within_limit: false
+    limit: 19700
+- given:
+    amount: 20000
+    sales_region: APAC
+    on_date: '2024-06-01'
+  expect:
+    within_limit: true
+    limit: 20000
+- given:
+    amount: 20001
+    sales_region: APAC
+    on_date: '2024-06-01'
+  expect:
+    within_limit: false
+    limit: 20000
+- given:
+    amount: 21100
+    sales_region: EMEA
+    on_date: '2024-06-01'
+  expect:
+    within_limit: true
+    limit: 21100
+- given:
+    amount: 21101
+    sales_region: EMEA
+    on_date: '2024-06-01'
+  expect:
+    within_limit: false
+    limit: 21100
+- given:
+    amount: 22200
+    sales_region: AMER
+    on_date: '2024-06-01'
+  expect:
+    within_limit: true
+    limit: 22200
+- given:
+    amount: 22201
+    sales_region: AMER
+    on_date: '2024-06-01'
+  expect:
+    within_limit: false
+    limit: 22200
+- given:
+    amount: 22500
+    sales_region: APAC
+    on_date: '2025-06-01'
+  expect:
+    within_limit: true
+    limit: 22500
+- given:
+    amount: 22501
+    sales_region: APAC
+    on_date: '2025-06-01'
+  expect:
+    within_limit: false
+    limit: 22500
+- given:
+    amount: 23600
+    sales_region: EMEA
+    on_date: '2025-06-01'
+  expect:
+    within_limit: true
+    limit: 23600
+- given:
+    amount: 23601
+    sales_region: EMEA
+    on_date: '2025-06-01'
+  expect:
+    within_limit: false
+    limit: 23600
+- given:
+    amount: 24700
+    sales_region: AMER
+    on_date: '2025-06-01'
+  expect:
+    within_limit: true
+    limit: 24700
+- given:
+    amount: 24701
+    sales_region: AMER
+    on_date: '2025-06-01'
+  expect:
+    within_limit: false
+    limit: 24700
+- given:
+    amount: 25000
+    sales_region: APAC
+    on_date: '2026-06-01'
+  expect:
+    within_limit: true
+    limit: 25000
+- given:
+    amount: 25001
+    sales_region: APAC
+    on_date: '2026-06-01'
+  expect:
+    within_limit: false
+    limit: 25000
+- given:
+    amount: 26100
+    sales_region: EMEA
+    on_date: '2026-06-01'
+  expect:
+    within_limit: true
+    limit: 26100
+- given:
+    amount: 26101
+    sales_region: EMEA
+    on_date: '2026-06-01'
+  expect:
+    within_limit: false
+    limit: 26100
+- given:
+    amount: 27200
+    sales_region: AMER
+    on_date: '2026-06-01'
+  expect:
+    within_limit: true
+    limit: 27200
+- given:
+    amount: 27201
+    sales_region: AMER
+    on_date: '2026-06-01'
+  expect:
+    within_limit: false
+    limit: 27200
+observed_implementations:
+- id: rule.recipe_release.limit.impl.js
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/contracts/decision-policies-archive.json
+  sha256: c9cd0e7a452d4962c0394fd333a20c2618062825cedd8c8f49fdf4f87f7b2453
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: REAL

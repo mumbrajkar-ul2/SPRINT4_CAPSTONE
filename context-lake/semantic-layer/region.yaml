@@ -1,0 +1,320 @@
+- term_id: term.site_code
+  canonical_name: site code
+  definition: Site code is the canonical location key. The six codes are BR-SP, DE-BY,
+    GB-ENG, IN-BLR, JP-KN, and US-TX.
+  local_names:
+  - system: cases
+    field_or_word: site
+    meaning: Stored site code
+  - system: fab_tools
+    field_or_word: chamber
+    meaning: Packaged chamber holds a site code
+  - system: Python
+    field_or_word: absent
+    meaning: legacy_logic.py has no site argument
+  - system: JavaScript
+    field_or_word: absent
+    meaning: legacy_policy.js keys on archive region
+  - system: Java
+    field_or_word: absent
+    meaning: ReconcileLegacy.java has no site field
+  - system: night batch
+    field_or_word: absent
+    meaning: The job joins on country, not site
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No site field in domain-profile.json
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No site field in domain-profile.json
+  authority: sme
+  policy_status: decided
+  claim: verified_fact
+  source_path: docs/11-data-context/mapping-design.md
+- term_id: term.country_code
+  canonical_name: country code
+  definition: Country is derived from the site prefix. Packaged country codes are
+    AU, BR, DE, GB, IN, JP, US, and ZA. AU and ZA have no site.
+  local_names:
+  - system: policy_register
+    field_or_word: region
+    meaning: Country code
+  - system: operational_objects
+    field_or_word: region
+    meaning: Country code
+  - system: organizations
+    field_or_word: region
+    meaning: Country code
+  - system: Python
+    field_or_word: absent
+    meaning: No country argument
+  - system: JavaScript
+    field_or_word: absent
+    meaning: Uses APAC, EMEA, AMER
+  - system: Java
+    field_or_word: absent
+    meaning: No country field
+  - system: night batch
+    field_or_word: operational_objects.region
+    meaning: Join key
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No country list
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No country list
+  authority: sme
+  policy_status: decided
+  claim: verified_fact
+  source_path: docs/11-data-context/mapping-design.md
+  maps_to_term: term.site_code
+- term_id: term.sales_region
+  canonical_name: sales region
+  definition: Sales regions are APAC, EMEA, and AMER. recipe_release binds at this
+    scope.
+  local_names:
+  - system: cases
+    field_or_word: region
+    meaning: Stored sales region, assigned independently of site
+  - system: archive
+    field_or_word: region
+    meaning: APAC, EMEA, AMER
+  - system: Python
+    field_or_word: absent
+    meaning: No region argument
+  - system: JavaScript
+    field_or_word: region
+    meaning: Archive region argument
+  - system: Java
+    field_or_word: absent
+    meaning: No region field
+  - system: night batch
+    field_or_word: absent
+    meaning: Joins on country
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No sales region
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No sales region
+  authority: sme
+  policy_status: decided
+  claim: verified_fact
+  source_path: docs/11-data-context/mapping-design.md
+  maps_to_term: term.site_code
+- term_id: map.site.IN-BLR
+  canonical_name: site IN-BLR
+  definition: Site IN-BLR derives country IN and sales region APAC.
+  local_names:
+  - system: cases
+    field_or_word: site
+    meaning: IN-BLR
+  - system: mapping
+    field_or_word: derived_country
+    meaning: IN
+  - system: mapping
+    field_or_word: derived_sales_region
+    meaning: APAC
+  - system: Python
+    field_or_word: absent
+    meaning: No site map in legacy_logic.py
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No site map in legacy_policy.js
+  - system: Java
+    field_or_word: absent
+    meaning: No site map in ReconcileLegacy.java
+  - system: night batch
+    field_or_word: absent
+    meaning: No site map in the night batch
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No site map
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No site map
+  authority: sme
+  policy_status: decided
+  claim: inference
+  source_path: docs/11-data-context/mapping-design.md
+  maps_to_term: term.site_code
+- term_id: map.site.JP-KN
+  canonical_name: site JP-KN
+  definition: Site JP-KN derives country JP and sales region APAC.
+  local_names:
+  - system: cases
+    field_or_word: site
+    meaning: JP-KN
+  - system: mapping
+    field_or_word: derived_country
+    meaning: JP
+  - system: mapping
+    field_or_word: derived_sales_region
+    meaning: APAC
+  - system: Python
+    field_or_word: absent
+    meaning: No site map in legacy_logic.py
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No site map in legacy_policy.js
+  - system: Java
+    field_or_word: absent
+    meaning: No site map in ReconcileLegacy.java
+  - system: night batch
+    field_or_word: absent
+    meaning: No site map in the night batch
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No site map
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No site map
+  authority: sme
+  policy_status: decided
+  claim: inference
+  source_path: docs/11-data-context/mapping-design.md
+  maps_to_term: term.site_code
+- term_id: map.site.US-TX
+  canonical_name: site US-TX
+  definition: Site US-TX derives country US and sales region AMER.
+  local_names:
+  - system: cases
+    field_or_word: site
+    meaning: US-TX
+  - system: mapping
+    field_or_word: derived_country
+    meaning: US
+  - system: mapping
+    field_or_word: derived_sales_region
+    meaning: AMER
+  - system: Python
+    field_or_word: absent
+    meaning: No site map in legacy_logic.py
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No site map in legacy_policy.js
+  - system: Java
+    field_or_word: absent
+    meaning: No site map in ReconcileLegacy.java
+  - system: night batch
+    field_or_word: absent
+    meaning: No site map in the night batch
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No site map
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No site map
+  authority: sme
+  policy_status: decided
+  claim: inference
+  source_path: docs/11-data-context/mapping-design.md
+  maps_to_term: term.site_code
+- term_id: map.site.BR-SP
+  canonical_name: site BR-SP
+  definition: Site BR-SP derives country BR and sales region AMER.
+  local_names:
+  - system: cases
+    field_or_word: site
+    meaning: BR-SP
+  - system: mapping
+    field_or_word: derived_country
+    meaning: BR
+  - system: mapping
+    field_or_word: derived_sales_region
+    meaning: AMER
+  - system: Python
+    field_or_word: absent
+    meaning: No site map in legacy_logic.py
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No site map in legacy_policy.js
+  - system: Java
+    field_or_word: absent
+    meaning: No site map in ReconcileLegacy.java
+  - system: night batch
+    field_or_word: absent
+    meaning: No site map in the night batch
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No site map
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No site map
+  authority: sme
+  policy_status: decided
+  claim: inference
+  source_path: docs/11-data-context/mapping-design.md
+  maps_to_term: term.site_code
+- term_id: map.site.DE-BY
+  canonical_name: site DE-BY
+  definition: Site DE-BY derives country DE and sales region EMEA.
+  local_names:
+  - system: cases
+    field_or_word: site
+    meaning: DE-BY
+  - system: mapping
+    field_or_word: derived_country
+    meaning: DE
+  - system: mapping
+    field_or_word: derived_sales_region
+    meaning: EMEA
+  - system: Python
+    field_or_word: absent
+    meaning: No site map in legacy_logic.py
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No site map in legacy_policy.js
+  - system: Java
+    field_or_word: absent
+    meaning: No site map in ReconcileLegacy.java
+  - system: night batch
+    field_or_word: absent
+    meaning: No site map in the night batch
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No site map
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No site map
+  authority: sme
+  policy_status: decided
+  claim: inference
+  source_path: docs/11-data-context/mapping-design.md
+  maps_to_term: term.site_code
+- term_id: map.site.GB-ENG
+  canonical_name: site GB-ENG
+  definition: Site GB-ENG derives country GB and sales region EMEA.
+  local_names:
+  - system: cases
+    field_or_word: site
+    meaning: GB-ENG
+  - system: mapping
+    field_or_word: derived_country
+    meaning: GB
+  - system: mapping
+    field_or_word: derived_sales_region
+    meaning: EMEA
+  - system: Python
+    field_or_word: absent
+    meaning: No site map in legacy_logic.py
+  - system: JavaScript
+    field_or_word: absent
+    meaning: No site map in legacy_policy.js
+  - system: Java
+    field_or_word: absent
+    meaning: No site map in ReconcileLegacy.java
+  - system: night batch
+    field_or_word: absent
+    meaning: No site map in the night batch
+  - system: MESDispatch
+    field_or_word: absent
+    meaning: No site map
+  - system: PLM-Metrology
+    field_or_word: absent
+    meaning: No site map
+  authority: sme
+  policy_status: decided
+  claim: inference
+  source_path: docs/11-data-context/mapping-design.md
+  maps_to_term: term.site_code

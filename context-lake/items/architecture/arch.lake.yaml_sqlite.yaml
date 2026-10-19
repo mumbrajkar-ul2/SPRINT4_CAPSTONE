@@ -1,0 +1,16 @@
+id: arch.lake.yaml_sqlite
+kind: architecture
+statement: People and harvest scripts write YAML in Git. build.py writes context-lake.sqlite3
+  with tables items, edges, terms, and FTS5. The YAML is the source of truth.
+source:
+  path: docs/10-architecture/adrs/adr-lake-yaml-to-sqlite.md
+  sha256: 44ce4dbbbadd1692c90fab644fd5af29d5297bd34d99d3bc758bc65b58b5ffed
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links: []

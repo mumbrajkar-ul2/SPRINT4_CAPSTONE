@@ -1,0 +1,18 @@
+id: arch.listener.gateway_8090
+kind: architecture
+statement: The inherited source gateway listens on port 8090. The event payload returns
+  occurred_at and published_at.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/services/source_gateway/server.py
+  sha256: 99403778845312fe06c2557d7e12d59531f112fd9f7e15f78da14f3c0c890931
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: depends_on
+  to: arch.compose.inherited

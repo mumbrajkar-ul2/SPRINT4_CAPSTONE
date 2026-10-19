@@ -1,0 +1,17 @@
+id: data.feed.replay
+kind: data_relationship
+statement: 'partner_feeds has 67 rows with processing_status REPLAY. Honesty: REAL.
+  Those rows stay in the operational store.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/legacy.sqlite3
+  sha256: 2d9a3fae58af56daf524d16eb99dedf4ef82ade39d1ca68ad36e249fa0b99879
+  locator: partner_feeds.processing_status
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links: []

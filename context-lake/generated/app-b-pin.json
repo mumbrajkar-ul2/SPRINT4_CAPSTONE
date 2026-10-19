@@ -1,0 +1,32 @@
+{
+  "lake_version": "1.0.0",
+  "sqlite_sha256": "f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8",
+  "enum_sha256": "3c2aa3ae047e8b4f3edc350aefd8e042d2787b92f7fc9cc5d2af13ef351f1ce3",
+  "canonical_rule_card_ids": [
+    "rule.recipe_release.limit",
+    "rule.recipe_release.no_match",
+    "rule.policy.overlap_or_invalid",
+    "rule.recipe_release.limit.impl.js",
+    "rule.recipe_release.limit.impl.js_default",
+    "rule.urgent.amount.impl.python",
+    "rule.priority.closed.impl.python",
+    "rule.urgent.severity.impl.python",
+    "rule.open_closed.operational",
+    "rule.open_closed.finance_audit",
+    "rule.region.site_canonical",
+    "rule.region.specificity",
+    "rule.region.disagreement",
+    "rule.threshold.silent",
+    "rule.month_end.blank.impl.java",
+    "rule.month_end.float.impl.java",
+    "rule.open_flag.impl.night_batch",
+    "rule.night_batch.join_multiply",
+    "rule.feed.replay_duplicate",
+    "rule.recipe.mismatch_show_both",
+    "rule.clock.event_vs_arrival",
+    "rule.untrusted_text.block",
+    "rule.threshold.never_999999",
+    "rule.threshold.demo_50000",
+    "rule.hold.person_only"
+  ]
+}

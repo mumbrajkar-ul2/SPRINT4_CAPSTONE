@@ -1,0 +1,1 @@
+{"sentence": "The night batch reads data/enterprise_legacy.sqlite3. It does not call the HTTP API.", "citations": ["code.shift_reconciliation.night_batch", "dep.night_batch_reads_enterprise"], "verdict": "ANSWER", "block": false, "untrusted_quotes": []}

@@ -24,11 +24,26 @@ def apply(events,stream='primary'):
                 result['accepted']+=1
             except sqlite3.IntegrityError:result['duplicates']+=1
     return result
+def intake_apply(events,stream='primary'):
+    """New intake path. Same rules as apply. Characterization tests keep calling apply."""
+    init(); result={'accepted':0,'duplicates':0,'invalid':0,'received':len(events)}
+    with connect() as c:
+        for e in events:
+            if not isinstance(e,dict) or not all(e.get(k) for k in ('message_id','business_key','system','event_type','occurred_at')):
+                result['invalid']+=1;continue
+            present=c.execute('SELECT 1 FROM '+CFG['parent_table']+' WHERE '+CFG['parent_key']+'=?',(e['business_key'],)).fetchone()
+            if not present:
+                result['invalid']+=1;continue
+            try:
+                c.execute('INSERT INTO gateway_inbox VALUES(?,?,?,?,?,?,?,?)',(e['message_id'],e['business_key'],e['system'],e['event_type'],e['occurred_at'],datetime.datetime.now(datetime.timezone.utc).isoformat(),json.dumps(e,sort_keys=True),'RECEIVED'))
+                result['accepted']+=1
+            except sqlite3.IntegrityError:result['duplicates']+=1
+    return result
 def pull(url,offset=0,limit=40,stream='primary'):
     init()
     with urllib.request.urlopen(url+'/api/events?offset='+str(offset)+'&limit='+str(limit),timeout=5) as response:
         doc=json.load(response)
-    report=apply(doc['items'],stream)
+    report=intake_apply(doc['items'],stream)
     with connect() as c:
         c.execute('INSERT INTO gateway_checkpoints(stream,next_offset,last_sync) VALUES(?,?,?) ON CONFLICT(stream) DO UPDATE SET next_offset=excluded.next_offset,last_sync=excluded.last_sync',(stream,doc['next_offset'],datetime.datetime.now(datetime.timezone.utc).isoformat()))
     return report

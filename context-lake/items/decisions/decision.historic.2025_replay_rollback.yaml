@@ -1,0 +1,20 @@
+id: decision.historic.2025_replay_rollback
+kind: decision
+statement: '2025 historic decision: a rollout was rolled back after a replayed partner
+  delivery inflated the exception queue.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/docs/historic-decisions.md
+  sha256: f5479cd81e614c1dda6f2e821f82709d713a93ca69b2f9a201ee1819d0e034b0
+  lines: '9'
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: data.feed.replay
+authority: sme

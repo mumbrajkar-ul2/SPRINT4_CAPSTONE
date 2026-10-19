@@ -1,0 +1,17 @@
+id: data.clock.event_vs_arrival_partner
+kind: data_relationship
+statement: partner_feeds stores source_ts and ingest_ts as two fields. Harvest records
+  the two clocks. It does not copy feed JSON bodies into the lake.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/legacy.sqlite3
+  sha256: 2d9a3fae58af56daf524d16eb99dedf4ef82ade39d1ca68ad36e249fa0b99879
+  locator: partner_feeds.source_ts
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links: []

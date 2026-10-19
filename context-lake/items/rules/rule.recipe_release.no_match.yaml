@@ -1,0 +1,20 @@
+id: rule.recipe_release.no_match
+kind: business_rule
+statement: When no archive recipe_release row matches the derived sales region and
+  date, the route is HOLD_FOR_REVIEW. Country IN is not an archive region. Date 2021-06-01
+  is outside 2022-2026. Do not use 999999.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/contracts/decision-policies-archive.json
+  sha256: c9cd0e7a452d4962c0394fd333a20c2618062825cedd8c8f49fdf4f87f7b2453
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: Policy Owner (RT-04)
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: REAL
+links:
+- type: governs
+  to: rule.recipe_release.limit
+authority: policy_archive

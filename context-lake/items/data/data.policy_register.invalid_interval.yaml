@@ -1,0 +1,19 @@
+id: data.policy_register.invalid_interval
+kind: data_relationship
+statement: 'POL-0039 is active with valid_from 2025-01-01 and valid_to 2024-12-31.
+  The interval is empty. A match routes to HOLD_FOR_REVIEW. Honesty: REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/enterprise_legacy.sqlite3
+  sha256: f13ed709df16f3c6244282ff4efde7768dee9294f0533098de3d34f0657af913
+  locator: policy_register.valid_from
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: evidenced_by
+  to: rule.policy.overlap_or_invalid

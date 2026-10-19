@@ -1,0 +1,39 @@
+id: rule.night_batch.join_multiply
+kind: business_rule
+statement: Night batch join multiplies one US object into five rows.
+inputs:
+- name: country
+  term: term.country_code
+decision_table:
+- when:
+    implementation: night_batch
+    country: US
+  then:
+    joined_rows: 5
+- when:
+    canonical: true
+    overlap: true
+  then:
+    route: HOLD_FOR_REVIEW
+authority: unresolved
+owner: unknown
+policy_status: n/a
+tests:
+- given:
+    us_objects: 1
+    active_policies: 5
+  expect:
+    implementation_joined_rows: 5
+    canonical_route: HOLD_FOR_REVIEW
+observed_implementations:
+- path: legacy_batch/shift_reconciliation.py
+  lines: '8'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_batch/shift_reconciliation.py
+  sha256: e95638c443e58d6db09120c7b05fd6db1d6f5cebaca692887e0256cd2bc36bf5
+  lines: 8-14
+claim: verified_fact
+trust: trusted_code
+lake_version: 1.0.0
+item_status: accepted
+honesty: REAL

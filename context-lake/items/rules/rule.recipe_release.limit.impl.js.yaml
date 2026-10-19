@@ -1,0 +1,23 @@
+id: rule.recipe_release.limit.impl.js
+kind: business_rule
+statement: legacy_policy.js allows an amount when it is less than or equal to the
+  archive limit times 1.05. Amount 15700 for APAC 2022 is allowed here (15000 times
+  1.05 is 15750) and denied on the archive.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_js/legacy_policy.js
+  sha256: 4e787a78b01715bdbf6dea0d30a776902987e28486d52da8cd9eb86fcf327f8c
+  lines: 4-5
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_code
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links:
+- type: implements
+  to: rule.recipe_release.limit
+- type: depends_on
+  to: data.contract.decision_policies_archive
+authority: unresolved

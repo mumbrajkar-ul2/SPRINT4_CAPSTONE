@@ -1,0 +1,36 @@
+id: term.open_operational
+kind: domain_knowledge
+statement: Open means any disposition or engineering action is still pending, including
+  REVIEW and HOLD. Local words REVIEW, HOLD, UNDER_REVIEW, OPEN, ESCALATED, REOPENED,
+  QUEUED, PROCESSING, and ENGINEERING_REVIEW map here.
+source:
+  path: docs/11-data-context/mapping-design.md
+  sha256: 1a4552959a12e7e97a938fcc47a06fbd4312855720092de0019bd121456110a8
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: maps_to
+  to: term.local.review
+- type: maps_to
+  to: term.local.hold
+- type: maps_to
+  to: term.local.under_review
+- type: maps_to
+  to: term.local.open
+- type: maps_to
+  to: term.local.escalated
+- type: maps_to
+  to: term.local.reopened
+- type: maps_to
+  to: term.local.queued
+- type: maps_to
+  to: term.local.processing
+- type: maps_to
+  to: term.local.engineering_review
+authority: sme

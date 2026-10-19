@@ -1,0 +1,26 @@
+term_id: term.approval
+canonical_name: approval
+definition: A person action. The lake does not approve from untrusted text.
+local_names:
+- system: Python
+  field_or_word: absent
+  meaning: No dedicated local word in legacy_logic.py
+- system: JavaScript
+  field_or_word: absent
+  meaning: No dedicated local word in legacy_policy.js
+- system: Java
+  field_or_word: absent
+  meaning: No dedicated local word in ReconcileLegacy.java
+- system: night batch
+  field_or_word: absent
+  meaning: No dedicated local word in the night batch
+- system: MESDispatch
+  field_or_word: domain-profile
+  meaning: A person action. The lake does not approve from untrusted text.
+- system: PLM-Metrology
+  field_or_word: domain-profile
+  meaning: A person action. The lake does not approve from untrusted text.
+authority: n/a
+policy_status: n/a
+claim: verified_fact
+source_path: Project_Intent.md

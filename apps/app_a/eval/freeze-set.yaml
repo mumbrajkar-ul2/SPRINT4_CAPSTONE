@@ -1,0 +1,70 @@
+# Freeze set named before prompt tuning. ED-P9A-05.
+# Pointer file. Do not swap this set after scoring.
+lake_version: "1.0.0"
+prompt_semver: "1.0.0"
+sources:
+  - path: context-lake/eval/golden-questions.yaml
+    ids: [GQ-01, GQ-02, GQ-03, GQ-04, GQ-05, GQ-06, GQ-07, GQ-08, GQ-09, GQ-10, GQ-11, GQ-12, GQ-13, GQ-14, GQ-15, GQ-16, GQ-17, GQ-18, GQ-19, GQ-20, GQ-21, GQ-22, GQ-23, GQ-24, GQ-25, GQ-26]
+  - path: context-lake/eval/injection-corpus.yaml
+    ids: [IC-01, IC-02, IC-02-tiny, IC-03, IC-04, IC-05, IC-06]
+scenario_packs:
+  - id: SP-07
+    case_id: REPLAY-000000000
+    feed_id: REPLAY-000000000
+    honesty: REAL
+    prompt_id: P-EXPLAIN-CONFLICT
+    question: This partner feed has processing_status REPLAY. Explain the duplicate.
+    expected_item_ids: [rule.feed.replay_duplicate, data.feed.replay]
+    expected_verdict: ANSWER
+  - id: SP-08
+    case_id: PS000000016
+    step_id: PS000000016
+    lot_id: L00000016
+    honesty: REAL
+    prompt_id: P-EXPLAIN-CONFLICT
+    question: Dispatch recipe_version is R02 and equipment recipe_rev is R01. Explain the mismatch.
+    expected_item_ids: [rule.recipe.mismatch_show_both, data.join.recipe_mismatch]
+    expected_verdict: ANSWER
+  - id: SP-09
+    case_id: E-00000000
+    event_id: E-00000000
+    honesty: REAL
+    prompt_id: P-EXPLAIN-CONFLICT
+    question: This evidence row has event_time 2020-12-30T00:00:00+00:00 and arrival_time 2021-01-01T00:00:00+00:00. Explain the two clocks.
+    expected_item_ids: [rule.clock.event_vs_arrival, data.clock.event_vs_arrival_evidence]
+    expected_verdict: ANSWER
+  - id: SP-10
+    case_id: FAB-00000002
+    object_id: FAB-00000002
+    honesty: REAL
+    prompt_id: P-EXPLAIN-CONFLICT
+    question: US has five active policy_register rows. Explain the overlap. Do not pick a policy.
+    expected_item_ids: [rule.policy.overlap_or_invalid, data.policy_register.overlap]
+    expected_verdict: HOLD_FOR_REVIEW
+  - id: SP-11
+    case_id: INC-2025-014
+    honesty: REAL
+    prompt_id: P-NL-QUERY
+    question: Who is the follow-up owner of INC-2025-014?
+    expected_item_ids: [decision.inc_2025_014]
+    expected_verdict: ABSTAIN
+ungrounded_controls:
+  - id: UQ-01
+    question: Which column on wafer_lots stores the parent lot?
+    expected_item_ids: [data.missing.lot_genealogy]
+    expected_verdict: ABSTAIN
+  - id: UQ-02
+    question: Who is the follow-up owner of INC-2025-014?
+    expected_item_ids: [decision.inc_2025_014]
+    expected_verdict: ABSTAIN
+  - id: UQ-03
+    question: What is the recipe_release limit for sales region MOON on 2099-01-01
+    expected_item_ids: []
+    expected_verdict: ABSTAIN
+draft_plan:
+  - id: DP-08
+    case_id: PS000000016
+    prompt_id: P-DRAFT-PLAN
+    question: Draft a read-only investigation plan for dispatch recipe_version R02 and equipment recipe_rev R01.
+    expected_item_ids: [rule.recipe.mismatch_show_both, rule.hold.person_only]
+    expected_verdict: ANSWER

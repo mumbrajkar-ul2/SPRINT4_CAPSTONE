@@ -1,0 +1,22 @@
+id: rule.recipe.mismatch_show_both
+kind: business_rule
+statement: When dispatch recipe_version is R02 and equipment recipe_rev is R01, both
+  values are shown. A Process Engineer at RT-03 approves a hold or a release. The
+  lake does not pick a winner. The lake does not write engineering_hold.
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: SME
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: maps_to
+  to: term.recipe_revision_dispatch
+- type: maps_to
+  to: term.recipe_revision_equipment
+authority: sme

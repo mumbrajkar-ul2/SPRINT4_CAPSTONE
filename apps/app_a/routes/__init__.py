@@ -1,0 +1,1 @@
+"""Application A HTTP routes."""

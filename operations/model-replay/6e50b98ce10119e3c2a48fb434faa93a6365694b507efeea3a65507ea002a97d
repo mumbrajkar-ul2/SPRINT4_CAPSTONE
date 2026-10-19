@@ -1,0 +1,1 @@
+{"sentence": "event_time is 2020-12-30T00:00:00+00:00. arrival_time is 2021-01-01T00:00:00+00:00. Those are two fields. 11985 of 12500 evidence rows differ.", "citations": ["data.clock.event_vs_arrival_evidence"], "verdict": "ANSWER", "block": false, "untrusted_quotes": []}

@@ -1,0 +1,17 @@
+id: data.policy_register.overlap
+kind: data_relationship
+statement: 'US has 5 active policy_register rows at once. A night-batch join on country
+  multiplies one US object into several flagged rows. Honesty: REAL.'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/data/enterprise_legacy.sqlite3
+  sha256: f13ed709df16f3c6244282ff4efde7768dee9294f0533098de3d34f0657af913
+  locator: policy_register.threshold
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: accepted
+policy_status: n/a
+honesty: REAL
+links: []

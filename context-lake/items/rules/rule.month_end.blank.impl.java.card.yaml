@@ -1,0 +1,38 @@
+id: rule.month_end.blank.impl.java
+kind: business_rule
+statement: Java skips blank amount_text. Canonical path waits.
+inputs:
+- name: amount_text
+  term: term.cost_period
+decision_table:
+- when:
+    implementation: java
+    amount_text: ''
+  then:
+    row: omitted
+- when:
+    canonical: true
+    amount_text: ''
+  then:
+    route: HOLD_FOR_REVIEW
+authority: unresolved
+owner: unknown
+policy_status: n/a
+tests:
+- given:
+    amount_text: ''
+  expect:
+    implementation_row: omitted
+    canonical_route: HOLD_FOR_REVIEW
+observed_implementations:
+- path: legacy_java/ReconcileLegacy.java
+  lines: '12'
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/legacy_java/ReconcileLegacy.java
+  sha256: 40b788375cd61e1700f507f1c402724de595f9b3e973c982a57aee00cefb4764
+  lines: '12'
+claim: verified_fact
+trust: trusted_code
+lake_version: 1.0.0
+item_status: accepted
+honesty: REAL

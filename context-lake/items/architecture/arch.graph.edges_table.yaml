@@ -1,0 +1,18 @@
+id: arch.graph.edges_table
+kind: architecture
+statement: The knowledge graph is the edges table in context-lake.sqlite3. Recursive
+  SQL walks the links. The project does not run a graph database.
+source:
+  path: docs/10-architecture/adrs/adr-knowledge-graph-edges-table.md
+  sha256: 92bd2460552a8b27be87b6cce52ed50f461b457488e00d5bf2654ec432d82990
+recorded_at: '2026-10-18'
+claim: verified_fact
+trust: trusted_record
+owner: team-force
+lake_version: 1.0.0
+item_status: accepted
+policy_status: decided
+honesty: n/a
+links:
+- type: depends_on
+  to: arch.lake.yaml_sqlite

@@ -1,0 +1,16 @@
+id: data.draft.business_context
+kind: domain_knowledge
+statement: Inherited docs/business-context.md is a synthetic training file. A one-line
+  model draft of that file stays draft until a named reviewer accepts it.
+source:
+  path: fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy/docs/business-context.md
+  sha256: 3a92997fb059a20d8b3613a91fc15f476d1282fd4a42faeb428ff0b756e103f7
+recorded_at: '2026-10-18'
+claim: inference
+trust: trusted_record
+owner: unknown
+lake_version: 1.0.0
+item_status: draft
+policy_status: n/a
+honesty: n/a
+links: []

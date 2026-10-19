@@ -1,0 +1,29 @@
+id: rule.threshold.never_999999
+kind: business_rule
+statement: No archive match is HOLD_FOR_REVIEW, not 999999.
+inputs:
+- name: archive_match
+  term: term.recipe_release_limit
+decision_table:
+- when:
+    archive_match: false
+  then:
+    route: HOLD_FOR_REVIEW
+authority: unresolved
+owner: Business Owner
+policy_status: proposed
+tests:
+- given:
+    archive_match: false
+  expect:
+    route: HOLD_FOR_REVIEW
+    limit_is_999999: false
+observed_implementations: []
+source:
+  path: Decision_Tracker.md
+  sha256: 342a6b120b5ee12c06ee6086c1749d0f9319ad40721b9eceaf30b2a6867a962f
+claim: verified_fact
+trust: trusted_record
+lake_version: 1.0.0
+item_status: accepted
+honesty: n/a
