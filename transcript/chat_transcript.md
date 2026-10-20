@@ -6056,3 +6056,174 @@ Application A is running again with the current settings.
 Only \fabpulse-app-a\ was recreated. Inside the container, \MODEL_MODE\ is \zure\, and each of the four Azure names is set. Health returned HTTP 200. The page is at http://127.0.0.1:8100/.
 
 No image rebuild was needed. The Dockerfile did not change. Compose picks up \.env\ and \compose.yaml\ when the container is recreated.
+
+
+## 2026-10-19 20:35
+
+**Model:** Cursor Grok 4.7
+
+### User
+
+In-app demo path
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+Each demo scenario now finishes on the page as a shift task. The same five cases are used. No new table was added.
+
+Application A no longer forces replay on Investigate. The header shows the model mode. The result names the answer source and the cited items. Review this delivery explains the duplicate. Explain this mismatch asks for a hold. The outage page has an owner box. Hold records the decision when RT-03 is a different person from the draft. The audit panel lists rows when the route wrote them.
+
+On the running Application A page, Replay shows partner feed REPLAY-000000000, work-queue count 197, packaged replay count 67, and answer source Azure OpenAI. The live call returned HTTPError, and that sentence is on the screen. Recipe shows lot L00000016 and a hold for review. Outage shows incident INC-2025-014 and the upstream sentence: attempt count 2, probe target port 8090.
+
+Application B uses the same screen and does not label an answer as Azure OpenAI. Both apps are running. Application A is at http://127.0.0.1:8100/. Application B is at http://127.0.0.1:8110/.
+
+## 2026-10-19 20:53
+
+**Model:** Cursor Grok 4.7
+
+### User
+
+Briefly inform the user about the task result and perform any follow-up actions (if needed). If there's no follow-ups needed, don't explicitly say that.
+
+### Assistant
+
+The replay test run finished successfully: 20 tests passed, covering the console layout, the query path, and the Application A agent.
+
+## 2026-10-19 21:20
+
+**Model:** Cursor Grok 4.7
+
+### User
+
+for "1. Replay a partner delivery", i get a result whose model line is "Azure call failed: HTTPError", answer source Azure OpenAI, and a long cited-items list.
+
+### Assistant
+
+The queue part of the demo worked. Azure did not return an explanation.
+
+Work-queue count 197 and packaged replay count 67 are the business result. The second delivery is on the session queue. The packaged store still has 67 replay rows.
+
+Azure OpenAI answered HTTP 404, Resource not found. The screen shortens that to HTTPError. The deployment name in .env is gpt-5-mini, with API version 2025-08-07. That name is not a chat deployment on the resource the endpoint points at, or that API version is not valid there. Application A did call Azure. Azure sent back no sentence.
+
+The long list is not a model citation. The call failed before a sentence existed, so the page lists the lake items the search returned. The question contains the words replay, duplicate, feed, and partner. Search returns up to 20 matches. The two that belong to this case are data.feed.replay and rule.feed.replay_duplicate. The others matched those words.
+
+For the audience, say this: the queue proof is real. The model step reached Azure, and Azure said this deployment was not found. Do not read the long list as the explanation.
+
+To get a cited sentence, set AZURE_OPENAI_DEPLOYMENT to the deployment name shown in the Azure portal for that resource, and set AZURE_OPENAI_API_VERSION to a version that deployment accepts. Then recreate Application A. The portal name has to come from that resource. It is not something to guess.
+
+## 2026-10-19 21:38
+
+**Model:** Cursor Grok 4.7
+
+### User
+
+rerun docker @compose.yaml and rebuild app with changes to Azure OpenAI API version
+
+### Assistant
+
+Application A is rebuilt and running with API version `2024-10-21`. Health returned 200.
+
+The image was rebuilt from `compose.yaml` and the Application A container was recreated. Inside the container, model mode is azure, the deployment name is set, and the API key is set. The REST date the container will send is `2024-10-21`. The deployment name is still `gpt-5-mini`.
+
+Open Application A at http://127.0.0.1:8100/ and run Review this delivery again. If Azure still returns “Azure call failed: HTTPError”, the deployment name on this resource is not `gpt-5-mini`. Copy the deployment name from the Azure portal into `.env`, then recreate Application A.
+
+## 2026-10-19 22:20
+
+**Model:** Cursor Grok 4.7
+
+### User
+
+Fix the issue identified in the earlier turn for "max_tokens is not supported on this model"
+
+### Assistant
+
+Application A now sends the body this deployment accepts. A live recipe explain returned a sentence.
+
+Azure said `max_tokens` is not supported. The client now sends `max_completion_tokens`. The same call then rejected `temperature` 0. This model only accepts temperature 1, so the client sends 1.
+
+A cap of 800 still produced an empty sentence. This model used all 800 tokens on its own reasoning and returned no JSON. The cap is now 4000. A recipe explain through Application A returned verdict ANSWER, answer source Azure OpenAI, and citations that include `rule.recipe.mismatch_show_both`. Health is 200.
+
+The replay folder is mounted read-only, so the saved-copy step reports failed. The sentence is still returned.
+
+If Azure rejects a later body, the screen includes the HTTP status and Azure’s message.
+
+Open http://127.0.0.1:8100/ and run Explain this mismatch again.
+
+The Command Prompt window printed the API key while it loaded `.env`. Clear that scrollback. Do not paste that window into chat.
+
+## 2026-10-19 22:36
+
+**Model:** Cursor Grok 4.7
+
+### User
+
+Visible outcomes on every demo click
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+Every demo click now has its own line, and a refusal or a success changes what the audience can see.
+
+The Result panel has two lines. The latest-action line names the work while the call is running, then shows the refusal or the success. The model sentence stays underneath it. An earlier Azure sentence no longer covers the next click.
+
+Drop, Hold, Record my decision, and Record the owner each have a line that names the role. Those buttons stay clickable. A wrong role leaves the evidence table as it was and writes the refusal on the latest-action line.
+
+Replay evidence has a row named This delivery. It reads not on the queue, on the work queue, or dropped. Recipe evidence has a Hold row. It stays “not recorded” until a hold succeeds.
+
+On Application A I checked three clicks. RT-01 clicked Drop this duplicate and the page said “Confirm drop waits for RT-05. The current role is RT-01.” RT-05 then dropped a delivery that was on the queue. The line named the new work-queue count 196, and This delivery changed to dropped. RT-05 clicked Hold and the page showed the role refusal, with Hold still “not recorded.” Place this event on the timeline put event time 2020-12-30 in the evidence table and said so on the latest-action line.
+
+Both app containers were rebuilt. Health is 200 on ports 8100 and 8110. Fourteen presenter and demo tests passed. Click Start this shift again before the next demo if you want a clear session. The checks above left the replay delivery dropped and the clock event on the timeline.
+
+## 2026-10-19 23:03
+
+**Model:** Cursor Grok 4.7
+
+### User
+
+Scenario tabs and a clean page on each switch
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The seven scenarios are now tabs, and a switch opens a clean result page.
+
+Each tab shows the scenario name and the case under it. Replay shows C00001646. Recipe shows L00000016. The open tab is teal on a cool gray page. The header is deep slate with an amber line. The five bands sit on one sheet. Start this shift again is in the header.
+
+A tab change clears the latest-action line, the model sentence, the cited items, and the audit rows. The stored case status stays on its own tab. A reply that arrives after the tab has changed does not write onto the new page.
+
+On Application A, RT-05 dropped the second delivery. The result line named the drop, and This delivery read dropped. Switching to Recipe showed Ready, the lot L00000016 situation, and Hold not recorded. Switching back to Replay showed Ready again, and This delivery still read dropped.
+
+Both containers were rebuilt. The presenter tests passed. Click Start this shift again before the next demo if you want the delivery back to not on the queue.
+
+## 2026-10-19 23:21
+
+**Model:** Cursor Grok 4.7
+
+### User
+
+Show model and audit lines only when a click fills them
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The model sentence, the answer source, and the cited items now appear only after a click that returns them. The audit band appears only when that click has a correlation id or an audit row.
+
+On Clocks, Policy, Outage, Rule trace, and Compare, the result band keeps the latest-action line. It does not print an empty model sentence or an empty correlation id. The same is true on Replay and Recipe until Review this delivery or Explain this mismatch returns a sentence.
+
+Application B Recipe still shows the stored line Phase 10 chain corr-p10b-doc-20261018-001. That line stays when the current click has no audit id.
+
+The screen contract is now v1.5. Both app containers were rebuilt. Health is 200 on ports 8100 and 8110. The presenter tests passed.
+
+On Application A, Clocks showed Ready and no model lines. Replay, Review this delivery, returned a sentence from Azure OpenAI. The cited items included data.feed.replay and rule.feed.replay_duplicate. The cache file was not written. That click put the second delivery on the work queue. The work-queue count is 197. The packaged replay count is 67. Click Start this shift again if you want that delivery back to not on the queue.

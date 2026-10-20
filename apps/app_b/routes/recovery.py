@@ -5,7 +5,7 @@ import json
 import os
 from typing import Any
 from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
+from urllib.request import Request as UrlRequest, urlopen
 
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
@@ -57,7 +57,7 @@ def probe_gateway(mode: str) -> dict[str, Any]:
         return _simulate(mode)
     url = f"{base.rstrip('/')}/api/failure?mode={mode}"
     try:
-        req = Request(url)
+        req = UrlRequest(url)
         with urlopen(req, timeout=3) as response:
             body = json.loads(response.read().decode("utf-8"))
             return {"http_status": response.status, "body": body}

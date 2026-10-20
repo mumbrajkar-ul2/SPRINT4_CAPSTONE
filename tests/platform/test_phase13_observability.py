@@ -122,7 +122,8 @@ def test_hb31_01_after_replay_miss_emits_one_line(replay_only, capsys) -> None:
     assert body["sentence"] == ""
     assert "arch.listener.lake_rest_8091" in (body.get("retrieved_item_ids") or [])
     assert body["correlation_id"] == MISS_CORR
-    assert "model_mode" not in body
+    assert body.get("model_mode") == "replay"
+    assert body.get("answer_source") == "replay_file"
 
     assert len(misses) == 1
     line = misses[0]

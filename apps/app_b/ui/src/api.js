@@ -19,7 +19,10 @@ export function headers(actor) {
 export async function callApi(path, actor, options = {}) {
   const response = await fetch(path, {
     method: options.method || "GET",
-    headers: headers(actor),
+    headers: {
+      ...headers(actor),
+      ...(options.correlationId ? { "X-Correlation-Id": options.correlationId } : {}),
+    },
     body: options.body ? JSON.stringify(options.body) : undefined,
   });
   const data = await response.json();

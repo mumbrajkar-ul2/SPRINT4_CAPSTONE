@@ -96,8 +96,14 @@ def post_agent_run(request: Request, payload: dict) -> JSONResponse:
         "draft_plan": draft.get("draft_plan"),
         "citations": draft.get("citations") or [],
         "verdict": draft.get("verdict"),
+        "sentence": draft.get("sentence") or "",
         "block": bool(draft.get("block")),
         "error_class": "blocked" if gate.get("verdict") == "BLOCK" else draft.get("error_class"),
+        "model_mode": draft.get("model_mode") or "",
+        "answer_source": draft.get("answer_source") or "lake_statement",
+        "retrieved_item_ids": draft.get("retrieved_item_ids") or [],
+        "replay_save": None,
+        "proposed_by": "model_draft",
         "case": case,
     }
     return JSONResponse(body, status_code=status)

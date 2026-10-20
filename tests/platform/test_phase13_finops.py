@@ -129,7 +129,8 @@ def test_hb32_01_after_replay_hit_emits_replay_tokens(replay_only, capsys) -> No
     assert "arch.listener.lake_rest_8091" in (body.get("citations") or [])
     assert body["sentence"]
     assert body["correlation_id"] == HIT_CORR
-    assert "model_mode" not in body
+    assert body.get("model_mode") == "replay"
+    assert body.get("answer_source") == "replay_file"
     assert "prompt_tokens" not in body
     assert "completion_tokens" not in body
     assert "token" not in body

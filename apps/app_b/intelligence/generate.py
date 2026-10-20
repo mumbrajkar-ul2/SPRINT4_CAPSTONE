@@ -30,6 +30,13 @@ def model_mode() -> str:
     return (os.environ.get("MODEL_MODE") or "replay").strip().lower()
 
 
+def answer_source_name(*, used_file: bool) -> str:
+    """Application B never calls Azure. A saved file is replay. Otherwise the sentence is a lake statement."""
+    if used_file:
+        return "replay_file"
+    return "lake_statement"
+
+
 def parse_model_json(body: str) -> dict[str, Any] | None:
     text = (body or "").strip()
     if not text:
@@ -177,17 +184,21 @@ def generate(
                 "error_class": None,
                 "lake_version": retrieved.get("lake_version"),
                 "model_mode": mode,
+                "answer_source": "lake_statement",
+                "replay_save": None,
             }
         )
         return grounded
 
     parsed = None
-    if mode == "replay":
+    used_file = False
+    if mode in {"replay", "azure"}:
         hit = lookup(canonical, directory=replay_dir, mode="replay")
         if hit.get("ok"):
             parsed = parse_model_json(str(hit.get("body") or ""))
+            used_file = parsed is not None
         else:
-            error_class = hit.get("error_class") or "replay_miss"
+            error_class = None if mode == "azure" else (hit.get("error_class") or "replay_miss")
             parsed = _answer_from_lake(
                 question,
                 list(retrieved.get("items") or []),
@@ -195,9 +206,6 @@ def generate(
                 quotes=quotes,
                 prompt_id=prompt_id,
             )
-    elif mode == "azure":
-        error_class = "replay_required"
-        parsed = empty_abstain()
     else:
         error_class = "replay_required"
         parsed = empty_abstain()
@@ -220,6 +228,8 @@ def generate(
             "error_class": error_class,
             "lake_version": retrieved.get("lake_version"),
             "model_mode": mode,
+            "answer_source": answer_source_name(used_file=used_file),
+            "replay_save": None,
         }
     )
     return grounded

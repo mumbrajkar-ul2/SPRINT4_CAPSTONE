@@ -50,8 +50,22 @@ def test_replay_queue_then_drop() -> None:
     assert received["replay"]["feed_ingested"] == "2022-04-25T19:09"
     assert received["replay"]["replay_ingested"] == "2022-04-25T20:09"
     assert received["packaged_replay_rows"] == 67
+    assert received["delivery_status"] == "on the work queue"
+    assert "Work-queue count is" in received["message"]
+    reviewer = {
+        "X-Api-Key": "local-demo-only",
+        "X-Actor-Id": "rt01-demo",
+        "X-Actor-Role": "RT-01",
+    }
+    refused = client.post("/api/demo/replay/drop", headers=reviewer)
+    assert refused.status_code == 403
+    assert "RT-05" in refused.json()["message"]
+    assert refused.json()["delivery_status"] == "on the work queue"
+    assert refused.json()["queue_count"] == received["queue_count"]
     dropped = client.post("/api/demo/replay/drop", headers=HEADERS).json()
     assert dropped["queue_count"] == start["queue_count"]
+    assert dropped["delivery_status"] == "dropped"
+    assert "RT-05 dropped the duplicate" in dropped["message"]
 
 
 def test_recipe_clock_policy_and_outage() -> None:

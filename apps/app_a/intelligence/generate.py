@@ -32,6 +32,15 @@ def model_mode() -> str:
     return (os.environ.get("MODEL_MODE") or "replay").strip().lower()
 
 
+def answer_source_name(*, used_azure: bool, used_file: bool) -> str:
+    """Name where the sentence came from. Application A may call Azure. A miss stays a replay file."""
+    if used_azure:
+        return "azure"
+    if used_file:
+        return "replay_file"
+    return "lake_statement"
+
+
 def parse_model_json(body: str) -> dict[str, Any] | None:
     text = (body or "").strip()
     if not text:
@@ -95,10 +104,15 @@ def generate(
                 "error_class": None,
                 "lake_version": retrieved.get("lake_version"),
                 "model_mode": mode,
+                "answer_source": "lake_statement",
+                "replay_save": None,
             }
         )
         return grounded
 
+    used_file = False
+    used_azure = False
+    replay_save = None
     if mode == "replay":
         hit = lookup(canonical, directory=replay_dir, mode="replay")
         if not hit.get("ok"):
@@ -118,10 +132,13 @@ def generate(
                     "error_class": error_class,
                     "lake_version": retrieved.get("lake_version"),
                     "model_mode": mode,
+                    "answer_source": "replay_file",
+                    "replay_save": None,
                 }
             )
             return grounded
         raw_body = hit.get("body")
+        used_file = True
     elif mode == "azure":
         live = complete_azure(canonical)
         if not live.get("ok"):
@@ -141,13 +158,21 @@ def generate(
                     "error_class": error_class,
                     "lake_version": retrieved.get("lake_version"),
                     "model_mode": mode,
+                    "answer_source": "azure",
+                    "replay_save": None,
+                    "message": live.get("message"),
                 }
             )
             return grounded
         raw_body = live.get("body")
+        used_azure = True
         store = replay_dir or (Path(__file__).resolve().parents[3] / "operations" / "model-replay")
-        store.mkdir(parents=True, exist_ok=True)
-        (store / digest).write_text(str(raw_body), encoding="utf-8")
+        try:
+            store.mkdir(parents=True, exist_ok=True)
+            (store / digest).write_text(str(raw_body), encoding="utf-8")
+            replay_save = "saved"
+        except OSError:
+            replay_save = "failed"
     else:
         error_class = "replay_required"
         grounded = ground(empty_abstain(), retrieved_item_ids=retrieved_ids, untrusted_quotes=quotes, block=block)
@@ -160,6 +185,8 @@ def generate(
                 "error_class": error_class,
                 "lake_version": retrieved.get("lake_version"),
                 "model_mode": mode,
+                "answer_source": "lake_statement",
+                "replay_save": None,
             }
         )
         return grounded
@@ -183,6 +210,8 @@ def generate(
             "error_class": error_class,
             "lake_version": retrieved.get("lake_version"),
             "model_mode": mode,
+            "answer_source": answer_source_name(used_azure=used_azure, used_file=used_file),
+            "replay_save": replay_save,
         }
     )
     return grounded

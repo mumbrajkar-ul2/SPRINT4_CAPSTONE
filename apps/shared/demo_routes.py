@@ -1,6 +1,7 @@
 """Demo session routes. Each app passes its own queue count and recovery probe."""
 from __future__ import annotations
 
+import os
 from collections.abc import Callable
 from typing import Any
 
@@ -38,6 +39,7 @@ def build_demo_router(
         payload = session.snapshot(base_queue=base_queue(), app_name=app_name, lineage=lineage)
         payload["actor_id"] = actor_id
         payload["actor_role"] = actor_role
+        payload["model_mode"] = (os.environ.get("MODEL_MODE") or "replay").strip().lower()
         emit(
             service=service,
             event="demo_session",
@@ -55,43 +57,61 @@ def build_demo_router(
     @router.post("/api/demo/reset")
     def demo_reset(request: Request) -> dict[str, Any]:
         session.reset()
-        return _body(request)
+        body = _body(request)
+        body["message"] = "This shift started again. The session overlay is clear."
+        return body
 
     @router.post("/api/demo/replay/receive")
     def demo_receive(request: Request) -> dict[str, Any]:
         session.receive_replay()
-        return _body(request)
+        body = _body(request)
+        body["message"] = (
+            f"The second delivery is on the work queue. Work-queue count is {body['queue_count']}. "
+            f"Packaged replay count is {body['packaged_replay_rows']}."
+        )
+        return body
 
     @router.post("/api/demo/replay/drop")
     def demo_drop(request: Request) -> JSONResponse:
         _actor_id, actor_role, _correlation = _actor(request)
-        error = session.confirm_drop(actor_role=actor_role)
+        ok, message = session.confirm_drop(actor_role=actor_role)
         payload = _body(request)
-        if error:
+        if ok and payload["delivery_status"] == "dropped":
+            message = (
+                f"{message} Work-queue count is {payload['queue_count']}. "
+                f"Packaged replay count is {payload['packaged_replay_rows']}."
+            )
+        payload["message"] = message
+        if not ok:
             payload["ok"] = False
-            payload["message"] = error
             return JSONResponse(payload, status_code=403)
         return JSONResponse(payload)
 
     @router.post("/api/demo/clocks/apply")
     def demo_clocks(request: Request) -> dict[str, Any]:
-        session.apply_backfill()
-        return _body(request)
+        message = session.apply_backfill()
+        body = _body(request)
+        body["message"] = message
+        return body
 
     @router.post("/api/demo/policy/check")
     def demo_policy(request: Request) -> dict[str, Any]:
-        session.check_policy()
-        return _body(request)
+        already = session.policy_checked
+        policy = session.check_policy()
+        body = _body(request)
+        sentence = str(policy.get("sentence") or "")
+        body["message"] = f"The overlap check already ran. {sentence}" if already else sentence
+        return body
 
     @router.post("/api/demo/policy/decide")
     def demo_policy_decide(request: Request, payload: dict) -> JSONResponse:
         _actor_id, actor_role, _correlation = _actor(request)
         choice = str(payload.get("choice") or "keep-wait")
-        error = session.decide_policy(choice, actor_role=actor_role)
+        ok, message = session.decide_policy(choice, actor_role=actor_role)
         body = _body(request)
-        if error:
+        body["message"] = message
+        if not ok:
             body["ok"] = False
-            body["message"] = error
             return JSONResponse(body, status_code=403)
         return JSONResponse(body)
 
@@ -114,17 +134,23 @@ def build_demo_router(
         }
         body = _body(request)
         body["last_probe"] = session.last_probe
+        body["message"] = sentence
         return body
 
     @router.post("/api/demo/outage/park")
     def demo_park(request: Request) -> dict[str, Any]:
-        session.park()
-        return _body(request)
+        message = session.park()
+        body = _body(request)
+        body["message"] = message
+        return body
 
     @router.post("/api/demo/outage/replay")
     def demo_replay_parked(request: Request) -> dict[str, Any]:
-        session.replay_parked()
-        return _body(request)
+        message = session.replay_parked()
+        body = _body(request)
+        body["message"] = message
+        body["ok"] = not message.startswith("No parked intake")
+        return body
 
     @router.post("/api/demo/owner")
     def demo_owner(request: Request, payload: dict) -> JSONResponse:
@@ -135,8 +161,15 @@ def build_demo_router(
             body["message"] = "The owner of INC-2025-014 stays empty unless RT-06 types one."
             return JSONResponse(body, status_code=403)
         typed = str(payload.get("owner_id") or "").strip()
-        session.owner_typed = typed or None
-        return JSONResponse(_body(request))
+        body = _body(request)
+        if not typed:
+            body["ok"] = False
+            body["message"] = "Type an owner id, then record it."
+            return JSONResponse(body, status_code=400)
+        session.owner_typed = typed
+        body = _body(request)
+        body["message"] = f"Owner {typed} is recorded for INC-2025-014."
+        return JSONResponse(body)
 
     @router.get("/api/demo/rule-trace")
     def demo_rule_trace(request: Request) -> JSONResponse:
@@ -145,13 +178,16 @@ def build_demo_router(
             body["ok"] = False
             body["message"] = "Application A has no lineage route."
             return JSONResponse(body, status_code=404)
+        body["message"] = "The ordered list above is the path for this rule."
         return JSONResponse(body)
 
     @router.post("/api/demo/gateway/receive")
     def demo_gateway(request: Request, payload: dict) -> dict[str, Any]:
         message_id = str(payload.get("message_id") or "")
         session.receive_gateway(message_id, payload)
-        return _body(request)
+        body = _body(request)
+        body["message"] = f"Gateway message {message_id or 'with no id'} is on the work queue. Work-queue count is {body['queue_count']}."
+        return body
 
     @router.post("/api/demo/gateway/pull")
     def demo_gateway_pull(request: Request) -> JSONResponse:
@@ -177,7 +213,10 @@ def build_demo_router(
             body["message"] = "The gateway returned no message."
             return JSONResponse(body, status_code=404)
         item = items[0]
-        session.receive_gateway(str(item.get("message_id") or ""), item)
-        return JSONResponse(_body(request))
+        message_id = str(item.get("message_id") or "")
+        session.receive_gateway(message_id, item)
+        body = _body(request)
+        body["message"] = f"Gateway message {message_id or 'with no id'} is on the work queue. Work-queue count is {body['queue_count']}."
+        return JSONResponse(body)
 
     return router

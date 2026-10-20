@@ -153,7 +153,6 @@ def load_case(state: dict[str, Any]) -> dict[str, Any]:
 
 
 def plan_draft(state: dict[str, Any]) -> dict[str, Any]:
-    os.environ["MODEL_MODE"] = "replay"
     scenario = str(state.get("scenario") or "")
     case_id = str(state.get("case_id") or "")
     case = get_case(case_id) or {}
@@ -181,6 +180,11 @@ def plan_draft(state: dict[str, Any]) -> dict[str, Any]:
         "block": block,
         "verdict": result.get("verdict") or "ABSTAIN",
         "proposed_by": "model_draft",
+        "model_mode": result.get("model_mode") or "",
+        "answer_source": result.get("answer_source") or "",
+        "retrieved_item_ids": list(result.get("retrieved_item_ids") or []),
+        "replay_save": result.get("replay_save") or "",
+        "message": result.get("message") or "",
         "untrusted_quotes": list(result.get("untrusted_quotes") or state.get("untrusted_quotes") or []),
         "error_class": result.get("error_class") or state.get("error_class") or "",
     }

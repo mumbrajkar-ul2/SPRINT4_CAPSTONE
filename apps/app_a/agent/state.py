@@ -16,6 +16,11 @@ class AgentState(TypedDict, total=False):
     draft_plan: str
     sentence: str
     citations: list[str]
+    model_mode: str
+    answer_source: str
+    retrieved_item_ids: list[str]
+    replay_save: str
+    message: str
     untrusted_quotes: list[str]
     lake_item_ids: list[str]
     verdict: str

@@ -22,7 +22,7 @@ def azure_config() -> dict[str, str] | None:
     return values
 
 
-def complete_azure(prompt_bytes: bytes, *, timeout_s: float = 30.0) -> dict[str, Any]:
+def complete_azure(prompt_bytes: bytes, *, timeout_s: float = 60.0) -> dict[str, Any]:
     """Send the canonical prompt to Azure OpenAI. Caller must set MODEL_MODE=azure."""
     cfg = azure_config()
     if cfg is None:
@@ -37,9 +37,11 @@ def complete_azure(prompt_bytes: bytes, *, timeout_s: float = 30.0) -> dict[str,
         f"{endpoint}/openai/deployments/{cfg['AZURE_OPENAI_DEPLOYMENT']}"
         f"/chat/completions?api-version={cfg['AZURE_OPENAI_API_VERSION']}"
     )
+    # This deployment rejects max_tokens and temperature 0.
+    # It spends the token budget on reasoning before the JSON sentence. 800 left that sentence empty.
     payload = {
-        "temperature": 0,
-        "max_tokens": 800,
+        "temperature": 1,
+        "max_completion_tokens": 4000,
         "messages": [
             {"role": "user", "content": prompt_bytes.decode("utf-8")},
         ],
@@ -56,6 +58,21 @@ def complete_azure(prompt_bytes: bytes, *, timeout_s: float = 30.0) -> dict[str,
     try:
         with urllib.request.urlopen(request, timeout=timeout_s) as response:
             raw = json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        short = detail
+        try:
+            parsed = json.loads(detail)
+            short = str((parsed.get("error") or {}).get("message") or detail)
+        except json.JSONDecodeError:
+            short = detail
+        short = " ".join(short.split())[:240]
+        return {
+            "ok": False,
+            "error_class": "azure_call_failed",
+            "message": f"Azure call failed: HTTP {exc.code}. {short}",
+            "body": None,
+        }
     except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
         return {
             "ok": False,
@@ -70,6 +87,14 @@ def complete_azure(prompt_bytes: bytes, *, timeout_s: float = 30.0) -> dict[str,
             "ok": False,
             "error_class": "azure_call_failed",
             "message": "Azure response had no message content.",
+            "body": None,
+        }
+    if not str(text or "").strip():
+        finish = raw["choices"][0].get("finish_reason")
+        return {
+            "ok": False,
+            "error_class": "azure_call_failed",
+            "message": f"Azure returned no sentence. Finish reason is {finish}.",
             "body": None,
         }
     return {"ok": True, "error_class": None, "message": None, "body": text}

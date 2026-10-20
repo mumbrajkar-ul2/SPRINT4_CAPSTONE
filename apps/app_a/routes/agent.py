@@ -24,7 +24,6 @@ os.environ.setdefault("MODEL_MODE", "replay")
 
 @router.post("/api/agent/run")
 def post_agent_run(request: Request, payload: dict) -> JSONResponse:
-    os.environ["MODEL_MODE"] = "replay"
     correlation_id = header_get(request.headers, HEADER_CORRELATION) or mint_correlation_id()
     actor_id = header_get(request.headers, HEADER_ACTOR_ID)
     actor_role = header_get(request.headers, HEADER_ACTOR_ROLE)
@@ -85,6 +84,15 @@ def post_agent_run(request: Request, payload: dict) -> JSONResponse:
                 "correlation_id": correlation_id,
                 "opa_verdict": "HOLD_FOR_REVIEW",
                 "waiting": False,
+                "sentence": state.get("sentence") or "",
+                "draft_plan": state.get("draft_plan") or "",
+                "citations": state.get("citations") or [],
+                "retrieved_item_ids": state.get("retrieved_item_ids") or [],
+                "model_mode": state.get("model_mode") or "",
+                "answer_source": state.get("answer_source") or "",
+                "replay_save": state.get("replay_save") or None,
+                "message": state.get("message") or None,
+                "proposed_by": state.get("proposed_by") or "model_draft",
             },
             status_code=409,
         )
@@ -101,8 +109,15 @@ def post_agent_run(request: Request, payload: dict) -> JSONResponse:
         "draft_plan": state.get("draft_plan"),
         "citations": state.get("citations") or [],
         "verdict": state.get("verdict"),
+        "sentence": state.get("sentence") or "",
         "block": bool(state.get("block")),
         "error_class": state.get("error_class") or None,
+        "model_mode": state.get("model_mode") or "",
+        "answer_source": state.get("answer_source") or "",
+        "retrieved_item_ids": state.get("retrieved_item_ids") or [],
+        "replay_save": state.get("replay_save") or None,
+        "message": state.get("message") or None,
+        "proposed_by": state.get("proposed_by") or "model_draft",
         "case": case,
     }
     if state.get("opa_verdict") == "BLOCK":

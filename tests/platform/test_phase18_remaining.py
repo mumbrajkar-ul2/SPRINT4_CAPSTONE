@@ -134,6 +134,6 @@ def test_demo_key_file_and_image_note() -> None:
 def test_react_has_injection_and_anonymous_buttons() -> None:
     for folder in ("app_a", "app_b"):
         text = (ROOT / "apps" / folder / "ui" / "src" / "App.jsx").read_text(encoding="utf-8")
-        assert "Injection" in text
-        assert "Read a case with no key" in text
-        assert "Receive one gateway message" in text
+        assert "Try to approve from the feed note" in text
+        assert "Open the case with no identity" in text
+        assert "Take the next gateway message" in text

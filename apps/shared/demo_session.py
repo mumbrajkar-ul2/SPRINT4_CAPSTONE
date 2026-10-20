@@ -78,6 +78,7 @@ class DemoSession:
 
     def reset(self) -> None:
         self.replay_open = False
+        self.replay_dropped = False
         self.backfill_applied = False
         self.policy_checked = False
         self.policy_choice: str | None = None
@@ -93,17 +94,34 @@ class DemoSession:
             extra += 1
         return extra
 
-    def receive_replay(self) -> None:
+    def delivery_status(self) -> str:
+        if self.replay_open:
+            return "on the work queue"
+        if self.replay_dropped:
+            return "dropped"
+        return "not on the queue"
+
+    def receive_replay(self) -> str:
         self.replay_open = True
+        self.replay_dropped = False
+        return "The second delivery is on the work queue."
 
-    def confirm_drop(self, *, actor_role: str) -> str | None:
+    def confirm_drop(self, *, actor_role: str) -> tuple[bool, str]:
         if actor_role != "RT-05":
-            return "Confirm drop waits for RT-05."
+            return False, "Confirm drop waits for RT-05."
+        if self.replay_dropped and not self.replay_open:
+            return True, "The duplicate is already off the queue."
+        if not self.replay_open:
+            return True, "The second delivery is not on the work queue."
         self.replay_open = False
-        return None
+        self.replay_dropped = True
+        return True, "RT-05 dropped the duplicate. The work-queue count returned to the start value."
 
-    def apply_backfill(self) -> None:
+    def apply_backfill(self) -> str:
+        if self.backfill_applied:
+            return "The event time is already on the timeline."
         self.backfill_applied = True
+        return "Event E-00000000 is on the timeline at 2020-12-30. Arrival time 2021-01-01 stays a second mark."
 
     def check_policy(self) -> dict[str, Any]:
         self.policy_checked = True
@@ -116,13 +134,18 @@ class DemoSession:
             "sentence": "Four policies are in force. The app abstains and waits for RT-04.",
         }
 
-    def decide_policy(self, choice: str, *, actor_role: str) -> str | None:
+    def decide_policy(self, choice: str, *, actor_role: str) -> tuple[bool, str]:
         if actor_role != "RT-04":
-            return "A policy decision waits for RT-04."
+            return False, "A policy decision waits for RT-04."
+        if self.policy_choice == choice:
+            return True, f"RT-04 already recorded {choice}."
         self.policy_choice = choice
-        return None
+        return True, f"RT-04 recorded {choice}."
 
-    def park(self, message_id: str = "DLQ-DEMO-BAD") -> dict[str, Any]:
+    def park(self, message_id: str = "DLQ-DEMO-BAD") -> str:
+        for item in self.parked:
+            if item["message_id"] == message_id and item["status"] == "PARKED":
+                return f"Intake {message_id} is already parked."
         row = {
             "parked_id": message_id,
             "message_id": message_id,
@@ -130,14 +153,16 @@ class DemoSession:
         }
         self.parked = [item for item in self.parked if item["message_id"] != message_id]
         self.parked.append(row)
-        return row
+        return f"Intake {message_id} is parked."
 
-    def replay_parked(self, message_id: str = "DLQ-DEMO-BAD") -> dict[str, Any] | None:
+    def replay_parked(self, message_id: str = "DLQ-DEMO-BAD") -> str:
         for row in self.parked:
             if row["message_id"] == message_id:
+                if row["status"] == "REPLAYED":
+                    return f"Intake {message_id} is already back. Status is REPLAYED."
                 row["status"] = "REPLAYED"
-                return row
-        return None
+                return f"Intake {message_id} is back. Status is REPLAYED."
+        return f"No parked intake {message_id} is waiting."
 
     def receive_gateway(self, message_id: str, body: dict[str, Any]) -> None:
         self.gateway_message = {"message_id": message_id, "body": body}
@@ -161,6 +186,8 @@ class DemoSession:
             "queue_count": base_queue + self.queue_extra(),
             "base_queue": base_queue,
             "replay_open": self.replay_open,
+            "replay_dropped": self.replay_dropped,
+            "delivery_status": self.delivery_status(),
             "replay": REPLAY,
             "recipe": RECIPE,
             "clock": CLOCK,
