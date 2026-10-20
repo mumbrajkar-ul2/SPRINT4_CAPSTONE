@@ -110,10 +110,14 @@ def test_hb33_01_compose_model_mode_replay_for_app_a_and_app_b() -> None:
     app_b_env = _service_env("app-b")
     assert app_a_env["MODEL_MODE"] == MODEL_MODE_DEFAULT
     assert app_b_env["MODEL_MODE"] == MODEL_MODE_DEFAULT
-    assert "AZURE_OPENAI_ENDPOINT" not in app_a_env
-    assert "AZURE_OPENAI_ENDPOINT" not in app_b_env
-    assert "AZURE_OPENAI_API_KEY" not in app_a_env
-    assert "AZURE_OPENAI_API_KEY" not in app_b_env
+    for name in (
+        "AZURE_OPENAI_ENDPOINT",
+        "AZURE_OPENAI_API_KEY",
+        "AZURE_OPENAI_DEPLOYMENT",
+        "AZURE_OPENAI_API_VERSION",
+    ):
+        assert app_a_env[name] == f"${{{name}:-}}"
+        assert name not in app_b_env
 
 
 def test_hb33_01_compose_app_b_pythonpath_omits_inherited_tree() -> None:

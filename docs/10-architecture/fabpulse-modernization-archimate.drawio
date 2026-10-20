@@ -207,8 +207,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="phase16-asbuilt" name="Phase 16 as-built">
-    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1240" math="0" shadow="0">
+  <diagram id="phase16-asbuilt" name="As built">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1320" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -254,16 +254,16 @@
         <mxCell id="p2mcp" value="Lake MCP. Port 8092. Read-only tools." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="1108" y="330" width="220" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="p2appa" value="Application A. Port 8100. Rules come from transformed code. One process serves the API and the React screens." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+        <mxCell id="p2appa" value="Application A. Port 8100. Rules from transformed code. FastAPI serves the React console." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="1376" y="330" width="220" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="p2appb" value="Application B. Port 8110. Rules come only from the lake. One process serves the API and the React screens." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+        <mxCell id="p2appb" value="Application B. Port 8110. Lake rules only. Same React console. It does not call Application A." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="1644" y="330" width="220" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="p2agenta" value="LangGraph agent. Six read-only tools." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+        <mxCell id="p2agenta" value="LangGraph agent. Read-only tools. interrupt() stores the pause." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="1376" y="580" width="220" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="p2agentb" value="LangGraph agent. Same read-only control." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+        <mxCell id="p2agentb" value="LangGraph agent. Read-only tools, an interrupt() pause, and three extra jobs." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="1644" y="580" width="220" height="60" as="geometry" />
         </mxCell>
         <mxCell id="p2opaa" value="OPA inside Application A. EXECUTE, HOLD_FOR_REVIEW, or BLOCK." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
@@ -275,7 +275,7 @@
         <mxCell id="p2audit" value="Audit chain. Read by correlation id." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="1376" y="800" width="220" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="p2lineage" value="Lineage view. Shows the correlation id stored on the audit chain." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
+        <mxCell id="p2lineage" value="Lineage view. A React list. The browser calls the other port. The servers do not." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#99ffff;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=comp;archiType=square;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="1644" y="800" width="220" height="52" as="geometry" />
         </mxCell>
         <mxCell id="p2port8080" value="8080" style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=node;archiType=square;fontSize=12;" vertex="1" parent="1">
@@ -305,14 +305,14 @@
         <mxCell id="p2lakedb" value="context-lake.sqlite3. Version 1.0.0. 148 items. Lake REST and Lake MCP read it." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=artifact;archiType=square;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="840" y="1040" width="488" height="68" as="geometry" />
         </mxCell>
-        <mxCell id="p2ckpt" value="checkpoints.sqlite3. The approval wait survives a restart." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=artifact;archiType=square;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="1376" y="1040" width="220" height="68" as="geometry" />
+        <mxCell id="p2ckpt" value="One checkpoint file per app. The wait survives a restart. Session clicks do not write the packaged store." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=artifact;archiType=square;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1376" y="1024" width="220" height="84" as="geometry" />
         </mxCell>
         <mxCell id="p2replay" value="Replay files. 77 saved answers. A missing file abstains." style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#c5e0b4;strokeColor=#000000;fontColor=#000000;shape=mxgraph.archimate3.application;appType=artifact;archiType=square;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="1644" y="1040" width="220" height="68" as="geometry" />
         </mxCell>
-        <mxCell id="p2note" value="Application A and Application B run as separate processes. Each one reads the lake on its own. OPA runs inside each application process. Compose has seven containers. A later full docker compose up --build recreate was not re-proven in Phase 15. MODEL_MODE=replay plays a saved answer. A missing file abstains." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=13;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="36" y="1140" width="1700" height="70" as="geometry" />
+        <mxCell id="p2note" value="Each app is its own process and reads the lake on its own. The React console has a header, a highlighted scenario, five panels, one primary button, and a result sentence. Colors are neutral. Official Birlasoft assets are not on the page. Compose was rebuilt on 2026-10-19. MODEL_MODE=replay plays a saved answer. A missing file abstains. The packaged sqlite stays read-only." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=13;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="36" y="1148" width="1800" height="140" as="geometry" />
         </mxCell>
         <mxCell id="p2e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="p2eq" target="p2ce">
           <mxGeometry relative="1" as="geometry">
@@ -504,7 +504,7 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1563" y="868" />
-              <mxPoint x="1563" y="1024" />
+              <mxPoint x="1563" y="1008" />
             </Array>
           </mxGeometry>
         </mxCell>

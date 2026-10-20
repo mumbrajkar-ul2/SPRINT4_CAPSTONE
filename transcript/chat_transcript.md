@@ -2439,7 +2439,7 @@ The platform stack is Docker Compose at the capstone root, GitHub Actions at the
 - ED-P8A-02. Headers \X-Api-Key\, \X-Actor-Id\, \X-Actor-Role\. Variable \FABPULSE_API_KEY\. Default \local-demo-only\ in \.env.example\.
 - ED-P8A-03. Ports 8080 and 8090 stay ungated (baseline CT-35 and scenario 11 fixture).
 - ED-P8A-04. Lake 8091 and 8092 require \X-Api-Key\ except health.
-- ED-P8A-05. Container names \abpulse-legacy\, \abpulse-source-gateway\, \abpulse-bridge\, \abpulse-lake-rest\, \abpulse-lake-mcp\, \abpulse-app-a\, \abpulse-app-b\.
+- ED-P8A-05. Container names \abpulse-legacy\, \abpulse-source-gateway\, \abpulse-bridge\, \abpulse-lake-rest\, \abpulse-lake-mcp\, \fabpulse-app-a\, \abpulse-app-b\.
 - ED-P8A-06. Capstone CI at \.github/workflows/verify.yml\. No \generate --reset\. No live model.
 - ED-P8A-07. JSON stdout logs. No extra collector container.
 - ED-P8A-08. Replay files in \operations/model-replay/\ named by SHA-256 of the prompt. No third mode.
@@ -5982,3 +5982,77 @@ stop the app
 ### Assistant
 
 The stack is stopped. Application A, Application B, the source gateway, the Context Lake, the lake MCP service, and the legacy app are no longer running. Ports 8100 and 8110 are closed.
+
+## 2026-10-19 14:28
+
+**Model:** Cursor Grok 4.7
+
+### User
+
+run the app
+
+### Assistant
+
+The stack is running. Open Application A at http://127.0.0.1:8100/ and Application B at http://127.0.0.1:8110/.
+
+Application A, Application B, the source gateway, the Context Lake, the lake MCP service, and the legacy app each returned a healthy response.
+
+## 2026-10-19 14:39
+
+**Model:** Cursor Grok 4.7
+
+### User
+
+update the "C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\.cursor\rules\drawio-diagrams.mdc" and "C:\MangeshStudy\FDE\Labs\SPRINT4_CAPSTONE\docs\10-architecture\fabpulse-modernization-archimate.drawio" based on the new changes
+
+### Assistant
+
+The As built page now matches the running system. The Phase 0 baseline page is unchanged.
+
+The page title is Fabpulse as built, after Phase 18. Application A and Application B both name the React console. Application B does not call Application A. Each agent stores a pause with interrupt(). Application B also has three extra read-only jobs. The lineage box says the browser calls the other port and the servers do not. Each app has its own checkpoint file, and session clicks do not write the packaged store. The footnote says the console layout, the neutral colors, and the 2026-10-19 rebuild.
+
+The draw.io rule now says how to edit that file. Leave the Phase 0 page as the before picture. Update the As built page when the console, the session, a port, or a checkpoint changes. Do not draw an arrow from Application B to Application A or to port 8100. Do not draw a session click as a write on legacy.sqlite3.
+
+Close diagrams.net without saving, then reopen docs/10-architecture/fabpulse-modernization-archimate.drawio. An open editor can write the old geometry back.
+
+## 2026-10-19 18:56
+
+**Model:** Cursor Grok 4.7
+
+### User
+
+update compose.yaml to use these OpenAI parameters from the env file for   app-a environment -
+AZURE_OPENAI_ENDPOINT
+AZURE_OPENAI_API_KEY
+AZURE_OPENAI_DEPLOYMENT
+AZURE_OPENAI_API_VERSION
+
+### Assistant
+
+Application A now receives the four Azure names from `.env`.
+
+The `app-a` block in `compose.yaml` passes each name through as `${AZURE_OPENAI_ENDPOINT:-}`, `${AZURE_OPENAI_API_KEY:-}`, `${AZURE_OPENAI_DEPLOYMENT:-}`, and `${AZURE_OPENAI_API_VERSION:-}`. A machine with no `.env` still starts. A blank value is treated as missing. Application B does not receive these four names.
+
+The four lines in `.env` had spaces around `=`. Compose matches `NAME=value`, so those spaces were removed. The key was not printed.
+
+Only `fabpulse-app-a` was recreated. Inside that container, `MODEL_MODE` is `azure` and each of the four names is set. The other services were left as they were.
+
+`tests/platform/test_phase13_vendor_risk.py` now checks that Application A points at those names and that `compose.yaml` does not hold a key. That test passed.
+
+`POST /api/query` is the call that uses this mode. The Investigate button still forces replay.
+
+## 2026-10-19 19:01
+
+**Model:** Cursor Grok 4.7
+
+### User
+
+rebuild App A with these new settings in .env and compose.yaml.
+
+### Assistant
+
+Application A is running again with the current settings.
+
+Only \fabpulse-app-a\ was recreated. Inside the container, \MODEL_MODE\ is \zure\, and each of the four Azure names is set. Health returned HTTP 200. The page is at http://127.0.0.1:8100/.
+
+No image rebuild was needed. The Dockerfile did not change. Compose picks up \.env\ and \compose.yaml\ when the container is recreated.

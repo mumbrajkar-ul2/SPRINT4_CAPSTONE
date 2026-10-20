@@ -120,6 +120,10 @@ services:
       SERVICE_NAME: app-a
       FABPULSE_API_KEY: ${FABPULSE_API_KEY:-local-demo-only}
       MODEL_MODE: ${MODEL_MODE:-replay}
+      AZURE_OPENAI_ENDPOINT: ${AZURE_OPENAI_ENDPOINT:-}
+      AZURE_OPENAI_API_KEY: ${AZURE_OPENAI_API_KEY:-}
+      AZURE_OPENAI_DEPLOYMENT: ${AZURE_OPENAI_DEPLOYMENT:-}
+      AZURE_OPENAI_API_VERSION: ${AZURE_OPENAI_API_VERSION:-}
       LAKE_REST_URL: http://lake-rest:8091
       SOURCE_GATEWAY_URL: http://source-gateway:8090
       PYTHONPATH: /opt/platform:/opt/platform/context-lake:/opt/platform/fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy
