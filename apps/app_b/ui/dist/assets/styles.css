@@ -1,8 +1,18 @@
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: #f4f6f8;
-  color: #1a1a1a;
+  background: #F2F2F2;
+  color: #231F20;
+  font-family: Calibri, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: Calibri, sans-serif;
 }
 
 .sr-only {
@@ -13,116 +23,400 @@ body {
   clip: rect(0, 0, 0, 0);
 }
 
+.page-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 100vh;
+  background: #ED1C24;
+  z-index: 5;
+}
+
 .console {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding-bottom: 2rem;
+  margin-left: 16px;
+  min-height: 100vh;
+  max-width: calc(100vw - 16px);
+  box-sizing: border-box;
+  padding-bottom: 32px;
 }
 
 .console-header {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 1.5rem;
-  background: #1f2933;
-  color: #f4f6f8;
-  padding: 1rem 1.5rem;
+  gap: 12px 20px;
+  background: #FFFFFF;
+  color: #231F20;
+  padding: 12px 16px 12px 24px;
+  min-height: 72px;
 }
 
-.console-header > div:first-child {
-  flex: 0 0 auto;
+.logo-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 76px;
+  background: #FFFFFF;
+  box-sizing: border-box;
 }
 
-.console-header h1,
-.console-header p {
-  margin: 0;
-  white-space: nowrap;
+.logo-word {
+  display: inline-block;
+  padding: 14px;
+  color: #231F20;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: normal;
 }
 
-.console-header label {
+.header-field {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  font-size: 0.85rem;
+  gap: 4px;
+  color: #231F20;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.header-label {
+  color: #666666;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.header-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #231F20;
+}
+
+.mode-pill {
+  display: inline-block;
+  width: fit-content;
+  background: #FDEBEC;
+  color: #231F20;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  padding: 2px 10px;
+  border-radius: 999px;
 }
 
 .console-header select,
-.console-header input {
-  background: #ffffff;
-  color: #1a1a1a;
-  border: 1px solid #c5ced6;
-  padding: 0.4rem 0.5rem;
-  min-width: 16rem;
+.console-header input,
+.band input {
+  background: #FFFFFF;
+  color: #231F20;
+  border: 1px solid #E0E0E0;
+  padding: 6px 8px;
+  min-width: 14rem;
+  font-size: 16px;
+}
+
+.header-reset {
+  background: transparent;
+  color: #666666;
+  border: none;
+  padding: 4px 0;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cover-motif {
+  display: block;
+  margin-left: auto;
+  flex: 0 0 140px;
+  width: 140px;
+  height: 80px;
+  pointer-events: none;
+}
+
+.workspace {
+  margin: 12px 24px 0;
 }
 
 .scenario-bar {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  padding: 0.75rem 1.5rem;
-  background: #ffffff;
-  border-bottom: 1px solid #d5dde3;
+  flex-wrap: nowrap;
+  gap: 0;
+  margin: 0;
+  overflow-x: auto;
+  background: transparent;
 }
 
-.scenario-bar button,
-.panel button {
-  background: #ffffff;
-  color: #1a1a1a;
-  border: 1px solid #c5ced6;
-  padding: 0.45rem 0.75rem;
+.scenario-bar button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 40px;
+  min-width: 7.5rem;
+  padding: 4px 14px 5px;
+  background: transparent;
+  color: #666666;
+  border: none;
+  border-top: 3px solid transparent;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.tab-name {
+  line-height: 1.15;
+}
+
+.tab-case {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: #666666;
 }
 
 .scenario-bar button.scenario-current {
-  background: #1f4e79;
-  color: #ffffff;
-  border-color: #1f4e79;
-}
-
-.panel {
-  background: #ffffff;
-  margin: 1rem 1.5rem 0;
-  padding: 1rem 1.25rem;
-  border: 1px solid #d5dde3;
-}
-
-.panel h2 {
-  margin: 0 0 0.75rem;
-  font-size: 1rem;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-td {
-  border: 1px solid #d5dde3;
-  padding: 0.5rem 0.75rem;
-}
-
-td:first-child {
-  width: 16rem;
+  background: #FFFFFF;
+  color: #231F20;
   font-weight: 600;
-  background: #f7f9fb;
+  border-top: 3px solid #ED1C24;
+  border-left: 1px solid #E0E0E0;
+  border-right: 1px solid #E0E0E0;
+  border-bottom: 1px solid #FFFFFF;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 1;
+}
+
+.scenario-bar button.scenario-current .tab-name {
+  color: #231F20;
+  font-weight: 600;
+}
+
+.scenario-bar button.scenario-current .tab-case {
+  color: #666666;
+  font-weight: 400;
+}
+
+.sheet {
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0 2px 6px rgba(35, 31, 32, 0.12);
+}
+
+.band {
+  padding: 18px 24px;
+}
+
+.band-kicker {
+  margin: 0 0 8px;
+  color: #666666;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.band-index {
+  color: #72007D;
+  font-size: 13px;
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.situation-title {
+  margin: 0;
+  color: #231F20;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: normal;
+}
+
+.evidence-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.evidence-scroll table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  background: #FFFFFF;
+}
+
+.evidence-scroll td,
+.band table td {
+  border-bottom: 1px solid #E0E0E0;
+  padding: 10px 12px;
+  color: #231F20;
+  font-size: 16px;
+  vertical-align: top;
+  background: #FFFFFF;
+}
+
+.evidence-scroll td:first-child,
+.band table td:first-child {
+  min-width: 14rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.evidence-scroll td:last-child {
+  white-space: nowrap;
+}
+
+.band ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #231F20;
+  font-size: 16px;
+}
+
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+}
+
+.action-row button,
+.band button {
+  background: #FFFFFF;
+  color: #231F20;
+  border: 1px solid #E0E0E0;
+  padding: 8px 14px;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
 }
 
 button.primary {
-  background: #1f4e79;
-  color: #ffffff;
-  border-color: #1f4e79;
+  background: #ED1C24;
+  color: #FFFFFF;
+  border: 1px solid #ED1C24;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 button:disabled {
-  opacity: 0.45;
   cursor: not-allowed;
 }
 
-.result-sentence {
-  font-size: 1.05rem;
+.action-status,
+.action-refused,
+.action-ready {
+  font-size: 16px;
+  font-weight: 400;
+  color: #231F20;
+  margin: 0 0 12px;
+  padding: 12px 14px;
+}
+
+.action-status {
+  background: #FCF3DE;
+  border-left: 4px solid #EFBC4A;
+}
+
+.action-refused {
+  background: #FFFFFF;
+  border-left: 4px solid #231F20;
+  color: #231F20;
+}
+
+.action-ready {
+  background: #FFFFFF;
+  padding-left: 0;
+}
+
+.role-hint {
+  flex-basis: 100%;
   margin: 0;
+  color: #666666;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.result-sentence {
+  margin: 0 0 8px;
+  color: #231F20;
+  font-size: 16px;
+}
+
+.band label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #666666;
+  font-size: 13px;
+}
+
+.later-checks {
+  margin: 16px 24px 0;
+  color: #666666;
+  font-size: 13px;
+}
+
+.later-checks h2 {
+  margin: 0 0 8px;
+  color: #666666;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.later-checks button {
+  background: #FFFFFF;
+  color: #666666;
+  border: 1px solid #E0E0E0;
+  padding: 6px 10px;
+  margin: 0 8px 8px 0;
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
 }
 
 details {
-  margin: 1rem 1.5rem 0;
+  margin: 12px 24px 0;
+  color: #666666;
+  font-size: 13px;
+}
+
+pre {
+  white-space: pre-wrap;
+  color: #231F20;
+  font-family: Calibri, sans-serif;
+  font-size: 13px;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #231F20;
+  outline-offset: 3px;
+}
+
+@media (max-width: 800px) {
+  .header-field,
+  .header-reset {
+    flex: 1 1 100%;
+  }
+
+  .console-header select,
+  .console-header input,
+  .band input {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .workspace,
+  .later-checks,
+  details {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
 }

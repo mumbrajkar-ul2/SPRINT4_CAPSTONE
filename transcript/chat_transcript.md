@@ -6227,3 +6227,288 @@ Application B Recipe still shows the stored line Phase 10 chain corr-p10b-doc-20
 The screen contract is now v1.5. Both app containers were rebuilt. Health is 200 on ports 8100 and 8110. The presenter tests passed.
 
 On Application A, Clocks showed Ready and no model lines. Replay, Review this delivery, returned a sentence from Azure OpenAI. The cited items included data.feed.replay and rule.feed.replay_duplicate. The cache file was not written. That click put the second delivery on the work queue. The work-queue count is 197. The packaged replay count is 67. Click Start this shift again if you want that delivery back to not on the queue.
+
+
+## 2026-10-20 11:28
+
+**Model:** Grok 4.7
+
+### User
+
+Apply the below UI-UX treatment to the application to align with BIRLASOFT branding.
+
+### Screen anatomy
+
+**Page frame.** The page background is light gray `#F2F2F2`. A solid red bar, `#ED1C24`, 16px wide, runs the full height of the viewport along the left edge. Content starts to the right of that bar. This is the same left bar the July 2026 cover uses.
+
+**Header.** White bar on the light gray page. Charcoal text. From left to right: logo clear-space, application name, location, role picker, actor id, runtime mode. Quiet text actions only (session reset), in `#666666`. The header is white so the logo sits on the approved white background.
+
+On the right side of the header, draw the cover motif once: two open arcs, no fill. The outer arc is an 8px stroke of `#ED1C24`. The inner arc is a 2px stroke of `#231F20`. They sit in the empty right side of the header. No label, control, or logo crosses either stroke. Do not repeat the arcs inside the work sheet.
+
+**Logo.** Use the official master artwork file when it is in the repo. Clear space on all four sides equals the height of the “b” in that artwork. Minimum width is 20 mm (76px at 96 dpi). The parent lock-up, Birlasoft with CKA Birla Group, is 25 mm minimum and appears only when the brief asks for the parent group, in the prescribed size, color, and placement. Keep the logo off the page edge and off the red bar. If a photo or diagram is behind that corner, put a white band behind the logo first.
+
+If the master file is not in the repo, leave the clear-space box empty and set the word Birlasoft in Calibri, charcoal, semibold. That word is a text label. The logo appears only when the master artwork file is in the repo.
+
+**Tab strip.** Directly under the header, on the canvas, one row, about 40px tall. Tabs do not wrap. A narrow window scrolls the strip sideways.
+
+- The strip is `role="tablist"`. Each tab is `role="tab"` with `aria-selected`. The open tab also has `aria-current="page"`.
+- An inactive tab has no box and no fill. Text is `#666666`, 14px, weight 400, Calibri.
+- The open tab uses the white sheet, weight 600, charcoal text, and a 3px top line in `#ED1C24`. Its bottom edge meets the sheet so the tab and the page are one surface.
+
+**Work sheet.** One white surface directly under the open tab. One border, `#E0E0E0`. No gap between the tab and the first band. A soft shadow separates the sheet from the light gray page. Inside the sheet, in this order:
+
+1. Situation. The one-sentence page title.
+2. Evidence. The table for this object only.
+3. Actions. The primary action, then any decision that follows it. A short role line under each restricted action.
+4. Result. Latest-action line, then explanation lines only when filled.
+5. Audit. Only when filled.
+
+**Below the sheet.** Secondary checks, muted `#666666`, smaller type, no red fill.
+
+### Visual system
+
+Use the Birlasoft palette on every page and every defense slide. Red is emphasis. Charcoal is text and lines. White and light gray are backgrounds. Purple and gold are small accents. The guide allows tints of these colors. It does not allow a new hue.
+
+| Token | Value | Use |
+|---|---|---|
+| Red | `#ED1C24` | Left page bar, open-tab mark, primary button, short emphasis label |
+| Charcoal | `#231F20` | Titles, body text, table text, lines, refusal bar |
+| Purple | `#72007D` | A small secondary mark only, such as a section index. Never a page fill, a status band, or a primary button |
+| Gold | `#EFBC4A` | 4px left bar on the in-flight and success line |
+| White | `#FFFFFF` | Header, work sheet, table body, logo background |
+| Light gray | `#F2F2F2` | Page around the sheet |
+| Red tint | `#FDEBEC` | Pill behind one short label, such as the runtime mode. The guide uses this tint on its cover |
+| Gold tint | `#FCF3DE` | Background of the in-flight and success line. This is `#EFBC4A` at 18% on white |
+| Secondary text | `#666666` | Tab second lines, role hints, secondary checks. The guide’s own slides use this gray for supporting lines |
+| Hairline | `#E0E0E0` | The one border around the sheet, and card borders on the deck |
+| Primary text | `#FFFFFF` | Text on the red primary button |
+| Refusal | White background, `#231F20` left bar, `#231F20` text | Refusal and failure. The sentence starts with Refused or Failed |
+
+Worked example. The page around the sheet is light gray `#F2F2F2`. The sheet is white. The open tab has a 3px red top line. The one primary button is red with white text, 16px Calibri semibold. After a successful click, the latest-action line is gold tint `#FCF3DE` with a gold left bar, and the sentence names the new status. After a refusal, the line stays white with a charcoal left bar, and the sentence starts with Refused. Purple does not appear on that line.
+
+Also require:
+
+- Calibri for every run of text on the console and the deck. Headings are bold or semibold. Body is regular. Set size, weight, and spacing before you add another color. If Calibri is missing, stop the visual pass and say so. The face stays Calibri.
+- A type scale. The situation title is 24px bold charcoal. Body is 16px regular charcoal. Labels are 13px `#666666`. Button text on red is at least 16px semibold, because white on `#ED1C24` needs that size to stay readable.
+- Charcoal text on the white sheet. Charcoal text on the white header. The refusal treatment stays on the same white page.
+- Spacing that makes the five bands readable as one task. The evidence table is sized for the real values (timestamps, revisions, dates, counts).
+- Exactly one primary button on the open page: filled `#ED1C24`, white text. Other actions are quieter: charcoal text, white fill, hairline border. Destructive or restricted actions are not given the red fill unless they are the page’s main job.
+- Status color is meaningful. Red marks the selected tab and the primary action. Gold marks the latest action while it is moving and after it succeeds. A refusal uses a charcoal bar, and the sentence starts with Refused or Failed. The sentence states the outcome. Color is a second signal beside that sentence.
+- No full paragraph in all caps. No compressed letter spacing. No decorative font.
+- No gradient fill, no glow, and no logo inside a circle, a rounded badge, or any other shape.
+
+
+
+
+### Accessibility and craft
+
+- Use real buttons for actions and tabs with the roles above. The open page is programmatically indicated.
+- Keyboard users can move across the tab strip and activate the open page’s primary action.
+- Text meets contrast on light gray, white, the red button, the gold tint, and the refusal line. White on `#ED1C24` is the primary-button pair, at 16px semibold or larger. Charcoal on white is the body pair.
+- The layout holds at a narrow width: the tab strip scrolls, the sheet stacks, the table remains readable, and the red left bar stays 16px.
+- Focus states are visible. Do not rely on color alone.
+
+### Build order
+
+1. Write the screen contract: header contents, tab names and second lines, sheet bands, primary action per page, role lines, latest-action versus explanation, conditional audit, Birlasoft tokens, logo rule, and the tab-change and late-response rules.
+2. Implement the shell and one work area to that contract.
+3. Apply the same shell to every work area and every sibling application.
+4. Add tests that read the source for the contract: header fields, tab semantics, open-tab class, the hex values in the table above, primary-button class, role lines, conditional explanation and audit, and the clear-on-switch function. Keep existing action names stable once the contract records them.
+5. Rebuild the served bundle. A source save is not the running page when the UI is built into an image or a static bundle.
+6. Verify in the browser, on the running application, not only in unit output.
+
+### Assistant
+
+Both consoles now use the Birlasoft screen. Application A is on port 8100. Application B is on port 8110.
+
+The screen contract is version 1.6 in `docs/43-demo-ready/screen-contract.md`. It records the header, the seven tabs, the five bands, the primary button on each page, the role lines, and the Birlasoft colors. The button names stay Review this delivery, Drop this duplicate, Hold, and the rest of the recorded actions.
+
+The repo has no master logo file. The header shows the word Birlasoft in Calibri, charcoal, semibold. Calibri is installed on this machine, and the page uses it.
+
+The page background is light gray `#F2F2F2`. A 16px red bar, `#ED1C24`, runs down the left edge. The header is white. From left to right it shows Birlasoft, the application name, the port, the role picker, the actor id, and the runtime mode. Start this shift again is gray text. Two open arcs sit on the right of the header. The open tab has a 3px red top line and meets the white sheet. The red button is the one primary action. The other buttons are white with a gray border.
+
+I checked this in the browser on the rebuilt containers.
+
+On Application A, Replay, Review this delivery finished on a gold line: "The second delivery is on the work queue. Work-queue count is 197. Packaged replay count is 67." The evidence row This delivery reads "on the work queue."
+
+Drop this duplicate, still signed in as RT-01, finished on a white line with a charcoal bar: "Refused. Confirm drop waits for RT-05. The current role is RT-01." The evidence row stayed on the work queue.
+
+Opening Recipe cleared that line back to Ready. The Right arrow key moved from Recipe to Clocks and showed Place this event on the timeline.
+
+On Application B, Rule trace shows the five-step list and one red button, Show where this rule came from.
+
+At a 390px width the red bar stays 16px, the tab strip scrolls sideways, and the sheet stays on the page.
+
+The layout tests passed, including the new source check for the header, the tab roles, the color values, the primary button, the role lines, and the clear-on-switch function.
+
+Bringing the two apps up on the new image also restarted the lake REST container. Its health check returned ok.
+
+
+## 2026-10-20 11:56
+
+**Model:** Grok 4.7
+
+### User
+
+You are creating the presentation defense for the modernization of Fabpulse Group’s flawed legacy Fab-lot and Equipment-exception Management System. In the Legacy system - external messages, process and metrology records, policy versions, case workflows, archived documents, cost estimates, and local rule interpretations do not always agree. The modernized system improves operational decision quality, traceability, reconciliation, engineering velocity, resilience, and user experience without disguising uncertainty or using GenAI where deterministic engineering is safer.
+
+The PowerPoint presentation should adhere to the @docs/demo/placeholder-deck.md . In a separate "Demo" section - add slides to cover the @docs/42-executive/demo-day-script.md as well, just in case those elements are not already covered in the main deck defined by @docs/demo/placeholder-deck.md .
+
+The audience is a critical reviewer who will judge whether the product is understandable, elegant, and complete. The deck itself must meet that bar. A default Office theme, a wall of bullets, or a script the presenter has to read aloud is a failed delivery. A deck that still uses the retired operations palette (slate header, teal accent, amber rule, Aptos) is a failed delivery.
+
+Build a real `.pptx` file, 16:9, that a presenter can open and deliver. Also write a one-page run of show beside it. Take the facts from the built application, its screen contract, and the enterprise UI prompt. Use the real work-area names, object ids, button labels, roles, and outcome sentences. Do not invent a scenario, a metric, a customer logo, or a claim the screen cannot show.
+
+### Assistant
+
+The defence deck is `Presentation/defense-deck.pptx`. The run of show is `Presentation/defense-run-of-show.md`.
+
+The spoken arc is 14 slides. A reviewer who reads only the titles gets this story. The Fabpulse exception console is what this room judges, on three tests. One second delivery is already on this shift. One page holds the whole decision. The reviewer never leaves this application. The case is readable before any click. Success stays on the evidence row. The role is named before the click. Every work area is the same kind of page. Every click answers in one sentence. Three kinds of state stay apart. The page names where the sentence came from. Seven moves finish the live path. The reviewer can finish this case on the page.
+
+The signature case is partner feed REPLAY-000000000, a second delivery of C00001646. The ingest times on the page are 19:09 and 20:09. Review this delivery moves the work-queue count from 196 to 197. Drop this duplicate is refused for RT-01 and succeeds for RT-05, and the count returns to 196. Packaged replay rows stay 67. Those two numbers are what the result line shows.
+
+Slides 15 to 21 are the measured paper walk from the demo-day script: the eight defect counts, the two applications, the five cases, the frozen counts, the blocked note, the restart, and the five results. Slides 22 to 25 answer the mechanism: the shared shell, the checks under the sheet, and the path from Review this delivery to the sentence. Neither block is part of the 12-minute arc. The run of show marks both as only if asked.
+
+The cover uses the white field, the red bar, and both arcs. Every text run is Calibri. The repo has no master logo file, so the cover has no logo and no drawn wordmark. The brief did not name a presenter or an external room, so the footer says Team-Force and prepared for internal use.
+
+I opened the deck in PowerPoint and read the slides. The spoken clock before the live path is 12 minutes 5 seconds. Slide 13 stays up for the seven clicks. If the explanation fails, say that the queue still moved to 197, read the failure sentence on the screen, and continue to the RT-05 drop.
+
+
+## 2026-10-20 12:49
+
+**Model:** Grok 4.7
+
+### User
+
+The presentation seems vague and incomprehensible. Presentation needs to be more verbose using simple sentences that any user can read and understand (no metaphors, double negatives, inferred meanings). 
+
+The new deck should keep the Birlasoft slide system already in Presentation/build_defense_deck.py: white field, Calibri, red bar and arcs on the cover only, charcoal text, gold only on a result. The style, color-schemes, look-and-feel and overall visual motif remains the same. It should drop the 45-word cap. 
+It should removes the current content and replaces it with new content that adheres to the script below. 
+
+As defined in @AI_FDE_Capstone_â€”Final_Presentation_Guidelines.pdf , the Presentation should cover the following - 
+Final Presentation & Executive Defence
+Guidelines
+# Guideline Expectations
+1 Time-Boxed Presentation:  
+Strictly 40 minutes for
+explanation and live
+demonstration + 10 minutes
+for Q&A. Maintain a focused
+agenda and eliminate
+unnecessary detail.
+
+
+2 Compelling Storytelling: 
+Build a gripping, data-driven
+narrative connecting the
+business problem, its
+consequences, the
+transformation journey, and
+measurable outcomes.
+3 Problem â†’ Solution â†’
+Impact:
+Clearly articulate the
+problem, what is being
+solved, how the solution
+works, and the business
+value delivered.
+4 Business + Technical Balance:
+Give equal importance to
+business context,
+measurable value, technical
+architecture, engineering
+decisions, and actual
+implementation.
+5 Before vs. After KPIs: 
+Present evidenced baseline
+and post-transformation
+KPIs covering business
+outcomes, engineering
+productivity, quality,
+performance, and reliability.
+6 GenAI Value Justification: 
+Explain why GenAI was
+necessary, which problems
+genuinely required it, and
+why conventional
+approaches alone were
+insufficient. Separate GenAI
+contributions from
+traditional engineering
+improvements.
+7 Visual-First Communication: 
+Minimize text. Prioritize
+architecture diagrams,
+business workflows, data
+visualizations, KPI
+comparisons, and live
+system demonstrations.
+8 Evidence-Based
+Demonstration:
+Support major claims with
+proof of work: code changes,
+test results, execution traces,
+evaluation reports,
+benchmark outputs, and
+working functionality.
+9 End-to-End Transformation
+Traceability:
+Demonstrate the journey
+from legacy discovery and
+business-rule extraction
+through architecture,
+modernization, AI
+
+10 Crisp Lessons Learned: 
+Conclude with 4â€“5
+meaningful lessons covering
+engineering insights,
+business implications, GenAI
+limitations, unexpected
+challenges, and future
+improvements.
+@AI_FDE_Capstone_â€”Final_Presentation_Guidelines.pdf 
+
+### Assistant
+
+The defence deck is `Presentation/defense-deck.pptx`. The run of show is `Presentation/defense-run-of-show.md`.
+
+The deck is 22 slides. Each slide has a sentence title, two to four complete sentences, and one table or set of cards. A person can read the slide and know the fact without the notes.
+
+The clock is 40 minutes of explanation and live demonstration, then 10 minutes of questions.
+
+Minutes 0 to 7 name the problem. Six records can disagree on one exception. Eight defect counts are REAL. Records 125, open cases 89, urgent cases 2, and sites 6 stay the same. Mean amount 4982.61 and hours per case 0.603 are SIMULATED. Exception cycle time, aged backlog, and dollar benefit stay Unknown.
+
+Minutes 7 to 12 name the two applications and the model boundary. Application A is port 8100. Application B is port 8110. The servers do not call each other. The model drafts a sentence and has no write tool. Hold prediction scored 117 of 125, the same as a majority guess, and was rejected.
+
+Minutes 12 to 24 finish one case. Partner feed REPLAY-000000000 is a second delivery of C00001646, ingested at 19:09 and again at 20:09. Review this delivery moves the work-queue count from 196 to 197. Drop this duplicate is refused for RT-01 and succeeds for RT-05. The count returns to 196. Packaged replay rows stay 67. Slide 14 stays up for the seven clicks.
+
+Minutes 24 to 31 show the same five cases on both applications. Only Application B lists the five rule steps. 18600 is a rule limit, not cash.
+
+Minutes 31 to 35 show the before and after counts. The frozen counts did not change. The harness before cell says not run, because the harness was not a baseline field. The after cell says 12 matched and 2 differed. Freeze is 42 of 42. ROI stays educational.
+
+Minutes 35 to 38 cite the prior tests only. A quoted approve on REPLAY-000000000 returned HTTP 409 BLOCK and the status stayed REPLAY. After process 29320 was killed, correlation id corr-p10b-kill-20261018-001 stayed on PS000000016 and the hold value stayed 0. Do not post a new approval and do not kill a process in the room.
+
+Minutes 38 to 40 close with five measured lessons. Minutes 40 to 50 take questions on company titles, the INC-2025-014 owner, dollars, numeric floors, and the live Azure call that was not run.
+
+The cover is still the white field, the red bar, and the two arcs. Body text is Calibri. Gold appears only on a result. The repo has no master logo file, so the cover has no logo.
+
+I opened the rebuilt deck in PowerPoint and read all 22 slides. The caption on the defect table sits under the last row. If the live explanation fails, say the queue still moved to 197, read the failure sentence on the screen, continue to the RT-05 drop, and stay on the page.
+
+
+
+## 2026-10-20 13:00
+
+**Model:** Grok 4.7
+
+### User
+
+restart the app
+
+### Assistant
+
+Application A and Application B are running again.
+
+Application A is http://127.0.0.1:8100. Application B is http://127.0.0.1:8110. Both health pages returned {"ok":true}.
+
+This was a restart of the containers that were already up. The page files inside those containers are the ones from the image built about two hours ago. A restart does not copy newer files from this folder into the image. The other four services were left as they were: legacy on 8080, source gateway on 8090, lake REST on 8091, and lake MCP on 8092.
+
