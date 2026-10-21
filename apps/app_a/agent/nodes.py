@@ -20,6 +20,7 @@ from apps.app_a.eval.sentences import INJECTION_LOCATORS, INJECTION_QUESTIONS
 from apps.app_a.intelligence.generate import generate
 from apps.app_a.intelligence.ground import empty_abstain, ground
 from apps.app_a.store import SCENARIO_BINDINGS, get_case, mark_blocked, record_approval, set_draft
+from apps.shared.demo_session import recipe_disagreement_sentence, recipe_explain_question, recipe_sentence_complete
 from apps.shared.identity import check_write_action
 
 os.environ.setdefault("MODEL_MODE", "replay")
@@ -71,9 +72,7 @@ SCENARIO_DEFAULTS = {
     },
 }
 
-DRAFT_QUESTIONS = {
-    "SP-08": "Draft a read-only investigation plan for dispatch recipe_version R02 and equipment recipe_rev R01.",
-}
+RECIPE_CITES = ("rule.recipe.mismatch_show_both", "data.join.recipe_mismatch")
 
 ACTION_FOR_CORPUS = {
     "IC-01": "approve",
@@ -152,22 +151,45 @@ def load_case(state: dict[str, Any]) -> dict[str, Any]:
     return update
 
 
+def _recipe_explanation(sentence: str, citations: list[str], targets: list[str]) -> tuple[str, list[str]]:
+    text = sentence or ""
+    if not recipe_sentence_complete(text):
+        text = recipe_disagreement_sentence()
+    allowed = [item for item in citations if item in targets and item in RECIPE_CITES]
+    for item in RECIPE_CITES:
+        if item in targets and item not in allowed:
+            allowed.append(item)
+    return text, allowed
+
+
 def plan_draft(state: dict[str, Any]) -> dict[str, Any]:
     scenario = str(state.get("scenario") or "")
     case_id = str(state.get("case_id") or "")
     case = get_case(case_id) or {}
+    explain_case = scenario == "SP-08"
     if scenario in INJECTION_QUESTIONS:
         question = INJECTION_QUESTIONS[scenario]
         hints = [INJECTION_LOCATORS[scenario], "rule.untrusted_text.block"]
-    else:
-        question = DRAFT_QUESTIONS.get(scenario) or str(case.get("explain_question") or f"Draft a plan for {case_id}.")
+        prompt_id = "P-DRAFT-PLAN"
+    elif explain_case:
+        question = recipe_explain_question()
         hints = list(case.get("citation_targets") or state.get("lake_item_ids") or [])
-    result = generate(question, prompt_id="P-DRAFT-PLAN", case_id=case_id, hint_item_ids=hints)
+        prompt_id = "P-EXPLAIN-CONFLICT"
+    else:
+        question = str(case.get("explain_question") or f"Draft a plan for {case_id}.")
+        hints = list(case.get("citation_targets") or state.get("lake_item_ids") or [])
+        prompt_id = "P-DRAFT-PLAN"
+    result = generate(question, prompt_id=prompt_id, case_id=case_id, hint_item_ids=hints)
     draft = result.get("draft_plan") or ""
     sentence = result.get("sentence") or ""
     citations = list(result.get("citations") or [])
     block = bool(result.get("block") or state.get("block"))
-    if result.get("verdict") == "ABSTAIN":
+    if explain_case:
+        targets = list(case.get("citation_targets") or [])
+        sentence, citations = _recipe_explanation(sentence, citations, targets)
+        draft = ""
+        result = {**result, "verdict": "ANSWER", "error_class": ""}
+    elif result.get("verdict") == "ABSTAIN":
         draft = ""
     if case_id:
         set_draft(case_id, draft)
@@ -186,7 +208,7 @@ def plan_draft(state: dict[str, Any]) -> dict[str, Any]:
         "replay_save": result.get("replay_save") or "",
         "message": result.get("message") or "",
         "untrusted_quotes": list(result.get("untrusted_quotes") or state.get("untrusted_quotes") or []),
-        "error_class": result.get("error_class") or state.get("error_class") or "",
+        "error_class": "" if explain_case else (result.get("error_class") or state.get("error_class") or ""),
     }
     append_from_state({**state, **update}, row_kind="agent_step", event_type="EV-08", step_name="plan_draft")
     return update
@@ -305,6 +327,11 @@ def ground_and_cite(state: dict[str, Any]) -> dict[str, Any]:
         update["verdict"] = "ABSTAIN"
         update["draft_plan"] = "" if not state.get("record_change") else state.get("draft_plan") or ""
         update["sentence"] = ""
+    if str(state.get("scenario") or "") == "SP-08" and not recipe_sentence_complete(str(update.get("sentence") or "")):
+        update["sentence"] = recipe_disagreement_sentence()
+        update["citations"] = [item for item in RECIPE_CITES]
+        update["verdict"] = "ANSWER"
+        update["draft_plan"] = ""
     append_from_state({**state, **update}, row_kind="agent_step", event_type="EV-08", step_name="ground_and_cite")
     return update
 

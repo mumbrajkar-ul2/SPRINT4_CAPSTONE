@@ -81,6 +81,9 @@ def test_scenario_8_recipe_mismatch() -> None:
         },
     )
     assert wrong.status_code == 403
+    assert wrong.json()["message"] == "Hold waits for RT-03."
+    still = client.get("/api/cases/PS000000016", headers=_headers("RT-03"))
+    assert still.json()["case"].get("engineering_hold") == hold_before
     ok = client.post(
         "/api/approvals",
         headers=_headers("RT-03"),

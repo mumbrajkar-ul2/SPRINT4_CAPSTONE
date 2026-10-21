@@ -236,6 +236,27 @@ def test_restart_second_process_keeps_pending(isolated_runtime) -> None:
     conn.close()
 
 
+def test_recipe_explain_names_both_revisions(isolated_runtime) -> None:
+    client = TestClient(app_a)
+    response = client.post(
+        "/api/agent/run",
+        headers=_headers("RT-01", "corr-recipe-explain-001"),
+        json={"case_id": "PS000000016", "proposed_action": "review recipe mismatch"},
+    )
+    assert response.status_code == 200
+    body = response.json()
+    sentence = body.get("sentence") or ""
+    assert "R02" in sentence
+    assert "R01" in sentence
+    assert "ECN0000001" in sentence
+    assert "2023-01-01T07:00" in sentence
+    assert "2023-01-05T16:00" in sentence
+    assert "has no effective date" in sentence
+    assert "rule.recipe.mismatch_show_both" in (body.get("citations") or [])
+    assert not body.get("draft_plan")
+    assert (body.get("case") or {}).get("engineering_hold") in {0, None}
+
+
 def test_trace_scenario_8_full_audit(isolated_runtime) -> None:
     corr = "corr-p10b-doc-20261018-001"
     client = TestClient(app_a)

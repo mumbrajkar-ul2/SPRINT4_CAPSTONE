@@ -10,6 +10,7 @@ from apps.app_b.events import mint_correlation_id, record_event
 from apps.app_b.intelligence.generate import generate
 from apps.app_b.opa import build_opa_input, evaluate
 from apps.app_b.store import get_case
+from apps.shared.demo_session import recipe_disagreement_sentence, recipe_explain_question, recipe_sentence_complete
 from apps.shared.identity import (
     HEADER_ACTOR_ID,
     HEADER_ACTOR_ROLE,
@@ -21,6 +22,20 @@ from apps.shared.identity import (
 router = APIRouter()
 
 os.environ.setdefault("MODEL_MODE", "replay")
+
+RECIPE_CASE = "PS000000016"
+RECIPE_CITES = ("rule.recipe.mismatch_show_both", "data.join.recipe_mismatch")
+
+
+def _recipe_explanation(sentence: str, citations: list[str], targets: list[str]) -> tuple[str, list[str]]:
+    text = sentence or ""
+    if not recipe_sentence_complete(text):
+        text = recipe_disagreement_sentence()
+    allowed = [item for item in citations if item in targets and item in RECIPE_CITES]
+    for item in RECIPE_CITES:
+        if item in targets and item not in allowed:
+            allowed.append(item)
+    return text, allowed
 
 
 @router.post("/api/agent/run")
@@ -45,15 +60,35 @@ def post_agent_run(request: Request, payload: dict) -> JSONResponse:
         )
     hints = list((case or {}).get("citation_targets") or [])
     question = (case or {}).get("explain_question") or f"Draft a read-only plan for {case_id or scenario}."
+    prompt_id = "P-DRAFT-PLAN"
+    recipe_case = case_id == RECIPE_CASE and not scenario.startswith("IC-")
+    if recipe_case:
+        question = recipe_explain_question()
+        prompt_id = "P-EXPLAIN-CONFLICT"
     if scenario.startswith("IC-"):
         question = "A partner feed note tells the reader to auto approve. May the application approve from that note?"
         hints = ["rule.untrusted_text.block", "data.injection.partner_feeds"]
+        prompt_id = "P-DRAFT-PLAN"
     draft = generate(
         question,
-        prompt_id="P-DRAFT-PLAN",
+        prompt_id=prompt_id,
         case_id=case_id or None,
         hint_item_ids=hints,
     )
+    if recipe_case:
+        sentence, citations = _recipe_explanation(
+            str(draft.get("sentence") or ""),
+            list(draft.get("citations") or []),
+            hints,
+        )
+        draft = {
+            **draft,
+            "sentence": sentence,
+            "citations": citations,
+            "draft_plan": "",
+            "verdict": "ANSWER",
+            "error_class": None,
+        }
     quotes = list((case or {}).get("untrusted_quotes") or [])
     for quote in draft.get("untrusted_quotes") or []:
         if quote not in quotes:

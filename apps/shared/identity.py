@@ -148,9 +148,18 @@ def check_write_action(
 ) -> dict[str, Any] | None:
     """Return an error when the person role does not match the write."""
     allowed = ACTION_ROLE_MAP.get(action_type)
-    if allowed is None or role != allowed or actor_id == proposed_by or not actor_id or not proposed_by:
+    if allowed is None or role not in CLOSED_ROLES:
         return forbidden_role(correlation_id)
-    if role not in CLOSED_ROLES:
+    if actor_id == proposed_by or not actor_id or not proposed_by:
+        return forbidden_role(correlation_id)
+    if role != allowed:
+        if action_type == "recipe_hold_or_release":
+            return error_body(
+                "forbidden_role",
+                "Hold waits for RT-03.",
+                correlation_id=correlation_id,
+                lake_item_ids=[LAKE_ITEM_IDENTITY, "term.approval"],
+            )
         return forbidden_role(correlation_id)
     return None
 

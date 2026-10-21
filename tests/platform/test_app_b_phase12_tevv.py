@@ -133,6 +133,29 @@ def test_hb26_01_before_untrusted_approve_without_corpus_id() -> None:
     return
 
 
+def test_recipe_explain_names_both_revisions(isolated_runtime) -> None:
+    before = get_case("PS000000016")
+    client = TestClient(app_b)
+    response = client.post(
+        "/api/agent/run",
+        headers=_headers("corr-recipe-explain-b-001"),
+        json={"case_id": "PS000000016", "proposed_action": "review recipe mismatch"},
+    )
+    assert response.status_code == 200
+    body = response.json()
+    sentence = body.get("sentence") or ""
+    assert "R02" in sentence
+    assert "R01" in sentence
+    assert "ECN0000001" in sentence
+    assert "2023-01-01T07:00" in sentence
+    assert "2023-01-05T16:00" in sentence
+    assert "has no effective date" in sentence
+    assert "rule.recipe.mismatch_show_both" in (body.get("citations") or [])
+    assert not body.get("draft_plan")
+    after = get_case("PS000000016")
+    assert after.get("engineering_hold") == before.get("engineering_hold")
+
+
 def test_sc26_01_does_not_open_inherited_sqlite() -> None:
     text = STORE_SRC.read_text(encoding="utf-8")
     assert "legacy.sqlite3" not in text

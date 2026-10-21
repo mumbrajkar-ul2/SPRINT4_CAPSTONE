@@ -6512,3 +6512,147 @@ Application A is http://127.0.0.1:8100. Application B is http://127.0.0.1:8110. 
 
 This was a restart of the containers that were already up. The page files inside those containers are the ones from the image built about two hours ago. A restart does not copy newer files from this folder into the image. The other four services were left as they were: legacy on 8080, source gateway on 8090, lake REST on 8091, and lake MCP on 8092.
 
+
+
+## 2026-10-20 14:42
+
+**Model:** Grok 4.7
+
+### User
+
+Scenario demo scripts
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The six demo scripts are in `docs/42-executive/scenario-demo-scripts.md`. The 40-minute clock in `docs/42-executive/demo-day-script.md` is unchanged.
+
+Each script has a background section and a steps table. The table names the person, the app, the click, the sentence on the screen, and what is stored.
+
+Do Replay, Recipe, Clocks, Policy, and Outage on Application A at port 8100. Do Rule trace on Application B at port 8110. Application Aâ€™s Rule trace tab has no button. It says the trace is on Application B.
+
+Click Start this shift again before each script. After that, Application Aâ€™s work-queue count starts at 196. Review this delivery moves it to 197. The RT-05 drop returns it to 196. Packaged replay rows stay 67.
+
+Read the runtime pill first. The containers checked today reported azure. A replay pill reads a saved file. An azure pill asks Azure OpenAI. The success sentences in the tables stay the same. The answer-source line follows the pill.
+
+I checked the quoted result lines against the page code and a read of both demo state pages. Application Bâ€™s queue count is not 196. The rule-trace list on Application B is the five item ids in the script.
+
+
+
+## 2026-10-20 15:12
+
+**Model:** Grok 4.7
+
+### User
+
+for demo scenario - "@scenario-demo-scripts.md (43-49) ", based on the ECN should the tool receipe been set to R02 on 2023-01-01 instead of showing R01 with no effective date? Is that the issue?
+
+### Assistant
+
+Yes. That disagreement is the issue on the Recipe page. The page does not correct it.
+
+Three records sit side by side for lot `L00000016` on tool `T0000013`.
+
+Dispatch sent recipe `R02`. The lot started `2023-01-05T16:00`.
+
+The tool record still says `R01`. That row has no effective date. The page prints `none`.
+
+Change `ECN0000001` says the recipe moved from `R01` to `R02`. That change is approved and effective `2023-01-01T07:00`. That date is four days before the lot started.
+
+A reviewer can see that the approved change was already in effect when the lot started, while the tool row still says `R01` and carries no date of its own. The page leaves the tool row as stored. It does not write `R02` onto the tool.
+
+The rule for this pair is to show both values. Dispatch stays `R02`. The tool stays `R01`. The lake does not pick a winner. RT-03 Process Engineer records a hold or a release. The model may name both revisions. The model does not write the hold.
+
+
+
+## 2026-10-20 16:12
+
+**Model:** Grok 4.7
+
+### User
+
+Recipe explain sentence
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+Explain this mismatch now sends the stored question, "Dispatch recipe_version is R02 and equipment recipe_rev is R01. Explain the mismatch." It uses the conflict-explanation prompt. The plan question is no longer sent for this case.
+
+On both applications the returned sentence is: "Dispatch recipe_version is R02. Equipment recipe_rev is R01. Both values are shown. The model does not write engineering_hold." The citations include `rule.recipe.mismatch_show_both`. The plan text is empty. The hold value stayed 0.
+
+If a model reply already names `R02` and `R01`, that reply stays. If it omits either name, the sentence above replaces it. The rule citation is added when it is already a citation target on the case. RT-03 still records the hold.
+
+I rebuilt Application A and Application B. This check ran with the runtime mode replay. The Recipe step in `docs/42-executive/scenario-demo-scripts.md` now tells the presenter to read those two recipe names and that citation. Refresh http://127.0.0.1:8100 and open the Recipe tab before the next click.
+
+
+
+## 2026-10-20 16:47
+
+**Model:** Grok 4.7
+
+### User
+
+re-deploy application with new .env settings
+
+### Assistant
+
+The stack is running again with the settings in `.env`.
+
+Application A is http://127.0.0.1:8100. Application B is http://127.0.0.1:8110. Both health pages returned `{"ok":true}`.
+
+The runtime mode on both applications is azure. Application A has an endpoint, a key, a deployment, and an API version set. Those values are not printed here. Application B uses the same mode. Its container does not receive the Azure endpoint or key. Compose passes those four Azure values only to Application A.
+
+Refresh both pages. The runtime pill should say azure.
+
+## 2026-10-20 17:15
+
+**Model:** Grok 4.7
+
+### User
+
+Recipe disagreement sentence
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The Recipe result now says why the two recipes disagree.
+
+Dispatch recipe R02 and tool recipe R01 disagree. Lot L00000016 on tool T0000013 started at 2023-01-05T16:00 with dispatch recipe R02. Change ECN0000001 was approved to move the recipe from R01 to R02, effective 2023-01-01T07:00, before the lot started. The tool row still says R01 and has no effective date. Both values stay on the page. The model does not write the hold.
+
+Explain this mismatch sends those facts with the conflict-explanation prompt. A model reply stays when it already names R02, R01, ECN0000001, 2023-01-01T07:00, and 2023-01-05T16:00. If any of those are missing, the sentence above replaces it. The citations stay `rule.recipe.mismatch_show_both` and `data.join.recipe_mismatch`. The plan text stays empty. The hold value stayed 0.
+
+I checked this on Application A with the runtime mode azure. The returned sentence is the one above. The answer source is still Azure OpenAI, because the page reports where the call went. That Azure reply named ECN0000001 and 2023-01-01T07:00. It left out 2023-01-05T16:00, so the stored sentence replaced it.
+
+The Recipe step in `docs/42-executive/scenario-demo-scripts.md` now tells the presenter to read the change id and both times from that sentence. Three replay tests passed. Application A and Application B were rebuilt. Refresh http://127.0.0.1:8100 and open the Recipe tab before the next click.
+
+## 2026-10-20 17:32
+
+**Model:** Grok 4.7
+
+### User
+
+Hold waits for RT-03
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+A known role other than RT-03 now gets a hold refusal that names RT-03.
+
+The server message is "Hold waits for RT-03." The page adds the lead and the current role, so RT-05 sees "Refused. Hold waits for RT-03. The current role is RT-05."
+
+The status stays 403 and the error class stays `forbidden_role`. The hold value stayed 0. A role outside RT-01 to RT-06, an unknown action, and an actor id that matches the draft author still get the shared sentence. Drop, Policy, and Owner stay on that shared sentence.
+
+I checked this on Application A. The runtime mode is azure. Recipe step 3 in `docs/42-executive/scenario-demo-scripts.md` now quotes the RT-01 line: "Refused. Hold waits for RT-03. The current role is RT-01." Two tests passed. Application A and Application B were rebuilt. Refresh http://127.0.0.1:8100 and open the Recipe tab before the next click.
+

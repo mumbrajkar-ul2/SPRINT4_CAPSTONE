@@ -32,7 +32,44 @@ RECIPE = {
     "change_effective": "2023-01-01T07:00",
     "change_status": "APPROVED",
     "lake_item_id": "data.demo.recipe_times",
+    "lot_id": "L00000016",
 }
+
+
+def recipe_disagreement_sentence() -> str:
+    """Why dispatch R02 and tool R01 disagree. The tool recipe stays R01."""
+    if RECIPE["tool_effective_date"]:
+        tool_line = f"The tool effective date is {RECIPE['tool_effective_date']}."
+    else:
+        tool_line = f"The tool row still says {RECIPE['tool_recipe']} and has no effective date."
+    return (
+        f"Dispatch recipe {RECIPE['dispatch_recipe']} and tool recipe {RECIPE['tool_recipe']} disagree. "
+        f"Lot {RECIPE['lot_id']} on tool {RECIPE['tool_id']} started at {RECIPE['started']} "
+        f"with dispatch recipe {RECIPE['dispatch_recipe']}. "
+        f"Change {RECIPE['change_id']} was approved to move the recipe from {RECIPE['change_from']} "
+        f"to {RECIPE['change_to']}, effective {RECIPE['change_effective']}, before the lot started. "
+        f"{tool_line} "
+        "Both values stay on the page. The model does not write the hold."
+    )
+
+
+def recipe_sentence_complete(sentence: str) -> bool:
+    """True when the reply names both recipes, the change, and both times."""
+    text = sentence or ""
+    return (
+        str(RECIPE["dispatch_recipe"]) in text
+        and str(RECIPE["tool_recipe"]) in text
+        and str(RECIPE["change_id"]) in text
+        and str(RECIPE["change_effective"]) in text
+        and str(RECIPE["started"]) in text
+    )
+
+
+def recipe_explain_question() -> str:
+    return (
+        recipe_disagreement_sentence()
+        + " Explain why these records disagree. Do not pick a winning recipe. Do not write engineering_hold."
+    )
 
 CLOCK = {
     "event_id": "E-00000000",
