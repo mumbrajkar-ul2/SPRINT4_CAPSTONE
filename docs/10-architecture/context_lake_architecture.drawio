@@ -1,0 +1,206 @@
+<mxfile host="app.diagrams.net" agent="Cursor" version="22.1.0" type="device">
+  <diagram id="context-lake-architecture" name="Context Lake">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2040" pageHeight="1220" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Context Lake. Six layers. Version 1.0.0." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="8" width="900" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="bandAuthor" value="1. Authoring" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontStyle=1;fontSize=13;fillColor=#FFF8E0;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="150" y="44" width="1680" height="168" as="geometry" />
+        </mxCell>
+        <mxCell id="bandContract" value="2. Contracts" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontStyle=1;fontSize=13;fillColor=#E8EEF7;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="150" y="268" width="1680" height="148" as="geometry" />
+        </mxCell>
+        <mxCell id="bandBuild" value="3. Build" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontStyle=1;fontSize=13;fillColor=#FDE9D9;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="150" y="464" width="1680" height="116" as="geometry" />
+        </mxCell>
+        <mxCell id="bandStore" value="4. Generated store" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontStyle=1;fontSize=13;fillColor=#E5F6F6;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="150" y="636" width="1680" height="156" as="geometry" />
+        </mxCell>
+        <mxCell id="bandRead" value="5. Read path" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontStyle=1;fontSize=13;fillColor=#E7F6E7;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="150" y="848" width="1680" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="bandReaders" value="6. Readers" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontStyle=1;fontSize=13;fillColor=#F6EAF8;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="150" y="1036" width="1680" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="boxHarvest" value="Harvest scripts&#xa;context-lake/harvest/&#xa;Writes the YAML from the estate.&#xa;Lot rows stay in the operational databases." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="170" y="84" width="248" height="108" as="geometry" />
+        </mxCell>
+        <mxCell id="boxItems" value="YAML facts&#xa;context-lake/items/&#xa;148 facts. Seven kinds.&#xa;One fact per file." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="448" y="84" width="248" height="108" as="geometry" />
+        </mxCell>
+        <mxCell id="boxSemantic" value="Semantic layer&#xa;context-lake/semantic-layer/&#xa;Words and local names.&#xa;267 term rows after the build." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="726" y="84" width="248" height="108" as="geometry" />
+        </mxCell>
+        <mxCell id="boxEval" value="Eval files&#xa;context-lake/eval/&#xa;26 golden questions.&#xa;Injection corpus." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="1004" y="84" width="248" height="108" as="geometry" />
+        </mxCell>
+        <mxCell id="boxReview" value="Review notes&#xa;context-lake/review/&#xa;Version 1.0.0.&#xa;Fixes from one review round." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="1282" y="84" width="248" height="108" as="geometry" />
+        </mxCell>
+        <mxCell id="boxCards" value="Rule cards&#xa;items/rules/*.card.yaml&#xa;25 decision tables.&#xa;Checked at build. Stay as YAML." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="1560" y="84" width="248" height="108" as="geometry" />
+        </mxCell>
+        <mxCell id="boxSchemas" value="JSON schemas&#xa;context-lake/schemas/&#xa;Item, link, rule card, term,&#xa;and read envelope." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="170" y="308" width="500" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="boxGates" value="Five gates&#xa;Write-time, build-time, model-output,&#xa;read-time, and Application B build.&#xa;A reject stops the bad fact." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="739" y="308" width="500" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="boxEnums" value="Closed lists&#xa;schemas/enums.generated.json&#xa;Sites, columns, and item ids.&#xa;check_claim looks names up here." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="1308" y="308" width="500" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="boxBuild" value="build.py&#xa;Checks schemas, source hashes, the seven kinds, BP1 to BP8, the 25 cards, the six site maps, and every link target. Then it writes the SQLite file." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="170" y="492" width="780" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="boxSqlite" value="context-lake.sqlite3&#xa;items: 148 facts. edges: 180 links.&#xa;terms: 267 rows. items_fts: word search.&#xa;Runtime opens this file read-only." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="170" y="676" width="700" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="boxManifest" value="manifest.json&#xa;Build receipt.&#xa;Version 1.0.0, counts,&#xa;and the SQLite hash." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="900" y="676" width="400" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="boxPin" value="app-b-pin.json&#xa;Version, SQLite hash,&#xa;enum hash, and card ids.&#xa;Application B must match this hash." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="676" width="478" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="boxRuntime" value="lake_runtime.py&#xa;Opens the file read-only.&#xa;search_items, get_item,&#xa;get_links, rule_at." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="170" y="884" width="460" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="boxRest" value="Lake REST&#xa;rest_server.py&#xa;Port 8091.&#xa;Calls lake_runtime." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="680" y="884" width="460" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="boxMcp" value="Lake MCP&#xa;mcp_server.py&#xa;Port 8092. Same four tools.&#xa;Calls lake_runtime." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="884" width="588" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="boxAppA" value="Application A&#xa;apps/app_a/intelligence/retrieve.py&#xa;Cites lake items.&#xa;Pass or fail stays in its own code." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="170" y="1072" width="780" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="boxAppB" value="Application B&#xa;apps/app_b/rules/resolver.py&#xa;Rules come from the lake.&#xa;Checks the pin. Reads the rule cards." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="990" y="1072" width="818" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="caption" value="Left arrows feed build.py. The SQLite file feeds the read path. The two arrows on the right reach Application B without entering the SQLite file." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="150" y="1176" width="1600" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="eHarvest" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0;entryY=0.25;" edge="1" parent="1" source="boxHarvest" target="boxBuild">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="294" y="224" />
+              <mxPoint x="36" y="224" />
+              <mxPoint x="36" y="510" />
+              <mxPoint x="152" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eItems" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="boxItems" target="boxBuild">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="572" y="238" />
+              <mxPoint x="72" y="238" />
+              <mxPoint x="72" y="528" />
+              <mxPoint x="152" y="528" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eSemantic" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0;entryY=0.75;" edge="1" parent="1" source="boxSemantic" target="boxBuild">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="850" y="252" />
+              <mxPoint x="108" y="252" />
+              <mxPoint x="108" y="546" />
+              <mxPoint x="152" y="546" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eBuildSqlite" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="boxBuild" target="boxSqlite">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="608" />
+              <mxPoint x="520" y="608" />
+              <mxPoint x="520" y="660" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eSqliteRuntime" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.329;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="boxSqlite" target="boxRuntime">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="868" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eSqliteRest" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.929;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="boxSqlite" target="boxRest">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="820" y="812" />
+              <mxPoint x="910" y="812" />
+              <mxPoint x="910" y="868" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eSqliteMcp" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.671;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="boxSqlite" target="boxMcp">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="832" />
+              <mxPoint x="1514" y="832" />
+              <mxPoint x="1514" y="868" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eRuntimeRest" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="boxRuntime" target="boxRest">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="648" y="922" />
+              <mxPoint x="662" y="922" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eRestMcp" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="boxRest" target="boxMcp">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1158" y="922" />
+              <mxPoint x="1202" y="922" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eRestAppA" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="boxRest" target="boxAppA">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="910" y="1000" />
+              <mxPoint x="560" y="1000" />
+              <mxPoint x="560" y="1056" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eMcpAppB" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="boxMcp" target="boxAppB">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1514" y="1018" />
+              <mxPoint x="1399" y="1018" />
+              <mxPoint x="1399" y="1056" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eCardsAppB" value="Cards stay YAML" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=1;entryY=0.316;fontSize=11;" edge="1" parent="1" source="boxCards" target="boxAppB">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1826" y="138" />
+              <mxPoint x="1900" y="138" />
+              <mxPoint x="1900" y="1096" />
+              <mxPoint x="1826" y="1096" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ePinAppB" value="Hash must match" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=1;entryY=0.697;fontSize=11;" edge="1" parent="1" source="boxPin" target="boxAppB">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1826" y="724" />
+              <mxPoint x="1956" y="724" />
+              <mxPoint x="1956" y="1125" />
+              <mxPoint x="1826" y="1125" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

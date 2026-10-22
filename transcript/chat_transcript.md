@@ -6656,3 +6656,109 @@ The status stays 403 and the error class stays `forbidden_role`. The hold value 
 
 I checked this on Application A. The runtime mode is azure. Recipe step 3 in `docs/42-executive/scenario-demo-scripts.md` now quotes the RT-01 line: "Refused. Hold waits for RT-03. The current role is RT-01." Two tests passed. Application A and Application B were rebuilt. Refresh http://127.0.0.1:8100 and open the Recipe tab before the next click.
 
+## 2026-10-20 18:15
+
+**Model:** Grok 4.7
+
+### User
+
+Clear shift screen output
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+Start this shift again now clears the click output and leaves the standing evidence.
+
+On Application A Recipe, the explanation and the audit rows go away. The result line says "This shift started again. The session overlay is clear." Hold says `not recorded`. The recipe rows stay.
+
+On Application B Recipe, the click correlation id and the event rows go away. The line "Phase 10 chain corr-p10b-doc-20261018-001." stays. That line is the earlier saved chain.
+
+Replay clears the review sentence. This delivery returns to `not on the queue`. That button does not write an audit band. Outage clears the typed owner. The owner cell returns to `empty`. Compare clears the other app line. It returns to `not loaded`.
+
+Both applications were rebuilt. Refresh http://127.0.0.1:8100 and http://127.0.0.1:8110 before the next click.
+
+## 2026-10-20 19:25
+
+**Model:** Grok 4.7
+
+### User
+
+create script for running the application from command prompt
+
+### Assistant
+
+Open Command Prompt in the project folder and run:
+
+```
+run-app.cmd
+```
+
+The script is `run-app.cmd` in the project root. It starts the stack with Docker Compose and uses the values in `.env`. It clears `MODEL_MODE` and `FABPULSE_API_KEY` in that window first, so a leftover setting in the window does not replace the file. It waits until both health pages answer, then prints the addresses.
+
+Application A is http://127.0.0.1:8100. Application B is http://127.0.0.1:8110.
+
+I ran the script. Both health pages answered. Docker Desktop must be running before you start it. The first run builds the images, so it takes longer than a later run.
+
+## 2026-10-20 22:05
+
+**Model:** Grok 4.7
+
+### User
+
+Company stories for the six demos
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The spoken version is in `docs/42-executive/scenario-demo-scripts-companies.md`. The click script, `docs/42-executive/scenario-demo-scripts.md`, is unchanged.
+
+The new file tells the same six demos with NVIDIA, TSMC, Micron, and ASML. The product is the NVIDIA Blackwell B200. Each section says who is involved, gives one notice sentence to say aloud, then lists the same screen sentences as the click script.
+
+The six incidents are made up. The ids, dates, and counts on the page stay the console values, including work-queue 196 and 197 and packaged replay rows 67.
+
+Use the click script for the button order. Use the new file when you want the company names.
+
+## 2026-10-20 23:05
+
+**Model:** Grok 4.7
+
+### User
+
+for Scenario 2 for recipe mismatch explained in @docs/42-executive/scenario-demo-scripts-companies.md does it mean etch tool T0000013 was going to etch with the incorrect recipe R01 and hence RT-03 had to record a HOLD to avoid the wrong recipe etching from taking place?
+
+### Assistant
+
+Dispatch named recipe R02 for lot L00000016 on etch tool T0000013. The lot started at 2023-01-05T16:00 with that dispatch recipe. The tool row still says R01, and that row has no effective date. Change ECN0000001 had already approved the move from R01 to R02, effective 2023-01-01T07:00, four days earlier.
+
+The mismatch is those two stored values. Dispatch says R02. The tool record says R01. The page shows those two rows. A chamber log of which recipe the etch ran is not on this page.
+
+**Explain this mismatch** writes that sentence and leaves hold as not recorded. The rule `rule.recipe.mismatch_show_both` keeps both values on the page. RT-03 may then approve a hold or a release. This demo's next click is Hold. When RT-03 clicks it, the page records the hold for this shift. The explanation does not require that hold.
+
+## 2026-10-21 18:25
+
+**Model:** Grok 4.7
+
+### User
+
+Context Lake architecture document
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The Context Lake architecture is in two files.
+
+`docs/10-architecture/context_lake_architecture.md` describes the six layers and each piece inside them. Authoring is the YAML in Git. Contracts are the JSON schemas and the five gates. Build is `build.py`. The generated store is the SQLite file with `items`, `edges`, `terms`, and `items_fts`, plus the manifest and the pin. The read path is `lake_runtime.py`, Lake REST on port 8091, and Lake MCP on port 8092. The readers are Application A, which cites the lake, and Application B, which takes its rules from the lake. One worked example follows the 2023 EMEA recipe-release limit of 18,600 USD from the YAML file through `rule_at`.
+
+`docs/10-architecture/context_lake_architecture.drawio` is the same six bands, top to bottom. Arrows run in the gaps: harvest, item YAML, and the semantic layer into `build.py`; `build.py` into the SQLite file; that file into the read path; the listeners into the two apps. Two arrows on the right go to Application B. One carries the rule cards, which stay YAML. One carries the pin hash.
+
+If the diagram is already open, close it without saving, then reopen `context_lake_architecture.drawio`. An open editor can write the old layout back over this file.
+

@@ -177,7 +177,7 @@ export function DemoApp({ appName, port, otherPort, lineage }) {
         return data;
       }
       showOutcome(data, response.status, options.fallback);
-      const correlationId = data.correlation_id || auditId;
+      const correlationId = options.resetShift ? (data.correlation_id || "") : (data.correlation_id || auditId);
       setAuditId(correlationId);
       setDetails(JSON.stringify(data, null, 2));
       await loadAudit(correlationId, started);
@@ -378,7 +378,7 @@ export function DemoApp({ appName, port, otherPort, lineage }) {
             <span className="header-label">Runtime mode</span>
             <span className="mode-pill">{state?.model_mode || "replay"}</span>
           </div>
-          <button type="button" className="header-reset" onClick={() => { setExplain(emptyExplain()); setHoldActor(""); run("/api/demo/reset", { method: "POST", pending: "Starting this shift again." }); }}>
+          <button type="button" className="header-reset" onClick={() => { setExplain(emptyExplain()); setHoldActor(""); setOwnerId(""); setOther(null); setAgent(null); setAuditId(""); setAuditRows([]); run("/api/demo/reset", { method: "POST", pending: "Starting this shift again.", resetShift: true }); }}>
             Start this shift again
           </button>
           <svg className="cover-motif" viewBox="0 0 140 80" width="140" height="80" aria-hidden="true" focusable="false">
