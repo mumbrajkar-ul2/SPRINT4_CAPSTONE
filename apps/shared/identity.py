@@ -12,6 +12,7 @@ HEADER_CORRELATION = "X-Correlation-Id"
 LAKE_ITEM_IDENTITY = "decision.bp8.auth_and_owner"
 
 CLOSED_ROLES = ("RT-01", "RT-02", "RT-03", "RT-04", "RT-05", "RT-06")
+ACCEPTED_ROLES = CLOSED_ROLES + ("FF-ADMIN", "FF-AUDITOR", "SVC")
 ACTION_ROLE_MAP = {
     "dispose": "RT-01",
     "approve_agent": "RT-02",
@@ -130,10 +131,10 @@ def check_app_identity(headers: Mapping[str, str]) -> dict[str, Any] | None:
 
 
 def check_closed_role(headers: Mapping[str, str]) -> dict[str, Any] | None:
-    """Return an error when X-Actor-Role is present but not RT-01 to RT-06."""
+    """Return an error when X-Actor-Role is present but not an accepted role."""
     correlation_id = header_get(headers, HEADER_CORRELATION) or None
     role = header_get(headers, HEADER_ACTOR_ROLE)
-    if role and role not in CLOSED_ROLES:
+    if role and role not in ACCEPTED_ROLES:
         return forbidden_role(correlation_id)
     return None
 
@@ -165,12 +166,21 @@ def check_write_action(
 
 
 def check_lake_key(headers: Mapping[str, str]) -> dict[str, Any] | None:
-    """Return an error body when a lake route is missing a matching key."""
+    """Return an error body when a lake route has no service token."""
     correlation_id = header_get(headers, HEADER_CORRELATION) or None
     expected = configured_api_key()
     if expected is None:
         return missing_server_key(correlation_id)
-    key = header_get(headers, HEADER_API_KEY)
-    if not key or key != expected:
-        return missing_lake_key(correlation_id)
-    return None
+    from apps.shared.oidc_session import legacy_headers, verify_access_token
+
+    if legacy_headers():
+        key = header_get(headers, HEADER_API_KEY)
+        if key and key == expected:
+            return None
+    header = header_get(headers, "Authorization")
+    token = header.split(" ", 1)[1].strip() if header.lower().startswith("bearer ") else ""
+    if token:
+        payload = verify_access_token(token, audience="force-fab-lake")
+        if payload and "SVC" in (payload.get("roles") or []):
+            return None
+    return missing_lake_key(correlation_id)

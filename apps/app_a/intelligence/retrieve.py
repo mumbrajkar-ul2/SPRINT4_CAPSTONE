@@ -183,7 +183,14 @@ def http_retrieve(question: str, *, api_key: str, hint_item_ids: list[str] | Non
     base = lake_rest_url()
     if not base:
         return retrieve(question, hint_item_ids=hint_item_ids, limit=limit)
-    headers = {"X-Api-Key": api_key}
+    from apps.shared.oidc_session import legacy_headers, service_token
+
+    headers: dict[str, str] = {}
+    token = service_token()
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    if legacy_headers() and api_key:
+        headers["X-Api-Key"] = api_key
 
     def search(query: str, *, kind: str | None = None, limit: int = 20) -> dict[str, Any]:
         params = {"q": query, "limit": str(limit)}

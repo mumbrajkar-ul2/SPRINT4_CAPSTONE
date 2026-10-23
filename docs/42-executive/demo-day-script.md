@@ -224,3 +224,12 @@ Every demo number carries one of those four labels. **Verified Fact.** FD-20.
 | Offline paper result | Script complete on paper. Live stack unstarted |
 
 See `docs/demo/paper-rehearsal.md`.
+
+## Six limits to say out loud
+
+1. The sign-in service on this laptop is a local stand-in. The users are seeded. They share one demo one-time-code secret.
+2. Scrap of 1,500 USD per defect is an estimate. It is labelled that way on the page.
+3. Hold age uses the latest process step in the legacy file. That file ends in February 2023.
+4. Model latency and model cost are not measured. Those KPI cells stay Unknown.
+5. Application A grounded accuracy is not measured. Application B shows the recorded 42 of 42.
+6. The OPA program is not installed here. The built-in checker applies the same rules.

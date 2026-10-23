@@ -434,7 +434,11 @@
           "case_id": "PS000000016",
           "action_type": "recipe_hold_or_release",
           "decision": "hold",
-          "proposed_by": "demo-rt02-1"
+          "proposed_by": "demo-rt02-1",
+          "signature": {
+            "meaning": "I confirm this record.",
+            "reason": "Reviewed the cited case."
+          }
         }
       },
       "lake_version": "1.0.0",

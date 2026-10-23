@@ -27,12 +27,9 @@ HIT_QUESTION = "Which port does the Context Lake REST listener use?"
 MISS_QUESTION = "What does arch.listener.lake_rest_8091 say? zz-p13-31-no-replay-file"
 HIT_CORR = "corr-p13-33b-doc-20261018-001"
 MISS_CORR = "corr-p13-33b-miss-001"
-PROBE_HEADERS = {
-    "X-Api-Key": "local-demo-only",
-    "X-Actor-Id": "demo-rt01-1",
-    "X-Actor-Role": "RT-01",
-    "X-Correlation-Id": HIT_CORR,
-}
+from apps.shared.oidc_session import bearer_headers
+
+PROBE_HEADERS = bearer_headers("RT-01", correlation_id=HIT_CORR)
 APP_B_PYTHONPATH = "/opt/platform:/opt/platform/context-lake"
 APP_A_INHERITED = (
     "/opt/platform/fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy"

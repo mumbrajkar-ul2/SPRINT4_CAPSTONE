@@ -4,7 +4,9 @@ from __future__ import annotations
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
 
+from apps.app_b.audit.store import audit_path
 from apps.app_b.events import record_event
+from apps.shared.oidc_session import approval_gate, store_signature
 from apps.app_b.opa import evaluate
 from apps.app_b.store import get_case, is_blocked, record_approval
 from apps.shared.identity import (
@@ -48,6 +50,9 @@ def post_approval(request: Request, payload: dict) -> JSONResponse:
     )
     if denied:
         return JSONResponse(denied, status_code=403)
+    gated = approval_gate(request, payload, correlation_id)
+    if gated is not None:
+        return gated
 
     case = get_case(case_id)
     if case is None:
@@ -116,4 +121,5 @@ def post_approval(request: Request, payload: dict) -> JSONResponse:
         lake_item_ids=list(case.get("citation_targets") or []) + ["rule.hold.person_only", "term.approval"],
         extra={"action_type": action_type, "decision": payload.get("decision"), "opa_verdict": gate.get("verdict")},
     )
+    store_signature(audit_path(), request, payload, correlation_id)
     return JSONResponse({"ok": True, "approval": recorded, "case": updated, "opa_verdict": gate.get("verdict")})

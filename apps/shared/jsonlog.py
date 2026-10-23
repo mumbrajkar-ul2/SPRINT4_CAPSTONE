@@ -1,10 +1,17 @@
 """One JSON object per line on stdout. The API key is never written."""
 from __future__ import annotations
 
+import contextvars
 import json
 import sys
 from datetime import datetime, timezone
 from typing import Any
+
+_TRACEPARENT: contextvars.ContextVar[str] = contextvars.ContextVar("traceparent", default="")
+
+
+def set_traceparent(value: str) -> None:
+    _TRACEPARENT.set(value)
 
 FORBIDDEN_KEYS = {
     "api_key",
@@ -40,6 +47,7 @@ def emit(
         "path": path,
         "status": status,
         "duration_ms": duration_ms,
+        "traceparent": _TRACEPARENT.get() or None,
     }
     for key, value in extra.items():
         if key.lower() in FORBIDDEN_KEYS:

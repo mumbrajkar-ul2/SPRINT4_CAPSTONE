@@ -32,12 +32,9 @@ PACKAGED_LEGACY = (
     / "legacy.sqlite3"
 )
 PACKAGED_SHA256 = "2d9a3fae58af56daf524d16eb99dedf4ef82ade39d1ca68ad36e249fa0b99879"
-PROBE_HEADERS = {
-    "X-Api-Key": "local-demo-only",
-    "X-Actor-Id": "demo-rt01-1",
-    "X-Actor-Role": "RT-01",
-    "X-Correlation-Id": "corr-p13-29b-doc-20261018-001",
-}
+from apps.shared.oidc_session import bearer_headers
+
+PROBE_HEADERS = bearer_headers("RT-01", correlation_id="corr-p13-29b-doc-20261018-001")
 FORBIDDEN_FLOOR_PHRASES = ("8 hour", "8-hour", "24 hour", "24-hour")
 
 

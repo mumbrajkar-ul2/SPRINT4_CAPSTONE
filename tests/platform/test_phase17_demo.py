@@ -19,11 +19,9 @@ from apps.app_a.server import app as app_a  # noqa: E402
 from apps.app_b.server import DEMO_SESSION as SESSION_B  # noqa: E402
 from apps.app_b.server import app as app_b  # noqa: E402
 
-HEADERS = {
-    "X-Api-Key": "local-demo-only",
-    "X-Actor-Id": "rt05-demo",
-    "X-Actor-Role": "RT-05",
-}
+from apps.shared.oidc_session import bearer_headers
+
+HEADERS = bearer_headers("RT-05", actor="rt05-demo")
 
 
 def _client(app, session):
@@ -52,11 +50,7 @@ def test_replay_queue_then_drop() -> None:
     assert received["packaged_replay_rows"] == 67
     assert received["delivery_status"] == "on the work queue"
     assert "Work-queue count is" in received["message"]
-    reviewer = {
-        "X-Api-Key": "local-demo-only",
-        "X-Actor-Id": "rt01-demo",
-        "X-Actor-Role": "RT-01",
-    }
+    reviewer = bearer_headers("RT-01", actor="rt01-demo")
     refused = client.post("/api/demo/replay/drop", headers=reviewer)
     assert refused.status_code == 403
     assert "RT-05" in refused.json()["message"]
@@ -84,11 +78,7 @@ def test_recipe_clock_policy_and_outage() -> None:
     policy = client.post("/api/demo/policy/check", headers=HEADERS).json()
     assert policy["policy"]["in_force_count"] == 4
     assert policy["policy"]["verdict"] == "ABSTAIN"
-    owner = {
-        "X-Api-Key": "local-demo-only",
-        "X-Actor-Id": "rt04-demo",
-        "X-Actor-Role": "RT-04",
-    }
+    owner = bearer_headers("RT-04", actor="rt04-demo")
     decided = client.post("/api/demo/policy/decide", headers=owner, json={"choice": "keep-wait"}).json()
     assert decided["policy_choice"] == "keep-wait"
     timeout = client.post("/api/demo/outage/probe?mode=timeout", headers=HEADERS).json()

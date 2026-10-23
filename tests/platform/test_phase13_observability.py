@@ -19,12 +19,9 @@ MISS_QUESTION = "What does arch.listener.lake_rest_8091 say? zz-p13-31-no-replay
 CITE_QUESTION = "Which port does the Context Lake REST listener use?"
 MISS_CORR = "corr-p13-31b-doc-20261018-001"
 CITE_CORR = "corr-p13-31b-cite-001"
-PROBE_HEADERS = {
-    "X-Api-Key": "local-demo-only",
-    "X-Actor-Id": "demo-rt01-1",
-    "X-Actor-Role": "RT-01",
-    "X-Correlation-Id": MISS_CORR,
-}
+from apps.shared.oidc_session import bearer_headers
+
+PROBE_HEADERS = bearer_headers("RT-01", correlation_id=MISS_CORR)
 
 
 def _json_lines(captured: str) -> list[dict]:

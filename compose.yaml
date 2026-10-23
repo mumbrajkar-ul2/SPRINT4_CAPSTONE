@@ -1,4 +1,4 @@
-# Capstone full stack. Seven named containers.
+# Capstone full stack. Eight named containers.
 # Ports 8080 and 8090 use the inherited workshop image and stay without an identity check.
 # New listeners: lake REST 8091, lake MCP 8092, Application A 8100, Application B 8110.
 name: fabpulse
@@ -107,6 +107,33 @@ services:
       retries: 5
       start_period: 15s
 
+  identity:
+    container_name: fabpulse-identity
+    build:
+      context: .
+      dockerfile: Dockerfile.platform
+    command: ["python", "-m", "uvicorn", "apps.identity.server:app", "--host", "0.0.0.0", "--port", "8095"]
+    working_dir: /opt/platform
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8095
+      SERVICE_NAME: identity
+      FF_STATE_DIR: /var/lib/identity
+      FF_DEMO_HINTS: "1"
+      FF_ENV: local
+      FF_IDP_PUBLIC_URL: http://127.0.0.1:8095
+      PYTHONPATH: /opt/platform
+    ports:
+      - "${IDENTITY_PORT:-8095}:8095"
+    volumes:
+      - identity_data:/var/lib/identity
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8095/health',timeout=2)"]
+      interval: 10s
+      timeout: 4s
+      retries: 5
+      start_period: 20s
+
   app-a:
     container_name: fabpulse-app-a
     build:
@@ -126,6 +153,8 @@ services:
       AZURE_OPENAI_API_VERSION: ${AZURE_OPENAI_API_VERSION:-}
       LAKE_REST_URL: http://lake-rest:8091
       SOURCE_GATEWAY_URL: http://source-gateway:8090
+      FF_IDP_PUBLIC_URL: http://127.0.0.1:8095
+      FF_IDP_INTERNAL_URL: http://identity:8095
       PYTHONPATH: /opt/platform:/opt/platform/context-lake:/opt/platform/fabpulse-legacy-workshop-v8-Semiconductor/fabpulse-legacy
     ports:
       - "${APP_A_PORT:-8100}:8100"
@@ -136,6 +165,8 @@ services:
       - ./apps/app_a/audit/audit_chain.sqlite3:/opt/platform/apps/app_a/audit/audit_chain.sqlite3
     depends_on:
       lake-rest:
+        condition: service_healthy
+      identity:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8100/health',timeout=2)"]
@@ -159,6 +190,8 @@ services:
       MODEL_MODE: ${MODEL_MODE:-replay}
       LAKE_REST_URL: http://lake-rest:8091
       SOURCE_GATEWAY_URL: http://source-gateway:8090
+      FF_IDP_PUBLIC_URL: http://127.0.0.1:8095
+      FF_IDP_INTERNAL_URL: http://identity:8095
       PYTHONPATH: /opt/platform:/opt/platform/context-lake
     ports:
       - "${APP_B_PORT:-8110}:8110"
@@ -166,6 +199,8 @@ services:
       - ./operations/model-replay:/opt/platform/operations/model-replay:ro
     depends_on:
       lake-rest:
+        condition: service_healthy
+      identity:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8110/health',timeout=2)"]
@@ -176,3 +211,4 @@ services:
 
 volumes:
   legacy_data:
+  identity_data:

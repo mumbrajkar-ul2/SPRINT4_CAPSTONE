@@ -9,13 +9,14 @@ import yaml
 ROOT = Path(__file__).resolve().parents[2]
 COMPOSE = ROOT / "compose.yaml"
 WORKFLOW = ROOT / ".github" / "workflows" / "verify.yml"
-REQUIRED_PORTS = {8080, 8090, 8091, 8092, 8100, 8110}
+REQUIRED_PORTS = {8080, 8090, 8091, 8092, 8095, 8100, 8110}
 REQUIRED_CONTAINERS = {
     "fabpulse-legacy",
     "fabpulse-source-gateway",
     "fabpulse-bridge",
     "fabpulse-lake-rest",
     "fabpulse-lake-mcp",
+    "fabpulse-identity",
     "fabpulse-app-a",
     "fabpulse-app-b",
 }
@@ -32,6 +33,7 @@ def test_at_compose_ports_in_file() -> None:
         '"${SOURCE_HOST_PORT:-8090}:8090"',
         '"${LAKE_REST_PORT:-8091}:8091"',
         '"${LAKE_MCP_PORT:-8092}:8092"',
+        '"${IDENTITY_PORT:-8095}:8095"',
         '"${APP_A_PORT:-8100}:8100"',
         '"${APP_B_PORT:-8110}:8110"',
     ):

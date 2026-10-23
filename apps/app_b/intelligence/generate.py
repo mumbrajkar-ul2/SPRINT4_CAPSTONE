@@ -13,6 +13,7 @@ from apps.app_b.intelligence.canonical import canonical_prompt_bytes
 from apps.app_b.intelligence.ground import empty_abstain, ground
 from apps.app_b.intelligence.prompts import CURRENT_SEMVER, load_prompt
 from apps.app_b.intelligence.retrieve import retrieve
+from apps.shared.source_badge import apply_badge
 
 WRITE_TOOLS: list[str] = []
 
@@ -188,7 +189,7 @@ def generate(
                 "replay_save": None,
             }
         )
-        return grounded
+        return _with_badge(grounded)
 
     parsed = None
     used_file = False
@@ -232,4 +233,8 @@ def generate(
             "replay_save": None,
         }
     )
-    return grounded
+    return _with_badge(grounded)
+
+
+def _with_badge(payload: dict[str, Any]) -> dict[str, Any]:
+    return apply_badge(payload, app_code="b", model_name="")

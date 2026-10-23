@@ -5,16 +5,13 @@ from fastapi.testclient import TestClient
 
 from apps.app_a.server import app as app_a
 from apps.app_a.store import reset_runtime
+from apps.shared.oidc_session import bearer_headers
+
+_SIGN = {"meaning": "I confirm this record.", "reason": "Reviewed the cited case."}
 
 
 def _headers(role: str) -> dict[str, str]:
-    n = role[-1]
-    return {
-        "X-Api-Key": "local-demo-only",
-        "X-Actor-Id": f"demo-rt0{n}-1",
-        "X-Actor-Role": role,
-        "X-Correlation-Id": f"corr-s-{role}",
-    }
+    return bearer_headers(role, correlation_id=f"corr-s-{role}")
 
 
 def setup_function() -> None:
@@ -51,6 +48,7 @@ def test_scenario_7_replay(api_headers) -> None:
             "action_type": "replay_confirm",
             "decision": "drop_duplicate",
             "proposed_by": "demo-rt02-1",
+            "signature": _SIGN,
         },
     )
     assert ok.status_code == 200
@@ -92,6 +90,7 @@ def test_scenario_8_recipe_mismatch() -> None:
             "action_type": "recipe_hold_or_release",
             "decision": "hold",
             "proposed_by": "demo-rt02-1",
+            "signature": _SIGN,
         },
     )
     assert ok.status_code == 200
@@ -147,6 +146,7 @@ def test_scenario_10_policy_overlap() -> None:
             "action_type": "policy_pick",
             "decision": "keep_wait",
             "proposed_by": "demo-rt02-1",
+            "signature": _SIGN,
         },
     )
     assert ok.status_code == 200
@@ -182,6 +182,7 @@ def test_scenario_11_outage_and_owner() -> None:
             "action_type": "assign_owner",
             "decision": "assign",
             "proposed_by": "demo-rt02-1",
+            "signature": _SIGN,
         },
     )
     assert missing.status_code == 409
@@ -194,6 +195,7 @@ def test_scenario_11_outage_and_owner() -> None:
             "decision": "assign",
             "proposed_by": "demo-rt02-1",
             "owner_id": "person-supplied-demo",
+            "signature": _SIGN,
         },
     )
     assert assigned.status_code == 200

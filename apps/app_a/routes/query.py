@@ -80,6 +80,8 @@ def post_query(request: Request, payload: dict) -> JSONResponse:
         "error_class": result.get("error_class"),
         "model_mode": result.get("model_mode"),
         "answer_source": result.get("answer_source"),
+        "model": result.get("model") or "",
+        "source_badge": result.get("source_badge"),
         "replay_save": result.get("replay_save"),
         "message": result.get("message"),
         "lake_version": result.get("lake_version"),

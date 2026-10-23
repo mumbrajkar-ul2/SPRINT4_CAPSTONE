@@ -2,6 +2,7 @@
 
 | Field | Value |
 |---|---|
+| Product a presenter sees | Force Fab by TSM Corp. |
 | Stage | Phase 15 / 42 Executive defence. Demo folder |
 | Date / version | 2026-10-18, v1.0 |
 | Author / agent | Executor agent (Grok 4.6), correlation id corr-p15-doc-20261018-001 |

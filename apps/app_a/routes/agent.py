@@ -9,6 +9,7 @@ from fastapi.responses import JSONResponse
 from apps.app_a.agent.graph import run_agent
 from apps.app_a.events import mint_correlation_id
 from apps.app_a.store import get_case
+from apps.shared.source_badge import source_badge
 from apps.shared.identity import (
     HEADER_ACTOR_ID,
     HEADER_ACTOR_ROLE,
@@ -90,6 +91,9 @@ def post_agent_run(request: Request, payload: dict) -> JSONResponse:
                 "retrieved_item_ids": state.get("retrieved_item_ids") or [],
                 "model_mode": state.get("model_mode") or "",
                 "answer_source": state.get("answer_source") or "",
+                "model": state.get("model") or "",
+                "source_badge": state.get("source_badge")
+                or source_badge(app_code="a", answer_source=state.get("answer_source") or "", model_name=state.get("model") or ""),
                 "replay_save": state.get("replay_save") or None,
                 "message": state.get("message") or None,
                 "proposed_by": state.get("proposed_by") or "model_draft",
@@ -114,6 +118,15 @@ def post_agent_run(request: Request, payload: dict) -> JSONResponse:
         "error_class": state.get("error_class") or None,
         "model_mode": state.get("model_mode") or "",
         "answer_source": state.get("answer_source") or "",
+        "model": state.get("model") or "",
+        "source_badge": state.get("source_badge")
+        or source_badge(
+            app_code="a",
+            answer_source=state.get("answer_source") or "",
+            model_name=state.get("model") or "",
+            block=bool(state.get("block")),
+            error_class=state.get("error_class"),
+        ),
         "retrieved_item_ids": state.get("retrieved_item_ids") or [],
         "replay_save": state.get("replay_save") or None,
         "message": state.get("message") or None,

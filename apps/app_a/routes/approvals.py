@@ -6,8 +6,10 @@ from fastapi.responses import JSONResponse
 
 from apps.app_a.agent.graph import resume_agent
 from apps.app_a.agent.waiting import find_waiting_thread
+from apps.app_a.audit.store import audit_path
 from apps.app_a.events import record_event
 from apps.app_a.store import get_case, is_blocked, record_approval
+from apps.shared.oidc_session import approval_gate, store_signature
 from apps.shared.identity import (
     HEADER_ACTOR_ID,
     HEADER_ACTOR_ROLE,
@@ -46,6 +48,9 @@ def post_approval(request: Request, payload: dict) -> JSONResponse:
     )
     if denied:
         return JSONResponse(denied, status_code=403)
+    gated = approval_gate(request, payload, correlation_id)
+    if gated is not None:
+        return gated
 
     case = get_case(case_id)
     if case is None:
@@ -106,6 +111,7 @@ def post_approval(request: Request, payload: dict) -> JSONResponse:
             },
         )
         updated = get_case(case_id) or {}
+        store_signature(audit_path(), request, payload, correlation_id)
         return JSONResponse({"ok": True, "approval": recorded, "case": updated, "resumed": True, "correlation_id": thread_id})
     updated = record_approval(case_id, recorded)
     event_type = "EV-10" if action_type == "assign_owner" else "EV-09"
@@ -118,4 +124,5 @@ def post_approval(request: Request, payload: dict) -> JSONResponse:
         lake_item_ids=list(case.get("citation_targets") or []),
         extra={"action_type": action_type, "decision": payload.get("decision")},
     )
+    store_signature(audit_path(), request, payload, correlation_id)
     return JSONResponse({"ok": True, "approval": recorded, "case": updated})

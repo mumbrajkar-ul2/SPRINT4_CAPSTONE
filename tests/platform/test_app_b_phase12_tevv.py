@@ -85,12 +85,9 @@ QUERY_SLICE = (
 
 
 def _headers(corr: str) -> dict[str, str]:
-    return {
-        "X-Api-Key": "local-demo-only",
-        "X-Actor-Id": "demo-rt01-1",
-        "X-Actor-Role": "RT-01",
-        "X-Correlation-Id": corr,
-    }
+    from apps.shared.oidc_session import bearer_headers
+
+    return bearer_headers("RT-01", correlation_id=corr)
 
 
 @pytest.fixture

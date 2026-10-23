@@ -20,19 +20,16 @@ from apps.app_a.audit.reader import read_trace
 from apps.app_a.audit.store import COLUMNS, reset_audit_store
 from apps.app_a.server import app as app_a
 from apps.app_a.store import PACKAGED_OPEN_URIS, get_case, reset_runtime
+from apps.shared.oidc_session import bearer_headers
+
+_SIGN = {"meaning": "I confirm this record.", "reason": "Reviewed the cited case."}
 
 ROOT = Path(__file__).resolve().parents[2]
 CHILD = Path(__file__).resolve().parent / "agent_restart_child.py"
 
 
 def _headers(role: str, corr: str) -> dict[str, str]:
-    n = role[-1]
-    return {
-        "X-Api-Key": "local-demo-only",
-        "X-Actor-Id": f"demo-rt0{n}-1",
-        "X-Actor-Role": role,
-        "X-Correlation-Id": corr,
-    }
+    return bearer_headers(role, correlation_id=corr)
 
 
 @pytest.fixture
@@ -293,6 +290,7 @@ def test_trace_scenario_8_full_audit(isolated_runtime) -> None:
             "action_type": "recipe_hold_or_release",
             "decision": "hold",
             "proposed_by": "model_draft",
+            "signature": _SIGN,
         },
     )
     assert ok.status_code == 200

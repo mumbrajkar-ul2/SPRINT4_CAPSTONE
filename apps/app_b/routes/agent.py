@@ -11,6 +11,7 @@ from apps.app_b.intelligence.generate import generate
 from apps.app_b.opa import build_opa_input, evaluate
 from apps.app_b.store import get_case
 from apps.shared.demo_session import recipe_disagreement_sentence, recipe_explain_question, recipe_sentence_complete
+from apps.shared.source_badge import source_badge
 from apps.shared.identity import (
     HEADER_ACTOR_ID,
     HEADER_ACTOR_ROLE,
@@ -40,7 +41,6 @@ def _recipe_explanation(sentence: str, citations: list[str], targets: list[str])
 
 @router.post("/api/agent/run")
 def post_agent_run(request: Request, payload: dict) -> JSONResponse:
-    os.environ["MODEL_MODE"] = "replay"
     correlation_id = header_get(request.headers, HEADER_CORRELATION) or mint_correlation_id()
     actor_id = header_get(request.headers, HEADER_ACTOR_ID)
     actor_role = header_get(request.headers, HEADER_ACTOR_ROLE)
@@ -136,6 +136,15 @@ def post_agent_run(request: Request, payload: dict) -> JSONResponse:
         "error_class": "blocked" if gate.get("verdict") == "BLOCK" else draft.get("error_class"),
         "model_mode": draft.get("model_mode") or "",
         "answer_source": draft.get("answer_source") or "lake_statement",
+        "model": "",
+        "source_badge": draft.get("source_badge")
+        or source_badge(
+            app_code="b",
+            answer_source=draft.get("answer_source") or "lake_statement",
+            model_name="",
+            block=bool(draft.get("block")),
+            error_class=draft.get("error_class"),
+        ),
         "retrieved_item_ids": draft.get("retrieved_item_ids") or [],
         "replay_save": None,
         "proposed_by": "model_draft",

@@ -9,6 +9,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
+from apps.app_a.audit.store import audit_path
+from apps.app_a.intelligence.generate import generate as generate_answer
 from apps.app_a.routes.agent import router as agent_router
 from apps.app_a.routes.approvals import router as approvals_router
 from apps.app_a.routes.audit import router as audit_router
@@ -18,7 +20,9 @@ from apps.app_a.routes.queue import router as queue_router
 from apps.app_a.routes.recovery import apply_probe
 from apps.app_a.routes.recovery import router as recovery_router
 from apps.app_a.store import queue_items
+from apps.shared.ask_route import build_ask_router
 from apps.shared.demo_routes import build_demo_router
+from apps.shared.feature_api import build_feature_router
 from apps.shared.demo_session import DemoSession
 from apps.shared.identity import (
     HEADER_ACTOR_ID,
@@ -29,27 +33,26 @@ from apps.shared.identity import (
     identity_reject,
 )
 from apps.shared.jsonlog import emit
+from apps.shared.http_guard import app_origins, install_platform
+from apps.shared.oidc_session import install_auth, prepare_request, refuse_unsafe_flags
 
 SERVICE = "app-a"
 UI_DIR = Path(__file__).resolve().parent / "ui"
 DEMO_SESSION = DemoSession()
+refuse_unsafe_flags()
 
 app = FastAPI(title=SERVICE, docs_url=None, redoc_url=None)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://127.0.0.1:8100",
-        "http://localhost:8100",
-        "http://127.0.0.1:8110",
-        "http://localhost:8110",
-    ],
+    allow_origins=app_origins(),
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
 def _is_open_path(method: str, path: str) -> bool:
-    if path == "/health":
+    if path in {"/health", "/healthz", "/readyz", "/metrics"} or path.startswith("/auth/"):
         return True
     if method.upper() != "GET":
         return False
@@ -67,6 +70,21 @@ async def identity_and_logs(request: Request, call_next):
     correlation_id = header_get(request.headers, HEADER_CORRELATION) or None
     actor_id = header_get(request.headers, HEADER_ACTOR_ID) or None
     if not _is_open_path(request.method, path):
+        failure = prepare_request(request, audience="force-fab-app-a", app_code="a")
+        if failure is not None:
+            if failure.status_code == 401:
+                duration_ms = round((time.perf_counter() - started) * 1000, 3)
+                emit(
+                    service=SERVICE,
+                    event="identity_missing",
+                    level="warn",
+                    correlation_id=correlation_id,
+                    path=path,
+                    status=401,
+                    duration_ms=duration_ms,
+                )
+            return failure
+        actor_id = header_get(request.headers, HEADER_ACTOR_ID) or None
         error = check_app_identity(request.headers)
         if error:
             body, status, event = identity_reject(error)
@@ -137,6 +155,16 @@ def index() -> FileResponse:
     return FileResponse(_ui_index())
 
 
+install_auth(app, app_code="a", audience="force-fab-app-a", port=8100)
+app.include_router(
+    build_feature_router(
+        app_code="a",
+        queue_items=queue_items,
+        audit_path=audit_path,
+        lake_detail=False,
+    )
+)
+app.include_router(build_ask_router(app_code="a", generate=generate_answer))
 app.include_router(queue_router)
 app.include_router(cases_router)
 app.include_router(query_router)
@@ -161,3 +189,5 @@ if UI_DIR.is_dir():
     assets = built_assets if built_assets.is_dir() else legacy_assets
     if assets.is_dir():
         app.mount("/assets", StaticFiles(directory=assets), name="assets")
+
+install_platform(app, service=SERVICE, app_code="a", db_path=audit_path())

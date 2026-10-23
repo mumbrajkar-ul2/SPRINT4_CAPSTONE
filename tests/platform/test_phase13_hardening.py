@@ -17,12 +17,9 @@ from rest_server import app as lake_rest
 ROOT = Path(__file__).resolve().parents[2]
 RESULTS = ROOT / "docs" / "27-hardening" / "hardening-test-results.md"
 COMPOSE = ROOT / "compose.yaml"
-PROBE_HEADERS = {
-    "X-Api-Key": "local-demo-only",
-    "X-Actor-Id": "demo-rt01-1",
-    "X-Actor-Role": "RT-01",
-    "X-Correlation-Id": "corr-p13-27b-doc-20261018-001",
-}
+from apps.shared.oidc_session import bearer_headers
+
+PROBE_HEADERS = bearer_headers("RT-01", correlation_id="corr-p13-27b-doc-20261018-001")
 
 
 def _json_lines(captured: str) -> list[dict]:
@@ -48,7 +45,7 @@ def test_hb27_01_before_missing_process_key_is_401() -> None:
     client = TestClient(app_a)
     response = client.get("/api/identity-check", headers=PROBE_HEADERS)
     assert response.status_code == 401
-    assert response.json()["error_class"] == "missing_identity"
+    assert response.json()["error_class"] == "unauthenticated"
 
 
 def test_hb27_01_before_snapshot_is_recorded() -> None:
@@ -125,7 +122,7 @@ def test_hb27_01_restored_key_without_headers_is_401(monkeypatch) -> None:
     monkeypatch.setenv("FABPULSE_API_KEY", "local-demo-only")
     response = TestClient(app_a).get("/api/identity-check")
     assert response.status_code == 401
-    assert response.json()["error_class"] == "missing_identity"
+    assert response.json()["error_class"] == "unauthenticated"
 
 
 def test_hb27_01_restored_key_with_three_headers_is_200(monkeypatch) -> None:
@@ -140,8 +137,7 @@ def test_hb27_01_restored_key_with_three_headers_is_200(monkeypatch) -> None:
 
 def test_hb27_01_admin_role_on_queue_is_403(monkeypatch) -> None:
     monkeypatch.setenv("FABPULSE_API_KEY", "local-demo-only")
-    headers = dict(PROBE_HEADERS)
-    headers["X-Actor-Role"] = "ADMIN"
+    headers = bearer_headers("GUEST", actor="guest-1")
     response = TestClient(app_a).get("/api/queue", headers=headers)
     assert response.status_code == 403
     assert response.json()["error_class"] == "forbidden_role"

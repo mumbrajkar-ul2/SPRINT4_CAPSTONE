@@ -6,7 +6,7 @@ The six incidents are made up. NVIDIA, TSMC, Micron, and ASML are real companies
 
 The feed ids, lot ids, dates, policy ids, and button results are the ones on the console. Say the company names while you point at those ids. The counts in these stories are the console counts: 196, 197, and 67.
 
-Application A is http://127.0.0.1:8100. Application B is http://127.0.0.1:8110. The role picker starts at RT-01 Fab Exception Reviewer. The actor id starts as `demo-actor`.
+Application A is http://127.0.0.1:8100. Application B is http://127.0.0.1:8110. Sign in as the person named in the step. There is no role picker. Sign in again if the one-time code is older than five minutes. The draft author stays `model_draft`.
 
 Before each story, click **Start this shift again** on the app you are about to use. That click clears the shift record. It leaves the packaged files as they are.
 
@@ -45,7 +45,7 @@ The first copy arrived at `2022-04-25T19:09` as feed `FEED-000000000`. The secon
 
 If both copies stay on the work queue, the shift counts one Micron notice twice. RT-01 Fab Exception Reviewer reads the two times and clicks **Review this delivery**. The work-queue count goes from 196 to 197. Packaged replay rows stay 67.
 
-RT-01 then clicks **Drop this duplicate**. The page refuses that role. RT-05 Operations Analyst sets the role picker to RT-05 and clicks **Drop this duplicate**. The second copy leaves this shift's queue. The work-queue count returns to 196. The packaged file still has 67 replay rows.
+Sign in as reviewer.tw and click **Drop this duplicate**. The page refuses that role. Sign in as analyst.az and click **Drop this duplicate**. The second copy leaves this shift's queue. The work-queue count returns to 196. The packaged file still has 67 replay rows.
 
 Do this story on Application A. Application B has the same tab.
 
@@ -78,7 +78,7 @@ The lot started at `2023-01-05T16:00` with dispatch recipe `R02`. The tool row s
 
 RT-01 clicks **Explain this mismatch**. The result sentence names both recipes, change `ECN0000001`, the effective time, the lot start, and the missing tool date. The cited items include `rule.recipe.mismatch_show_both`. Hold stays `not recorded`. The model drafts the sentence. RT-03 records the hold.
 
-RT-01 clicks **Hold**. The page refuses that role. RT-03 Process Engineer sets the role picker to RT-03, leaves the actor id as `demo-actor`, and clicks **Hold**. The page records the hold for case `PS000000016`.
+Sign in as reviewer.tw and click **Hold**. The page refuses that role. Sign in as engineer.az within five minutes of the one-time code and click **Hold**. Confirm the signature. The draft author stays `model_draft`. The page records the hold for case `PS000000016`.
 
 Do the clicks on Application A. Application B has the same two buttons and the same evidence rows.
 
@@ -87,7 +87,7 @@ Do the clicks on Application A. Application B has the same two buttons and the s
 1. After **Start this shift again**, the situation sentence is "Lot L00000016 on tool T0000013 shows dispatch recipe R02 and tool recipe R01." Dispatch is `R02` at `2023-01-05T16:00`. Tool recipe is `R01` on `T0000013`, with effective date none. Change is `ECN0000001` effective `2023-01-01T07:00` APPROVED. Hold is `not recorded`.
 2. After **Explain this mismatch**, the result line says "The mismatch is explained." The sentence says dispatch recipe `R02` and tool recipe `R01` disagree. It names change `ECN0000001`, effective `2023-01-01T07:00`, and the lot start `2023-01-05T16:00`. It says the tool row still says `R01` and has no effective date. Read the answer source from the screen. Hold stays `not recorded`.
 3. After RT-01 clicks **Hold**, the result line says "Refused. Hold waits for RT-03. The current role is RT-01." Hold stays `not recorded`.
-4. After RT-03 clicks **Hold**, the result line says "Hold recorded by demo-actor." Hold changes to `recorded by demo-actor`.
+4. After engineer.az clicks **Hold**, the result line says "Hold recorded by engineer.az." Hold changes to `recorded by engineer.az`.
 
 On Application B, the Audit band also shows "Phase 10 chain corr-p10b-doc-20261018-001." That id is the earlier chain. It is already on the page.
 
@@ -143,7 +143,7 @@ Four windows are in force on `2024-06-01`:
 
 `POL-0034` starts on `2025-01-01`. The table leaves it out.
 
-RT-01 clicks **Ask which policy applies**. The page lists the four and waits for RT-04. RT-01 clicks **Record my decision**. The page refuses that role. RT-04 Policy Owner sets the role picker to RT-04 and clicks **Record my decision**. The recorded choice is `keep-wait`. The case stays waiting. The four policy ids stay on the page.
+Sign in as reviewer.tw and click **Ask which policy applies**. The page lists the four and waits for RT-04. reviewer.tw clicks **Record my decision**. The page refuses that role. Sign in as policy.owner and click **Record my decision**. The recorded choice is `keep-wait`. The case stays waiting. The four policy ids stay on the page.
 
 Do this story on Application A. Application B has the same tab.
 
@@ -176,7 +176,7 @@ RT-01 clicks **Check the message shape**. The shape does not match. The attempt 
 
 RT-01 clicks **Set this intake aside**. Intake `DLQ-DEMO-BAD` is parked. RT-01 clicks **Bring the parked intake back**. The same row changes to `REPLAYED`.
 
-The owner cell is still empty. RT-01 clicks **Record the owner** with an empty box. The page asks for an owner id. RT-01 types `shift-lead-demo` and clicks **Record the owner** again. The page refuses that role. RT-06 Operations Lead sets the role picker to RT-06 and clicks **Record the owner**. The owner cell shows `shift-lead-demo`.
+The owner cell is still empty. Sign in as reviewer.tw and click **Record the owner** with an empty box. The page asks for an owner id. reviewer.tw types `shift-lead-demo` and clicks **Record the owner** again. The page refuses that role. Sign in as opslead and click **Record the owner**. The owner cell shows `shift-lead-demo`.
 
 Do this story on Application A. Application B has the same tab.
 

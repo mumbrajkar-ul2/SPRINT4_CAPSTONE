@@ -1,4 +1,5 @@
 @echo off
+title Force Fab
 setlocal
 cd /d "%~dp0"
 
@@ -26,7 +27,7 @@ if errorlevel 1 (
   exit /b 1
 )
 
-echo Waiting for Application A on port 8100 and Application B on port 8110.
+echo Waiting for identity on port 8095, Application A on port 8100, and Application B on port 8110.
 set /a TRIES=0
 :wait
 set /a TRIES+=1
@@ -34,6 +35,11 @@ if %TRIES% GTR 30 (
   echo The health pages did not answer in time.
   echo Run: docker compose ps
   exit /b 1
+)
+curl -fsS http://127.0.0.1:8095/health >nul 2>&1
+if errorlevel 1 (
+  ping -n 3 127.0.0.1 >nul
+  goto :wait
 )
 curl -fsS http://127.0.0.1:8100/health >nul 2>&1
 if errorlevel 1 (
@@ -47,6 +53,7 @@ if errorlevel 1 (
 )
 
 echo.
+echo Identity        http://127.0.0.1:8095
 echo Application A   http://127.0.0.1:8100
 echo Application B   http://127.0.0.1:8110
 echo Lake REST       http://127.0.0.1:8091/health

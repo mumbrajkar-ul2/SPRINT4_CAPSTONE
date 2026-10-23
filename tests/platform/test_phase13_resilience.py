@@ -27,12 +27,9 @@ PACKAGED_LEGACY = (
     / "legacy.sqlite3"
 )
 PACKAGED_SHA256 = "2d9a3fae58af56daf524d16eb99dedf4ef82ade39d1ca68ad36e249fa0b99879"
-PROBE_HEADERS = {
-    "X-Api-Key": "local-demo-only",
-    "X-Actor-Id": "demo-rt01-1",
-    "X-Actor-Role": "RT-01",
-    "X-Correlation-Id": "corr-p13-28b-doc-20261018-001",
-}
+from apps.shared.oidc_session import bearer_headers
+
+PROBE_HEADERS = bearer_headers("RT-01", correlation_id="corr-p13-28b-doc-20261018-001")
 
 
 def _sha256(path: Path) -> str:
@@ -146,7 +143,7 @@ def test_hb28_01_after_park_and_replay(isolated_dlq, capsys) -> None:
 
     missing = client.get("/api/recovery")
     assert missing.status_code == 401
-    assert missing.json()["error_class"] == "missing_identity"
+    assert missing.json()["error_class"] == "unauthenticated"
 
     park_bad = intake_dedupe(
         [{"message_id": "DLQ-28-BAD"}],

@@ -1,0 +1,118 @@
+{"timestamp":"2026-10-23T01:32:33.908120+00:00","service":"app-a","level":"info","event":"health_ok","correlation_id":null,"actor_id":null,"path":"/health","status":200,"duration_ms":5.11,"traceparent":"00-ba17c927f3fa42c702924607224d1b8b-695514cf962d56be-01"}
+INFO:     127.0.0.1:52186 - "GET /health HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:32:47.478569+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/","status":200,"duration_ms":77.334,"traceparent":"00-54dc16b238d95c7b68e22ec382c4e392-f3f29ea9dbcf14db-01"}
+INFO:     127.0.0.1:53105 - "GET /?space=1 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:32:47.495652+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/assets/index-BZxIfT-c.css","status":200,"duration_ms":2.918,"traceparent":"00-7cfe47e52d882970e8428be2e67151ad-7f88afa9a69f47ea-01"}
+INFO:     127.0.0.1:51336 - "GET /assets/index-BZxIfT-c.css HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:32:47.497569+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/assets/index-DxLjpLLu.js","status":200,"duration_ms":5.04,"traceparent":"00-a929b1328e38bb73c073c9a1f73e6370-b0cb3794e068b91a-01"}
+INFO:     127.0.0.1:53105 - "GET /assets/index-DxLjpLLu.js HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:32:47.540248+00:00","service":"app-a","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/semantic/terms","status":401,"duration_ms":0.187,"traceparent":"00-47e9e6644061e1a020bc3d478835c5b9-920039a84949dbea-01"}
+INFO:     127.0.0.1:53105 - "GET /api/semantic/terms?limit=200&offset=0 HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-23T01:32:47.545511+00:00","service":"app-a","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/i18n/zh-TW","status":401,"duration_ms":0.129,"traceparent":"00-6aed831180d84912a64ae11bf09d909c-d4a2dd0ad564c5a2-01"}
+INFO:     127.0.0.1:54454 - "GET /api/i18n/zh-TW HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-23T01:32:47.548169+00:00","service":"app-a","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/demo/state","status":401,"duration_ms":0.198,"traceparent":"00-9b9fc66ca5f56f16650a5e4331fc1008-9612c764f848df08-01"}
+{"timestamp":"2026-10-23T01:32:47.548981+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/me","status":401,"duration_ms":6.007,"traceparent":"00-1a3db72b581ecaec44a8963a9ef73029-2d8922efe3dc3476-01"}
+INFO:     127.0.0.1:65273 - "GET /api/demo/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51336 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-23T01:32:47.571853+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/login","status":302,"duration_ms":9.052,"traceparent":"00-56c93164c7e4a027f9be6447bbdd26ba-c6ebad6042a1aafc-01"}
+INFO:     127.0.0.1:51336 - "GET /auth/login?next=/ HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T01:32:47.882854+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/callback","status":302,"duration_ms":290.419,"traceparent":"00-7b0d523691b4957dd222ffe80d901d8e-4b731ddee4981844-01"}
+INFO:     127.0.0.1:51336 - "GET /auth/callback?code=1BcLTZvn4fhWvmrN05X0zLXK_eSLfcODkHHVB_P2el8&state=DA02V4FQ8oETJrjKRHIrmA HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T01:32:47.889331+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/","status":200,"duration_ms":1.38,"traceparent":"00-bf38f08d8a593ea1be7f44215f64cc41-7782bbe55fa77963-01"}
+INFO:     127.0.0.1:51336 - "GET / HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:32:47.933748+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/me","status":200,"duration_ms":9.31,"traceparent":"00-b23467454933e081fddf143a234e8ae7-43650b5aba9f69cc-01"}
+{"timestamp":"2026-10-23T01:32:47.934587+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/i18n/zh-TW","status":200,"duration_ms":9.762,"traceparent":"00-a072b17e888d9a37ed52f676f1abb887-db86ed33545b308c-01"}
+INFO:     127.0.0.1:54454 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53105 - "GET /api/i18n/zh-TW HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:32:47.938627+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/notifications","status":200,"duration_ms":18.273,"traceparent":"00-c4bae6ae28813aa20596ac0d82aa6249-df77f34fa1c23800-01"}
+INFO:     127.0.0.1:65273 - "GET /api/notifications HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:32:47.957608+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/dashboard","status":200,"duration_ms":41.974,"traceparent":"00-b85fa50a68d55b754f1d21007cc1aeeb-c1992a58643f0811-01"}
+INFO:     127.0.0.1:51336 - "GET /api/dashboard HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:32:47.964394+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/audit/search","status":200,"duration_ms":21.832,"traceparent":"00-12212d410683ce9a59e8ecfec8123d93-4c2a4e9731a13b6d-01"}
+INFO:     127.0.0.1:54454 - "GET /api/audit/search?order=desc&limit=5 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:32:47.973220+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/semantic/terms","status":200,"duration_ms":25.306,"traceparent":"00-d92975bc2a37a76fd6007d9be5fe9689-4f76bb4da892098d-01"}
+INFO:     127.0.0.1:65273 - "GET /api/semantic/terms?limit=200&offset=0 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:32:47.989156+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/approvals/pending","status":200,"duration_ms":57.847,"traceparent":"00-90fbdc94c5d51c4f8d11c3b381886e9a-3133acad97464692-01"}
+{"timestamp":"2026-10-23T01:32:47.993345+00:00","service":"app-a","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-76012e8fed43c1299c12cec57412cb10-f8127c405cae4b9a-01"}
+INFO:     127.0.0.1:57414 - "GET /api/approvals/pending?limit=1 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:32:47.995630+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/state","status":200,"duration_ms":67.72,"traceparent":"00-76012e8fed43c1299c12cec57412cb10-f8127c405cae4b9a-01"}
+INFO:     127.0.0.1:52202 - "GET /api/demo/state HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:32:48.003980+00:00","service":"app-a","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-52b8705fd9ed8620d7379c4c73a5ea2f-912fb323a0c8fa7b-01"}
+{"timestamp":"2026-10-23T01:32:48.005341+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/state","status":200,"duration_ms":7.542,"traceparent":"00-52b8705fd9ed8620d7379c4c73a5ea2f-912fb323a0c8fa7b-01"}
+INFO:     127.0.0.1:57414 - "GET /api/demo/state HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:33:28.784546+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/cases","status":200,"duration_ms":4.882,"traceparent":"00-b27c8454a5673c2e571ac96bfa185841-cb1fbbf6222f718d-01"}
+INFO:     127.0.0.1:62167 - "GET /api/cases HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:34:19.121363+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/logout","status":302,"duration_ms":1.269,"traceparent":"00-907e8150dfd457b07ac5f6e91a5c3dbb-adc3a9bf4b570ba6-01"}
+INFO:     127.0.0.1:61007 - "GET /auth/logout HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T01:34:19.140361+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/login","status":302,"duration_ms":1.353,"traceparent":"00-f32855cf1042548db3315c753cd68755-d4e151c7df5b31fe-01"}
+INFO:     127.0.0.1:61007 - "GET /auth/login?switch=1 HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T01:34:22.733275+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/logout","status":302,"duration_ms":0.616,"traceparent":"00-8b1d39d37650c52c901b4a2ae954717e-b204630528fee753-01"}
+INFO:     127.0.0.1:61007 - "GET /auth/logout HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T01:34:22.743199+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/login","status":302,"duration_ms":0.876,"traceparent":"00-d3b700686154a3d7580f5835ac433c12-f1a72ca88224c445-01"}
+INFO:     127.0.0.1:61007 - "GET /auth/login?switch=1 HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T01:42:26.198885+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/","status":200,"duration_ms":6.225,"traceparent":"00-5c79d84c3a83667fcf67ae8f7e76e05b-faa898d2cd6aa784-01"}
+INFO:     127.0.0.1:57298 - "GET / HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:42:26.278936+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/assets/index-DxLjpLLu.js","status":200,"duration_ms":2.017,"traceparent":"00-844a24dda14ff491bc8d4d26da289074-d2aab0a657b71ed2-01"}
+INFO:     127.0.0.1:57298 - "GET /assets/index-DxLjpLLu.js HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:42:26.290237+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/assets/index-BZxIfT-c.css","status":200,"duration_ms":2.961,"traceparent":"00-ae37dc1c13e796b466e825c2dd07de3f-0a0f0e9cbee12eab-01"}
+INFO:     127.0.0.1:51491 - "GET /assets/index-BZxIfT-c.css HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:42:26.361426+00:00","service":"app-a","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/semantic/terms","status":401,"duration_ms":0.136,"traceparent":"00-fb559accdb99c77b6ce4a4d280bd4d02-89d2f1a7608cab0b-01"}
+INFO:     127.0.0.1:51491 - "GET /api/semantic/terms?limit=200&offset=0 HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-23T01:42:26.367202+00:00","service":"app-a","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/i18n/en","status":401,"duration_ms":0.137,"traceparent":"00-b66f4d0cc820a4fd944f80ad46b38f56-692883bb3f3c3eb1-01"}
+{"timestamp":"2026-10-23T01:42:26.368239+00:00","service":"app-a","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/demo/state","status":401,"duration_ms":0.128,"traceparent":"00-3404cd4bc33b79380de8427b669fa6e7-53e0681d69c52f8c-01"}
+INFO:     127.0.0.1:59343 - "GET /api/i18n/en HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:52880 - "GET /api/demo/state HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-23T01:42:26.372082+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/me","status":401,"duration_ms":6.654,"traceparent":"00-e37f466f87ee41fb29594a0d41df24ef-70cd9b93d7d01747-01"}
+INFO:     127.0.0.1:57298 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-23T01:42:26.409888+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/login","status":302,"duration_ms":1.59,"traceparent":"00-0b8c6c1c2869c6ce30e4b6c34947e2b6-eed357ae601ad061-01"}
+INFO:     127.0.0.1:57298 - "GET /auth/login?next=/ HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T01:42:26.624956+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/callback","status":302,"duration_ms":180.187,"traceparent":"00-a05ef64e7c9b87ed4cca0361c8606cd6-07067d3a78729661-01"}
+INFO:     127.0.0.1:57298 - "GET /auth/callback?code=-WYgEGuChCDPgiPjm_MixJAJpu1AsN-zB7Bqp4mDx58&state=Yi4Gg8XC5ZUT2AGm720Eqw HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T01:42:26.750313+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"analyst.az","path":"/api/dashboard","status":200,"duration_ms":7.69,"traceparent":"00-d1f83b74aceb160cf675c532b390f279-31c36fdc3f5e0957-01"}
+INFO:     127.0.0.1:57298 - "GET /api/dashboard HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:42:26.779184+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"analyst.az","path":"/api/approvals/pending","status":200,"duration_ms":24.04,"traceparent":"00-b5c692ed39c3438659bde0394b58d048-ec42430fdd70ab5a-01"}
+INFO:     127.0.0.1:59343 - "GET /api/approvals/pending?limit=1 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:42:26.791455+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"analyst.az","path":"/api/notifications","status":200,"duration_ms":37.298,"traceparent":"00-aa3592cc00951ee6d64fee6d941b02b1-f02e2965278de308-01"}
+{"timestamp":"2026-10-23T01:42:26.801643+00:00","service":"app-a","level":"info","event":"demo_session","correlation_id":null,"actor_id":"analyst.az","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-959dc06284910317da8c2d0e03e1cbab-c6660aeac4a091f5-01"}
+INFO:     127.0.0.1:52880 - "GET /api/notifications HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:42:26.805693+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"analyst.az","path":"/api/i18n/en","status":200,"duration_ms":27.086,"traceparent":"00-216d17078b9d87109c4186758d05eb69-f6509118493aa6a7-01"}
+{"timestamp":"2026-10-23T01:42:26.807648+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/me","status":200,"duration_ms":29.349,"traceparent":"00-69589482623b520b019fc716c2c3d0e2-975ce75f17a37c52-01"}
+INFO:     127.0.0.1:51491 - "GET /api/i18n/en HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57298 - "GET /auth/me HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:42:26.816786+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"analyst.az","path":"/api/demo/state","status":200,"duration_ms":31.094,"traceparent":"00-959dc06284910317da8c2d0e03e1cbab-c6660aeac4a091f5-01"}
+INFO:     127.0.0.1:63373 - "GET /api/demo/state HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:42:26.826008+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"analyst.az","path":"/api/audit/search","status":200,"duration_ms":36.391,"traceparent":"00-2946afe7745ac7e97fb1a7918be1b749-334e1bfab4323d38-01"}
+INFO:     127.0.0.1:58408 - "GET /api/audit/search?order=desc&limit=5 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:42:26.941305+00:00","service":"app-a","level":"info","event":"demo_session","correlation_id":null,"actor_id":"analyst.az","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-2ecdfa5b4c01349759c8f3dbd26f16ac-c515ba88498b9aa4-01"}
+{"timestamp":"2026-10-23T01:42:26.942913+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"analyst.az","path":"/api/demo/state","status":200,"duration_ms":9.12,"traceparent":"00-2ecdfa5b4c01349759c8f3dbd26f16ac-c515ba88498b9aa4-01"}
+INFO:     127.0.0.1:58408 - "GET /api/demo/state HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:42:26.964866+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"analyst.az","path":"/api/semantic/terms","status":200,"duration_ms":6.595,"traceparent":"00-50e161de049194ab37c6ce6791d946d3-c38efeccb4e6c3d8-01"}
+INFO:     127.0.0.1:63373 - "GET /api/semantic/terms?limit=200&offset=0 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:42:30.224568+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"analyst.az","path":"/api/audit/search","status":200,"duration_ms":9.348,"traceparent":"00-0d9c92b2a3bf462c7f47b8c15136f398-72721be10747fbc3-01"}
+INFO:     127.0.0.1:63373 - "GET /api/audit/search?limit=50&offset=0 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:42:34.492825+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/logout","status":302,"duration_ms":3.357,"traceparent":"00-8f118a03c79614172802acf839cf052f-805f15e9cc68215a-01"}
+INFO:     127.0.0.1:63373 - "GET /auth/logout HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T01:42:34.569335+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/login","status":302,"duration_ms":4.892,"traceparent":"00-936bd5d6a6365c4b0fc79583aa4a513e-6e21615c59a54c65-01"}
+INFO:     127.0.0.1:63373 - "GET /auth/login?switch=1 HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T01:43:07.748145+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/callback","status":302,"duration_ms":366.644,"traceparent":"00-78eac168f874f07eae9ecd94bb043276-24469cd4894c426d-01"}
+INFO:     127.0.0.1:53596 - "GET /auth/callback?code=J7zKkn6KrYjzXEybrIsdhg3neGuOUs7w0lWmwx4xezc&state=ja6MLtbafAiHGL2fgzC-2w HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T01:43:07.762663+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/","status":200,"duration_ms":1.731,"traceparent":"00-66e7e59efc1b217a1dd348fab1311270-8460ba427e110039-01"}
+INFO:     127.0.0.1:53596 - "GET / HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:43:07.905643+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/approvals/pending","status":200,"duration_ms":39.811,"traceparent":"00-cb12adf70671d484a0a3691e664c49f4-0f81295ee2122a08-01"}
+{"timestamp":"2026-10-23T01:43:07.908498+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/notifications","status":200,"duration_ms":50.72,"traceparent":"00-55676d533419f316ff383d4681ac3049-f7eb039acdc0c81c-01"}
+INFO:     127.0.0.1:65487 - "GET /api/approvals/pending?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61404 - "GET /api/notifications HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:43:07.913772+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/dashboard","status":200,"duration_ms":65.246,"traceparent":"00-7c1bd64eeecc0dfeb996b0aabf3983f3-e8e2cfa931df58d1-01"}
+INFO:     127.0.0.1:53596 - "GET /api/dashboard HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:43:07.919786+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/me","status":200,"duration_ms":15.099,"traceparent":"00-43facdf180fd45e83a7cb3307be77796-e2a4ddb9115a008b-01"}
+{"timestamp":"2026-10-23T01:43:07.921881+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/i18n/en","status":200,"duration_ms":12.453,"traceparent":"00-394b7ea4b80a52284225608756b482b7-bdf53f0b775757da-01"}
+INFO:     127.0.0.1:63527 - "GET /auth/me HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:43:07.924415+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/audit/search","status":200,"duration_ms":53.701,"traceparent":"00-9468f095017d59fea0d728e0b55c4929-b85f552bee34347c-01"}
+INFO:     127.0.0.1:58969 - "GET /api/i18n/en HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:43:07.935010+00:00","service":"app-a","level":"info","event":"demo_session","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-3c04fbfb3b48cd09502069fe1f829634-bf6710533c3a86e1-01"}
+INFO:     127.0.0.1:62407 - "GET /api/audit/search?order=desc&limit=5 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:43:07.940002+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":18.584,"traceparent":"00-3c04fbfb3b48cd09502069fe1f829634-bf6710533c3a86e1-01"}
+INFO:     127.0.0.1:65487 - "GET /api/demo/state HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T01:43:08.052098+00:00","service":"app-a","level":"info","event":"demo_session","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-67b412b0af6873f783433aa5b303afc4-01d5ae62e9bb26dd-01"}
+{"timestamp":"2026-10-23T01:43:08.053771+00:00","service":"app-a","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":8.764,"traceparent":"00-67b412b0af6873f783433aa5b303afc4-01d5ae62e9bb26dd-01"}
+INFO:     127.0.0.1:65487 - "GET /api/demo/state HTTP/1.1" 200 OK

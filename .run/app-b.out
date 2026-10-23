@@ -1,0 +1,2 @@
+{"timestamp":"2026-10-23T01:32:33.972286+00:00","service":"app-b","level":"info","event":"health_ok","correlation_id":null,"actor_id":null,"path":"/health","status":200,"duration_ms":3.669,"traceparent":"00-c68504f3a8ad4c2abe7b82bd7fcf13a3-296147a005c37e77-01"}
+INFO:     127.0.0.1:52189 - "GET /health HTTP/1.1" 200 OK

@@ -14,6 +14,9 @@ from apps.app_a.intelligence.canonical import canonical_prompt_bytes
 from apps.app_a.intelligence.ground import empty_abstain, ground
 from apps.app_a.intelligence.prompts import CURRENT_SEMVER, load_prompt
 from apps.app_a.intelligence.retrieve import retrieve
+from apps.shared.ai_safety import budget_allows, charge, mask_recipe_text, save_replay
+from apps.shared.http_guard import note_ai_call
+from apps.shared.source_badge import apply_badge
 
 WRITE_TOOLS: list[str] = []
 
@@ -108,7 +111,7 @@ def generate(
                 "replay_save": None,
             }
         )
-        return grounded
+        return _with_badge(grounded)
 
     used_file = False
     used_azure = False
@@ -136,11 +139,29 @@ def generate(
                     "replay_save": None,
                 }
             )
-            return grounded
+            return _with_badge(grounded)
         raw_body = hit.get("body")
         used_file = True
     elif mode == "azure":
+        if not budget_allows(canonical.decode("utf-8")):
+            grounded = ground(empty_abstain(), retrieved_item_ids=retrieved_ids, untrusted_quotes=quotes, block=block)
+            grounded.update(
+                {
+                    "prompt_id": prompt_id,
+                    "semver": semver,
+                    "prompt_hash": digest,
+                    "retrieved_item_ids": retrieved_ids,
+                    "error_class": "llm_budget_exceeded",
+                    "lake_version": retrieved.get("lake_version"),
+                    "model_mode": mode,
+                    "answer_source": "azure",
+                    "replay_save": None,
+                }
+            )
+            return _with_badge(grounded)
         live = complete_azure(canonical)
+        charge(canonical.decode("utf-8"))
+        note_ai_call("app-a")
         if not live.get("ok"):
             error_class = live.get("error_class") or "azure_call_failed"
             grounded = ground(
@@ -163,14 +184,12 @@ def generate(
                     "message": live.get("message"),
                 }
             )
-            return grounded
-        raw_body = live.get("body")
+            return _with_badge(grounded)
+        raw_body = mask_recipe_text(str(live.get("body") or ""))
         used_azure = True
         store = replay_dir or (Path(__file__).resolve().parents[3] / "operations" / "model-replay")
         try:
-            store.mkdir(parents=True, exist_ok=True)
-            (store / digest).write_text(str(raw_body), encoding="utf-8")
-            replay_save = "saved"
+            replay_save = save_replay(store / digest, raw_body)
         except OSError:
             replay_save = "failed"
     else:
@@ -189,7 +208,7 @@ def generate(
                 "replay_save": None,
             }
         )
-        return grounded
+        return _with_badge(grounded)
 
     parsed = parse_model_json(str(raw_body or ""))
     if parsed is None:
@@ -214,4 +233,9 @@ def generate(
             "replay_save": replay_save,
         }
     )
-    return grounded
+    return _with_badge(grounded)
+
+
+def _with_badge(payload: dict[str, Any]) -> dict[str, Any]:
+    model_name = os.environ.get("AZURE_OPENAI_DEPLOYMENT") or ""
+    return apply_badge(payload, app_code="a", model_name=model_name)

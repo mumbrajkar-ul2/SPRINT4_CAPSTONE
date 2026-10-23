@@ -28,12 +28,9 @@ from apps.app_b.server import app as app_b  # noqa: E402
 from services.source_gateway.server import Handler  # noqa: E402
 from http.server import ThreadingHTTPServer
 
-HEADERS = {
-    "X-Api-Key": "local-demo-only",
-    "X-Actor-Id": "rt03-demo",
-    "X-Actor-Role": "RT-03",
-    "X-Correlation-Id": "corr-p18-click-20261019-001",
-}
+from apps.shared.oidc_session import bearer_headers
+
+HEADERS = bearer_headers("RT-03", actor="rt03-demo", correlation_id="corr-p18-click-20261019-001")
 KILL_ID = "corr-p18-kill-20261019-001"
 
 
@@ -132,8 +129,10 @@ def test_demo_key_file_and_image_note() -> None:
 
 
 def test_react_has_injection_and_anonymous_buttons() -> None:
+    text = (ROOT / "apps" / "ui_shared" / "src" / "DemoApp.jsx").read_text(encoding="utf-8")
+    assert "Try to approve from the feed note" in text
+    assert "Open the case with no identity" in text
+    assert "Take the next gateway message" in text
     for folder in ("app_a", "app_b"):
-        text = (ROOT / "apps" / folder / "ui" / "src" / "App.jsx").read_text(encoding="utf-8")
-        assert "Try to approve from the feed note" in text
-        assert "Open the case with no identity" in text
-        assert "Take the next gateway message" in text
+        page = (ROOT / "apps" / folder / "ui" / "src" / "App.jsx").read_text(encoding="utf-8")
+        assert "@ff/DemoApp.jsx" in page

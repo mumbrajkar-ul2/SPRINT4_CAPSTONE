@@ -28,6 +28,7 @@ from apps.app_a.store import reset_runtime as reset_app_a  # noqa: E402
 from apps.app_b.server import app as app_b  # noqa: E402
 from apps.app_b.store import reset_runtime as reset_app_b  # noqa: E402
 from apps.app_b.rules.resolver import load_pin, sha256_file, SQLITE_PATH  # noqa: E402
+from apps.shared.oidc_session import bearer_headers  # noqa: E402
 
 PIN = load_pin()
 LAKE_VERSION = PIN["lake_version"]
@@ -44,13 +45,7 @@ GQ02_Q = "Which recipe_release limit applied to APAC on 2026-06-01?"
 
 
 def _headers(role: str = "RT-01", actor: str | None = None) -> dict[str, str]:
-    n = role[-1]
-    return {
-        "X-Api-Key": API_KEY,
-        "X-Actor-Id": actor or f"demo-rt0{n}-1",
-        "X-Actor-Role": role,
-        "X-Correlation-Id": f"corr-p11b-{role}",
-    }
+    return bearer_headers(role, actor=actor, correlation_id=f"corr-p11b-{role}")
 
 
 def _limit_from_text(text: str | None) -> int | None:
@@ -241,6 +236,7 @@ def test_parity_harness_fourteen_rows() -> None:
                 "action_type": "recipe_hold_or_release",
                 "decision": "hold",
                 "proposed_by": "demo-rt02-1",
+                "signature": {"meaning": "I confirm this record.", "reason": "Reviewed the cited case."},
             }
         elif row_id == "PH-RULE-01":
             a_path = "/api/query"
@@ -339,12 +335,9 @@ sys.path.insert(0, str(root / "context-lake"))
 assert not any(name.startswith("apps.app_a") for name in sys.modules)
 from fastapi.testclient import TestClient
 from apps.app_b.server import app
+from apps.shared.oidc_session import bearer_headers
 client = TestClient(app)
-headers = {
-    "X-Api-Key": "local-demo-only",
-    "X-Actor-Id": "demo-rt01-1",
-    "X-Actor-Role": "RT-01",
-}
+headers = bearer_headers("RT-01")
 health = client.get("/health")
 assert health.status_code == 200 and health.json() == {"ok": True}
 case = client.get("/api/cases/PS000000016", headers=headers)
@@ -422,11 +415,8 @@ def test_app_b_runs_with_application_a_stopped() -> None:
         assert _port_open(port)
         health = urlopen(f"http://127.0.0.1:{port}/health", timeout=3)
         assert json.loads(health.read().decode("utf-8")) == {"ok": True}
-        headers = {
-            "X-Api-Key": "local-demo-only",
-            "X-Actor-Id": "demo-rt01-1",
-            "X-Actor-Role": "RT-01",
-        }
+        from apps.shared.oidc_session import bearer_headers
+        headers = bearer_headers("RT-01")
         for path in (
             "/api/cases/REPLAY-000000000",
             "/api/cases/PS000000016",

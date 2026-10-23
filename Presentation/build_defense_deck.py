@@ -40,7 +40,7 @@ NUM = "777777"
 HAIR = "E0E0E0"
 LINE = "D9D9D9"
 
-PRODUCT = "Fabpulse exception console"
+PRODUCT = "Force Fab"
 FOOTER_Y = 7.08
 
 
@@ -398,7 +398,7 @@ def slide_01(deck: Deck) -> None:
         1.55,
         7.2,
         1.35,
-        [("Fabpulse exception console", 36, True, CHAR)],
+        [(PRODUCT, 36, True, CHAR)],
         name="title",
         margin=0.0,
     )
@@ -427,7 +427,7 @@ def slide_01(deck: Deck) -> None:
     )
     speak(
         slide,
-        "This is the Fabpulse exception console. A reviewer reads one exception and records the decision that role allows. The explanation and the live demonstration take 40 minutes. Questions take the next 10 minutes.",
+        "This is Force Fab. A reviewer reads one exception and records the decision that role allows. The explanation and the live demonstration take 40 minutes. Questions take the next 10 minutes.",
         "the title",
         "the seven parts of the hour",
     )
