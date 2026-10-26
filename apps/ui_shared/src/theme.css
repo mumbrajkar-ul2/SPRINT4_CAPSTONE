@@ -462,6 +462,15 @@ button.quiet[aria-pressed="true"] {
   font-size: calc(1em - 5pt);
 }
 
+.ff-graph text.ff-edge-mark {
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.ff-graph .ff-edge-mark-box {
+  fill: var(--panel);
+}
+
 .ff-filters {
   display: flex;
   flex-wrap: wrap;

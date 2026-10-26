@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Cursor" version="22.1.0" type="device">
   <diagram id="context-lake-architecture" name="Context Lake">
-    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2040" pageHeight="1220" math="0" shadow="0">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2040" pageHeight="1260" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -43,10 +43,10 @@
         <mxCell id="boxCards" value="Rule cards&#xa;items/rules/*.card.yaml&#xa;25 decision tables.&#xa;Checked at build. Stay as YAML." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="1560" y="84" width="248" height="108" as="geometry" />
         </mxCell>
-        <mxCell id="boxSchemas" value="JSON schemas&#xa;context-lake/schemas/&#xa;Item, link, rule card, term,&#xa;and read envelope." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+        <mxCell id="boxSchemas" value="JSON schemas&#xa;context-lake/schemas/&#xa;Item, link, rule card, and term shapes.&#xa;read-envelope.schema.json is the packet shape." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="170" y="308" width="500" height="88" as="geometry" />
         </mxCell>
-        <mxCell id="boxGates" value="Five gates&#xa;Write-time, build-time, model-output,&#xa;read-time, and Application B build.&#xa;A reject stops the bad fact." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+        <mxCell id="boxGates" value="Five gates&#xa;Write-time and build-time keep a bad file out.&#xa;A claim check rejects the claim. The fact stays.&#xa;Application B stops when the SQLite hash differs." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="739" y="308" width="500" height="88" as="geometry" />
         </mxCell>
         <mxCell id="boxEnums" value="Closed lists&#xa;schemas/enums.generated.json&#xa;Sites, columns, and item ids.&#xa;check_claim looks names up here." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
@@ -55,40 +55,101 @@
         <mxCell id="boxBuild" value="build.py&#xa;Checks schemas, source hashes, the seven kinds, BP1 to BP8, the 25 cards, the six site maps, and every link target. Then it writes the SQLite file." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=6;" vertex="1" parent="1">
           <mxGeometry x="170" y="492" width="780" height="72" as="geometry" />
         </mxCell>
-        <mxCell id="boxSqlite" value="context-lake.sqlite3&#xa;items: 148 facts. edges: 180 links.&#xa;terms: 267 rows. items_fts: word search.&#xa;Runtime opens this file read-only." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+        <mxCell id="boxSqlite" value="context-lake.sqlite3&#xa;148 facts, including draft data.draft.business_context.&#xa;180 links. 267 term rows. items_fts searches words.&#xa;A normal read leaves the draft out. Runtime opens this file read-only." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="170" y="676" width="700" height="96" as="geometry" />
         </mxCell>
         <mxCell id="boxManifest" value="manifest.json&#xa;Build receipt.&#xa;Version 1.0.0, counts,&#xa;and the SQLite hash." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="900" y="676" width="400" height="96" as="geometry" />
         </mxCell>
-        <mxCell id="boxPin" value="app-b-pin.json&#xa;Version, SQLite hash,&#xa;enum hash, and card ids.&#xa;Application B must match this hash." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+        <mxCell id="boxPin" value="app-b-pin.json&#xa;Version, SQLite hash, enum hash, and card ids.&#xa;Application B compares the SQLite hash.&#xa;The enum hash is recorded. The check does not compare it." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="1330" y="676" width="478" height="96" as="geometry" />
         </mxCell>
         <mxCell id="boxRuntime" value="lake_runtime.py&#xa;Opens the file read-only.&#xa;search_items, get_item,&#xa;get_links, rule_at." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="170" y="884" width="460" height="76" as="geometry" />
         </mxCell>
-        <mxCell id="boxRest" value="Lake REST&#xa;rest_server.py&#xa;Port 8091.&#xa;Calls lake_runtime." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+        <mxCell id="boxRest" value="Lake REST&#xa;rest_server.py&#xa;Port 8091. Calls lake_runtime.&#xa;The pages do not call this port." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="680" y="884" width="460" height="76" as="geometry" />
         </mxCell>
-        <mxCell id="boxMcp" value="Lake MCP&#xa;mcp_server.py&#xa;Port 8092. Same four tools.&#xa;Calls lake_runtime." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+        <mxCell id="boxMcp" value="Lake MCP&#xa;mcp_server.py&#xa;Port 8092. Same four tools. Calls lake_runtime.&#xa;The pages do not call this port." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="1220" y="884" width="588" height="76" as="geometry" />
         </mxCell>
-        <mxCell id="boxAppA" value="Application A&#xa;apps/app_a/intelligence/retrieve.py&#xa;Cites lake items.&#xa;Pass or fail stays in its own code." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+        <mxCell id="boxAppA" value="Application A&#xa;retrieve.py, agent/tools.py, and ground.py&#xa;Cites lake items. Pass or fail stays in its own code.&#xa;All three call lake_runtime.py in this process." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="170" y="1072" width="780" height="76" as="geometry" />
         </mxCell>
-        <mxCell id="boxAppB" value="Application B&#xa;apps/app_b/rules/resolver.py&#xa;Rules come from the lake.&#xa;Checks the pin. Reads the rule cards." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
+        <mxCell id="boxAppB" value="Application B&#xa;apps/app_b/rules/resolver.py&#xa;Rules come from the lake. Checks the pin. Reads the rule cards.&#xa;Calls lake_runtime.py in this process." style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;fontSize=12;fillColor=#FFFFFF;strokeColor=#666666;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="990" y="1072" width="818" height="76" as="geometry" />
         </mxCell>
-        <mxCell id="caption" value="Left arrows feed build.py. The SQLite file feeds the read path. The two arrows on the right reach Application B without entering the SQLite file." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="150" y="1176" width="1600" height="28" as="geometry" />
+        <mxCell id="caption" value="The harvest writes the YAML files. build.py reads those files and writes the SQLite file, the name list, the receipt, and the pin.&#xa;lake_runtime.py serves both applications and both listeners." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="150" y="1176" width="1680" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="eHarvest" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0;entryY=0.25;" edge="1" parent="1" source="boxHarvest" target="boxBuild">
+        <mxCell id="eHarvestItems" value="Harvest writes these files" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=1;fontSize=11;" edge="1" parent="1" source="boxHarvest" target="boxItems">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="294" y="224" />
-              <mxPoint x="36" y="224" />
-              <mxPoint x="36" y="510" />
-              <mxPoint x="152" y="510" />
+              <mxPoint x="294" y="208" />
+              <mxPoint x="572" y="208" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eHarvestSemantic" value="Harvest writes these files" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.25;exitY=1;entryX=0.5;entryY=1;fontSize=11;" edge="1" parent="1" source="boxHarvest" target="boxSemantic">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="232" y="216" />
+              <mxPoint x="850" y="216" />
+              <mxPoint x="850" y="208" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eHarvestCards" value="Harvest writes these files" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.75;exitY=1;entryX=0.5;entryY=1;fontSize=11;" edge="1" parent="1" source="boxHarvest" target="boxCards">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="356" y="260" />
+              <mxPoint x="1684" y="260" />
+              <mxPoint x="1684" y="208" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eCardsBuild" value="Build checks these tables" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.75;entryX=1;entryY=0.5;fontSize=11;" edge="1" parent="1" source="boxCards" target="boxBuild">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1826" y="165" />
+              <mxPoint x="1860" y="165" />
+              <mxPoint x="1860" y="528" />
+              <mxPoint x="968" y="528" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eSchemasBuild" value="Build checks item, link, card, and term shapes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.85;exitY=1;entryX=0.545;entryY=0;fontSize=11;" edge="1" parent="1" source="boxSchemas" target="boxBuild">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="595" y="412" />
+              <mxPoint x="595" y="476" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eBuildEnums" value="Build writes this name list" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.3;entryX=0.25;entryY=1;fontSize=11;" edge="1" parent="1" source="boxBuild" target="boxEnums">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="968" y="514" />
+              <mxPoint x="1433" y="514" />
+              <mxPoint x="1433" y="412" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eBuildManifest" value="Build writes this receipt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.82;exitY=1;entryX=0.5;entryY=0;fontSize=11;" edge="1" parent="1" source="boxBuild" target="boxManifest">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="810" y="620" />
+              <mxPoint x="1100" y="620" />
+              <mxPoint x="1100" y="660" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eBuildPin" value="Build writes this pin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.95;exitY=1;entryX=0.5;entryY=0;fontSize=11;" edge="1" parent="1" source="boxBuild" target="boxPin">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="911" y="640" />
+              <mxPoint x="1569" y="640" />
+              <mxPoint x="1569" y="660" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -128,25 +189,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="eSqliteRest" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.929;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="boxSqlite" target="boxRest">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="820" y="812" />
-              <mxPoint x="910" y="812" />
-              <mxPoint x="910" y="868" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="eSqliteMcp" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.671;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="boxSqlite" target="boxMcp">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="640" y="832" />
-              <mxPoint x="1514" y="832" />
-              <mxPoint x="1514" y="868" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="eRuntimeRest" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="boxRuntime" target="boxRest">
+        <mxCell id="eRuntimeRest" value="Serves the REST listener" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontSize=11;" edge="1" parent="1" source="boxRuntime" target="boxRest">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="648" y="922" />
@@ -154,29 +197,47 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="eRestMcp" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="boxRest" target="boxMcp">
+        <mxCell id="ePacketShape" value="Each fact read checks this shape" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0;entryY=0.3;fontSize=11;" edge="1" parent="1" source="boxSchemas" target="boxRuntime">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1158" y="922" />
-              <mxPoint x="1202" y="922" />
+              <mxPoint x="420" y="412" />
+              <mxPoint x="124" y="412" />
+              <mxPoint x="124" y="907" />
+              <mxPoint x="152" y="907" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="eRestAppA" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="boxRest" target="boxAppA">
+        <mxCell id="eNameList" value="A claim check reads this name list" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0;entryY=0.75;fontSize=11;" edge="1" parent="1" source="boxEnums" target="boxRuntime">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="910" y="1000" />
-              <mxPoint x="560" y="1000" />
-              <mxPoint x="560" y="1056" />
+              <mxPoint x="1558" y="428" />
+              <mxPoint x="140" y="428" />
+              <mxPoint x="140" y="941" />
+              <mxPoint x="152" y="941" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="eMcpAppB" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="boxMcp" target="boxAppB">
+        <mxCell id="eRuntimeAppA" value="In-process read" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.424;exitY=1;entryX=0.25;entryY=0;fontSize=11;" edge="1" parent="1" source="boxRuntime" target="boxAppA">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1514" y="1018" />
-              <mxPoint x="1399" y="1018" />
-              <mxPoint x="1399" y="1056" />
+              <mxPoint x="365" y="1056" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eRuntimeAppB" value="In-process read" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.717;exitY=1;entryX=0.251;entryY=0;fontSize=11;" edge="1" parent="1" source="boxRuntime" target="boxAppB">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="1056" />
+              <mxPoint x="1195" y="1056" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eRuntimeMcp" value="Serves the MCP listener" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=0;html=1;endArrow=block;endFill=1;entryPerimeter=1;exitPerimeter=1;endSize=8;strokeColor=#333333;exitX=0.978;exitY=1;entryX=0.5;entryY=1;fontSize=11;" edge="1" parent="1" source="boxRuntime" target="boxMcp">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="1000" />
+              <mxPoint x="1514" y="1000" />
+              <mxPoint x="1514" y="976" />
             </Array>
           </mxGeometry>
         </mxCell>

@@ -1,0 +1,128 @@
+INFO:     Started server process [13440]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8110 (Press CTRL+C to quit)
+{"timestamp":"2026-10-24T22:06:44.777987+00:00","service":"app-b","level":"info","event":"health_ok","correlation_id":null,"actor_id":null,"path":"/health","status":200,"duration_ms":2.695,"traceparent":"00-428d619744b8af2d589cf1687c4e7a2f-c7ca81380c4d4584-01"}
+INFO:     127.0.0.1:64370 - "GET /health HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:06:45.066406+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/readyz","status":503,"duration_ms":95.127,"traceparent":"00-ee00d4954491f6e8bf55dbb293bf9d41-743935272b3f8f10-01"}
+INFO:     127.0.0.1:64370 - "GET /readyz HTTP/1.1" 503 Service Unavailable
+{"timestamp":"2026-10-24T22:06:59.907812+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/readyz","status":503,"duration_ms":9.186,"traceparent":"00-0d76d341d0fc9f5ba11ab31645e2b213-ac06aa5b70a2b254-01"}
+INFO:     127.0.0.1:51597 - "GET /readyz HTTP/1.1" 503 Service Unavailable
+{"timestamp":"2026-10-24T22:21:45.466669+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/","status":200,"duration_ms":130.635,"traceparent":"00-e63a0c1f43a757860fb980e8c562d357-1250cb712e16bbee-01"}
+INFO:     127.0.0.1:63744 - "GET / HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:21:45.550009+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/assets/index-Yfce06n4.js","status":200,"duration_ms":11.507,"traceparent":"00-6c014c852261395643d28613f9a5eaef-3f4cca128956682c-01"}
+INFO:     127.0.0.1:63744 - "GET /assets/index-Yfce06n4.js HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:21:45.552904+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/assets/index-DSF3uqj1.css","status":200,"duration_ms":12.346,"traceparent":"00-7356e3d72cc9afc6539af2ebc327ff39-62771421283f86ab-01"}
+INFO:     127.0.0.1:51155 - "GET /assets/index-DSF3uqj1.css HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:21:45.729669+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/dashboard","status":401,"duration_ms":0.256,"traceparent":"00-7ec2ae2be7db12cd9eb5c060ef898dba-7a1370bbddf05a84-01"}
+{"timestamp":"2026-10-24T22:21:45.730797+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/notifications","status":401,"duration_ms":0.225,"traceparent":"00-596d10791d727a4f6bef3451903ff4d9-d957eaffeb6346ef-01"}
+INFO:     127.0.0.1:63744 - "GET /api/dashboard HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51155 - "GET /api/notifications HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-24T22:21:45.736362+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/approvals/pending","status":401,"duration_ms":0.195,"traceparent":"00-334f6e3758c18ac1522043a244eafc38-973c3fc7e2e33f84-01"}
+INFO:     127.0.0.1:63759 - "GET /api/approvals/pending?limit=1 HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-24T22:21:45.739314+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/audit/search","status":401,"duration_ms":0.155,"traceparent":"00-359e07663611f0f426b90c9a72fb86b4-7b94bd646ee26556-01"}
+{"timestamp":"2026-10-24T22:21:45.742785+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/demo/state","status":401,"duration_ms":0.206,"traceparent":"00-6867b03452f90e98129a7c0503abbb53-0e1d1ca090d96a1f-01"}
+INFO:     127.0.0.1:58559 - "GET /api/audit/search?order=desc&limit=5 HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-24T22:21:45.746430+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/i18n/en","status":401,"duration_ms":0.198,"traceparent":"00-d3637a0b1b168a1cf1e49b4c8481eab6-07770781126b3ca4-01"}
+INFO:     127.0.0.1:63744 - "GET /api/demo/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:54950 - "GET /api/i18n/en HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-24T22:21:45.751462+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/me","status":401,"duration_ms":9.586,"traceparent":"00-0354e15edd7bf86fd5bdb04d3711710d-0b5f1cce7222dee7-01"}
+INFO:     127.0.0.1:59643 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-24T22:21:45.786732+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/favicon.ico","status":401,"duration_ms":0.146,"traceparent":"00-d92c2bd64af8135a10c3c95dc97c5018-b49715c264d5f232-01"}
+{"timestamp":"2026-10-24T22:21:45.786958+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/login","status":302,"duration_ms":10.831,"traceparent":"00-a1e6f371278d4b1e9aac9a193c0f22da-119606d8dbea5b36-01"}
+INFO:     127.0.0.1:54950 - "GET /favicon.ico HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:59643 - "GET /auth/login?next=/ HTTP/1.1" 302 Found
+{"timestamp":"2026-10-24T22:21:46.078490+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/callback","status":302,"duration_ms":216.432,"traceparent":"00-f886b1553275583eb1df95afb23a5b1a-0d4bcb61eef7632d-01"}
+INFO:     127.0.0.1:59643 - "GET /auth/callback?code=qLvBF-70_e9NTfJkt2cY41iwqWknWt3b0KeUwDp75z8&state=RA-XSPdkD_tOAOxAxuRMkg HTTP/1.1" 302 Found
+{"timestamp":"2026-10-24T22:21:46.242716+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/me","status":200,"duration_ms":12.821,"traceparent":"00-55259f504561797ee125024aca980838-f9041876790900c8-01"}
+INFO:     127.0.0.1:63759 - "GET /auth/me HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:21:46.250258+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/i18n/en","status":200,"duration_ms":20.124,"traceparent":"00-e3124cbb4d65b050d85292ee04272e71-0296b86a6fa0d93d-01"}
+INFO:     127.0.0.1:51155 - "GET /api/i18n/en HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:21:46.251660+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/notifications","status":200,"duration_ms":27.144,"traceparent":"00-935405313845d123c4c6cd73634d3208-ab264cb14d328d11-01"}
+INFO:     127.0.0.1:54950 - "GET /api/notifications HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:21:46.266762+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/dashboard","status":200,"duration_ms":47.654,"traceparent":"00-9e084d480cddb150b0923ebd19f25a6f-036c941db88957c6-01"}
+INFO:     127.0.0.1:59643 - "GET /api/dashboard HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:21:46.269767+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/favicon.ico","status":404,"duration_ms":2.646,"traceparent":"00-70fe1c0b96dd91b6a5466f7ed65ddfe0-db3e5ce92df53e53-01"}
+INFO:     127.0.0.1:51155 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+{"timestamp":"2026-10-24T22:21:46.310673+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/favicon.ico","status":404,"duration_ms":1.234,"traceparent":"00-48f9767fc04bef965a6bc5d447ed0c95-d83fd380d5af6deb-01"}
+INFO:     127.0.0.1:51155 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+{"timestamp":"2026-10-24T22:21:46.321132+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/audit/search","status":200,"duration_ms":92.088,"traceparent":"00-8410860b783afd69416fc3716956e5bb-808ec6e18dfda037-01"}
+INFO:     127.0.0.1:58559 - "GET /api/audit/search?order=desc&limit=5 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:21:47.185410+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-367ccd17a482064b070b18daf9389f77-2d01674df92a3374-01"}
+{"timestamp":"2026-10-24T22:21:47.186940+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":928.513,"traceparent":"00-367ccd17a482064b070b18daf9389f77-2d01674df92a3374-01"}
+INFO:     127.0.0.1:63759 - "GET /api/demo/state HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:21:47.191239+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-14110b3cf736cbf68fbb2a37c61553c9-add63277938a65d0-01"}
+{"timestamp":"2026-10-24T22:21:47.192591+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":2.48,"traceparent":"00-14110b3cf736cbf68fbb2a37c61553c9-add63277938a65d0-01"}
+INFO:     127.0.0.1:58559 - "GET /api/demo/state HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:21:47.227919+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/approvals/pending","status":200,"duration_ms":1003.004,"traceparent":"00-47e16609fd9868015b3d8bb1ea83339f-e22a6252710df5ea-01"}
+INFO:     127.0.0.1:63744 - "GET /api/approvals/pending?limit=1 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:22:02.708457+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/agent/run","status":200,"duration_ms":147.93,"traceparent":"00-67f76c6554fd2c4d5551ef7ae3f1b4f5-b48ccf08666ce549-01"}
+INFO:     127.0.0.1:64828 - "POST /api/agent/run HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:22:02.754495+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/audit/corr-app-b-3ff3a6ffd497","status":200,"duration_ms":34.23,"traceparent":"00-6293188dcd314a5343377e7edefa1553-319b3c4111934f0a-01"}
+INFO:     127.0.0.1:64828 - "GET /api/audit/corr-app-b-3ff3a6ffd497 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:23:12.655835+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/reset","status":200,"duration_ms":null,"traceparent":"00-e58064fb7c7912a41ce641205cb829e9-fed064d95fb9437b-01"}
+{"timestamp":"2026-10-24T22:23:12.659035+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/reset","status":200,"duration_ms":8.956,"traceparent":"00-e58064fb7c7912a41ce641205cb829e9-fed064d95fb9437b-01"}
+INFO:     127.0.0.1:50076 - "POST /api/demo/reset HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:23:14.120665+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/agent/run","status":200,"duration_ms":45.182,"traceparent":"00-9bb35780f77b62a2be2a82b9698d9fbc-1a6ec1bae25489ec-01"}
+INFO:     127.0.0.1:50076 - "POST /api/agent/run HTTP/1.1" 200 OK
+{"timestamp":"2026-10-24T22:23:14.128161+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/audit/corr-app-b-f160cc12d05c","status":200,"duration_ms":2.034,"traceparent":"00-bdc242ee07519d899300df3dd37048ee-9311e4baa8a9ddf2-01"}
+INFO:     127.0.0.1:50076 - "GET /api/audit/corr-app-b-f160cc12d05c HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:10:58.788393+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/logout","status":302,"duration_ms":72.987,"traceparent":"00-c30bcdfd33b7de55b243013144699095-36c86d27ab86027a-01"}
+INFO:     127.0.0.1:64592 - "GET /auth/logout HTTP/1.1" 302 Found
+{"timestamp":"2026-10-26T06:10:59.162249+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/login","status":302,"duration_ms":29.284,"traceparent":"00-90cd66b2ca7b03f12f101d7f27c727c8-913dcc9b46039375-01"}
+INFO:     127.0.0.1:64592 - "GET /auth/login?switch=1 HTTP/1.1" 302 Found
+{"timestamp":"2026-10-26T06:12:44.908748+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/callback","status":302,"duration_ms":754.302,"traceparent":"00-4cd8d4090d0c41931eb19cdc11bd4f88-43db5b0a39cadf45-01"}
+INFO:     127.0.0.1:57066 - "GET /auth/callback?code=bT76H8ZWU6_mqoNeuTy5gVUV2qv8oRIDpQbk7DipTqA&state=VLrduode3XGF5FfLS1Okzg HTTP/1.1" 302 Found
+{"timestamp":"2026-10-26T06:12:44.950564+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/","status":200,"duration_ms":17.341,"traceparent":"00-d8765cdab596168e145c97bd9c29d156-aa039b66eb732276-01"}
+INFO:     127.0.0.1:57066 - "GET / HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:12:45.163055+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/assets/styles.css","status":304,"duration_ms":23.212,"traceparent":"00-21afc1a38805b1b5fea3770c84acb933-3a1964409f605621-01"}
+INFO:     127.0.0.1:57066 - "GET /assets/styles.css HTTP/1.1" 304 Not Modified
+{"timestamp":"2026-10-26T06:12:45.217705+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/assets/index-Yfce06n4.js","status":304,"duration_ms":21.661,"traceparent":"00-52a40ba0672124dd53872bbdbad1a765-58dfb467d6aac0e2-01"}
+INFO:     127.0.0.1:56698 - "GET /assets/index-Yfce06n4.js HTTP/1.1" 304 Not Modified
+{"timestamp":"2026-10-26T06:12:45.224349+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/assets/index-DSF3uqj1.css","status":304,"duration_ms":21.209,"traceparent":"00-672ad111307ee9ca440cf895267a97b3-5a7f8d6dcc134253-01"}
+INFO:     127.0.0.1:57066 - "GET /assets/index-DSF3uqj1.css HTTP/1.1" 304 Not Modified
+{"timestamp":"2026-10-26T06:12:45.403183+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/me","status":200,"duration_ms":36.882,"traceparent":"00-7a3a6bf1f39334b7cac021e8fe48ca07-37c45c07c70119ac-01"}
+{"timestamp":"2026-10-26T06:12:45.403699+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/i18n/en","status":200,"duration_ms":25.934,"traceparent":"00-cfb0fd5cd844cd6b070457b621fb843f-b1a4ebe39e9cb992-01"}
+INFO:     127.0.0.1:53990 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58399 - "GET /api/i18n/en HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:12:45.414198+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/approvals/pending","status":200,"duration_ms":15.627,"traceparent":"00-6d0df94c0eaee62a662898b92f149abf-6362a5ddd932afe9-01"}
+INFO:     127.0.0.1:61463 - "GET /api/approvals/pending?limit=1 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:12:45.427255+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/notifications","status":200,"duration_ms":43.29,"traceparent":"00-5edb768d0da3fcbca996e62e64644043-6f4979b4c899727e-01"}
+INFO:     127.0.0.1:62766 - "GET /api/notifications HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:12:45.450815+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/audit/search","status":200,"duration_ms":108.013,"traceparent":"00-f88472a2974186b0fb12071832b21102-5888242450bc209c-01"}
+INFO:     127.0.0.1:56698 - "GET /api/audit/search?order=desc&limit=5 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:12:45.458812+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-ace2b95b4ef2278ca6190971ce05b165-9abf59cbd8854f7e-01"}
+{"timestamp":"2026-10-26T06:12:45.460642+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/dashboard","status":200,"duration_ms":125.304,"traceparent":"00-10b1baecada432a1e5080a6693150ae6-78618291fe830068-01"}
+INFO:     127.0.0.1:57066 - "GET /api/dashboard HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:12:45.476864+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/state","status":200,"duration_ms":26.727,"traceparent":"00-ace2b95b4ef2278ca6190971ce05b165-9abf59cbd8854f7e-01"}
+INFO:     127.0.0.1:53990 - "GET /api/demo/state HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:12:45.520886+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-ea11c2de23361910456103c9f9314224-2ca278fc852849a6-01"}
+{"timestamp":"2026-10-26T06:12:45.545157+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/state","status":200,"duration_ms":25.789,"traceparent":"00-ea11c2de23361910456103c9f9314224-2ca278fc852849a6-01"}
+INFO:     127.0.0.1:53990 - "GET /api/demo/state HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:13:10.893890+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/clocks/apply","status":200,"duration_ms":null,"traceparent":"00-be766d388de84652e9ff97667b9657d6-2d23e5a5c6e0ab56-01"}
+{"timestamp":"2026-10-26T06:13:10.898159+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/clocks/apply","status":200,"duration_ms":9.704,"traceparent":"00-be766d388de84652e9ff97667b9657d6-2d23e5a5c6e0ab56-01"}
+INFO:     127.0.0.1:57930 - "POST /api/demo/clocks/apply HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:13:18.607391+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/reset","status":200,"duration_ms":null,"traceparent":"00-1ceff5acd5c1be45c7236f34201bd742-07b80a3166c9e393-01"}
+{"timestamp":"2026-10-26T06:13:18.620112+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/reset","status":200,"duration_ms":19.351,"traceparent":"00-1ceff5acd5c1be45c7236f34201bd742-07b80a3166c9e393-01"}
+INFO:     127.0.0.1:59484 - "POST /api/demo/reset HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:13:22.433830+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/clocks/apply","status":200,"duration_ms":null,"traceparent":"00-943c6035569b35d82d775c4d63c8735f-ffee3460ba11cf2e-01"}
+{"timestamp":"2026-10-26T06:13:22.490380+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/clocks/apply","status":200,"duration_ms":60.77,"traceparent":"00-943c6035569b35d82d775c4d63c8735f-ffee3460ba11cf2e-01"}
+INFO:     127.0.0.1:59484 - "POST /api/demo/clocks/apply HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:16:42.834336+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/policy/check","status":200,"duration_ms":null,"traceparent":"00-704f27e0c893ade16ad3fe6123d83554-6edb77bc941144ae-01"}
+{"timestamp":"2026-10-26T06:16:42.837943+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/policy/check","status":200,"duration_ms":64.584,"traceparent":"00-704f27e0c893ade16ad3fe6123d83554-6edb77bc941144ae-01"}
+INFO:     127.0.0.1:63645 - "POST /api/demo/policy/check HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:16:51.162120+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/policy/decide","status":200,"duration_ms":null,"traceparent":"00-65a389f9951fbf12d8c2a2155b3849db-ac655d4116bb57f3-01"}
+{"timestamp":"2026-10-26T06:16:51.163246+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/policy/decide","status":200,"duration_ms":62.638,"traceparent":"00-65a389f9951fbf12d8c2a2155b3849db-ac655d4116bb57f3-01"}
+INFO:     127.0.0.1:55833 - "POST /api/demo/policy/decide HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:16:55.265125+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/policy/decide","status":200,"duration_ms":null,"traceparent":"00-f5f3558968b392b05706fb30371f55f4-565af94ee96e6063-01"}
+{"timestamp":"2026-10-26T06:16:55.266795+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/policy/decide","status":200,"duration_ms":7.457,"traceparent":"00-f5f3558968b392b05706fb30371f55f4-565af94ee96e6063-01"}
+INFO:     127.0.0.1:55833 - "POST /api/demo/policy/decide HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:33:59.513517+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/rule-trace","status":200,"duration_ms":null,"traceparent":"00-6cc076756ffeeef1ae94aab84fbddeab-54da3d5d31485721-01"}
+{"timestamp":"2026-10-26T06:33:59.517636+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/rule-trace","status":200,"duration_ms":67.803,"traceparent":"00-6cc076756ffeeef1ae94aab84fbddeab-54da3d5d31485721-01"}
+INFO:     127.0.0.1:53411 - "GET /api/demo/rule-trace HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:37:17.231779+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/rule-trace","status":200,"duration_ms":null,"traceparent":"00-bd8282d5ced1469ce0305a907173a56c-36d2253f1996963e-01"}
+{"timestamp":"2026-10-26T06:37:17.236010+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/rule-trace","status":200,"duration_ms":7.873,"traceparent":"00-bd8282d5ced1469ce0305a907173a56c-36d2253f1996963e-01"}
+INFO:     127.0.0.1:62007 - "GET /api/demo/rule-trace HTTP/1.1" 200 OK
+{"timestamp":"2026-10-26T06:41:35.126142+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/rule-trace","status":200,"duration_ms":null,"traceparent":"00-61c7897dc0bfe6623fe3cfbf2206e638-d788a7ef8a441517-01"}
+{"timestamp":"2026-10-26T06:41:35.128314+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"policy.owner","path":"/api/demo/rule-trace","status":200,"duration_ms":6.58,"traceparent":"00-61c7897dc0bfe6623fe3cfbf2206e638-d788a7ef8a441517-01"}
+INFO:     127.0.0.1:58247 - "GET /api/demo/rule-trace HTTP/1.1" 200 OK

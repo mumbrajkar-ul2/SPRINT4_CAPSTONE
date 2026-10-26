@@ -24,7 +24,7 @@ The picture has six bands, top to bottom.
 5. Read path. The read helper and the two listeners, ports 8091 and 8092.
 6. Readers. Application A cites the lake. Application B takes its rules from the lake.
 
-Arrows in the picture go from the harvest scripts and the YAML down to `build.py`, from `build.py` down to the SQLite file, from that file to the two listeners, and from the listeners to the two readers. A separate arrow on the right runs from the rule-card files to Application B. Those cards stay YAML. They are not rows in the SQLite file. A second arrow on the right runs from the pin to Application B, because Application B checks that hash before it uses the lake.
+The harvest writes the YAML fact files, the word files, and the 25 rule-card files. `build.py` reads those files and the shape files. It writes the SQLite file, `enums.generated.json`, `manifest.json`, and `app-b-pin.json`. `lake_runtime.py` serves Application A, Application B, the REST listener, and the MCP listener. The two listeners do not feed the applications. A separate arrow runs from the rule-card files to Application B. Those cards stay YAML. They are not rows in the SQLite file. A second arrow runs from the pin to Application B, because Application B compares the SQLite hash before it uses the lake.
 
 ---
 
@@ -136,7 +136,7 @@ File: `context-lake/schemas/enums.generated.json`.
 
 ### The five gates
 
-The gates are specified in `docs/11-data-context/contract-gates.md`. `build.py` enforces write-time and build-time. `check_claim` enforces model-output. The read envelope enforces read-time. `app-b-pin.json` is the artifact the Application B build gate checks. Tests under `context-lake/tests/` rerun these checks: `test_schema.py`, `test_gates.py`, `test_graph.py`, `test_golden.py`, `test_injection.py`, and `test_parity.py`.
+The gates are specified in `docs/11-data-context/contract-gates.md`. `build.py` enforces write-time and build-time. `check_claim` enforces model-output. The read envelope enforces read-time. `app-b-pin.json` is the artifact the Application B build gate checks. Write-time and build-time keep a bad file out of the new database. A claim check rejects the claim and leaves the fact in the database. Application B stops when the SQLite hash differs. Tests under `context-lake/tests/` rerun these checks: `test_schema.py`, `test_gates.py`, `test_graph.py`, `test_golden.py`, `test_injection.py`, and `test_parity.py`.
 
 | Gate | When it runs | What a reject does |
 |---|---|---|
@@ -189,7 +189,7 @@ This layer is what the apps open. Git YAML remains the source. If the SQLite fil
 
 File: `context-lake/generated/context-lake.sqlite3`.
 
-One SQLite file. Version 1.0.0. The hash in the pin is `f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8`.
+One SQLite file. Version 1.0.0. The hash in the pin is `f5be2b320a898756b6730edb539fcaeac422ded8f7e37b942c49ea65b01c12b8`. The 148 item rows include the draft `data.draft.business_context`. `search_items` and `get_item` leave a draft out unless the caller asks for drafts.
 
 ### items
 
@@ -232,7 +232,7 @@ The build receipt. It records lake version `1.0.0`, the build time, item count 1
 
 File: `context-lake/generated/app-b-pin.json`.
 
-The pin Application B must match. It records lake version `1.0.0`, the SQLite hash, the enum-file hash, and the list of canonical rule-card ids. `apps/app_b/rules/resolver.py` hashes the SQLite file at start. If the hash disagrees, Application B stops.
+The pin records lake version `1.0.0`, the SQLite hash, the enum-file hash, and the list of canonical rule-card ids. `verify_pin()` in `apps/app_b/rules/resolver.py` compares `sqlite_sha256` with the opened database. If the hash disagrees, Application B stops. The same function reads the enum file and returns that file's hash. It does not compare that hash with the pin.
 
 ---
 
@@ -288,9 +288,9 @@ These two apps are outside the lake folder. They are the programs that open it. 
 
 ### Application A
 
-Code: `apps/app_a/intelligence/retrieve.py`. The agent tools in `apps/app_a/agent/tools.py` call the same four reads.
+Code: `apps/app_a/intelligence/retrieve.py`, `apps/app_a/agent/tools.py`, and `apps/app_a/intelligence/ground.py`.
 
-Application A uses the lake for citations. Pass or fail stays in Application A's own transformed code. By default the retrieve path calls `lake_runtime` in process. If `LAKE_REST_URL` is set, it calls port 8091 instead.
+Application A uses the lake for citations. Pass or fail stays in Application A's own transformed code. `retrieve.py`, `agent/tools.py`, and `ground.py` call `lake_runtime` in this process. `http_retrieve` can call port 8091 when `LAKE_REST_URL` is set. Nothing in the repo calls `http_retrieve`.
 
 ### Application B
 

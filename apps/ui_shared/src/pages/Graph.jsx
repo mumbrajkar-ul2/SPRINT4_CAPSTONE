@@ -11,6 +11,16 @@ const KINDS = {
   domain_knowledge: "domain knowledge",
 };
 const TYPES = ["maps_to", "implements", "conflicts_with", "supersedes", "governs", "evidenced_by", "depends_on", "tested_by"];
+const MARK = {
+  maps_to: "M",
+  implements: "I",
+  conflicts_with: "C",
+  supersedes: "S",
+  governs: "G",
+  evidenced_by: "E",
+  depends_on: "D",
+  tested_by: "T",
+};
 
 export function GraphPage({ t, route, onUnauth }) {
   const initial = route.parts[1] ? decodeURIComponent(route.parts[1]) : "";
@@ -91,7 +101,25 @@ export function GraphPage({ t, route, onUnauth }) {
             if (!from || !to) {
               return null;
             }
-            return <line key={index} x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="var(--line)" tabIndex="0" onFocus={() => setFocus({ edge })}><title>{edge.from_id} {t(`link.${edge.type}`)} {edge.to_id}</title></line>;
+            const mark = edgeMark(from, to);
+            const letter = MARK[edge.type] || "";
+            const phrase = t(`link.${edge.type}`) || edge.type;
+            return (
+              <g key={index}>
+                <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="var(--line)" tabIndex="0" onFocus={() => setFocus({ edge })}>
+                  <title>{edge.from_id} {phrase} {edge.to_id}</title>
+                </line>
+                {letter ? (
+                  <g>
+                    <rect className="ff-edge-mark-box" x={mark.x - 7} y={mark.y - 7} width="14" height="14" rx="2" />
+                    <text className="ff-edge-mark" x={mark.x} y={mark.y} textAnchor="middle" dominantBaseline="central" fill="var(--ink)">
+                      {letter}
+                      <title>{phrase}</title>
+                    </text>
+                  </g>
+                ) : null}
+              </g>
+            );
           })}
           {placed.map((node) => (
             <g key={node.id} tabIndex="0" role="button" onClick={() => load(node.id, true)} onFocus={() => setFocus({ node })} onMouseEnter={() => setFocus({ node })}>
@@ -119,6 +147,17 @@ export function GraphPage({ t, route, onUnauth }) {
 }
 
 const LABEL_GAP = 18;
+
+function edgeMark(from, to) {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const length = Math.hypot(dx, dy) || 1;
+  const gap = 10;
+  return {
+    x: (from.x + to.x) / 2 + (-dy / length) * gap,
+    y: (from.y + to.y) / 2 + (dx / length) * gap,
+  };
+}
 
 function place(nodes) {
   const seed = nodes.find((node) => node.hop === 0) || nodes[0];

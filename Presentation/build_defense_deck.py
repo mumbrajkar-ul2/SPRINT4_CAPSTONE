@@ -342,10 +342,11 @@ class Deck:
             footer(slide, self.number)
         return slide
 
-    def save(self) -> None:
+    def save(self, path: Path | None = None) -> None:
+        target = OUT if path is None else path
         for slide in self.prs.slides:
             send_connectors_back(slide)
-        self.prs.save(OUT)
+        self.prs.save(target)
 
 
 def send_connectors_back(slide) -> None:
@@ -1303,6 +1304,332 @@ def slide_22(deck: Deck) -> None:
     )
 
 
+LAKE_OUT = ROOT / "context-lake-executive.pptx"
+
+
+def slide_context_lake_intro(deck: Deck) -> None:
+    slide = deck.slide()
+    claim(slide, "A Context Lake holds the reviewed meaning across an enterprise's systems.")
+    chips = [
+        (1.36, "Policy", "policy"),
+        (1.76, "Program", "program"),
+        (2.16, "Recorded decision", "decision"),
+    ]
+    for top, label, key in chips:
+        add_round(slide, 0.55, top, 2.30, 0.34, name=f"chip:{key}")
+        add_textbox(
+            slide,
+            0.62,
+            top,
+            2.16,
+            0.34,
+            [(label, 13, True, CHAR)],
+            align=PP_ALIGN.CENTER,
+            anchor=MSO_ANCHOR.MIDDLE,
+            name=f"chip-label:{key}",
+            margin=0.0,
+        )
+        mid = top + 0.17
+        line = slide.shapes.add_connector(1, Inches(2.93), Inches(mid), Inches(3.42), Inches(mid))
+        line.line.color.rgb = rgb(CHAR)
+        line.line.width = Pt(1.5)
+    page = add_round(slide, 3.50, 1.36, 2.70, 1.14, name="lake-page")
+    fill_solid(page, GOLD_TINT)
+    add_textbox(
+        slide,
+        3.62,
+        1.36,
+        2.46,
+        1.14,
+        [("Context Lake", 16, True, CHAR), ("Reviewed page", 13, False, BODY)],
+        align=PP_ALIGN.CENTER,
+        anchor=MSO_ANCHOR.MIDDLE,
+        name="lake-page-label",
+        margin=0.02,
+    )
+    add_textbox(
+        slide,
+        6.40,
+        1.36,
+        6.35,
+        1.14,
+        [(
+            "Each source system keeps its own records. The lake page is the reviewed meaning those records do not hold.",
+            16,
+            False,
+            CHAR,
+        )],
+        anchor=MSO_ANCHOR.MIDDLE,
+        name="caption",
+        margin=0.02,
+    )
+    parts = [
+        (
+            "Lake card",
+            "One reviewed fact: the statement, who accepted it, the source, and the dates it applied. A later reader can point at that meaning.",
+        ),
+        (
+            "Rule card",
+            "The decision table for one rule: the inputs, the authority, and the tests. The same rule is applied the same way, and a missing table is visible.",
+        ),
+        (
+            "Knowledge graph",
+            "Links between cards: carries out, governs, conflicts with, replaces, evidenced by, depends on, maps to, and tested by. A reader walks from a rule to the program, the decision, and the evidence.",
+        ),
+        (
+            "Shared words",
+            "One definition, plus the local names other systems use for that word. Systems that use different words can still meet on one meaning.",
+        ),
+        (
+            "Review gate",
+            "A fact enters only when it has an owner, a legal shape, and links that point at real cards. Raw operational rows stay in the system that owns them.",
+        ),
+        (
+            "Built copy",
+            "One read-only file from the reviewed source, so every reader sees the same set. A change starts in the source, then a new copy is built.",
+        ),
+    ]
+    row_top = 2.66
+    row_h = 0.52
+    gap = 0.04
+    for index, (name, job) in enumerate(parts):
+        y = row_top + index * (row_h + gap)
+        x, y, w, h = card_shell(slide, (0.55, y, 12.23, row_h), RED if index == 0 else CHAR)
+        add_textbox(
+            slide,
+            x + 0.18,
+            y,
+            2.05,
+            h,
+            [(name, 14, True, CHAR)],
+            anchor=MSO_ANCHOR.MIDDLE,
+            name=f"card:{index}",
+            margin=0.02,
+        )
+        add_textbox(
+            slide,
+            x + 2.25,
+            y,
+            w - 2.45,
+            h,
+            [(job, 13, False, BODY)],
+            anchor=MSO_ANCHOR.MIDDLE,
+            name=f"card:{index}",
+            margin=0.02,
+        )
+    value = add_rect(slide, 0.55, 6.14, 12.23, 0.82, GOLD_TINT, name="value")
+    add_bar(slide, 0.55, 6.14, 0.82, GOLD)
+    write_text(
+        value,
+        [
+            (
+                "An enterprise keeps many systems, and each system keeps its own records. Together, these six parts give every team the same accepted meaning, the same owner, and the same links.",
+                14,
+                True,
+                CHAR,
+            ),
+            (
+                "The lake does not take over the systems that still run the work.",
+                14,
+                False,
+                CHAR,
+            ),
+        ],
+        anchor=MSO_ANCHOR.MIDDLE,
+        name="value",
+        margin=0.16,
+    )
+    speak(
+        slide,
+        "A Context Lake holds the reviewed meaning across an enterprise's systems. "
+        "A lake card is one reviewed fact a later reader can point at. "
+        "A rule card is the decision table for one rule, so the same rule is applied the same way and a missing table is visible. "
+        "The knowledge graph is the links between cards, so a reader can walk from a rule to the program, the decision, and the evidence. "
+        "Shared words give one definition and the local names other systems use. "
+        "The review gate lets a fact in only when it has an owner, a legal shape, and real links. "
+        "The built copy is one read-only file, so every reader sees the same set. A change starts in the source, then a new copy is built. "
+        "Together, these six parts give every team the same accepted meaning, the same owner, and the same links. "
+        "The lake does not take over the systems that still run the work.",
+        "the six parts, then the gold line",
+        "this page on a semiconductor lot",
+    )
+
+
+def slide_context_lake(deck: Deck) -> None:
+    slide = deck.slide()
+    claim(slide, "The lot row cannot explain the hold. A reviewed rule page can.")
+    add_rect(slide, 0.55, 1.38, 12.23, 1.18, GRAY, name="problem-band")
+    add_textbox(
+        slide,
+        0.72,
+        1.46,
+        11.90,
+        1.02,
+        [
+            (
+                "Lot L00000016 shows dispatch recipe R02 and tool recipe R01. That row does not say what the disagreement means, who accepted the rule, or which program carries it out.",
+                15,
+                False,
+                CHAR,
+            ),
+            (
+                "Those facts started in the policy record, the old programs, and the locked decision. They are not on the traveler.",
+                15,
+                False,
+                CHAR,
+            ),
+        ],
+        name="problem",
+        margin=0.02,
+    )
+    add_textbox(
+        slide,
+        0.55,
+        2.66,
+        12.23,
+        0.62,
+        [(
+            "The Context Lake is the reviewed page that ties those facts together, so the command center can point at the accepted rule instead of guessing from the two recipe fields.",
+            15,
+            True,
+            CHAR,
+        )],
+        name="why",
+        margin=0.0,
+    )
+    boxes = row_cards(2, 3.36, 2.52)
+    reasons = [
+        (
+            RED,
+            "Keep the wafer decision available",
+            "Application A",
+            "The rebuilt program still sets the hold if the page is missing. The page is what the signer reads. A missing page leaves the sentence with nothing to cite. The hold can remain, and RT-03 still signs. A knowledge file must not be what releases the lot.",
+        ),
+        (
+            CHAR,
+            "Make a drifted rule visible",
+            "Application B",
+            "The same page is the mark. If the page is missing or says something else, the mark changes and names that page. A rule that lives only in code can hide a missing written limit, such as the old 1.05 tolerance, until the next lot.",
+        ),
+    ]
+    for index, (box, reason) in enumerate(zip(boxes, reasons)):
+        bar, title, app, body = reason
+        x, y, w, h = card_shell(slide, box, bar)
+        add_textbox(
+            slide,
+            x + 0.22,
+            y + 0.16,
+            w - 0.40,
+            0.70,
+            [(title, 16, True, CHAR)],
+            name=f"card:{index}",
+            margin=0.0,
+        )
+        add_textbox(
+            slide,
+            x + 0.22,
+            y + 0.82,
+            w - 0.40,
+            0.28,
+            [(app, 13, True, RED if index == 0 else CHAR)],
+            name=f"card:{index}",
+            margin=0.0,
+        )
+        add_textbox(
+            slide,
+            x + 0.22,
+            y + 1.14,
+            w - 0.40,
+            1.22,
+            [(body, 14, False, BODY)],
+            name=f"card:{index}",
+            margin=0.0,
+        )
+    how = add_rect(slide, 0.55, 6.04, 12.23, 0.90, GOLD_TINT, name="how")
+    add_bar(slide, 0.55, 6.04, 0.90, GOLD)
+    write_text(
+        how,
+        [(
+            "One lake file, version 1.0.0, built 18 October 2026. It does not refresh as the lot moves. The model does not write the hold.",
+            15,
+            False,
+            CHAR,
+        )],
+        anchor=MSO_ANCHOR.MIDDLE,
+        name="how",
+        margin=0.16,
+    )
+    speak(
+        slide,
+        "The lot row cannot explain the hold. A reviewed rule page can. "
+        "Lot L00000016 shows dispatch recipe R02 and tool recipe R01. "
+        "The Context Lake ties the policy record, the old programs, and the locked decision into one reviewed page. "
+        "Application A keeps the wafer decision available. The rebuilt program still sets the hold if the page is missing. The page is what the signer reads, and RT-03 still signs. A knowledge file must not be what releases the lot. "
+        "Application B makes a drifted rule visible. The same page is the mark. A missing or different page changes the mark and names that page. A rule that lives only in code can hide a missing written limit, such as the old 1.05 tolerance. "
+        "One lake file, version 1.0.0, built 18 October 2026, does not refresh as the lot moves. The model does not write the hold.",
+        "the lot row, then the two cards",
+        "the command-center walk of this lot",
+    )
+
+
+def build_context_lake() -> None:
+    deck = Deck()
+    deck.prs.core_properties.subject = "Context Lake for the command center"
+    slide_context_lake_intro(deck)
+    slide_context_lake(deck)
+    deck.save(LAKE_OUT)
+    scrub_theme(LAKE_OUT)
+    problems = audit_executive(LAKE_OUT)
+    if problems:
+        print("AUDIT FAILED")
+        for item in problems:
+            print("-", item)
+        sys.exit(1)
+    print(f"Wrote {LAKE_OUT}")
+
+
+def audit_executive(path: Path) -> list[str]:
+    problems: list[str] = []
+    presentation = Presentation(path)
+    if abs(presentation.slide_width - W) > 2000 or abs(presentation.slide_height - H) > 2000:
+        problems.append("Slide size is not 13.333 by 7.5 inches.")
+    if len(presentation.slides) != 2:
+        problems.append(f"Expected 2 slides, found {len(presentation.slides)}.")
+    for index, slide in enumerate(presentation.slides, start=1):
+        title = ""
+        for shape in slide.shapes:
+            if not shape.has_text_frame:
+                continue
+            text = shape.text_frame.text.strip()
+            if shape.name == "title":
+                title = text
+            if "birlasoft" in text.lower():
+                problems.append(f"Slide {index} contains the word birlasoft.")
+        if not title:
+            problems.append(f"Slide {index} has no claim title.")
+        elif words(title) > 18:
+            problems.append(f"Slide {index} title has {words(title)} words: {title}")
+        notes = slide.notes_slide.notes_text_frame.text.strip()
+        if not notes:
+            problems.append(f"Slide {index} has no speaker notes.")
+        print(f"{index:02d}. {title}")
+    with zipfile.ZipFile(path) as package:
+        blob = "\n".join(
+            package.read(name).decode("utf-8", errors="ignore")
+            for name in package.namelist()
+            if name.endswith(".xml")
+        )
+    forbidden = ["143044", "0E7C66", "C9842A", "E8EEF2", "1C2833", "5B9BD5", "Aptos", "Segoe UI", "Calibri Light"]
+    for token in forbidden:
+        if token.lower() in blob.lower():
+            problems.append(f"Forbidden token remains: {token}")
+    if "Click to add" in blob:
+        problems.append("Placeholder prompt text remains.")
+    if 'typeface="Calibri"' not in blob:
+        problems.append("Calibri typeface was not written.")
+    return problems
+
+
 def build() -> None:
     deck = Deck()
     for builder in (
@@ -1483,4 +1810,7 @@ def audit(path: Path) -> list[str]:
 
 
 if __name__ == "__main__":
-    build()
+    if len(sys.argv) > 1 and sys.argv[1] == "context-lake":
+        build_context_lake()
+    else:
+        build()

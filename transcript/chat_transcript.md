@@ -7216,3 +7216,850 @@ move the arc image/s (insignia) to the extreme right beyond the logout button
 ### Assistant
 
 The two arcs now sit at the far right of the header, past the Logout button. The name is on the left of that group, then Logout, then the arcs. Reload the page once so the browser loads the new script.
+
+## 2026-10-22 22:41
+
+**Model:** Grok 4.7
+
+### User
+
+are we using langgraph in the application? if yes, where and why?
+
+### Assistant
+
+Yes. LangGraph runs the investigation pause on both apps. The knowledge-graph page is a separate drawing of stored links. It does not use LangGraph.
+
+**Application A** compiles one graph named `app_a_investigate` in `apps/app_a/agent/graph.py`. `POST /api/agent/run` starts it. A signed approval calls `resume_agent` in `apps/app_a/routes/approvals.py`. The steps are: load the case, draft a plan, gather read-only tools, assemble evidence, check the claim, ask the policy gate, then either write the audit row or stop. The stop uses LangGraph `interrupt()` in `apps/app_a/agent/nodes.py`. The graph writes that pause to `apps/app_a/runtime/checkpoints.sqlite3` through `SqliteSaver`. A later approval resumes the same correlation id with `Command(resume=...)`. The recursion limit is 12. If the graph loops past that, it stops and records a wait for a person.
+
+**Application B** uses a shorter graph in `apps/app_b/agent/pause.py`. `POST /api/agent/pause` starts it. The graph reads one lake item, then `interrupt()` until a person resumes. The checkpoint file is `apps/app_b/runtime/checkpoints.sqlite3`. This exists so a restart still has the waiting case. Application B does not run the draft and tool steps from Application A.
+
+The pinned packages in `requirements-platform.txt` are `langgraph==1.0.3`, `langgraph-checkpoint==3.0.1`, and `langgraph-checkpoint-sqlite==3.0.1`.
+
+## 2026-10-22 22:43
+
+**Model:** Grok 4.7
+
+### User
+
+under which menu and function called in the application have we implemented this flow - "load the case, draft a plan, gather read-only tools, assemble evidence, check the claim, ask the policy gate, then either write the audit row or stop. The stop uses LangGraph interrupt() in apps/app_a/agent/nodes.py. The graph writes that pause to apps/app_a/runtime/checkpoints.sqlite3 through SqliteSaver. A later approval resumes the same correlation id with Command(resume=...). The recursion limit is 12. If the graph loops past that, it stops and records a wait for a person."?
+
+### Assistant
+
+This flow runs on **Application A** (port 8100). The left menu is **Scenarios**. The tab is **Recipe** (lot `L00000016`).
+
+**Start.** Band 3, Actions, button **Explain this mismatch**. That button calls `investigate()` in `apps/ui_shared/src/DemoApp.jsx`. The function posts `/api/agent/run` with `case_id` `PS000000016` and `proposed_action` `review recipe mismatch`. `apps/app_a/routes/agent.py` then calls `run_agent()`, which starts the graph `app_a_investigate`.
+
+**Resume.** On the same Recipe tab, **Hold** opens the sign box, and **Sign the hold** calls `confirmHold()`. That posts `/api/approvals` for case `PS000000016`, action `recipe_hold_or_release`, decision `hold`. If a checkpoint is still waiting for that correlation id, `apps/app_a/routes/approvals.py` calls `resume_agent()` with `Command(resume=...)`. Hold is accepted only for role **RT-03 Process Engineer**, and that person must differ from the draft author.
+
+The **Approvals** menu can resume the same waiting thread. Its sign action also posts `/api/approvals`. Resume happens only when that post matches a saved pause for the case.
+
+One more button on the Scenarios page starts the same graph: **Try to approve from the feed note**. It posts `/api/agent/run` for `REPLAY-000000000` with `scenario` `IC-01` and `proposed_action` `approve`. That path is the blocked-approval check. It is not the Recipe mismatch.
+
+Replay, Clocks, Policy, Outage, Rule trace, and Compare do not call this graph. The Ask boxes on Cases, Lots, and Faults call `/api/ask`. They do not start `app_a_investigate`.
+
+## 2026-10-22 22:47
+
+**Model:** Grok 4.7
+
+### User
+
+where else has langgraph been used in the app?
+
+### Assistant
+
+The only other running graph is on **Application B** (port 8110). No left-menu item calls it.
+
+It lives in `apps/app_b/agent/pause.py`. The graph has two steps: read lake item `rule.hold.person_only`, then stop with `interrupt()` until a person resumes. `SqliteSaver` writes that pause to `apps/app_b/runtime/checkpoints.sqlite3`.
+
+Two HTTP routes start and finish it, in `apps/app_b/routes/pause.py`:
+
+- `POST /api/agent/pause` calls `start_pause()`. The default case id is `PS000000016`. The caller must send a correlation id.
+- `POST /api/agent/resume` calls `resume_pause()`. Resume is refused when the actor id is `model_draft`, the same id that proposed the pause.
+
+The React pages do not call those two routes. Tests in `tests/platform/test_phase18_remaining.py` call `start_pause` and `resume_pause` directly.
+
+Application B’s `POST /api/agent/run` does not use LangGraph. That route drafts an answer in `apps/app_b/routes/agent.py` and returns. It does not compile a `StateGraph`.
+
+The rest of the LangGraph code supports the Application A graph you already saw:
+
+- `apps/app_a/agent/checkpointer.py` opens the Application A checkpoint file.
+- `apps/app_a/agent/waiting.py` reads that file so Approvals can find a paused thread.
+- `tests/platform/test_app_a_phase10_agent.py` imports `GraphRecursionError` for the step-limit check.
+
+The knowledge-graph page, the Ask boxes, and the other scenario tabs do not import LangGraph.
+
+## 2026-10-22 22:55
+
+**Model:** Grok 4.7
+
+### User
+
+Create a LangGraph_Architecture.md that describes the LangGraph architecture described above. Include the architecture diagram and event flow to understand the sequence of events in which the agentic flow is accomplished.
+
+### Assistant
+
+The architecture note is `docs/22-agentic-engineering/LangGraph_Architecture.md`.
+
+It describes both graphs. Application A is the ten-step investigation. The screen path is Scenarios, the Recipe tab, and Explain this mismatch, for case PS000000016. The diagram shows load, draft, gather, evidence, the claim check, the policy check, and then either the audit row or a saved pause. The sequence diagram follows that same case through Sign the hold. Each step names the audit event the code writes: EV-08 for a graph step, EV-07 for the policy verdict, and EV-09 for the hold.
+
+Application B is the two-step pause. No menu button calls it. POST /api/agent/pause starts it. POST /api/agent/resume finishes it when the actor is a different person from model_draft.
+
+The note also lists the other endings, including a missing case, BLOCK, and the 12-step limit. The knowledge-graph page, the Ask boxes, and the other scenario tabs are listed as screens that use other code.
+
+## 2026-10-22 23:07
+
+**Model:** Grok 4.7
+
+### User
+
+"Application A is the investigation. It loads a case, drafts a plan, reads the lake, checks the claim, asks the policy check, and then either writes the audit row or waits for a person." Which steps in "Event sequence for the Recipe mismatch" table in @docs/22-agentic-engineering/LangGraph_Architecture.md correspond to each of the steps in the above sentences?
+
+### Assistant
+
+Each clause in that sentence is one step in the Recipe mismatch table. Two table rows sit between those clauses, and the Recipe example takes the wait branch before it writes the audit row.
+
+| Sentence | Table order | Step |
+|---|---|---|
+| It loads a case | 2 | `load_case` reads case `PS000000016`. |
+| drafts a plan | 3 | `plan_draft` writes the draft plan into the graph state. |
+| reads the lake | 4 | `gather_tools` calls the six read tools. That step can repeat while the citation list is still empty. |
+| checks the claim | 6 | `ground_and_cite` checks the draft against those citations. |
+| asks the policy check | 7 | `opa_gate` returns EXECUTE, HOLD_FOR_REVIEW, or BLOCK. |
+| waits for a person | 8 and 9 | `route_verdict` selects the pause. `interrupt_wait` stops the graph and saves it. |
+| writes the audit row | 13 | `write_audit` writes the closing audit row. |
+
+Order 1 is the **Explain this mismatch** button. It starts the run. It is not one of the investigation steps.
+
+Order 5, `assemble_evidence`, sits between "reads the lake" and "checks the claim." It collects the tool results. The sentence does not name it.
+
+For this Recipe table, the wait happens first. Orders 10, 11, and 12 are the person coming back: **Sign the hold**, the resume, and storing the hold. Order 13 then writes the audit row, and order 14 is the end. The ending that writes the audit row and skips the person is in the "Other endings" table, when the case is missing, the verdict is BLOCK, or the verdict is EXECUTE and the run would not change a record.
+
+## 2026-10-22 23:13
+
+**Model:** Grok 4.7
+
+### User
+
+can you update "load a case", "draft a plan", "reads the lake", "checks the claim", "asks the policy check", "waits for a person",  "writes the audit row" steps in an additional column in the  "Event sequence for the Recipe mismatch" in LangGraph_Architecture.md so one can relate these steps with the content of that table?
+
+### Assistant
+
+The Recipe mismatch table now has a column named Investigation phrase. Rows 2, 3, 4, 6, 7, 8, 9, and 13 use the words from the sentence: load a case, draft a plan, reads the lake, checks the claim, asks the policy check, waits for a person, and writes the audit row. Rows 8 and 9 both say waits for a person. The other rows say where they sit next to those phrases. Row 1 is the button before load a case. Row 5 collects the tool results between reads the lake and checks the claim. Rows 10, 11, and 12 are the signature, the resume, and the stored hold. Row 14 is the end after writes the audit row.
+
+## 2026-10-22 23:17
+
+**Model:** Grok 4.7
+
+### User
+
+how many agents are called in the langgraph flow for the Recipe Mismatch. when are they called?
+
+### Assistant
+
+**One agent** runs for the Recipe mismatch. Its name in the code is `app_a_investigate`. **Explain this mismatch** starts it once, through `POST /api/agent/run`. **Sign the hold** continues that same agent. It does not start a second one.
+
+The model runs once, inside **draft a plan** (table row 3, `plan_draft`). `load_case` has already set the scenario to `SP-08` for case `PS000000016`. `plan_draft` then calls `generate()` with prompt `P-EXPLAIN-CONFLICT` and the question "Dispatch recipe_version is R02 and equipment recipe_rev is R01. Explain the mismatch."
+
+Inside that one call, `generate()` does three things in order:
+
+1. It retrieves lake items for that question.
+2. It produces the draft. With `MODEL_MODE` set to `replay`, it reads a saved answer file. With `MODEL_MODE` set to `azure`, it sends one request to Azure OpenAI.
+3. It checks that draft against the retrieved items.
+
+The later rows do not call the model. **Reads the lake** (`gather_tools`) calls two read functions in code: `get_case` for `PS000000016` and `get_item` for `rule.recipe.mismatch_show_both`. **Checks the claim** runs the check function `ground()` again. **Asks the policy check** calls the policy engine. **Waits for a person** stops the same agent. When RT-03 signs the hold, `resume_agent()` continues at that pause and writes the audit row. That resume does not call `generate()` again.
+
+## 2026-10-22 23:20
+
+**Model:** Grok 4.7
+
+### User
+
+Can we represent (or call out)  the agents by name and when they are invoked in the "Event sequence for the Recipe mismatch" table and the Event Sequence Diagram and any other place where its applicable?
+
+### Assistant
+
+The Recipe mismatch table now has an Agent column. Row 1 says `run_agent()` starts `app_a_investigate`. Row 3 says that agent calls the model once, through `generate()` with prompt `P-EXPLAIN-CONFLICT`. Row 11 says `resume_agent()` continues that same agent. The model call stays the one in row 3.
+
+The sequence diagram names the same agent and shows the one arrow to `generate` during draft a plan. The architecture diagram labels draft a plan as that model call. The start and resume steps, the feed-note button, and the other-endings note use the same agent name. Application B's pause graph stays unnamed in the code, and the note says the Recipe button uses `app_a_investigate` on Application A.
+
+## 2026-10-22 23:27
+
+**Model:** Grok 4.7
+
+### User
+
+was the app_a_investigate agent needed? could we have implemented it without an agent in the langgraph flow?
+
+### Assistant
+
+The Recipe flow can run without a model steering the steps. The code already works that way. `app_a_investigate` is a fixed list of functions. The model does not pick the next step or the next tool.
+
+**What the agent adds.** `run_agent()` starts that list when someone chooses **Explain this mismatch**. One step, `plan_draft`, calls `generate()` once with prompt `P-EXPLAIN-CONFLICT`. That call writes the explanation sentence. With `MODEL_MODE` set to `replay`, `generate()` reads a saved file. With `MODEL_MODE` set to `azure`, it sends one request to Azure OpenAI. The lake reads for this case are written in code: `get_case` for `PS000000016` and `get_item` for `rule.recipe.mismatch_show_both`. The policy check, the pause, and the audit row are also code.
+
+**What the pause needs.** The part that needs a saved wait is `interrupt()` plus the SQLite checkpoint. **Sign the hold** continues the same run through `resume_agent()`. The project locked that shape in `docs/10-architecture/adrs/adr-langgraph-interrupt-approval.md` so a restart during the wait still has the case. The rejected option in that note is a wait flag that lives only in the running process. A restart would drop that flag.
+
+A plain sequence of the same functions can do this Recipe case. `load_case` reads `PS000000016`. Code reads the two lake items. The screen shows the R02 and R01 sentence. The policy check runs. A row in a SQLite file records "waiting for RT-03" with the correlation id. **Sign the hold** reads that row and writes the audit event. That sequence never calls `generate()`, and it never asks a model which step comes next. The current graph uses LangGraph because the project locked the checkpointed pause there, and it uses the one model call because the Explain button is specified to draft the sentence.
+
+## 2026-10-22 23:29
+
+**Model:** Grok 4.7
+
+### User
+
+which steps makes the call to OpenAI?
+
+### Assistant
+
+**Draft a plan** is the only Recipe step that can call OpenAI. That is table row 3, `plan_draft`. It calls `generate()` once with prompt `P-EXPLAIN-CONFLICT`.
+
+`generate()` calls Azure OpenAI only when `MODEL_MODE` is `azure`, the lake retrieval returned items, and the call is still inside the budget. The request goes out from `complete_azure()` in `apps/app_a/intelligence/azure_client.py` to the chat completions URL on `AZURE_OPENAI_ENDPOINT`. When `MODEL_MODE` is `replay`, that same step reads a saved answer file and does not call Azure.
+
+`load_case`, `gather_tools`, `assemble_evidence`, `ground_and_cite`, `opa_gate`, `interrupt_wait`, `apply_human_decision`, and `write_audit` do not call OpenAI. **Sign the hold** resumes the same run and does not call `generate()` again.
+
+## 2026-10-22 23:32
+
+**Model:** Grok 4.7
+
+### User
+
+can we represent the Azure OpenAI call (via API) in this document at the appropriate places?
+
+### Assistant
+
+The note now shows the Azure OpenAI call at draft a plan. Row 3 of the Recipe table says `complete_azure()` posts one chat completion when `MODEL_MODE` is `azure`, and reads a saved file when `MODEL_MODE` is `replay`. The sequence diagram shows that POST to Azure OpenAI chat completions, and the saved-file path beside it. The architecture diagram labels the same box.
+
+Under the diagram, a small table gives the request: one HTTP POST to `{AZURE_OPENAI_ENDPOINT}/openai/deployments/{AZURE_OPENAI_DEPLOYMENT}/chat/completions`, with the API version on the query string. The POST runs after lake retrieval returns items and while the call is inside the budget. The four Azure settings must be present. The pieces table names `apps/app_a/intelligence/azure_client.py`. Sign the hold keeps that one POST. Application B's pause reads a lake item and waits. Its draft route reads a saved file or a lake sentence.
+
+## 2026-10-22 23:36
+
+**Model:** Grok 4.7
+
+### User
+
+now take all the architectural aspects covered in @docs/22-agentic-engineering/LangGraph_Architecture.md and see if @docs/10-architecture/fabpulse-modernization-archimate.drawio represents all these aspects? Find out which ones were missed, if any.
+
+### Assistant
+
+The as-built page shows the two apps, a LangGraph pause on each, the policy check, the audit chain, one checkpoint file per app, and saved replay answers. It does not show the Recipe step order or the Azure OpenAI POST.
+
+The baseline page is the system before this work. It has no LangGraph boxes. That matches the note.
+
+**Already on the as-built page**
+
+| Note | Diagram box or line |
+|---|---|
+| Application A on port 8100 and Application B on port 8110 | Application A, Application B, ports 8100 and 8110 |
+| A LangGraph pause with read-only tools on Application A | "LangGraph agent. Read-only tools. interrupt() stores the pause." |
+| A second pause on Application B | "LangGraph agent. Read-only tools, an interrupt() pause, and three extra jobs." |
+| Policy verdicts EXECUTE, HOLD_FOR_REVIEW, and BLOCK | "OPA inside Application A" |
+| Audit rows read by correlation id | "Audit chain. Read by correlation id." |
+| A checkpoint file that keeps the wait after a restart | "One checkpoint file per app. The wait survives a restart." |
+| `MODEL_MODE=replay` reads a saved answer | Footnote, plus "Replay files. 77 saved answers." |
+| A different person resumes the waiting change | "Approval. A different person resumes the waiting change." |
+| A claim needs a lake citation or the answer abstains | "Conflict explanation. The answer cites a lake item or abstains." |
+
+**Missed**
+
+- The agent name `app_a_investigate`, and the fact that the model does not pick the next step.
+- The Recipe path: Scenarios, the Recipe tab, **Explain this mismatch**, case `PS000000016`, scenario `SP-08`, then **Sign the hold** by RT-03. The Approvals menu is also absent.
+- The step order: load the case, draft a plan, gather, assemble evidence, check the claim, policy check, then pause or write the audit row.
+- The one Azure OpenAI POST. The diagram has no Azure OpenAI box. The footnote names `MODEL_MODE=replay` only. It does not show `complete_azure()`, the chat completions URL, prompt `P-EXPLAIN-CONFLICT`, or the four Azure settings.
+- The replay file is wired from the lineage view, with the label "plays answers." In the note, `generate()` inside draft a plan reads that file. The agent box has no line to the replay files.
+- The six read names, the empty write list, and the gather limits: 3 gather visits, 8 tool calls, 8 steps, and a recursion limit of 12.
+- The routes `POST /api/agent/run`, `POST /api/approvals`, `POST /api/agent/pause`, and `POST /api/agent/resume`.
+- The correlation id used as the LangGraph thread id, and `Command(resume=...)` continuing the same agent without a second model call.
+- The other endings: a missing case, BLOCK, EXECUTE with no record change, and the 12-step stop. Event codes EV-07, EV-08, EV-09, EV-10, and EV-12 are absent.
+- The feed-note button, which starts the same agent and ends in BLOCK. The knowledge-graph page, the Ask boxes, and the other scenario tabs, which do not start this agent.
+- The checkpoint paths `apps/app_a/runtime/checkpoints.sqlite3` and `apps/app_b/runtime/checkpoints.sqlite3`, and the environment overrides for those paths. The diagram's "stores the wait" line runs from the audit chain to the checkpoint file. In the note, `interrupt()` writes that file through `SqliteSaver`.
+
+**Different from the note**
+
+The Application B box says the agent has read-only tools and three extra jobs. The note's Application B graph reads lake item `rule.hold.person_only`, then pauses. It does not call the six read tools, and the code gives that graph no name. Resume is refused when the actor id is `model_draft`. `POST /api/agent/run` on Application B is a separate draft. It reads a saved file or a lake sentence. It does not compile this graph, and it does not post to Azure OpenAI.
+
+## 2026-10-22 23:40
+
+**Model:** Grok 4.7
+
+### User
+
+does the @docs/10-architecture/fabpulse-modernization-archimate.drawio need corrections?
+
+### Assistant
+
+Yes. Four labels on the as-built page disagree with the running code. The page does not need the Recipe step list, the event codes, or the chat-completions URL.
+
+1. The line labeled "stores the wait" runs from the audit chain to the checkpoint file. `interrupt()` writes that file through `SqliteSaver`. The audit chain stores the event rows. The line should leave the LangGraph agent and enter the checkpoint file.
+
+2. The line labeled "plays answers" runs from the lineage view to the replay files. `generate()` in Application A and Application B reads those files. The lineage list does not. The line should leave the Application A agent, and the Application B draft, and enter the replay files.
+
+3. The lines labeled "tools" run from Lake MCP on port 8092 to both agents. The Application A read tools call the lake in-process. They do not call port 8092. The Application B pause reads one lake item, `rule.hold.person_only`. It does not call the six tools or port 8092.
+
+4. The Application B agent box says "read-only tools, an interrupt() pause, and three extra jobs." The pause graph reads one lake item and then waits. The three extra jobs are other Application B checks from Phase 18. They are not steps inside that graph. The arrow from that box to "OPA inside Application B" also overstates the graph. The pause sets `HOLD_FOR_REVIEW` in code. Application B's separate draft route is the one that calls the policy check.
+
+The footnote says `MODEL_MODE=replay` plays a saved answer. That remains true for replay. Application A also posts one chat completion when `MODEL_MODE` is `azure`. The as-built page has no Azure OpenAI box, so that path is missing. Application B still reads a saved file or a lake sentence in both modes.
+
+The two apps, ports 8100 and 8110, the Application A pause, the three policy verdicts, the audit chain, one checkpoint file per app, and a different person resuming the wait can stay as they are.
+
+## 2026-10-22 23:45
+
+**Model:** Grok 4.7
+
+### User
+
+Review all the changes that have taken place in the application since the time @docs/10-architecture/fabpulse-modernization-archimate.drawio was created and check if any new capabilities or architecture additions/changes were introduced that will require a change in the diagram.
+
+### Assistant
+
+The as-built page matches the system after the Birlasoft motif and the 2026-10-19 compose rebuild. One later commit, "Enhancements - Identity, RBAC, KGraph, App Menu & Functions," added a new program. Azure OpenAI was enabled earlier, and the footnote still describes only replay. The correction plan now includes both.
+
+**Add to the diagram**
+
+- **Identity on port 8095**, with `identity.sqlite3` for users, roles, and sites. Application A and Application B send sign-in there. The legacy API and the source gateway still have no identity check, and those two labels can stay.
+- **The role box.** The screen now shows descriptions such as RT-03 Process Engineer, and the accounts also use FF-ADMIN and FF-AUDITOR. The line "Company job titles are unknown" is out of date.
+- **The console footnote.** Both apps serve one shared left menu: Home, Dashboard, Cases, Approvals, Scenarios, Lots, Partners, Knowledge graph, Glossary, Audit, KPIs, and Faults. The wordmark is Force Fab by TSM Corp. The knowledge-graph page draws links already stored in `context-lake.sqlite3`. Faults reads the existing legacy file. Those two screens do not need their own server boxes.
+- **Azure OpenAI**, already in the plan. Application A posts one chat completion when `MODEL_MODE` is `azure`. Application B still reads a saved file or a lake sentence.
+
+**Already covered by the line corrections**
+
+The checkpoint arrow, the replay-file arrow, the Lake MCP tool arrows, and the Application B pause label disagree with the code. Those stay in the plan. They are fixes to the old picture, not new programs.
+
+**Leave off the page**
+
+The Recipe step list, event codes, prompt ids, the chat-completions URL, header text, logout placement, and graph-label spacing do not add a program or a store. The Ask boxes call `/api/ask` inside the two apps that are already drawn.
+
+## 2026-10-22 23:50
+
+**Model:** Grok 4.7
+
+### User
+
+make updates to the @c:\Users\mange\.cursor\plans\correct_archimate_lines_0d31f2f3.plan.md as needed to make it complete and comprehensive.
+
+### Assistant
+
+The correction plan now has the page size, the exact label strings, the box positions, and the line routes.
+
+The as-built page grows to 2200 by 1400. Identity, port 8095, identity.sqlite3, and Azure OpenAI sit in a new column to the right of Application B. Both apps get a sign-in line to Identity. Only agent app_a_investigate gets a line to Azure OpenAI.
+
+The agent and pause labels are rewritten. The role box names the six role descriptions plus FF-ADMIN and FF-AUDITOR. The footnote names the shared menu, the knowledge-graph page, Faults, Force Fab by TSM Corp, and both model modes.
+
+The MCP tool lines and the lineage-to-replay line come out. The wait lines leave both agents and enter the checkpoint. Replay reads leave the Application A agent and the Application B draft. The policy line leaves Application B, not the pause graph.
+
+The Recipe step list, event codes, and a separate box for the menu stay off the page. Close diagrams.net without saving, then reopen the file, after the XML edit.
+
+## 2026-10-22 23:54
+
+**Model:** Grok 4.7
+
+### User
+
+does the architecture and flow described in  @docs/22-agentic-engineering/LangGraph_Architecture.md use MCP for any reason?
+
+### Assistant
+
+No. The flow in `LangGraph_Architecture.md` does not call MCP.
+
+Application A’s agent reads the lake in-process. The six tools in `apps/app_a/agent/tools.py` call `lake_runtime` directly: `search_items`, `get_item`, `get_links`, `rule_at`, plus `get_case` and `get_recovery_status`. None of those open port 8092.
+
+Application B’s pause reads one lake item, `rule.hold.person_only`, through `fetch_item` in the lake resolver. That graph does not call MCP either.
+
+Lake MCP on port 8092 is a separate program. It can serve the same read-only lake tools to some other caller. The Recipe run and the Application B pause do not use it. The note never names MCP. The as-built diagram’s “tools” lines from Lake MCP to both agents are the lines the correction plan removes.
+
+## 2026-10-23 00:03
+
+**Model:** Grok 4.7
+
+### User
+
+which scenarios under the "Scenarios" menu or the "Fault Scenarios" menu options use/call MCP?
+
+### Assistant
+
+None of them call MCP. Lake MCP on port 8092 is not on the path for any Scenarios tab or any Faults card.
+
+**Scenarios**
+
+| Tab | What the button calls | Where the data comes from |
+|---|---|---|
+| Replay | `/api/demo/replay/receive`, `/api/query`, `/api/demo/replay/drop` | The demo session and the in-process lake read inside `generate()` |
+| Recipe | `/api/agent/run`, then `/api/approvals` | `lake_runtime` inside the agent. The six tools do not open port 8092 |
+| Clocks | `/api/demo/clocks/apply` | The demo session |
+| Policy | `/api/demo/policy/check`, `/api/demo/policy/decide` | The demo session |
+| Outage | The probe, park, and replay buttons, plus the gateway pull | The demo session. The gateway pull calls port 8090 |
+| Rule trace | `/api/demo/rule-trace` | The lineage list already held for that rule |
+| Compare | `/api/demo/state` on this app and the other app | The two demo sessions |
+
+**Faults**
+
+Tool drift, outlier wafer, unqualified supplier, and lot genealogy all come from `GET /api/scenarios/faults`. That route reads the legacy SQLite file. The Ask box on a fault card posts `/api/ask`, which calls `generate()` in-process. It does not call MCP.
+
+## 2026-10-23 00:40
+
+**Model:** Grok 4.7
+
+### User
+
+Correct the as-built ArchiMate page
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The as-built page now matches the running apps. The baseline page is unchanged. The file is `docs/10-architecture/fabpulse-modernization-archimate.drawio`.
+
+Close diagrams.net without saving, then reopen that file. An open editor can write the old layout back.
+
+The page is 2200 by 1400. The three bands are wider. Identity and Azure OpenAI sit to the right of Application B.
+
+The Application A box now names agent `app_a_investigate`. It reads the lake in-process, makes one draft call, and `interrupt()` writes the pause. The Application B box is the pause graph. It reads `rule.hold.person_only`, then `interrupt()`. There is no screen button for that pause. The checkpoint box says there are two checkpoint files, one per app. The role box adds FF-ADMIN and FF-AUDITOR, and it says the screen shows the role description, such as RT-03 Process Engineer. The footnote names the shared menu, the knowledge-graph page, Faults, the Force Fab by TSM Corp wordmark, and both `MODEL_MODE=replay` and `MODEL_MODE=azure`.
+
+The two “tools” lines from Lake MCP to the agents are gone. Lake MCP still has its line to port 8092. The “plays answers” line from the lineage view to the replay files is gone.
+
+Both agents now have a “stores the wait” line into the checkpoint. Application A’s agent has “reads a saved answer” to the replay files, and “one chat completion” to Azure OpenAI. Application B’s draft has “draft reads a saved answer” to the replay files, and “draft calls the policy check” to the policy box. The pause graph does not call Azure OpenAI and does not call that policy check.
+
+The new column has Identity on port 8095, the 8095 port box, and `identity.sqlite3`. Both apps have a “sign in” line to Identity. Identity serves port 8095 and stores accounts in `identity.sqlite3`.
+
+I checked the as-built page after the edit. No line runs through a box. The two agents each reach the checkpoint. The lineage view has no line to the replay files.
+
+## 2026-10-24 08:55
+
+**Model:** Grok 4.7
+
+### User
+
+Context Lake executive slides
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The two executive slides are in `Presentation/context-lake-executive.pptx`. The 22-slide defense deck was left as it was.
+
+Slide 1 is the lesson. The title is: A Context Lake holds the reviewed meaning across an enterprise's systems.
+
+A policy, a program, and a recorded decision connect into one reviewed page. Six rows name the parts and the job of each one. A lake card is one reviewed fact a later reader can point at. A rule card is the decision table for one rule. The knowledge graph is the links between cards. Shared words give one definition and the local names other systems use. The review gate lets a fact in only when it has an owner, a legal shape, and real links. The built copy is one read-only file, so every reader sees the same set. The gold line says those six parts give every team the same accepted meaning, the same owner, and the same links. The lake does not take over the systems that still run the work. This slide has no lot id, no recipe, no port, and no application name.
+
+Slide 2 puts that page on the fab. The title is: The lot row cannot explain the hold. A reviewed rule page can.
+
+Lot L00000016 shows dispatch recipe R02 and tool recipe R01. Application A keeps the wafer decision available. The rebuilt program still sets the hold if the page is missing, and RT-03 still signs. Application B makes a drifted rule visible. The same page is the mark. The footer says one lake file, version 1.0.0, built 18 October 2026. It does not refresh as the lot moves. The model does not write the hold.
+
+Speaker notes are on both slides. To rebuild only this file, run `python Presentation/build_defense_deck.py context-lake`.
+
+I opened both slides in PowerPoint. The text fits on the page. The defense deck file was not rewritten.
+
+## 2026-10-24 08:58
+
+**Model:** Grok 4.7
+
+### User
+
+run the app
+
+### Assistant
+
+Force Fab is running in replay mode. I opened both applications in the browser.
+
+Application A is at http://127.0.0.1:8100. Application B is at http://127.0.0.1:8110. Identity is at http://127.0.0.1:8095. The lake listeners are on ports 8091 and 8092.
+
+Each health check returned HTTP 200.
+
+`Start_App.bat` did not get that far. `run_local.sh` has Windows line endings, so WSL bash stops on the first line. I started the same five programs with the Windows Python that is already on this PC.
+
+## 2026-10-24 09:35
+
+**Model:** Grok 4.7
+
+### User
+
+I would like to demo the links between cards in the knowledge graph in the app, to show how a reader can walk from a rule to the program, the decision, and the evidence. Provide me steps to demo using Recipe example.
+
+### Assistant
+
+Use Application A at http://127.0.0.1:8100. The walk starts on the 2026 APAC recipe release rule. That card links to the program. The program links to the archive, which is the evidence. The recorded decision sits on the canonical recipe rule, one click away.
+
+If the sign-in page is up, click Sign in as someone else. Use `engineer.az` and the demo password in `Presentation/logins.md`. Type the six digits from the line Demo: current code, then click Continue.
+
+1. Open Menu, then Knowledge graph. Or go straight to http://127.0.0.1:8100/#/graph/rule.recipe_release.limit.v2026.apac
+2. In Item id, enter `rule.recipe_release.limit.v2026.apac` and click Show graph. The sentence under the picture says the 2026 APAC recipe release limit is 25,000 USD from 1 January 2026 through 31 December 2026. Say: this card is the rule.
+3. In the table, click `code.legacy_policy.js_allow` on the row whose middle cell says implements. The sentence says `legacy_policy.js` reads the archive and allows an amount up to the archive limit times 1.05. Say: this card is the program.
+4. On that page, click `data.contract.decision_policies_archive` on the row whose middle cell says depends on. The sentence says the archive file holds 15 recipe release limits, and the 2026 APAC limit is 25,000 USD. Say: this card is the evidence. The program reads this file.
+5. Click Back until the 2026 rule is in the center again. Click the canonical rule `rule.recipe_release.limit` on the row whose middle cell says governs. Then click the button governs so the other line types drop out. Click `decision.bo05.recipe_authority`. The sentence says the archive is the authority for the recipe release limit, and the four programs are deviations. Say: this card is the decision.
+
+The picture draws at most 12 neighbors. The canonical rule has 29, so start on the 2026 APAC card. The program is on that first picture.
+
+The lot mismatch rule is a second, shorter walk. Open `rule.recipe.mismatch_show_both`. It maps to `term.recipe_revision_dispatch`, the dispatch recipe word. Click that word. It conflicts with `data.join.recipe_mismatch`. That card says 91 of 125 process steps have a different dispatch recipe and tool recipe. Click it, then click `decision.bp1.recipe_mismatch` on the row that says evidenced by. That card records the same 91 of 125 count. This path has the rule, the count, and the recorded decision. It has no program card.
+
+## 2026-10-24 11:00
+
+**Model:** Grok 4.7
+
+### User
+
+does cursor perform indexing of the content in its project workspace and create some sort of context lake to make the prompts efficient?
+
+### Assistant
+
+Cursor indexes the project so the agent can search it. The index is a local search index. It is not a standing store of project knowledge that every prompt reads.
+
+**What gets indexed**
+
+Current Cursor builds a search index called Instant Grep. It lives on your machine, under `.git/cursor/` in that repo. Git does not track that folder. Cursor does not upload your files to build it, and it does not store embeddings of your code for search.
+
+The index splits file text into overlapping three-character pieces and records which files contain each piece. When the agent searches for a name, an error string, or a regex, Cursor uses that list to skip files that cannot match, then checks the remaining files. The index is tied to a git commit, and your unsaved and uncommitted edits sit on top of it. A large pull or a branch switch can force a rebuild. `.gitignore` files are left out, because the index is built from git-tracked content. `.cursorignore` is applied when the agent reads a result, so those files do not come back as matches.
+
+Cursor used to compute embeddings and keep a semantic index on its servers, so a prompt could find code by meaning. In July 2026 Cursor staff said models had become good enough at text search that this path was no longer helping. That server index, and the Codebase Indexing settings that managed it, were removed. An older build can still show an indexing progress bar. That bar does not mean a separate semantic search tool is available to the agent.
+
+Docs: [Search](https://cursor.com/docs/agent/tools/search) and [Fast regex search](https://cursor.com/blog/fast-regex-search).
+
+**What actually enters the prompt**
+
+The index stays on disk. The agent searches, then reads the matching files. Those snippets are what enter the model request.
+
+A wide search can run in a separate Explore agent with its own window. That agent returns a short finding. The main chat does not have to hold every file that was opened.
+
+Other text enters the prompt on its own, apart from the index: this conversation, project rules, files you name with `@`, and files the agent chooses to open. `.cursorignore` blocks Agent and `@` from those paths. A terminal command or an MCP tool can still read an ignored file.
+
+So the index makes search fast. The prompt stays smaller because the agent pulls in the files it found, one search at a time, rather than the whole workspace.
+
+## 2026-10-24 11:41
+
+**Model:** Grok 4.7
+
+### User
+
+"The sentence under the picture says the 2026 APAC recipe release limit is 25,000 USD from 1 January 2026 through 31 December 2026. Say: this card is the rule." I dont see this. Check attached image.
+
+### Assistant
+
+The full sentence is below the picture. The red circle only shows a short label, which is why that line is not on your screen.
+
+The label on the red circle stops at **business rule The 2026 APAC recipe_release**. The page keeps circle labels to about 28 characters.
+
+Scroll past the picture. The next paragraph is the full card. It reads: The 2026 APAC recipe_release limit is 25000 USD from 2026-01-01 through 2026-12-31. Currency is USD. Honesty: REAL. Say that line, then say this card is the rule.
+
+Rest the pointer on the red circle if you want that same paragraph to follow the circle. The link table is under the paragraph. The row for the program is there: `code.legacy_policy.js_allow`, middle cell **implements**.
+
+## 2026-10-24 11:58
+
+**Model:** Grok 4.7
+
+### User
+
+Letter marks on Knowledge graph lines
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+Each line on the Knowledge graph now has a one-letter mark. Refresh Application A. The same marks are on Application B after a refresh.
+
+The letters are:
+
+- M maps to
+- I implements
+- C conflicts with
+- S supersedes
+- G governs
+- E evidenced by
+- D depends on
+- T tested by
+
+The filter buttons use the same letters, so M on a line matches the button M maps to. Rest the pointer on a letter to see the full phrase.
+
+On the 2026 APAC recipe page, the line to `code.legacy_policy.js_allow` shows I. The line to `rule.recipe_release.limit` shows G. The line to `term.sales_region` shows M.
+
+I opened that page after the rebuild. The letters are on the lines, and the buttons read M maps to through T tested by.
+
+## 2026-10-24 13:08
+
+**Model:** Grok 4.7
+
+### User
+
+does a Context Lake display any of the below 4 attributes/behavior/properties -
+1. Reconciliation of Real-Time Data
+2. Auto-generated mirror + aggregation properties for multi-hop queries
+3. Meta data on every object-type/property/relation
+4. API first
+
+### Assistant
+
+This Context Lake has one of those four in part, and it does not have the other three.
+
+**1. Reconciliation of real-time data.** The lake does not do this. It is a reviewed copy built on 18 October 2026. It stays still while a lot moves. Live lot rows stay in the operational database. Feed reconciliation runs in the rebuilt programs, outside the lake.
+
+**2. Auto-generated mirror and aggregation properties for multi-hop queries.** The lake does not do this. A person writes each link in the source file. `get_links` walks those links up to 6 steps and returns the same links. It does not create a mirror property or an aggregation property.
+
+**3. Metadata on every object type, property, and relation.** Each reviewed card carries its own fields: id, kind, statement, source path, source hash, claim, trust, owner, the dates the fact applied, and its links. Each link has one type from the closed list of eight, such as `implements` or `evidenced by`. Shared words carry one definition and the local names other systems use. The lake does not hold a metadata record for every column of every operational table. A lot row is not a lake object.
+
+**4. API first.** A read API exists, and it is a second door, not the way the apps normally read. Port 8091 and port 8092 expose four reads: search, one card, the links, and which rule applied on a date. A write through those ports is rejected. Application A and Application B open the SQLite file in process. Application A calls port 8091 only when `LAKE_REST_URL` is set.
+
+## 2026-10-24 15:07
+
+**Model:** Grok 4.7
+
+### User
+
+rebuild the app so new settings from .env file are applied
+
+### Assistant
+
+The apps are running again with the settings from `.env`.
+
+Application A is http://127.0.0.1:8100. Application B is http://127.0.0.1:8110. Identity is http://127.0.0.1:8095. Both health pages returned `{"ok":true}`.
+
+The runtime mode on both applications is azure. Application A has an endpoint, a key, a deployment, and an API version set. Those values are not printed here.
+
+Refresh both pages. The runtime pill should say azure.
+
+The readiness page returns HTTP 503. The database, the lake, and identity all answered. That page only treats the modes replay and live as ready. The mode azure is running, and that check still marks the mode as not ready.
+
+## 2026-10-24 15:24
+
+**Model:** Grok 4.7
+
+### User
+
+does App B call Azure Open AI when "Explain the mismatch" button is clicked?
+
+### Assistant
+
+Application B reads a saved file for that click. If the file is missing, it builds the sentence from lake statements. It does not send the question to Azure OpenAI.
+
+The button on the Recipe tab is **Explain this mismatch**. It posts to Application B at `/api/agent/run` for case `PS000000016`. That route calls `generate()` with prompt `P-EXPLAIN-CONFLICT` and the question "Dispatch recipe_version is R02 and equipment recipe_rev is R01. Explain the mismatch."
+
+`generate()` looks up the saved replay file even when `MODEL_MODE` is azure. The lookup is called with mode `replay`. A file hit sets the answer source to `replay_file`. The page badge then says "Replayed saved answer · no model call". A miss builds the sentence from the retrieved lake cards. The badge then says "Reviewed lake answer · no model". The response field `model` stays empty. Application B has no Azure client.
+
+While the click is in progress, the shared page can show "Asking Azure OpenAI to explain the recipe mismatch." It shows that line because the runtime mode is azure. That line is the browser status. The server still reads the file or the lake.
+
+## 2026-10-24 15:25
+
+**Model:** Grok 4.7
+
+### User
+
+does App A call Azure Open AI when "Explain the mismatch" button is clicked?
+
+### Assistant
+
+Yes. The Application A process now running has runtime mode azure, so that click sends one request to Azure OpenAI.
+
+The button on the Recipe tab is **Explain this mismatch**. It posts to Application A at `/api/agent/run` for case `PS000000016`. That starts the agent `app_a_investigate` once. The case is scenario `SP-08`. The step `plan_draft` calls `generate()` once, with prompt `P-EXPLAIN-CONFLICT` and the question "Dispatch recipe_version is R02 and equipment recipe_rev is R01. Explain the mismatch."
+
+Because the mode is azure, `generate()` calls `complete_azure()`. That function posts the prompt to the Azure OpenAI chat completions address for the deployment named in `.env`. The answer source comes back as `azure`. The page badge says "Generated by Azure OpenAI" and names that deployment. The later steps of the same click read the lake and run the policy check. They do not call the model again.
+
+If the Azure sentence leaves out a required fact, the page replaces it with the stored disagreement sentence. The Azure request has already been sent. If the daily token budget is already used up, this click skips the request and returns `llm_budget_exceeded`.
+
+The same button reads a saved file when the runtime mode is replay. The process now running is azure.
+
+## 2026-10-25 10:54
+
+**Model:** Grok 4.7
+
+### User
+
+How this Context Lake was created
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The creation map is in `docs/10-architecture/context-lake-creation.md`.
+
+The note starts with the same status table the other architecture notes use. It says this page describes version 1.0.0 and does not change the lake. The named reviewer for model-drafted items is still Unknown, and FD-22 is still pending.
+
+The diagram is the five bands in order. Half A design comes first. Then the harvest writes the fact files, the 25 rule cards, the word list, and the 26 test questions. The item writer reads the policy archive, the four old programs, the locked decisions, and the counts, and it does not copy lot rows. A person reviews the files and sets version 1.0.0. `build.py` checks the set and writes the database.
+
+Under the diagram, each band says what that ingredient is and why the lake needs it. The finished file is `context-lake.sqlite3`: 148 facts, 180 links, and 267 word rows. The 25 rule cards stay text files. Application A and Application B read the database. They do not write it.
+
+## 2026-10-25 11:04
+
+**Model:** Grok 4.7
+
+### User
+
+Rewrite the Context Lake creation note in plain sentences
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+`docs/10-architecture/context-lake-creation.md` now uses the plain sentences from the plan.
+
+The status block is the same two-column table as the other architecture notes. Each cell states what the note does. The diagram labels name the action in each box. Under the diagram, the rule-card sentence says the database has three grids, facts, links, and words, and the 25 rule cards are text files beside that database.
+
+Each step then says what the person or the program does, and the next sentences say why that piece is in the lake. A hash is explained as a long code computed from the file. YAML is explained as a text file with one label on each line. The pin is explained as the SHA-256 code of the database file. The counts stay 148 facts, 180 links, 267 word rows, 25 rule cards, 26 questions, and 7 sample sentences.
+
+## 2026-10-25 15:25
+
+**Model:** Grok 4.7
+
+### User
+
+WHAT IS BP1 TO BP8
+
+### Assistant
+
+BP1 through BP8 are the eight business problems this project has to show. Each one is a counted defect in the old factory data. The list and the evidence are in `Execution_Plan.md` section 3. The query and the count for each are in `docs/05-current-state/conflict-catalogue.md`. The Context Lake stores one decision fact for each problem. `build.py` stops if any of those eight facts is missing.
+
+**BP1. The recipe revision on the dispatch record differs from the recipe revision on the tool.** 91 of 125 process steps have a `recipe_version` that differs from the tool's `recipe_rev`. A person who reads only the step sees one revision. A person who reads only the tool sees the other.
+
+**BP2. Replayed deliveries sit in the exception queue.** 67 partner feeds are stored with status REPLAY. Those 67 rows sit in the same table as the new feeds. A count of unfinished feeds can treat a replay as new work.
+
+**BP3. The time the event happened and the time the record arrived are different.** 11,985 of 12,500 evidence events have an arrival time that differs from the event time. A late result can be read as a current fact when the arrival time is used as the event time.
+
+**BP4. The same rule is written four ways, and the four programs disagree.** Python treats an amount above 50,000 as urgent. JavaScript allows up to the archive limit times 1.05. For APAC 2026, the archive limit is 25,000 USD, so that allow line is 26,250. When the year or region is missing, JavaScript returns 999,999. Java skips a blank amount. The night batch flags every row whose status is REVIEW. The packaged data has 2,090 REVIEW objects.
+
+**BP5. "Open" and "closed" use different words in different systems.** Five lists name in-progress work. 89 of 125 cases have a status other than CLOSED. Two systems can report two different open counts for the same week.
+
+**BP6. Regions and policies overlap.** One vocabulary uses APAC, EMEA, and AMER. Another uses eight country codes: AU, BR, DE, GB, IN, JP, US, and ZA. A third uses six site codes. The policy register has 34 active rows. Each country code has 4 or 5 of those rows. One object can match several active thresholds.
+
+**BP7. Untrusted text tries to drive a decision.** Notes in the data tell a reader to approve, ignore, or release. The counts are 86 partner feeds, 150 bundled event files, 3 emails, and 22 source documents.
+
+**BP8. The old server has no login check, and many tasks have no owner.** `app/server.py` accepts a read with no identity check. 695 workflow tasks have an empty assignee. Incident INC-2025-014 records the follow-up owner as unknown.
+
+## 2026-10-25 15:34
+
+**Model:** Grok 4.7
+
+### User
+
+"The policy archive is a JSON file of recipe-release limits. JSON is a text file of labeled values. The archive has 15 rows. Each row is one year, one region, a start date, an end date, and a dollar limit. APAC in 2026 is 25,000 USD from 1 January through 31 December." what does a recipe have to do with dollar limit?
+
+### Assistant
+
+The 25,000 USD is an approval ceiling. The rule that holds that ceiling is named `recipe_release`. The wafer recipe and that dollar ceiling are two different records.
+
+A recipe on a lot is the process setting for a tool. On lot L00000016, dispatch records recipe revision R02 and the tool records R01. Those fields are revision codes. They have no price.
+
+`recipe_release` is the name of one rule in the policy file `contracts/decision-policies-archive.json`. That file has 15 rows. Each row names a year, a region, a start date, an end date, the role allowed to approve, and a limit in USD. The APAC row for 2026 says the operations lead's limit is 25,000 USD from 1 January through 31 December.
+
+The old JavaScript program reads that row and compares it with a dollar amount. For APAC in 2026 it takes 25,000 and multiplies by 1.05, which is 26,250. An amount of 27,000 is over that line, so the program returns false. The archive file does not say that 25,000 is the price of the recipe or of the wafer. It stores the approval ceiling under the rule name `recipe_release`.
+
+## 2026-10-25 15:38
+
+**Model:** Grok 4.7
+
+### User
+
+what does the amount represent? how much to spend of the raw material in the receipe?
+
+### Assistant
+
+The amount is a dollar number stored on a case. A case is one work item in the queue. The column is `cases.amount`. The files call the average of those numbers simulated money. Across the 125 packaged cases, that average is 4,982.61 USD.
+
+The old programs use that number in two checks. Python marks the case urgent when the amount is above 50,000. JavaScript compares the amount with the `recipe_release` approval ceiling. For APAC in 2026, an amount of 26,250 is still allowed, and an amount of 27,000 is over the line.
+
+The recipe on the lot is a different field. Dispatch stores `recipe_version`. The tool stores `recipe_rev`. On lot L00000016 those values are R02 and R01. Those fields are revision codes. The case table has no column that prices the chemicals or the wafers in that recipe. The packaged files do not record `cases.amount` as raw-material spend.
+
+## 2026-10-25 15:40
+
+**Model:** Grok 4.7
+
+### User
+
+u did not answer my question
+
+### Assistant
+
+No. The amount is not the money spent on raw material in the recipe.
+
+The files never give `cases.amount` that meaning. They store a made-up dollar number on each work item. The average of the 125 numbers is 4,982.61 USD, and the dictionary labels that average simulated money. The programs only use the number as a cutoff: above 50,000 the Python program marks the case urgent, and the JavaScript program compares it with the approval ceiling.
+
+The recipe itself is the revision code, R02 on dispatch and R01 on the tool. That code has no dollar column.
+
+## 2026-10-25 11:13
+
+**Model:** Grok 4.7
+
+### User
+
+is the current workspace indexed by cursor?
+
+### Assistant
+
+Yes. This folder has Cursor's local search index.
+
+The files are in `.git/cursor/crepe/`. `index.bin` is about 6.2 MB and `postings.bin` is about 5.3 MB. Both were last written on 20 October 2026. The index is tied to commit `989fc2a` from 19 October 2026, "After adding scenario explanations to demo". The current commit is `3b6d709`, four commits after that one. Cursor keeps later edits on top of that index and rebuilds it when the files have moved far from the indexed commit.
+
+This project has no `.cursorignore`. Files already listed in `.gitignore` stay out of the index.
+
+Cursor's team has said the older semantic index, the one that stored embeddings of the code, is no longer built. The files on disk are the local search index. I cannot see the status bar in the Cursor window from here.
+
+## 2026-10-25 17:38
+
+**Model:** Grok 4.7
+
+### User
+
+Show the two runtime file opens on the Context Lake diagram
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The Context Lake diagram now shows the two file checks and the real read path.
+
+`read-envelope.schema.json` is named on the JSON schemas box. An arrow labeled "Each fact read checks this shape" runs from that box to `lake_runtime.py`. An arrow labeled "A claim check reads this name list" runs from `enums.generated.json` to the same helper.
+
+The arrows from the REST listener to Application A, from the MCP listener to Application B, from REST to MCP, and from the SQLite file straight to the two listeners are gone. `lake_runtime.py` now has an "In-process read" arrow to each application, the existing arrow to the REST listener, and a new arrow labeled "MCP calls this helper." The REST and MCP boxes say the pages do not call those ports. Application A and Application B say they call `lake_runtime.py` in this process.
+
+The arrow sentence in `docs/10-architecture/context_lake_architecture.md` matches that picture.
+
+Close diagrams.net without saving, then reopen `docs/10-architecture/context_lake_architecture.drawio`. An open editor can write the old geometry back.
+
+## 2026-10-25 18:06
+
+**Model:** Grok 4.7
+
+### User
+
+Correct the Context Lake diagram and note
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The Context Lake diagram and `docs/10-architecture/context_lake_architecture.md` now match the code on the six points from the review.
+
+The harvest arrows go to the fact files, the word files, and the 25 rule cards. `build.py` checks those cards and the item, link, card, and term shapes. It writes the SQLite file, the name list, the receipt, and the pin. Each fact read still checks `read-envelope.schema.json`.
+
+The gates box states the three outcomes. A bad file stays out of the new database. A claim check rejects the claim and leaves the fact in place. Application B stops when the SQLite hash differs. The pin box says the enum hash is recorded and the running check does not compare it. The SQLite box says one of the 148 rows is the draft `data.draft.business_context`, and a normal read leaves that row out. Application A names `retrieve.py`, `agent/tools.py`, and `ground.py`. The REST and MCP arrows are labeled "Serves the REST listener" and "Serves the MCP listener."
+
+Close diagrams.net without saving, then reopen `docs/10-architecture/context_lake_architecture.drawio`. An open editor can write the old geometry back.
+
+## 2026-10-25 19:48
+
+**Model:** Grok 4.7
+
+### User
+
+Fix the As built lake read path
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+### Assistant
+
+The As built page now shows both applications opening the lake file in their own process.
+
+`context-lake.sqlite3` says version 1.0.0, 148 items, and that both applications open it in process. Lake REST and Lake MCP also open it through `lake_runtime.py`. The pages do not call ports 8091 or 8092.
+
+The arrow into Application A is labeled "reads citations in process." The arrow into Application B is labeled "reads rules in process." Both start at the lake file and enter the bottom of the application box. Two more arrows leave the same file: "REST calls the helper" and "MCP calls the helper." The arrows from each listener to its port stay in place. The agent box and the note under the picture are unchanged. The Phase 0 baseline page is unchanged.
+
+Close diagrams.net without saving, then reopen `docs/10-architecture/fabpulse-modernization-archimate.drawio`. An open editor can write the old geometry back.

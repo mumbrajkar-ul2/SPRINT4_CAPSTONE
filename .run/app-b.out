@@ -1,2 +1,60 @@
 {"timestamp":"2026-10-23T01:32:33.972286+00:00","service":"app-b","level":"info","event":"health_ok","correlation_id":null,"actor_id":null,"path":"/health","status":200,"duration_ms":3.669,"traceparent":"00-c68504f3a8ad4c2abe7b82bd7fcf13a3-296147a005c37e77-01"}
 INFO:     127.0.0.1:52189 - "GET /health HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T03:20:45.269363+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/demo/state","status":401,"duration_ms":0.779,"traceparent":"00-68d18b312a32b2073611b33863839ef3-f442028aee4ab3e9-01"}
+INFO:     127.0.0.1:53740 - "GET /api/demo/state HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-23T03:21:20.483642+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/","status":200,"duration_ms":112.725,"traceparent":"00-c6e8d72f5aafb5ec0e7f8be11951ca32-fd1263ce0b8e68cb-01"}
+INFO:     127.0.0.1:62118 - "GET / HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T03:21:20.544968+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/assets/styles.css","status":200,"duration_ms":2.757,"traceparent":"00-f7055a05c41b25c30238c29d8b141409-7fc2c024174c404a-01"}
+INFO:     127.0.0.1:62118 - "GET /assets/styles.css HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T03:21:20.554099+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/assets/index-SpgMyBY0.js","status":200,"duration_ms":4.514,"traceparent":"00-64026d9ef4e8d2bf4e6f01990e009962-ab1b068d476165a6-01"}
+INFO:     127.0.0.1:60903 - "GET /assets/index-SpgMyBY0.js HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T03:21:20.562269+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/assets/index-M94Gn2S0.css","status":200,"duration_ms":5.108,"traceparent":"00-6c7e51c09df45c1412462ba9b7516b9d-5cce00942e92e679-01"}
+INFO:     127.0.0.1:63323 - "GET /assets/index-M94Gn2S0.css HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T03:21:20.727624+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/dashboard","status":401,"duration_ms":0.125,"traceparent":"00-0b0681ba6d2d1f8aa03c5a25bd5fff0c-7fa26ae06831a045-01"}
+INFO:     127.0.0.1:63323 - "GET /api/dashboard HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-23T03:21:20.733601+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/notifications","status":401,"duration_ms":0.208,"traceparent":"00-799af08bc74677afed2db908e9a8a971-aee2fd7e7851e2a6-01"}
+{"timestamp":"2026-10-23T03:21:20.734526+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/approvals/pending","status":401,"duration_ms":0.218,"traceparent":"00-7059822f72f28081b2aa9b813f31120c-21d313f66fca729a-01"}
+{"timestamp":"2026-10-23T03:21:20.737172+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/audit/search","status":401,"duration_ms":0.171,"traceparent":"00-28376580d96ca381edf7e8c57c83b38f-a6f7b24e66fd0cca-01"}
+INFO:     127.0.0.1:60903 - "GET /api/notifications HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:62118 - "GET /api/approvals/pending?limit=1 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:52010 - "GET /api/audit/search?order=desc&limit=5 HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-23T03:21:20.745406+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/i18n/en","status":401,"duration_ms":0.218,"traceparent":"00-1b876142b4a15386c1af6130aa6fff53-ab5615a7af274860-01"}
+{"timestamp":"2026-10-23T03:21:20.746840+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/api/demo/state","status":401,"duration_ms":0.394,"traceparent":"00-c2ad0114112f74204dd7ea5361d95095-2b98d4074ef03856-01"}
+INFO:     127.0.0.1:52331 - "GET /api/i18n/en HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:63323 - "GET /api/demo/state HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-23T03:21:20.752340+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/me","status":401,"duration_ms":11.906,"traceparent":"00-0f84f23caae910cd5b47a6893b8ac3e6-85372a9568da8cae-01"}
+INFO:     127.0.0.1:52356 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-23T03:21:20.789528+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/login","status":302,"duration_ms":11.43,"traceparent":"00-d5423c325bc9ce2c9f76d3c73e1c3f70-5c0cafbbb2a88db6-01"}
+INFO:     127.0.0.1:52356 - "GET /auth/login?next=/ HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T03:21:20.793449+00:00","service":"app-b","level":"warn","event":"identity_missing","correlation_id":null,"actor_id":null,"path":"/favicon.ico","status":401,"duration_ms":0.188,"traceparent":"00-3dc7cb28bf7ee725d93af67efcf704df-6d28d2f33a00a7c3-01"}
+INFO:     127.0.0.1:63323 - "GET /favicon.ico HTTP/1.1" 401 Unauthorized
+{"timestamp":"2026-10-23T03:21:21.159318+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/callback","status":302,"duration_ms":302.607,"traceparent":"00-86f6dab4636ed79c240d3e0c2e736349-d8e133e09ad3a95c-01"}
+INFO:     127.0.0.1:63323 - "GET /auth/callback?code=LuY-Zbw9SmqXWvvXbnQkKRaDeUDWMR8NyQAWhJsJmRE&state=4Dfq3NMxuMy7hWvZsi8QIQ HTTP/1.1" 302 Found
+{"timestamp":"2026-10-23T03:21:21.369256+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/notifications","status":200,"duration_ms":19.898,"traceparent":"00-142f4c5636bda4d661daac8031dab043-b6b2c6299d6c9862-01"}
+{"timestamp":"2026-10-23T03:21:21.382535+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":null,"path":"/auth/me","status":200,"duration_ms":25.632,"traceparent":"00-f3a60e4e5d5738cb2afbc5856b630553-65b8fd41c8f3c161-01"}
+{"timestamp":"2026-10-23T03:21:21.388642+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/i18n/en","status":200,"duration_ms":31.409,"traceparent":"00-3ecb1099bdb587f55a0cb0320275dad0-e32fc694156d1986-01"}
+INFO:     127.0.0.1:52356 - "GET /api/notifications HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62118 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60903 - "GET /api/i18n/en HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T03:21:21.456631+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/dashboard","status":200,"duration_ms":113.818,"traceparent":"00-2e2734304fb45a2d26e0b1720237f413-dc9e9dfb7b9e7200-01"}
+INFO:     127.0.0.1:63323 - "GET /api/dashboard HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T03:21:21.475685+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/favicon.ico","status":404,"duration_ms":10.31,"traceparent":"00-de95a217438931381199d5fef99d0cd2-7bf497035726a44d-01"}
+INFO:     127.0.0.1:62118 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+{"timestamp":"2026-10-23T03:21:21.536399+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/favicon.ico","status":404,"duration_ms":1.376,"traceparent":"00-24125db37e14a935473dd947f07e0500-3665586858b89c7b-01"}
+INFO:     127.0.0.1:62118 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+{"timestamp":"2026-10-23T03:21:21.728897+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/audit/search","status":200,"duration_ms":375.211,"traceparent":"00-1e364686d225707ec0ba472166fefbae-44b3005ec3f763b0-01"}
+INFO:     127.0.0.1:52010 - "GET /api/audit/search?order=desc&limit=5 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T03:21:22.026528+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/approvals/pending","status":200,"duration_ms":676.344,"traceparent":"00-80161dfd50383f0458a5f21c5ccae602-29325cdd61f3432b-01"}
+INFO:     127.0.0.1:52331 - "GET /api/approvals/pending?limit=1 HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T03:21:22.039903+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-2caea47bf271a83a98c334b75ca36e7c-a45d4e4cc085ab8d-01"}
+{"timestamp":"2026-10-23T03:21:22.041472+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":576.509,"traceparent":"00-2caea47bf271a83a98c334b75ca36e7c-a45d4e4cc085ab8d-01"}
+INFO:     127.0.0.1:52356 - "GET /api/demo/state HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T03:21:22.045716+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-fa3043e7d8b5b61339919320c4765d55-1ac7830f7ddea949-01"}
+{"timestamp":"2026-10-23T03:21:22.047422+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":3.342,"traceparent":"00-fa3043e7d8b5b61339919320c4765d55-1ac7830f7ddea949-01"}
+INFO:     127.0.0.1:52331 - "GET /api/demo/state HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T03:21:39.428770+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-f5b5440e9c05c87a4fb0c0209c85d2af-c6353083be0d6deb-01"}
+{"timestamp":"2026-10-23T03:21:39.438547+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":13.062,"traceparent":"00-f5b5440e9c05c87a4fb0c0209c85d2af-c6353083be0d6deb-01"}
+INFO:     127.0.0.1:55061 - "GET /api/demo/state HTTP/1.1" 200 OK
+{"timestamp":"2026-10-23T03:21:50.672367+00:00","service":"app-b","level":"info","event":"demo_session","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":null,"traceparent":"00-09ed923a78a0894651858481c1aadc5b-df8b9177c1776cbd-01"}
+{"timestamp":"2026-10-23T03:21:50.675773+00:00","service":"app-b","level":"info","event":"request_ok","correlation_id":null,"actor_id":"reviewer.tw","path":"/api/demo/state","status":200,"duration_ms":6.798,"traceparent":"00-09ed923a78a0894651858481c1aadc5b-df8b9177c1776cbd-01"}
+INFO:     127.0.0.1:63825 - "GET /api/demo/state HTTP/1.1" 200 OK
