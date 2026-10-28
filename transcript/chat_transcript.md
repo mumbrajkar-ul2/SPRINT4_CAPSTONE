@@ -8063,3 +8063,35 @@ The As built page now shows both applications opening the lake file in their own
 The arrow into Application A is labeled "reads citations in process." The arrow into Application B is labeled "reads rules in process." Both start at the lake file and enter the bottom of the application box. Two more arrows leave the same file: "REST calls the helper" and "MCP calls the helper." The arrows from each listener to its port stay in place. The agent box and the note under the picture are unchanged. The Phase 0 baseline page is unchanged.
 
 Close diagrams.net without saving, then reopen `docs/10-architecture/fabpulse-modernization-archimate.drawio`. An open editor can write the old geometry back.
+
+## 2026-10-27 19:12
+
+**Model:** Grok 4.7
+
+### User
+
+stop the app
+
+### Assistant
+
+The Force Fab stack is stopped. Ports 8095, 8091, 8092, 8100, and 8110 are closed.
+
+`Stop_App.bat` did not stop them. `run_local.sh` has Windows line endings, so WSL bash rejected the script before it could kill anything. I stopped the five Windows process trees that were actually listening: sign-in, lake REST, lake MCP, Application A, and Application B. The saved pid files for those five processes are removed.
+
+## 2026-10-27 19:17
+
+**Model:** Grok 4.7
+
+### User
+
+create Start_App.cmd and Stop_App.cmd with the start script and stop script to replace the start_app.bat and stop_app.bat?
+
+### Assistant
+
+`Start_App.cmd` and `Stop_App.cmd` now start and stop Force Fab with Windows Python. `Start_App.bat` and `Stop_App.bat` are removed.
+
+`Start_App.cmd` stops any copy already running, then starts sign-in on 8095, lake REST on 8091, lake MCP on 8092, Application A on 8100, and Application B on 8110. It uses `C:\Python313\python.exe` through `python`. Replay mode stays the default. It then opens both application pages. `Stop_App.cmd` ends those process trees and removes the pid files. It leaves some other program alone if that program is the one listening on a port.
+
+I ran the start script. All five health pages returned HTTP 200. I then ran the stop script. All five ports closed. The stack is stopped now.
+
+`Start_App_Offline.bat` and `Status.bat` still call WSL. `enhancements.md` still names the old bat files.

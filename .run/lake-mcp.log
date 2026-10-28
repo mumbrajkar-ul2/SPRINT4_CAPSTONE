@@ -1,6 +1,4 @@
-INFO:     Started server process [35808]
+INFO:     Started server process [41128]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8092 (Press CTRL+C to quit)
-{"timestamp":"2026-10-24T22:06:44.729189+00:00","service":"lake-mcp","level":"info","event":"health_ok","correlation_id":null,"actor_id":null,"path":"/health","status":200,"duration_ms":2.665,"traceparent":null}
-INFO:     127.0.0.1:64368 - "GET /health HTTP/1.1" 200 OK

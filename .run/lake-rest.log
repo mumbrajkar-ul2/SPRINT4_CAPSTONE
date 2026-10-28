@@ -1,18 +1,4 @@
-INFO:     Started server process [26552]
+INFO:     Started server process [27324]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8091 (Press CTRL+C to quit)
-{"timestamp":"2026-10-24T22:06:44.702980+00:00","service":"lake-rest","level":"info","event":"health_ok","correlation_id":null,"actor_id":null,"path":"/health","status":200,"duration_ms":3.397,"traceparent":null}
-INFO:     127.0.0.1:64367 - "GET /health HTTP/1.1" 200 OK
-{"timestamp":"2026-10-24T22:06:44.849324+00:00","service":"lake-rest","level":"info","event":"health_ok","correlation_id":null,"actor_id":null,"path":"/health","status":200,"duration_ms":1.268,"traceparent":null}
-INFO:     127.0.0.1:64371 - "GET /health HTTP/1.1" 200 OK
-{"timestamp":"2026-10-24T22:06:45.049659+00:00","service":"lake-rest","level":"info","event":"health_ok","correlation_id":null,"actor_id":null,"path":"/health","status":200,"duration_ms":1.464,"traceparent":null}
-INFO:     127.0.0.1:64373 - "GET /health HTTP/1.1" 200 OK
-{"timestamp":"2026-10-24T22:06:59.836008+00:00","service":"lake-rest","level":"info","event":"health_ok","correlation_id":null,"actor_id":null,"path":"/health","status":200,"duration_ms":1.843,"traceparent":null}
-INFO:     127.0.0.1:51595 - "GET /health HTTP/1.1" 200 OK
-{"timestamp":"2026-10-24T22:06:59.903614+00:00","service":"lake-rest","level":"info","event":"health_ok","correlation_id":null,"actor_id":null,"path":"/health","status":200,"duration_ms":1.208,"traceparent":null}
-INFO:     127.0.0.1:51598 - "GET /health HTTP/1.1" 200 OK
-{"timestamp":"2026-10-24T22:25:42.981942+00:00","service":"lake-rest","level":"info","event":"health_ok","correlation_id":null,"actor_id":null,"path":"/health","status":200,"duration_ms":1.325,"traceparent":null}
-INFO:     127.0.0.1:53360 - "GET /health HTTP/1.1" 200 OK
-{"timestamp":"2026-10-24T22:25:50.255219+00:00","service":"lake-rest","level":"info","event":"health_ok","correlation_id":null,"actor_id":null,"path":"/health","status":200,"duration_ms":1.42,"traceparent":null}
-INFO:     127.0.0.1:59039 - "GET /health HTTP/1.1" 200 OK
